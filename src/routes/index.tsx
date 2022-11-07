@@ -9,7 +9,7 @@ export default function() {
         <h1 class="uppercase font-black text-8xl w-full text-center text-white">Burn</h1>
         <h2 class="text-red-300 font-bold text-normal w-full text-center">Burn Unstoppable Rusty Neurons</h2>
       </div>
-      <p class="w-full text-red-500 text-center">Coming Soon TRADEMARK</p>
+      <p class="w-full text-red-500 text-center">Coming Soon</p>
     </div>
   )
 }
