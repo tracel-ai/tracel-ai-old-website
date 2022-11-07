@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
@@ -55,25 +55,8 @@ jobs:
       - name: Build 🔨
         run: pnpm build
 
-      - name: Upload 📀
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          path: ./dist
-          name: SolidStatic
-          
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download 📀
-        uses: actions/download-artifact@v3.0.1
-        with:
-          name: SolidStatic
-          path: ./dist
-        
       - name: Deploy to GH Pages
         id: deployment
         uses: NickSchimek/deploy_jamstack_action@v1
         with:
-          build-dir: ./dist
+          build-dir: ./dist/public
