@@ -1,6 +1,4 @@
-/// <reference types="vitest" />
 import { defineConfig } from 'vite'
-import { configDefaults } from 'vitest/config'
 import solid from 'solid-start/vite'
 // @ts-ignore
 import staticMode from 'solid-start-static'
@@ -32,9 +30,6 @@ const autoImportOptions: Partial<AutoImportOptions> = {
 }
 
 export default defineConfig({
-  test: {
-    ...configDefaults,
-  },
   plugins: [
     solid({ adapter: staticMode() }),
     tsconfigPaths(),
@@ -48,6 +43,7 @@ export default defineConfig({
       '@motionone/solid',
       'motion',
       'solid-toast',
+      '@lottiefiles/lottie-player',
     ],
   },
   resolve: {

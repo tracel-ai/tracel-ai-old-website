@@ -1,47 +1,15 @@
-import { Provider } from '@locales'
+import launch from '@assets/launch.txt'
+import Animation from '@components/animation'
 
-import { createInput } from '@components/form/input'
-import { Link } from '@solidjs/router'
-import bat from '@assets/bat.png'
-import Image from '@components/image'
-import Paragraph from '@islands/paragraph'
-import type { Ref } from 'solid-js'
-import Form from '@components/form'
-import Counter, { createCounter } from '@components/counter'
-import Phone from '@islands/phone'
-import Language from '@islands/language'
-import Theme from '@islands/theme'
-
-export default function () {
-  let linkRef: Ref<any>
-  const nameInput = createInput('name')
-  const counter = createCounter()
-
+export default function() {
   return (
-    <Provider>
-      <Title>bat</Title>
-      <div class="full flex-center flex-col bg-gray-100/75 dark:bg-gray-800">
-        <Image hover image={bat} />
-        <Paragraph class="-mt-10 text-gray-500" key="batman"/>
-        <div class="flex mt-6 space-x-2 items-center">
-          <Form inputs={[nameInput]} onSubmit={() => linkRef.click()} />
-          <Link ref={linkRef} href={`/hi/${nameInput.value()}`}>
-            <div class="i-carbon-arrow-right btn w-7 h-7" />
-          </Link>
-        </div>
-        <div class="flex items-end space-x-6">
-          <Counter {...counter} />
-          <a class="btn" href="https://github.com/olgam4/bat" target="_blank">
-            <div class="i-carbon-logo-github w-6 h-6" />
-          </a>
-          <Theme />
-          <Link href={Math.round((Math.random() * 100000)).toString()}>
-            <div class="btn i-carbon-location-hazard w-6 h-6" />
-          </Link>
-          <Phone />
-          <Language />
-        </div>
+    <div class="full bg-gradient-to-br from-[#001540] to-[#00316E]">
+      <Animation src={launch} className="h-5/6" />
+      <div class="mb-5">
+        <h1 class="uppercase font-black text-8xl w-full text-center text-white">Burn</h1>
+        <h2 class="text-red-300 font-bold text-normal w-full text-center">Burn Unstoppable Rusty Neurons</h2>
       </div>
-    </Provider>
+      <p class="w-full text-red-500 text-center">Coming Soon TRADEMARK</p>
+    </div>
   )
 }

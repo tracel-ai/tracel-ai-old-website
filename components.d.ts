@@ -1,8 +1,6 @@
 export {}
 declare module 'solid-js' {
-  namespace JSX {
-    interface Directives {
-      submit: (e: any) => void
-    }
+  interface IntrinsicElements {
+    'lottie-player': any
   }
 }
