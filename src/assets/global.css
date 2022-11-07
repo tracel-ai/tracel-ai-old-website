@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+div, p, h1, h2, h3, h4, h5 {
   font-family: 'Dosis', sans-serif;
 }
 
@@ -49,4 +49,8 @@
     transform: translateZ(5px);
   }
 
+}
+
+.language-rust {
+  padding: 0 !important;
 }

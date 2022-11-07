@@ -21,7 +21,7 @@ export default function Root() {
         <Meta name="theme-color" content="#202A37" />
         <Title>burn-rs</Title>
       </Head>
-      <Body class="overflow-hidden h-full">
+      <Body>
         <ErrorBoundary>
           <Suspense>
             <ThemeProvider>
@@ -38,9 +38,6 @@ export default function Root() {
                   duration: 5000,
                 }}
               />
-              <div class="absolute bottom-1 left-1/2 -translate-x-1/2 text-gray-400 text-sm">
-                built with ❤️ using <u><a href="https://bat.glo.quebec">🦇</a></u>
-              </div>
             </ThemeProvider>
           </Suspense>
         </ErrorBoundary>

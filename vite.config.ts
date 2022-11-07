@@ -6,7 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import AutoImport from 'unplugin-auto-import/vite'
 // @ts-ignore
 import type { Options as AutoImportOptions } from 'unplugin-auto-import'
-
+import { prismjsPlugin } from 'vite-plugin-prismjs'
 
 const autoImportOptions: Partial<AutoImportOptions> = {
   imports: [
@@ -34,6 +34,10 @@ export default defineConfig({
     solid({ adapter: staticMode() }),
     tsconfigPaths(),
     AutoImport(autoImportOptions),
+    prismjsPlugin({
+      languages: ['rust'],
+      theme: 'solarizedlight',
+    }),
   ],
   build: {
     target: ['esnext'],
@@ -44,6 +48,7 @@ export default defineConfig({
       'motion',
       'solid-toast',
       '@lottiefiles/lottie-player',
+      'prismjs',
     ],
   },
   resolve: {
