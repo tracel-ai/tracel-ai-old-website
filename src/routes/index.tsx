@@ -6,88 +6,36 @@ import '@assets/prism-theme.css'
 
 import logo from '@assets/logo.png'
 import burn from '@assets/burn.png'
+import { mainFeatures } from 'src/content/features'
+import { codeExamples } from 'src/content/examples'
 
 export default function() {
-  const features = [
-    {
-      icon: <div class="i-mdi-robot-happy" />,
-      title: 'Flexible',
-      description: 'Intuitive custom neural network modules',
-    },
-    {
-      icon: <div class="i-mdi-crosshairs" />,
-      title: 'Accurate',
-      description: 'Stateless and thread safe forward pass',
-    },
-    {
-      icon: <div class="i-mdi-fire" />,
-      title: 'Blazingly Fast',
-      description: 'Fast training with full support for metric, logging and checkpointing',
-    },
-    {
-      icon: <div class="i-mdi-gamepad-circle-outline" />,
-      title: 'Multiplatform',
-      description: 'Tensor library with autodiff, CPU and GPU support',
-    },
-    {
-      icon: <div class="i-mdi-battery-90" />,
-      title: 'Batteries Included',
-      description: 'Dataset library with multiple utilities and source',
-    },
-    {
-      icon: <div class="i-mdi-account-group" />,
-      title: 'Community Driven',
-      description: 'Work with a community of passionate developers',
-    },
-  ]
+  let ref: HTMLDivElement
+
+  const [isScrolling, setIsScrolling] = createSignal(false)
 
   createEffect(() => {
     Prism.highlightAll()
-
   })
 
-  const examples = [
-    {
-      code:
-        `
-    use burn::tensor::{Tensor, Shape, Data};
-    use burn::tensor::backend::{Backend, NdArrayBackend, TchBackend};
-
-    fn my_func<B: Backend>() {
-      let _my_tensor = Tensor::<B, 2>::ones(Shape::new([3, 3]));
+  createEffect(() => {
+    document.addEventListener('scroll', () => {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        setIsScrolling(true)
+      } else {
+        setIsScrolling(false)
+      }
+    })
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      setIsScrolling(true)
     }
-
-    fn main() {
-      my_func<NdArrayBackend<f32>>();
-      my_func<TchBackend<f32>>();
-    }
-`,
-      description: 'The Tensor struct is at the core of the burn framework. It takes two generic parameters, the Backend and the number of dimensions D',
-      title: 'Tensor',
-    },
-    {
-      code:
-        `
-    use burn::nn;
-    use burn::module::{Param, Module};
-    use burn::tensor::backend::Backend;
-
-    #[derive(Module, Debug)]
-    struct MyModule<B: Backend> {
-      my_param: Param<nn::Linear<B>>,
-      repeat: usize,
-    }
-`,
-      description: 'The Module derive let your create your own neural network module similar to PyTorch',
-      title: 'Module',
-    }
-
-  ]
+  })
 
   return (
-    <div class="full flex flex-col">
-      <nav class="fixed w-full z-50 flex justify-end top-10 right-10 text-gray-50 font-semibold">
-        <ul class="flex space-x-12 text-xl">
+    <div ref={ref!} class="full flex flex-col">
+      <nav class={`fixed w-full px-10 py-5 z-50 flex items-center text-gray-50 font-semibold transition-colors ${isScrolling() && 'bg-[#F34918] shadow-2xl'}`}>
+        <p class="text-3xl">Burn</p>
+        <ul class="ml-auto flex space-x-12 text-xl">
           <li><Outterlink src="https://github.com/burn-rs/burn">Github</Outterlink></li>
           <li><Outterlink src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
         </ul>
@@ -103,7 +51,7 @@ export default function() {
       </div>
       <h2 class="bg-[#202124] w-full text-center py-10"><span class="bg-white p-1 rounded">features</span></h2>
       <div class="grid grid-cols-3 px-36 gap-10 bg-gradient-to-b from-[#202124] to-gray-800">
-        <For each={features} children={(feature) => (
+        <For each={mainFeatures} children={(feature) => (
           <div class="flex justify-center cursor-default text-gray-300">
             <div class="p-6 flex space-y-5 flex-col items-center w-[200px] text-center hover:bg-gray-50 hover:text-[#202124] hover:shadow-2xl hover:scale-105 rounded-lg transition-all">
               <div class="text-5xl text-[#F34918]">{feature.icon}</div>
@@ -118,7 +66,7 @@ export default function() {
       <div class="bg-gray-800">
         <h2 class="w-full text-center py-10 mt-20"><span class="bg-white p-1 rounded">examples</span></h2>
         <div class="px-36 items-center space-y-32">
-          <For each={examples} children={(example, i) => (
+          <For each={codeExamples} children={(example, i) => (
             <div class={`flex space-x-10 items-center ${i() % 2 === 1 && 'flex-row-reverse'}`}>
               <pre class="border-2 border-gray-900 shadow rounded-lg w-full">
                 <code class="language-rust">
@@ -137,10 +85,10 @@ export default function() {
       </div>
       <div class="w-full self-end text-4xl bg-gray-800 pt-40 space-y-10">
         <ul class="w-full flex justify-center space-x-4">
-          <li><Outterlink src="twitter.com">
+          <li><Outterlink src="https://twitter.com/nath_simard">
             <div class="i-mdi-twitter text-blue-900 hover:text-blue-400 transition-colors" />
           </Outterlink></li>
-          <li><Outterlink src="github.com">
+          <li><Outterlink src="https://github.com/burn-rs/burn">
             <div class="i-mdi-github hover:text-gray-50 transition-colors" />
           </Outterlink></li>
         </ul>
