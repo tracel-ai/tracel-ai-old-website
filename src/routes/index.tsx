@@ -4,6 +4,7 @@ import Outterlink from '@components/outterlink'
 import Prism from 'prismjs'
 import '@assets/prism-theme.css'
 
+import { Motion } from '@motionone/solid'
 import logo from '@assets/logo.png'
 import burn from '@assets/burn.png'
 import { mainFeatures } from 'src/content/features'
@@ -31,6 +32,17 @@ export default function() {
     }
   })
 
+  onMount(() => {
+    for (let i = 0; i < 30; i++) {
+      const star = document.getElementById('star-' + i)!
+      star.style.left = Math.random() * 100 + '%'
+      star.style.top = Math.random() * 100 + '%'
+      const size = Math.random() * 8
+      star.style.width = 1 + size + 'px'
+      star.style.height = 1 + size + 'px'
+    }
+  })
+
   return (
     <div ref={ref!} class="full flex flex-col">
       <nav class={`fixed w-full px-10 py-5 z-50 flex items-center text-gray-50 font-semibold transition-colors ${isScrolling() && 'bg-[#F34918] shadow-2xl'}`}>
@@ -38,9 +50,12 @@ export default function() {
         <ul class="ml-auto flex space-x-12 text-xl">
           <li><Outterlink src="https://github.com/burn-rs/burn">Github</Outterlink></li>
           <li><Outterlink src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
-          <li><iframe src="https://ghbtns.com/github-btn.html?user=burn-rs&repo=burn&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe></li>
+          <li class="hidden sm:block"><iframe src="https://ghbtns.com/github-btn.html?user=burn-rs&repo=burn&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe></li>
         </ul>
       </nav>
+      <For each={Array.from({ length: 30 })} children={(_, i) => (
+          <div id={`star-${i()}`} class="absolute bg-[#EBC65D] rounded-full" />
+      )} />
       <div class="flex pt-4 sm:pt-10 flex-col sm:flex-row justify-center items-center sm:h-[70vh] bg-[#202124]">
         <div class="max-w-[650px]">
           <img src={burn} />
@@ -68,7 +83,12 @@ export default function() {
         <h2 class="w-full text-center py-10 mt-20"><span class="bg-white p-1 rounded">examples</span></h2>
         <div class="sm:px-36 items-center space-y-10 sm:space-y-32">
           <For each={codeExamples} children={(example, i) => (
-            <div class={`flex flex-col-reverse p-4 sm:p-0 sm:space-x-10 items-center ${i() % 2 === 1 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
+            <Motion.div
+              initial={{ opacity: 0, x: (i() % 2 === 0 ? 1 : -1) * 20 }}
+              inView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+              class={`flex flex-col-reverse p-4 sm:p-0 sm:space-x-10 items-center ${i() % 2 === 1 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}
+            >
               <pre class="border-2 border-gray-900 shadow rounded-lg w-full">
                 <code class="language-rust">
                   {example.code}
@@ -80,7 +100,7 @@ export default function() {
                   {example.description}
                 </p>
               </div>
-            </div>
+            </Motion.div>
           )} />
         </div>
       </div>
