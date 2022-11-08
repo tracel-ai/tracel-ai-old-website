@@ -38,6 +38,7 @@ export default function() {
         <ul class="ml-auto flex space-x-12 text-xl">
           <li><Outterlink src="https://github.com/burn-rs/burn">Github</Outterlink></li>
           <li><Outterlink src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
+          <li><iframe src="https://ghbtns.com/github-btn.html?user=burn-rs&repo=burn&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe></li>
         </ul>
       </nav>
       <div class="flex pt-4 sm:pt-10 flex-col sm:flex-row justify-center items-center sm:h-[70vh] bg-[#202124]">
