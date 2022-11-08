@@ -40,17 +40,17 @@ export default function() {
           <li><Outterlink src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
         </ul>
       </nav>
-      <div class="flex pt-10 justify-center items-center h-[70vh] bg-[#202124]">
+      <div class="flex pt-4 sm:pt-10 flex-col sm:flex-row justify-center items-center sm:h-[70vh] bg-[#202124]">
         <div class="max-w-[650px]">
           <img src={burn} />
         </div>
-        <div class="mb-5 pr-28">
+        <div class="mb-5 sm:pr-28">
           <h1><img class="w-56" src={logo} /></h1>
           <h2 class="text-red-300 font-bold text-normal w-full text-center">Burn Unstoppable Rusty Neurons</h2>
         </div>
       </div>
       <h2 class="bg-[#202124] w-full text-center py-10"><span class="bg-white p-1 rounded">features</span></h2>
-      <div class="grid grid-cols-3 px-36 gap-10 bg-gradient-to-b from-[#202124] to-gray-800">
+      <div class="grid sm:grid-cols-3 sm:px-36 gap-10 bg-gradient-to-b from-[#202124] to-gray-800">
         <For each={mainFeatures} children={(feature) => (
           <div class="flex justify-center cursor-default text-gray-300">
             <div class="p-6 flex space-y-5 flex-col items-center w-[200px] text-center hover:bg-gray-50 hover:text-[#202124] hover:shadow-2xl hover:scale-105 rounded-lg transition-all">
@@ -65,9 +65,9 @@ export default function() {
       </div>
       <div class="bg-gray-800">
         <h2 class="w-full text-center py-10 mt-20"><span class="bg-white p-1 rounded">examples</span></h2>
-        <div class="px-36 items-center space-y-32">
+        <div class="sm:px-36 items-center space-y-10 sm:space-y-32">
           <For each={codeExamples} children={(example, i) => (
-            <div class={`flex space-x-10 items-center ${i() % 2 === 1 && 'flex-row-reverse'}`}>
+            <div class={`flex flex-col-reverse p-4 sm:p-0 sm:space-x-10 items-center ${i() % 2 === 1 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
               <pre class="border-2 border-gray-900 shadow rounded-lg w-full">
                 <code class="language-rust">
                   {example.code}
