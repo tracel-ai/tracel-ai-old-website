@@ -9,6 +9,7 @@ import logo from '@assets/logo.png'
 import burn from '@assets/burn.png'
 import { mainFeatures } from 'src/content/features'
 import { codeExamples } from 'src/content/examples'
+import { footer } from 'src/content/footer'
 
 export default function() {
   const [isScrolling, setIsScrolling] = createSignal(false)
@@ -106,69 +107,22 @@ export default function() {
       </div>
       <div class="flex justify-center pt-10">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-6 md:gap-x-60 bg-gray-800 text-gray-500">
-          <ul>
-            <h3 class="uppercase mb-2 font-bold">Community</h3>
-            <li><Outterlink src="https://twitter.com/nath_simard">
-              <div class="flex items-center">
-                <div class="i-mdi-twitter text-xl" />
-                Twitter
-              </div>
-            </Outterlink></li>
-            <li><Outterlink src="https://github.com/burn-rs/burn">
-              <div class="flex items-center">
-                <div class="i-mdi-github text-xl" />
-                Github
-              </div>
-            </Outterlink></li>
-          </ul>
-          <ul>
-            <h3 class="uppercase mb-2 font-bold">Community</h3>
-            <li><Outterlink src="https://twitter.com/nath_simard">
-              <div class="flex items-center">
-                <div class="i-mdi-twitter text-xl" />
-                Twitter
-              </div>
-            </Outterlink></li>
-            <li><Outterlink src="https://github.com/burn-rs/burn">
-              <div class="flex items-center">
-                <div class="i-mdi-github text-xl" />
-                Github
-              </div>
-            </Outterlink></li>
-          </ul>
-          <ul>
-            <h3 class="uppercase mb-2 font-bold">Community</h3>
-            <li><Outterlink src="https://twitter.com/nath_simard">
-              <div class="flex items-center">
-                <div class="i-mdi-twitter text-xl" />
-                Twitter
-              </div>
-            </Outterlink></li>
-            <li><Outterlink src="https://github.com/burn-rs/burn">
-              <div class="flex items-center">
-                <div class="i-mdi-github text-xl" />
-                Github
-              </div>
-            </Outterlink></li>
-          </ul>
-          <ul>
-            <h3 class="uppercase mb-2 font-bold">Community</h3>
-            <li><Outterlink src="https://twitter.com/nath_simard">
-              <div class="flex items-center">
-                <div class="i-mdi-twitter text-xl" />
-                Twitter
-              </div>
-            </Outterlink></li>
-            <li><Outterlink src="https://github.com/burn-rs/burn">
-              <div class="flex items-center">
-                <div class="i-mdi-github text-xl" />
-                Github
-              </div>
-            </Outterlink></li>
-          </ul>
+          <For each={Object.entries(footer)} children={([key, section]) => (
+            <ul class="space-y-2">
+              <h3 class="uppercase mb-2 font-bold">{key}</h3>
+              <For each={section} children={(item) => (
+                <li><Outterlink src={item.href}>
+                  <div class="flex items-center">
+                    {item.icon! && <div class={`${item.iconSize! ? item.iconSize : 'text-xl'} ${item.icon} mr-2`} />}
+                    {item.label}
+                  </div>
+                </Outterlink></li>
+              )} />
+            </ul>
+          )} />
         </div>
       </div>
-      <div class="w-full py-5 text-center text-gray-400 text-sm">
+      <div class="w-full pb-5 pt-12 text-center text-gray-400 text-sm">
         built with ❤️ using <u><a href="https://bat.glo.quebec">🦇</a></u>
       </div>
     </div>
