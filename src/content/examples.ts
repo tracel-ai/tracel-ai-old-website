@@ -19,7 +19,7 @@ export const codeExamples = [
       let z = simple_function::<TchBackend<f32>>();
   }
 `,
-    description: 'The Tensor struct is a fundamental aspect of the Burn framework. It allows for the development of deep learning models without the need to specify a backend implementation.',
+    description: 'The tensor struct is a fundamental aspect of the Burn framework. It allows for the development of deep learning models without the need to specify a backend implementation.',
     title: 'Tensor',
   },
   {
@@ -66,7 +66,7 @@ export const codeExamples = [
       min_float: f64,
   }
 `,
-    description: 'The Module derive let your create your own neural network module similar to PyTorch',
+    description: 'The module derive let your create your own neural network module similar to PyTorch',
     title: 'Module',
   },
   {
@@ -81,7 +81,7 @@ export const codeExamples = [
       pub dim: usize,
   }
 `,
-    description: 'The `Config` derive simplifies the management of module and component configurations and hyper-parameters, providing a serializable and deserializable structure for efficient deep learning model development.',
+    description: 'The config derive simplifies the management of module and component configurations and hyper-parameters, providing a serializable and deserializable structure for efficient deep learning model development.',
     title: 'Config',
   },
 ]
