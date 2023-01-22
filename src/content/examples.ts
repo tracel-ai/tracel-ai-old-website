@@ -2,37 +2,86 @@ export const codeExamples = [
   {
     code:
       `
-    use burn::tensor::{Tensor, Shape, Data};
-    use burn::tensor::backend::{Backend, NdArrayBackend, TchBackend};
+  use burn::tensor::backend::Backend;
+  use burn::tensor::{Distribution, Tensor};
+  use burn_ndarray::NdArrayBackend;
+  use burn_tch::TchBackend;
 
-    fn my_func<B: Backend>() {
-      let _my_tensor = Tensor::<B, 2>::ones(Shape::new([3, 3]));
-    }
+  fn simple_function<B: Backend>() -> Tensor<B, 2> {
+      let x = Tensor::<B, 2>::random([3, 3], Distribution::Standard);
+      let y = Tensor::<B, 2>::random([3, 3], Distribution::Standard);
 
-    fn main() {
-      my_func<NdArrayBackend<f32>>();
-      my_func<TchBackend<f32>>();
-    }
+      x.matmul(&y)
+  }
 
+  fn main() {
+      let z = simple_function::<NdArrayBackend<f32>>();
+      let z = simple_function::<TchBackend<f32>>();
+  }
 `,
-    description: 'The Tensor struct is at the core of the burn framework. It takes two generic parameters, the Backend and the number of dimensions D',
+    description: 'The Tensor struct is a fundamental aspect of the Burn framework. It allows for the development of deep learning models without the need to specify a backend implementation.',
     title: 'Tensor',
   },
   {
     code:
       `
-    use burn::nn;
-    use burn::module::{Param, Module};
-    use burn::tensor::backend::Backend;
+  use burn::tensor::backend::ADBackend;
+  use burn::tensor::{Distribution, Tensor};
+  use burn_autodiff::ADBackendDecorator;
 
-    #[derive(Module, Debug)]
-    struct MyModule<B: Backend> {
-      my_param: Param<nn::Linear<B>>,
-      repeat: usize,
-    }
+  fn simple_function_grads<B: ADBackend>() -> B::Gradients {
+      let z = simple_function::<B>();
 
+      z.backward()
+  }
+
+  fn main() {
+      type ADNdArrayBackend = ADBackendDecorator<NdArrayBackend<f32>>;
+      type ADTchBackend = ADBackendDecorator<TchBackend<f32>>;
+
+      let grads = simple_function_grads::<ADNdArrayBackend>();
+      let grads = simple_function_grads::<ADTchBackend>();
+  }
+`,
+    description: 'Burn makes backpropagation easy, enabling it on any backend through the use of a simple decorator, making the computation of gradients effortless across different backends.',
+    title: 'Autodiff',
+  },
+
+  {
+    code:
+      `
+  use burn::nn;
+  use burn::module::{Module, Param};
+ 
+  #[derive(Module, Debug)]
+  pub struct MultiHeadAttention<B: Backend> {
+      query: Param<nn::Linear<B>>,
+      key: Param<nn::Linear<B>>,
+      value: Param<nn::Linear<B>>,
+      output: Param<nn::Linear<B>>,
+      dropout: nn::Dropout,
+      activation: nn::GELU,
+      n_heads: usize,
+      d_k: usize,
+      min_float: f64,
+  }
 `,
     description: 'The Module derive let your create your own neural network module similar to PyTorch',
     title: 'Module',
+  },
+  {
+      code:
+`
+  use burn::config::Config;
+  
+  #[derive(Config)]
+  struct MyConfig {
+      #[config(default = 1.0e-6)]
+      pub epsilon: usize,
+      pub dim: usize,
   }
+`,
+    description: 'The `Config` derive simplifies the management of module and component configurations and hyper-parameters, providing a serializable and deserializable structure for efficient deep learning model development.',
+    title: 'Config',
+  },
 ]

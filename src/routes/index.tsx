@@ -64,7 +64,7 @@ export default function() {
           <h2 class="text-red-300 font-bold text-normal w-full text-center">Burn Unstoppable Rusty Neurons</h2>
         </div>
       </div>
-      <h2 class="bg-[#202124] w-full text-center py-10"><span class="bg-white p-1 rounded">features</span></h2>
+      <h2 class="bg-[#202124] w-full text-center py-10"></h2>
       <div class="bg-gradient-to-b flex justify-center from-[#202124] to-gray-800">
         <div class="grid sm:grid-cols-3 sm:gap-32">
           <For each={mainFeatures} children={(feature) => (
@@ -81,7 +81,7 @@ export default function() {
         </div>
       </div>
       <div class="bg-gray-800 flex justify-center items-center flex-col">
-        <h2 class="w-full text-center py-10 pt-20"><span class="bg-white p-1 rounded">examples</span></h2>
+        <h2 class="w-full text-center py-10 pt-20"><span class="font-black uppercase text-[#d1d5db] p-1 text-5xl">Code Snippets</span></h2>
         <div class="max-w-7xl justify-center items-center space-y-10 sm:space-y-32 pb-14 border-b-2 border-gray-900">
           <For each={codeExamples} children={(example, i) => (
             <Motion.div
@@ -105,8 +105,8 @@ export default function() {
           )} />
         </div>
       </div>
-      <div class="flex justify-center pt-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-6 md:gap-x-60 bg-gray-800 text-gray-500">
+      <div class="flex justify-center pt-10 pb-10">
+        <div class="grid md:grid-cols-3 gap-x-16 gap-y-6 md:gap-x-60 bg-gray-800 text-gray-500">
           <For each={Object.entries(footer)} children={([key, section]) => (
             <ul class="space-y-2">
               <h3 class="uppercase mb-2 font-bold">{key}</h3>
@@ -121,9 +121,6 @@ export default function() {
             </ul>
           )} />
         </div>
-      </div>
-      <div class="w-full pb-5 pt-12 text-center text-gray-400 text-sm">
-        built with ❤️ using <u><a href="https://bat.glo.quebec">🦇</a></u>
       </div>
     </div>
   )
