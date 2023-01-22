@@ -1,32 +1,32 @@
 export const mainFeatures = [
   {
-    icon: <div class="i-mdi-robot-happy" />,
+    icon: <div class="i-mdi-graph-outline" />,
     title: 'Flexible',
-    description: 'Intuitive custom neural network modules',
+    description: 'Dynamic computational graph with thread-safe data structures.',
   },
   {
-    icon: <div class="i-mdi-crosshairs" />,
-    title: 'Accurate',
-    description: 'Stateless and thread safe forward pass',
+    icon: <div class="i-mdi-robot-happy" />,
+    title: 'Intuitive',
+    description: 'Well-defined abstractions to streamline deep learning model development.',
   },
   {
     icon: <div class="i-mdi-fire" />,
-    title: 'Blazingly Fast',
-    description: 'Fast training with full support for metric, logging and checkpointing',
+    title: 'Fast',
+    description: 'Amazing performance during both training and inference.',
   },
   {
-    icon: <div class="i-mdi-gamepad-circle-outline" />,
-    title: 'Multiplatform',
-    description: 'Tensor library with autodiff, CPU and GPU support',
+    icon: <div class="i-mdi-chip" />,
+    title: 'CPU and GPU',
+    description: 'Multiple backend implementations with support for CPU and GPU.',
   },
   {
     icon: <div class="i-mdi-battery-90" />,
     title: 'Batteries Included',
-    description: 'Dataset library with multiple utilities and source',
+    description: 'Full support for logging, metric, checkpointing when training models.',
   },
   {
     icon: <div class="i-mdi-account-group" />,
     title: 'Community Driven',
-    description: 'Work with a community of passionate developers',
+    description: 'Work with a community of passionate people.',
   },
 ]
