@@ -1,4 +1,3 @@
-import Outterlink from '@components/outterlink'
 
 // @ts-ignore
 import Prism from 'prismjs'
@@ -9,27 +8,14 @@ import logo from '@assets/logo.png'
 import burn from '@assets/burn.png'
 import { mainFeatures } from 'src/content/features'
 import { codeExamples } from 'src/content/examples'
-import { footer } from 'src/content/footer'
+import Layout from 'src/layout/page'
 
 export default function() {
-  const [isScrolling, setIsScrolling] = createSignal(false)
 
   createEffect(() => {
     Prism.highlightAll()
   })
 
-  createEffect(() => {
-    document.addEventListener('scroll', () => {
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        setIsScrolling(true)
-      } else {
-        setIsScrolling(false)
-      }
-    })
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-      setIsScrolling(true)
-    }
-  })
 
   onMount(() => {
     for (let i = 0; i < 30; i++) {
@@ -43,15 +29,7 @@ export default function() {
   })
 
   return (
-    <div class="bg-gray-800 w-full flex flex-col">
-      <nav class={`fixed w-full px-10 py-5 z-50 flex items-center text-gray-50 font-semibold transition-colors ${isScrolling() && 'bg-[#F34918] shadow-2xl'}`}>
-        <p class="text-3xl">Burn</p>
-        <ul class="ml-auto flex space-x-12 text-xl">
-          <li><Outterlink src="https://github.com/burn-rs/burn">Github</Outterlink></li>
-          <li><Outterlink src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
-          <li class="hidden sm:block"><iframe src="https://ghbtns.com/github-btn.html?user=burn-rs&repo=burn&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe></li>
-        </ul>
-      </nav>
+    <Layout>
       <For each={Array.from({ length: 30 })} children={(_, i) => (
         <div id={`star-${i()}`} class="absolute bg-[#EBC65D] rounded-full" />
       )} />
@@ -105,23 +83,6 @@ export default function() {
           )} />
         </div>
       </div>
-      <div class="flex justify-center pt-10 pb-10">
-        <div class="grid md:grid-cols-3 gap-x-16 gap-y-6 md:gap-x-60 bg-gray-800 text-gray-500">
-          <For each={Object.entries(footer)} children={([key, section]) => (
-            <ul class="space-y-2">
-              <h3 class="uppercase mb-2 font-bold">{key}</h3>
-              <For each={section} children={(item) => (
-                <li><Outterlink src={item.href}>
-                  <div class="flex items-center">
-                    {item.icon! && <div class={`${item.iconSize! ? item.iconSize : 'text-xl'} ${item.icon} mr-2`} />}
-                    {item.label}
-                  </div>
-                </Outterlink></li>
-              )} />
-            </ul>
-          )} />
-        </div>
-      </div>
-    </div>
+    </Layout>
   )
 }

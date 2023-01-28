@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import solid from 'solid-start/vite'
 // @ts-ignore
 import staticMode from 'solid-start-static'
+import dynamicImport from 'vite-plugin-dynamic-import'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import AutoImport from 'unplugin-auto-import/vite'
 // @ts-ignore
@@ -38,6 +39,7 @@ export default defineConfig({
       languages: ['rust'],
       theme: 'solarizedlight',
     }),
+    dynamicImport(),
   ],
   build: {
     target: ['esnext'],

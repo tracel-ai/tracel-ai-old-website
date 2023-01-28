@@ -54,3 +54,16 @@ div, p, h1, h2, h3, h4, h5 {
 .language-rust {
   padding: 0 !important;
 }
+
+.blog {
+  @apply mx-20 my-20 text-white;
+
+
+  h1 {
+    @apply text-2xl mb-5;
+  }
+
+  p {
+    @apply mb-2;
+  }
+}
