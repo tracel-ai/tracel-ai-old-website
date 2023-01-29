@@ -12,16 +12,14 @@ type Props = {
 const Blog: Component<Props> = (props) => {
   const [blog, setBlog] = createSignal('')
 
-  createEffect(async () => {
-    const file = await unified()
-      .use(remarkParse)
-      .use(remarkFrontmatter, ['yaml', 'toml'])
-      .use(remarkParseFrontmatter)
-      .use(remarkHtml)
-      .process(props.markdown)
+  const file = unified()
+    .use(remarkParse)
+    .use(remarkFrontmatter, ['yaml', 'toml'])
+    .use(remarkParseFrontmatter)
+    .use(remarkHtml)
+    .processSync(props.markdown)
 
-    setBlog(String(file))
-  })
+  setBlog(String(file))
 
   return (
     <div innerHTML={blog()} />
