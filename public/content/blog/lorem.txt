@@ -1,5 +1,6 @@
-export default `---
+---
 title: "New Website"
+author: "Nathaniel Simard"
 ---
 
 # Other markdown
@@ -12,4 +13,4 @@ Vivamus commodo orci a libero ornare, nec fermentum sapien faucibus. Vestibulum 
 
 Vestibulum hendrerit risus sit amet purus venenatis tincidunt convallis eu orci. Maecenas ultrices nisl justo, a efficitur mi placerat at. Fusce laoreet commodo sapien, sit amet tincidunt ipsum. Donec leo libero, auctor quis posuere id, mattis non diam. Cras vitae tempus sem. Praesent mollis eu felis nec scelerisque. Pellentesque nec fringilla ante. Sed varius molestie congue. Quisque vehicula elementum velit vel vulputate. Sed id magna sed lorem luctus sollicitudin. Sed accumsan diam turpis. Maecenas convallis lorem ex, et hendrerit quam luctus vel.
 
-Sed consequat justo viverra risus varius gravida at vel mauris. Phasellus vitae nibh eros. In lectus ex, suscipit ac placerat a, feugiat eu ex. Vestibulum sed enim ipsum. Aliquam tempor lobortis libero nec feugiat. Pellentesque consectetur mi sit amet semper varius. Vivamus placerat tempus blandit.`
+Sed consequat justo viverra risus varius gravida at vel mauris. Phasellus vitae nibh eros. In lectus ex, suscipit ac placerat a, feugiat eu ex. Vestibulum sed enim ipsum. Aliquam tempor lobortis libero nec feugiat. Pellentesque consectetur mi sit amet semper varius. Vivamus placerat tempus blandit.

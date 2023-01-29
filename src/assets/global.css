@@ -56,14 +56,18 @@ div, p, h1, h2, h3, h4, h5 {
 }
 
 .blog {
-  @apply mx-20 my-20 text-white;
+  @apply mx-80 my-20 text-white text-justify p-10 rounded-lg bg-white/5;
 
 
   h1 {
-    @apply text-2xl mb-5;
+    @apply text-4xl mb-7 font-bold;
   }
 
   p {
-    @apply mb-2;
+    @apply mb-5 text-xl;
+  }
+
+  h2 {
+    @apply mt-4 text-2xl text-right;
   }
 }
