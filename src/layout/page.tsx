@@ -1,6 +1,7 @@
 import type { FlowComponent } from 'solid-js'
 import Outterlink from '@components/outterlink'
 import { footer } from 'src/content/footer'
+import { A } from 'solid-start'
 
 type Props = {}
 
@@ -24,8 +25,9 @@ const Layout: FlowComponent<Props> = (props) => {
       <nav class={`fixed w-full px-10 py-5 z-50 flex items-center text-gray-50 font-semibold transition-colors ${isScrolling() && 'bg-[#F34918] shadow-2xl'}`}>
         <a href="/" class="text-3xl">Burn</a>
         <ul class="ml-auto flex space-x-12 text-xl">
-          <li><Outterlink src="https://github.com/burn-rs/burn">Github</Outterlink></li>
-          <li><Outterlink src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
+          <li><Outterlink className="text-white hover:text-[#F34918] transition-colors" src="https://github.com/burn-rs/burn">Github</Outterlink></li>
+          <li><A class="text-white hover:text-[#F34918] transition-colors" href="/blog">Blog</A></li>
+          <li><Outterlink className="text-white hover:text-[#F34918] transition-colors" src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
           <li class="hidden sm:block"><iframe src="https://ghbtns.com/github-btn.html?user=burn-rs&repo=burn&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe></li>
         </ul>
       </nav>
