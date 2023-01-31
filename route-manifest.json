@@ -1,0 +1,101 @@
+{
+  "/blog/": [
+    {
+      "type": "script",
+      "href": "/assets/index-dc4b1ad5.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-d18c051e.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3d8326a7.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-6b1e0867.js"
+    }
+  ],
+  "/*404": [
+    {
+      "type": "script",
+      "href": "/assets/_...404_-ab6bd34f.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-d18c051e.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3d8326a7.css"
+    }
+  ],
+  "/": [
+    {
+      "type": "script",
+      "href": "/assets/index-cf84594a.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-d18c051e.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3d8326a7.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/_commonjsHelpers-edff4021.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-6b1e0867.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/index-ba8e677e.css"
+    },
+    {
+      "type": "asset",
+      "href": "/assets/logo-d7813d0c.png"
+    },
+    {
+      "type": "asset",
+      "href": "/assets/burn-33192fe7.png"
+    }
+  ],
+  "/blog/lorem": [
+    {
+      "type": "script",
+      "href": "/assets/lorem-222be3c4.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-d18c051e.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3d8326a7.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/_commonjsHelpers-edff4021.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-6b1e0867.js"
+    }
+  ],
+  "entry-client": [
+    {
+      "type": "script",
+      "href": "/assets/entry-client-d18c051e.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3d8326a7.css"
+    }
+  ],
+  "index.html": []
+}
