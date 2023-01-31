@@ -2,12 +2,11 @@ import Blog from '@components/blog'
 import { A, Meta } from 'solid-start'
 import Layout from 'src/layout/page'
 
-
 const Lorem = () => {
   return (
     <Layout>
       <Meta property='og:title' content='My very first Blog' />
-      <div class="mt-0 mx-80"><A href="/blog" class="text-blue-300 mb-5">Blog</A> <span class="text-white">/ Lorem</span></div>
+      <div class="mt-20 mx-80"><A href="/blog" class="text-blue-300 mb-5">Blog</A> <span class="text-white">/ Lorem</span></div>
       <article class="blog">
         <Blog markdown={`# Lorem Ipsum
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mollis dolor volutpat sapien commodo interdum. Etiam bibendum ultrices luctus. Ut commodo egestas tincidunt. Nunc cursus ex ut varius pharetra. Etiam sit amet efficitur tortor. Sed porta imperdiet maximus. Suspendisse rutrum suscipit dignissim.
