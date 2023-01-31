@@ -55,7 +55,6 @@
     "unified": "10.1.2",
     "unplugin-auto-import": "0.11.4",
     "vite": "3.2.3",
-    "vite-plugin-dynamic-import": "1.2.7",
     "vite-plugin-prismjs": "0.0.8",
     "vite-tsconfig-paths": "3.5.2"
   }
