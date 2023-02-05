@@ -5,8 +5,8 @@
   "src/routes/blog/index.tsx": [
     "/assets/index-dc4b1ad5.js"
   ],
-  "\u0000commonjsHelpers.js": [
-    "/assets/_commonjsHelpers-edff4021.js"
+  "src/routes/[...404].tsx": [
+    "/assets/_...404_-ab6bd34f.js"
   ],
   "src/components/outterlink/index.tsx": [
     "/assets/page-6b1e0867.js"
@@ -17,8 +17,8 @@
   "src/layout/page.tsx": [
     "/assets/page-6b1e0867.js"
   ],
-  "src/routes/[...404].tsx": [
-    "/assets/_...404_-ab6bd34f.js"
+  "\u0000commonjsHelpers.js": [
+    "/assets/_commonjsHelpers-edff4021.js"
   ],
   "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js?commonjs-module": [
     "/assets/index-cf84594a.js",

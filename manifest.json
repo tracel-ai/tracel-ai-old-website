@@ -24,15 +24,6 @@
       "_page-6b1e0867.js"
     ]
   },
-  "__commonjsHelpers-edff4021.js": {
-    "file": "assets/_commonjsHelpers-edff4021.js"
-  },
-  "_page-6b1e0867.js": {
-    "file": "assets/page-6b1e0867.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
   "src/routes/[...404].tsx": {
     "file": "assets/_...404_-ab6bd34f.js",
     "src": "src/routes/[...404].tsx",
@@ -40,6 +31,15 @@
     "imports": [
       "src/entry-client.tsx"
     ]
+  },
+  "_page-6b1e0867.js": {
+    "file": "assets/page-6b1e0867.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "__commonjsHelpers-edff4021.js": {
+    "file": "assets/_commonjsHelpers-edff4021.js"
   },
   "src/routes/index.tsx": {
     "file": "assets/index-cf84594a.js",
