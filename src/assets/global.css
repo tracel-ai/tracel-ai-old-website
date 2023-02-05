@@ -56,11 +56,10 @@ div, p, h1, h2, h3, h4, h5 {
 }
 
 .blog {
-  @apply mx-80 my-10 text-white text-justify p-10 rounded-lg bg-white/5;
-
+  @apply text-white text-justify rounded-lg bg-white/5;
 
   h1 {
-    @apply text-4xl mb-7 font-bold;
+    @apply text-6xl mb-7 font-bold;
   }
 
   p {
@@ -68,6 +67,10 @@ div, p, h1, h2, h3, h4, h5 {
   }
 
   h2 {
+    @apply mt-4 text-3xl text-right;
+  }
+
+  h3 {
     @apply mt-4 text-2xl text-right;
   }
 }

@@ -1,36 +1,32 @@
 import { Component } from 'solid-js'
 import { A } from 'solid-start'
+import { BlogMetadata } from 'src/content/blogs'
 
-type Props = {
-  links: string
-  title: string
-  description: string
-  author: string
-  publishedDate: string
-}
-
-const Card: Component<Props> = (props) => {
+const Card: Component<BlogMetadata> = (props) => {
   return (
     <A href={props.links}>
-      <div class="py-2">
-        <div class="flex p-10 bg-white/5 rounded-lg text-white hover:scale-110 transition-all hover:shadow-lg">
-          <div class="w-96">
-            <div class="font-bold text-lg line-clamp-1">
-              <h3>{props.title}</h3>
-            </div>
-            <p class="h-12 text-m line-clamp-2">
-              {props.description}
-            </p>
-          </div>
-          <div class="w-72 flex justify-end">
-            <div>
-              <div class="flex">
-                <div class="h-6 w-6 i-mdi-clipboard-text-clock" />
-                <span class="px-4">{new Date(props.publishedDate).toDateString()}</span>
+      <div class="py-4">
+        <div class="flex bg-white/5 rounded-lg text-white hover:scale-110 transition-all hover:shadow-lg">
+          <img class="h-48 rounded-l-lg mr-3" src={props.imageUrl} alt={props.imageUrlAlt}/>
+          <div class="flex px-2 pt-4">
+            <div class="w-96">
+              <div class="font-bold text-2xl line-clamp-1 pb-4">
+                <h2>{props.title}</h2>
               </div>
-              <div class="flex">
-                <div class="h-6 w-6 i-mdi-account-edit" />
-                <span class="px-4">{props.author}</span>
+              <p class="text-lg font-medium line-clamp-3">
+                {props.description}
+              </p>
+            </div>
+            <div class="w-48 flex justify-end">
+              <div>
+                <div class="flex pt-1">
+                  <div class="h-6 w-6 i-mdi-clipboard-text-clock" />
+                  <span class="px-4">{new Date(props.publishedDate).toDateString()}</span>
+                </div>
+                <div class="flex">
+                  <div class="h-6 w-6 i-mdi-account-edit" />
+                  <span class="px-4">{props.author}</span>
+                </div>
               </div>
             </div>
           </div>
