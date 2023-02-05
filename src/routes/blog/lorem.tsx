@@ -1,11 +1,16 @@
 import Blog from '@components/blog'
+import { loremIpsum } from 'src/content/blogs'
 import { A, Meta } from 'solid-start'
 import Layout from 'src/layout/page'
 
 const Lorem = () => {
   return (
     <Layout>
-      <Meta property='og:title' content='My very first Blog' />
+      <Meta property='og:type' content='article' />
+      <Meta property='og:title' content={loremIpsum.title} />
+      <Meta property='og:description' content={loremIpsum.description} />
+      <Meta property='og:author' content={loremIpsum.author} />
+      <Meta property='article:published_time' content={new Date(loremIpsum.publishedDate).toISOString()} />
       <div class="mt-20 mx-80"><A href="/blog" class="text-blue-300 mb-5">Blog</A> <span class="text-white">/ Lorem</span></div>
       <article class="blog">
         <Blog markdown={`# Lorem Ipsum

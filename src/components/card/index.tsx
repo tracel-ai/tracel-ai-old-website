@@ -6,7 +6,7 @@ type Props = {
   title: string
   description: string
   author: string
-  publisheDate: string
+  publishedDate: string
 }
 
 const Card: Component<Props> = (props) => {
@@ -26,7 +26,7 @@ const Card: Component<Props> = (props) => {
             <div>
               <div class="flex">
                 <div class="h-6 w-6 i-mdi-clipboard-text-clock" />
-                <span class="px-4">{props.publisheDate}</span>
+                <span class="px-4">{new Date(props.publishedDate).toDateString()}</span>
               </div>
               <div class="flex">
                 <div class="h-6 w-6 i-mdi-account-edit" />

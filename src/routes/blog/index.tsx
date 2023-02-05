@@ -20,7 +20,7 @@ const Blogs = () => {
               title={blog.title}
               description={blog.description}
               author={blog.author}
-              publisheDate={blog.publisheDate}
+              publishedDate={blog.publishedDate}
             />
           )}/>
         </div>
