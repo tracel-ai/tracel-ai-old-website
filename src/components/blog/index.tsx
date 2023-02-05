@@ -4,8 +4,8 @@ import { Component, JSX } from 'solid-js'
 
 const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, children}) => {
   return (
-    <div class="pt-20 flex justify-center">
-      <div class="max-w-7xl mx-80 mb-10">
+    <div class="pt-20 flex justify-center bg-gradient-to-b from-[#202124] to-gray-800">
+      <div class="max-w-5xl mx-4 mb-10">
         <Meta property='og:type' content='article' />
         <Meta property='og:title' content={props.title} />
         <Meta property='og:description' content={props.description} />
@@ -17,19 +17,19 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
             burn {props.links.replaceAll('/', ' · ')}
           </p>
         </div>
-        <article class="blog  pt-3">
+        <article class="blog pt-3">
           <div>
-            <h1 class="px-6">
+            <h1 class="px-10">
               {props.title}
             </h1>
-            <div class="px-6 pb-4">
+            <div class="px-10 pb-4">
               <img
                 class="h-48 w-full rounded-lg mr-3 object-cover object-top"
                 src={props.imageUrl}
                 alt={props.imageUrlAlt}
               />
             </div>
-            <div class="flex px-6">
+            <div class="flex px-10">
               <div class="flex pt-1">
                 <div class="h-6 w-6 i-mdi-clipboard-text-clock" />
                 <span class="px-4">{new Date(props.publishedDate).toDateString()}</span>
@@ -40,7 +40,7 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
               </div>
             </div>
           </div>
-          <div class="px-6 pb-6">
+          <div class="px-10 pb-10">
             <div class="border-t-2 border-gray-900 my-6" />
             { children }
           </div>
@@ -48,7 +48,6 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
       </div>
     </div>
   )
-
 }
 
 export default Blog

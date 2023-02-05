@@ -5,9 +5,12 @@ import { BlogMetadata } from 'src/content/blogs'
 const Card: Component<BlogMetadata> = (props) => {
   return (
     <A href={props.links}>
-      <div class="py-4">
+      <div class="py-4 max-w-5xl flex">
         <div class="flex bg-white/5 rounded-lg text-white hover:scale-110 transition-all hover:shadow-lg">
-          <img class="h-48 rounded-l-lg mr-3" src={props.imageUrl} alt={props.imageUrlAlt}/>
+          <img 
+            class="h-48 rounded-l-lg mr-3"
+            src={props.imageUrl} alt={props.imageUrlAlt}
+          />
           <div class="flex px-2 pt-4">
             <div class="w-96">
               <div class="font-bold text-2xl line-clamp-1 pb-4">
