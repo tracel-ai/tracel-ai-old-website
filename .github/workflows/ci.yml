@@ -23,7 +23,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
@@ -55,8 +55,8 @@ jobs:
       - name: Build 🔨
         run: pnpm build
 
-      - name: Deploy to GH Pages
-        id: deployment
-        uses: NickSchimek/deploy_jamstack_action@v1
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          build-dir: ./dist/public
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/public
