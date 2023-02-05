@@ -1,4 +1,3 @@
-
 // @ts-ignore
 import Prism from 'prismjs'
 import '@assets/prism-theme.css'
@@ -9,6 +8,7 @@ import burn from '@assets/burn.png'
 import { mainFeatures } from 'src/content/features'
 import { codeExamples } from 'src/content/examples'
 import Layout from 'src/layout/page'
+import Stars from '@context/stars'
 
 export default function() {
 
@@ -16,23 +16,9 @@ export default function() {
     Prism.highlightAll()
   })
 
-
-  onMount(() => {
-    for (let i = 0; i < 30; i++) {
-      const star = document.getElementById('star-' + i)!
-      star.style.left = Math.random() * 100 + '%'
-      star.style.top = Math.random() * 100 + '%'
-      const size = Math.random() * 8
-      star.style.width = 1 + size + 'px'
-      star.style.height = 1 + size + 'px'
-    }
-  })
-
   return (
     <Layout>
-      <For each={Array.from({ length: 30 })} children={(_, i) => (
-        <div id={`star-${i()}`} class="absolute bg-[#EBC65D] rounded-full" />
-      )} />
+      <Stars numStars={30} />
       <div class="flex pt-4 sm:pt-10 flex-col sm:flex-row justify-center items-center sm:h-[70vh] bg-[#202124]">
         <div class="max-w-[650px]">
           <img src={burn} />
