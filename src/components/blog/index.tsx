@@ -17,7 +17,7 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
             burn {props.links.replaceAll('/', ' · ')}
           </p>
         </div>
-        <article class="blog pt-3">
+        <article class="blog pt-4">
           <div>
             <h1 class="px-10">
               {props.title}
@@ -40,7 +40,7 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
               </div>
             </div>
           </div>
-          <div class="px-10 pb-10">
+          <div class="pb-4 px-6 sm:px-10">
             <div class="border-t-2 border-gray-900 my-6" />
             { children }
           </div>
