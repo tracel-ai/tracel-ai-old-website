@@ -1,5 +1,5 @@
 import Blog from '@components/blog'
-import Stars from '@context/stars'
+import Stars from '@components/stars'
 import { loremIpsum } from 'src/content/blogs'
 import Layout from 'src/layout/page'
 

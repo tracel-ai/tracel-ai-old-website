@@ -8,7 +8,7 @@ import burn from '@assets/burn.png'
 import { mainFeatures } from 'src/content/features'
 import { codeExamples } from 'src/content/examples'
 import Layout from 'src/layout/page'
-import Stars from '@context/stars'
+import Stars from '@components/stars'
 
 export default function() {
 

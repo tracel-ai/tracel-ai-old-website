@@ -1,4 +1,4 @@
-import { Component } from 'solid-js'
+import type { Component } from 'solid-js'
 
 type Props = {
   numStars: number;
@@ -7,9 +7,9 @@ type Props = {
 
 const Stars: Component<Props> = (props) => {
   onMount(() => {
-    let bot = props.bot;
+    let bot = props.bot
     if (!bot) {
-        bot = 100;
+        bot = 100
     }
 
     for (let i = 0; i < props.numStars; i++) {
