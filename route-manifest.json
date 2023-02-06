@@ -1,56 +1,78 @@
 {
-  "/blog/": [
-    {
-      "type": "script",
-      "href": "/assets/index-dc4b1ad5.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-d18c051e.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3d8326a7.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-6b1e0867.js"
-    }
-  ],
   "/*404": [
     {
       "type": "script",
-      "href": "/assets/_...404_-ab6bd34f.js"
+      "href": "/assets/_...404_-0951d5f1.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-d18c051e.js"
+      "href": "/assets/entry-client-ef001212.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-3d8326a7.css"
+      "href": "/assets/entry-client-7a066e7c.css"
+    }
+  ],
+  "/blog/lorem": [
+    {
+      "type": "script",
+      "href": "/assets/lorem-776d678c.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-ef001212.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-7a066e7c.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-25fd0ebe.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-1dca14ad.js"
+    }
+  ],
+  "/blog/": [
+    {
+      "type": "script",
+      "href": "/assets/index-c0cba6e3.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-ef001212.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-7a066e7c.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-25fd0ebe.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-1dca14ad.js"
     }
   ],
   "/": [
     {
       "type": "script",
-      "href": "/assets/index-cf84594a.js"
+      "href": "/assets/index-d74531f5.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-d18c051e.js"
+      "href": "/assets/entry-client-ef001212.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-3d8326a7.css"
+      "href": "/assets/entry-client-7a066e7c.css"
     },
     {
       "type": "script",
-      "href": "/assets/_commonjsHelpers-edff4021.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-6b1e0867.js"
+      "href": "/assets/index-25fd0ebe.js"
     },
     {
       "type": "style",
@@ -65,36 +87,14 @@
       "href": "/assets/burn-33192fe7.png"
     }
   ],
-  "/blog/lorem": [
-    {
-      "type": "script",
-      "href": "/assets/lorem-222be3c4.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-d18c051e.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3d8326a7.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/_commonjsHelpers-edff4021.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-6b1e0867.js"
-    }
-  ],
   "entry-client": [
     {
       "type": "script",
-      "href": "/assets/entry-client-d18c051e.js"
+      "href": "/assets/entry-client-ef001212.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-3d8326a7.css"
+      "href": "/assets/entry-client-7a066e7c.css"
     }
   ],
   "index.html": []

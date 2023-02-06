@@ -1,960 +1,405 @@
 {
-  "src/components/card/index.tsx": [
-    "/assets/index-dc4b1ad5.js"
-  ],
-  "src/routes/blog/index.tsx": [
-    "/assets/index-dc4b1ad5.js"
-  ],
   "src/routes/[...404].tsx": [
-    "/assets/_...404_-ab6bd34f.js"
+    "/assets/_...404_-0951d5f1.js"
+  ],
+  "src/content/blogs.ts": [
+    "/assets/blogs-1dca14ad.js"
+  ],
+  "src/components/blog/index.tsx": [
+    "/assets/lorem-776d678c.js"
+  ],
+  "src/routes/blog/lorem.tsx": [
+    "/assets/lorem-776d678c.js"
   ],
   "src/components/outterlink/index.tsx": [
-    "/assets/page-6b1e0867.js"
+    "/assets/index-25fd0ebe.js"
   ],
   "src/content/footer.tsx": [
-    "/assets/page-6b1e0867.js"
+    "/assets/index-25fd0ebe.js"
   ],
   "src/layout/page.tsx": [
-    "/assets/page-6b1e0867.js"
+    "/assets/index-25fd0ebe.js"
+  ],
+  "src/components/stars/index.tsx": [
+    "/assets/index-25fd0ebe.js"
+  ],
+  "src/components/card/index.tsx": [
+    "/assets/index-c0cba6e3.js"
+  ],
+  "src/routes/blog/index.tsx": [
+    "/assets/index-c0cba6e3.js"
   ],
   "\u0000commonjsHelpers.js": [
-    "/assets/_commonjsHelpers-edff4021.js"
+    "/assets/index-d74531f5.js",
+    "/assets/index-ba8e677e.css",
+    "/assets/logo-d7813d0c.png",
+    "/assets/burn-33192fe7.png"
   ],
   "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js?commonjs-module": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-rust.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/assets/prism-theme.css": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/array.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/clamp.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/defaults.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-number.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-easing-list.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/wrap.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/easing.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/mix.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/noop.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/progress.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/offset.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/interpolate.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-cubic-bezier.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-easing-generator.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-function.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-string.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/time.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+easing@10.15.1/node_modules/@motionone/easing/dist/cubic-bezier.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+easing@10.15.1/node_modules/@motionone/easing/dist/steps.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+animation@10.15.1/node_modules/@motionone/animation/dist/utils/easing.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+animation@10.15.1/node_modules/@motionone/animation/dist/Animation.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/hey-listen@1.0.8/node_modules/hey-listen/dist/hey-listen.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+types@10.15.1/node_modules/@motionone/types/dist/MotionValue.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/data.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/transforms.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/css-var.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/feature-detection.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/easing.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/keyframes.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/get-style-name.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/style.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/stop-animation.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/get-unit.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/animate-style.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/options.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/utils/resolve-elements.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/tslib.es6.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/gestures/in-view.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/has-changed.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/is-variant.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/resolve-variant.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/schedule.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/events.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/gestures/in-view.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/gestures/hover.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/gestures/press.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/index.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/style-object.es.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+solid@10.15.5_solid-js@1.6.10/node_modules/@motionone/solid/dist/source/context.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+solid@10.15.5_solid-js@1.6.10/node_modules/@motionone/solid/dist/source/primitives.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@solid-primitives+props@3.0.3_solid-js@1.6.10/node_modules/@solid-primitives/props/dist/index.js": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+solid@10.15.5_solid-js@1.6.10/node_modules/@motionone/solid/dist/source/motion.jsx": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/assets/logo.png": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/assets/burn.png": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/content/features.tsx": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/content/examples.ts": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/routes/index.tsx": [
-    "/assets/index-cf84594a.js",
+    "/assets/index-d74531f5.js",
     "/assets/index-ba8e677e.css",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
-  ],
-  "node_modules/.pnpm/dequal@2.0.3/node_modules/dequal/dist/index.mjs": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/kleur@4.1.5/node_modules/kleur/index.mjs": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/diff@5.1.0/node_modules/diff/lib/index.es6.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/uvu@0.5.6/node_modules/uvu/diff/index.mjs": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/uvu@0.5.6/node_modules/uvu/assert/index.mjs": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-string@3.1.0/node_modules/mdast-util-to-string/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-symbol@1.0.1/node_modules/micromark-util-symbol/constants.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-chunked@1.0.0/node_modules/micromark-util-chunked/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-combine-extensions@1.0.0/node_modules/micromark-util-combine-extensions/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-symbol@1.0.1/node_modules/micromark-util-symbol/codes.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-character@1.1.0/node_modules/micromark-util-character/dev/lib/unicode-punctuation-regex.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-character@1.1.0/node_modules/micromark-util-character/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-factory-space@1.0.0/node_modules/micromark-factory-space/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-symbol@1.0.1/node_modules/micromark-util-symbol/types.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/initialize/content.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/initialize/document.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-classify-character@1.0.0/node_modules/micromark-util-classify-character/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-resolve-all@1.0.0/node_modules/micromark-util-resolve-all/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/attention.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/autolink.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/blank-line.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/block-quote.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/character-escape.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/decode-named-character-reference@1.0.2/node_modules/decode-named-character-reference/index.dom.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/character-reference.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/code-fenced.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/code-indented.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/code-text.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-subtokenize@1.0.2/node_modules/micromark-util-subtokenize/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/content.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-factory-destination@1.0.0/node_modules/micromark-factory-destination/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-factory-label@1.0.2/node_modules/micromark-factory-label/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-factory-title@1.0.2/node_modules/micromark-factory-title/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-factory-whitespace@1.0.0/node_modules/micromark-factory-whitespace/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-symbol@1.0.1/node_modules/micromark-util-symbol/values.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-normalize-identifier@1.0.0/node_modules/micromark-util-normalize-identifier/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/definition.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/hard-break-escape.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/heading-atx.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-html-tag-name@1.1.0/node_modules/micromark-util-html-tag-name/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/html-flow.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/html-text.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/label-end.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/label-start-image.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/label-start-link.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/line-ending.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/thematic-break.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/list.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-core-commonmark@1.0.6/node_modules/micromark-core-commonmark/dev/lib/setext-underline.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/initialize/flow.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/initialize/text.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/debug@4.3.4/node_modules/debug/src/browser.js?commonjs-module": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/ms@2.1.2/node_modules/ms/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/debug@4.3.4/node_modules/debug/src/common.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/debug@4.3.4/node_modules/debug/src/browser.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/create-tokenizer.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/constructs.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/parse.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/preprocess.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark@3.0.10/node_modules/micromark/dev/lib/postprocess.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-decode-numeric-character-reference@1.0.0/node_modules/micromark-util-decode-numeric-character-reference/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-decode-string@1.0.2/node_modules/micromark-util-decode-string/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-stringify-position@3.0.2/node_modules/unist-util-stringify-position/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-from-markdown@1.2.0/node_modules/mdast-util-from-markdown/dev/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/remark-parse@10.0.1/node_modules/remark-parse/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/format@0.2.2/node_modules/format/format.js?commonjs-module": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/format@0.2.2/node_modules/format/format.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/fault@2.0.1/node_modules/fault/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-extension-frontmatter@1.0.0/node_modules/micromark-extension-frontmatter/dev/matters.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-extension-frontmatter@1.0.0/node_modules/micromark-extension-frontmatter/dev/lib/syntax.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-frontmatter@1.0.0/node_modules/mdast-util-frontmatter/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/remark-frontmatter@4.0.1/node_modules/remark-frontmatter/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-is@3.0.0/node_modules/unist-util-is/convert.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-visit-parents@2.1.2/node_modules/unist-util-visit-parents/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-visit@1.4.1/node_modules/unist-util-visit/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/lodash.iteratee@4.7.0/node_modules/lodash.iteratee/index.js?commonjs-module": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/lodash.iteratee@4.7.0/node_modules/lodash.iteratee/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-find@1.0.2/node_modules/unist-util-find/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/dist/PlainValue-b8036b75.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/dist/parse-cst.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/dist/resolveSeq-492ab440.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/dist/warnings-df54cb69.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/dist/Schema-e94716c8.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/dist/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/dist/index.js?commonjs-proxy": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/yaml@1.10.2/node_modules/yaml/browser/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/revalidator@0.3.1/node_modules/revalidator/lib/revalidator.js?commonjs-module": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/revalidator@0.3.1/node_modules/revalidator/lib/revalidator.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/remark-parse-frontmatter@1.0.3/node_modules/remark-parse-frontmatter/dist/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/bail@2.0.2/node_modules/bail/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/is-buffer@2.0.5/node_modules/is-buffer/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/extend@3.0.2/node_modules/extend/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/is-plain-obj@4.1.0/node_modules/is-plain-obj/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/trough@2.1.0/node_modules/trough/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/vfile-message@3.1.2/node_modules/vfile-message/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/vfile@5.3.5/node_modules/vfile/lib/minpath.browser.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/vfile@5.3.5/node_modules/vfile/lib/minproc.browser.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/vfile@5.3.5/node_modules/vfile/lib/minurl.shared.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/vfile@5.3.5/node_modules/vfile/lib/minurl.browser.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/vfile@5.3.5/node_modules/vfile/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unified@10.1.2/node_modules/unified/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/schema.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/merge.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/normalize.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/info.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/types.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/defined-info.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/create.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/xlink.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/xml.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/case-sensitive-transform.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/util/case-insensitive-transform.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/xmlns.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/aria.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/html.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/svg.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/lib/find.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/property-information@6.1.1/node_modules/property-information/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/html-void-elements@2.0.1/node_modules/html-void-elements/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/zwitch@2.0.4/node_modules/zwitch/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/stringify-entities@4.0.3/node_modules/stringify-entities/lib/core.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/stringify-entities@4.0.3/node_modules/stringify-entities/lib/util/to-hexadecimal.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/stringify-entities@4.0.3/node_modules/stringify-entities/lib/util/to-decimal.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/character-entities-legacy@3.0.0/node_modules/character-entities-legacy/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/character-entities-html4@2.1.0/node_modules/character-entities-html4/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/stringify-entities@4.0.3/node_modules/stringify-entities/lib/constant/dangerous.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/stringify-entities@4.0.3/node_modules/stringify-entities/lib/util/to-named.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/stringify-entities@4.0.3/node_modules/stringify-entities/lib/util/format-smart.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/stringify-entities@4.0.3/node_modules/stringify-entities/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/handle/comment.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/handle/doctype.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/ccount@2.0.1/node_modules/ccount/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/comma-separated-tokens@2.0.2/node_modules/comma-separated-tokens/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/space-separated-tokens@2.0.1/node_modules/space-separated-tokens/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-whitespace@2.0.0/node_modules/hast-util-whitespace/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/omission/util/siblings.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/omission/omission.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/omission/closing.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/omission/opening.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/handle/element.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/handle/text.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/handle/raw.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/handle/root.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/handle/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-to-html@8.0.4/node_modules/hast-util-to-html/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-sanitize@4.1.0/node_modules/hast-util-sanitize/lib/schema.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/hast-util-sanitize@4.1.0/node_modules/hast-util-sanitize/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-builder@3.0.0/node_modules/unist-builder/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/traverse.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-is@5.1.1/node_modules/unist-util-is/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-visit-parents@5.1.1/node_modules/unist-util-visit-parents/color.browser.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-visit-parents@5.1.1/node_modules/unist-util-visit-parents/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-visit@4.1.1/node_modules/unist-util-visit/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-position@4.0.3/node_modules/unist-util-position/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/unist-util-generated@2.0.0/node_modules/unist-util-generated/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-definitions@5.1.1/node_modules/mdast-util-definitions/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-encode@1.0.1/node_modules/micromark-util-encode/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/micromark-util-sanitize-uri@1.0.0/node_modules/micromark-util-sanitize-uri/dev/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/wrap.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/footer.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/blockquote.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/break.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/code.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/delete.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/emphasis.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/footnote-reference.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/footnote.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/heading.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/html.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdurl@1.0.1/node_modules/mdurl/encode.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/revert.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/image-reference.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/image.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/inline-code.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/link-reference.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/link.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/list-item.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/list.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/paragraph.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/root.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/strong.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/table.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/trim-lines@3.0.1/node_modules/trim-lines/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/text.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/thematic-break.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/handlers/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/mdast-util-to-hast@12.2.2/node_modules/mdast-util-to-hast/lib/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "node_modules/.pnpm/remark-html@15.0.1/node_modules/remark-html/index.js": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "src/components/blog/index.tsx": [
-    "/assets/lorem-222be3c4.js"
-  ],
-  "src/routes/blog/lorem.tsx": [
-    "/assets/lorem-222be3c4.js"
   ],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/dist/dev.js": [],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/web/dist/dev.js": [],
@@ -995,10 +440,10 @@
   "node_modules/.pnpm/solid-start@0.2.17_ash22hvqyuqb4bc34tpf7zghmi/node_modules/solid-start/entry-client/StartClient.tsx": [],
   "node_modules/.pnpm/@lottiefiles+lottie-player@1.7.0/node_modules/@lottiefiles/lottie-player/dist/lottie-player.esm.js": [],
   "src/entry-client.tsx": [],
-  "_...404_-ab6bd34f.js": [],
-  "index-cf84594a.js": [
+  "_...404_-0951d5f1.js": [],
+  "index-d74531f5.js": [
     "/assets/index-ba8e677e.css"
   ],
-  "index-dc4b1ad5.js": [],
-  "lorem-222be3c4.js": []
+  "index-c0cba6e3.js": [],
+  "lorem-776d678c.js": []
 }

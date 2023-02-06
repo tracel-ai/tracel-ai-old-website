@@ -12,43 +12,53 @@
     "src": "src/routes/index.css"
   },
   "src/entry-client.css": {
-    "file": "assets/entry-client-3d8326a7.css",
+    "file": "assets/entry-client-7a066e7c.css",
     "src": "src/entry-client.css"
   },
-  "src/routes/blog/index.tsx": {
-    "file": "assets/index-dc4b1ad5.js",
-    "src": "src/routes/blog/index.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_page-6b1e0867.js"
-    ]
-  },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-ab6bd34f.js",
+    "file": "assets/_...404_-0951d5f1.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "_page-6b1e0867.js": {
-    "file": "assets/page-6b1e0867.js",
+  "_blogs-1dca14ad.js": {
+    "file": "assets/blogs-1dca14ad.js"
+  },
+  "src/routes/blog/lorem.tsx": {
+    "file": "assets/lorem-776d678c.js",
+    "src": "src/routes/blog/lorem.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-25fd0ebe.js",
+      "_blogs-1dca14ad.js"
+    ]
+  },
+  "_index-25fd0ebe.js": {
+    "file": "assets/index-25fd0ebe.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "__commonjsHelpers-edff4021.js": {
-    "file": "assets/_commonjsHelpers-edff4021.js"
+  "src/routes/blog/index.tsx": {
+    "file": "assets/index-c0cba6e3.js",
+    "src": "src/routes/blog/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-25fd0ebe.js",
+      "_blogs-1dca14ad.js"
+    ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-cf84594a.js",
+    "file": "assets/index-d74531f5.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "__commonjsHelpers-edff4021.js",
-      "_page-6b1e0867.js"
+      "_index-25fd0ebe.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -58,18 +68,8 @@
       "assets/burn-33192fe7.png"
     ]
   },
-  "src/routes/blog/lorem.tsx": {
-    "file": "assets/lorem-222be3c4.js",
-    "src": "src/routes/blog/lorem.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "__commonjsHelpers-edff4021.js",
-      "_page-6b1e0867.js"
-    ]
-  },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-d18c051e.js",
+    "file": "assets/entry-client-ef001212.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
@@ -79,7 +79,7 @@
       "src/routes/blog/lorem.tsx"
     ],
     "css": [
-      "assets/entry-client-3d8326a7.css"
+      "assets/entry-client-7a066e7c.css"
     ]
   }
 }
