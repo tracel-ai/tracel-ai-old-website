@@ -12,6 +12,7 @@ export default function Root() {
   return (
     <Html lang="en">
       <Head>
+        <script defer src="https://service.watchthem.live/pixel/l77gs7ZIl7d5b9Zs" />
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
         <Link rel="manifest" href="/manifest.webmanifest" />
