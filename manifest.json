@@ -15,50 +15,50 @@
     "file": "assets/entry-client-7a066e7c.css",
     "src": "src/entry-client.css"
   },
+  "_index-d8610e35.js": {
+    "file": "assets/index-d8610e35.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-0951d5f1.js",
+    "file": "assets/_...404_-8711e4e6.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "_blogs-1dca14ad.js": {
-    "file": "assets/blogs-1dca14ad.js"
-  },
-  "src/routes/blog/lorem.tsx": {
-    "file": "assets/lorem-776d678c.js",
-    "src": "src/routes/blog/lorem.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-25fd0ebe.js",
-      "_blogs-1dca14ad.js"
-    ]
-  },
-  "_index-25fd0ebe.js": {
-    "file": "assets/index-25fd0ebe.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
   "src/routes/blog/index.tsx": {
-    "file": "assets/index-c0cba6e3.js",
+    "file": "assets/index-bd06d9d7.js",
     "src": "src/routes/blog/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-25fd0ebe.js",
-      "_blogs-1dca14ad.js"
+      "_index-d8610e35.js",
+      "_blogs-55fb459a.js"
+    ]
+  },
+  "_blogs-55fb459a.js": {
+    "file": "assets/blogs-55fb459a.js"
+  },
+  "src/routes/blog/lorem.tsx": {
+    "file": "assets/lorem-fc820f79.js",
+    "src": "src/routes/blog/lorem.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-d8610e35.js",
+      "_blogs-55fb459a.js"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-d74531f5.js",
+    "file": "assets/index-fa955a5c.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-25fd0ebe.js"
+      "_index-d8610e35.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -69,7 +69,7 @@
     ]
   },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-ef001212.js",
+    "file": "assets/entry-client-458431f2.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
