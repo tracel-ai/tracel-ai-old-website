@@ -2,6 +2,7 @@ const { Icons } = require('tailwindcss-plugin-icons')
 
 const carbon = require('@iconify-json/carbon/icons.json')
 const mdi = require('@iconify-json/mdi/icons.json')
+const lineClamp = require('@tailwindcss/line-clamp')
 
 /**
  * @type {import('tailwindcss-plugin-icons').Options}
@@ -22,5 +23,6 @@ module.exports = {
   },
   plugins: [
     Icons(options),
+    lineClamp,
   ],
 }

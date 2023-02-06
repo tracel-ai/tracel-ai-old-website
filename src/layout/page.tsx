@@ -23,16 +23,16 @@ const Layout: FlowComponent<Props> = (props) => {
   return (
     <div class="bg-gray-800 min-h-[100vh] w-full flex flex-col">
       <nav class={`fixed w-full px-10 py-5 z-50 flex items-center text-gray-50 font-semibold transition-colors ${isScrolling() && 'bg-[#F34918] shadow-2xl'}`}>
-        <a href="/" class="text-3xl">Burn</a>
+        <a href="/" class="text-3xl hover:scale-110 transition-all">Burn</a>
         <ul class="ml-auto flex space-x-12 text-xl">
-          <li><Outterlink className="text-white hover:text-[#F34918] transition-colors" src="https://github.com/burn-rs/burn">Github</Outterlink></li>
-          <li><A class="text-white hover:text-[#F34918] transition-colors" href="/blog">Blog</A></li>
-          <li><Outterlink className="text-white hover:text-[#F34918] transition-colors" src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
+          <li><Outterlink className="text-white hover:text-[#000]/50 transition-colors" src="https://github.com/burn-rs/burn">Github</Outterlink></li>
+          <li><A class="text-white hover:text-[#000]/50 transition-colors" href="/blog">Blog</A></li>
+          <li><Outterlink className="text-white hover:text-[#000]/50 transition-colors" src="https://docs.rs/burn/latest/burn">Docs</Outterlink></li>
           <li class="hidden sm:block"><iframe src="https://ghbtns.com/github-btn.html?user=burn-rs&repo=burn&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe></li>
         </ul>
       </nav>
       {props.children}
-      <div class="flex justify-center pt-10 pb-10">
+      <div class="flex justify-center pt-10 pb-10 border-t-2 border-gray-900 mt-10">
         <div class="grid md:grid-cols-3 gap-x-16 gap-y-6 md:gap-x-60 bg-gray-800 text-gray-500">
           <For each={Object.entries(footer)} children={([key, section]) => (
             <ul class="space-y-2">
