@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 div, p, h1, h2, h3, h4, h5 {
-  font-family: 'Dosis', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 :modal {
@@ -56,10 +56,10 @@ div, p, h1, h2, h3, h4, h5 {
 }
 
 .blog {
-  @apply text-white text-justify;
+  @apply text-white;
 
   h1 {
-    @apply text-6xl mb-7 font-bold;
+    @apply text-4xl lg:text-5xl mb-7 font-bold;
   }
 
   p {
@@ -67,10 +67,10 @@ div, p, h1, h2, h3, h4, h5 {
   }
 
   h2 {
-    @apply mt-4 text-3xl text-right;
+    @apply mt-4 text-3xl text-left mb-3 font-bold;
   }
 
   h3 {
-    @apply mt-4 text-2xl text-right;
+    @apply mt-4 text-2xl text-left mb-3 font-bold;
   }
 }
