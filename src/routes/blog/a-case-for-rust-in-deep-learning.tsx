@@ -1,9 +1,53 @@
 import Blog from '@components/blog'
 import Stars from '@components/stars'
+import { ReferenceText, ReferenceBiblio } from '@components/blog/reference'
 import { aCaseForRustInDeepLearning } from 'src/content/blogs'
 import Layout from 'src/layout/page'
 
 const Lorem = () => {
+  const references = {
+    facebookDeveloperToolsRust: {
+      index: 1,
+      name: 'A brief history of Rust at Facebook',
+      link: 'https://engineering.fb.com/2021/04/29/developer-tools/rust/'
+    },
+    microsoftJoinRustFondation: {
+      index: 2,
+      name: 'Microsoft joins Rust Foundation',
+      link: 'https://cloudblogs.microsoft.com/opensource/2021/02/08/microsoft-joins-rust-foundation/',
+    },
+    githubRustCompanie: {
+      index: 3,
+      name: 'A curated list of companies using Rust in production, organized by industry',
+      link: 'https://github.com/omarabid/rust-companies',
+    },
+    arxivAbs220909125:   {
+      index: 4,
+      name: 'Operationalizing Machine Learning: An Interview Study',
+      link: 'https://arxiv.org/abs/2209.09125',
+    },
+    tourOfrust: {
+      index: 5,
+      name: 'Tour of Rust',
+      link: 'https://tourofrust.com/',
+    },
+    theRustBook: {
+      index: 6,
+      name: 'The Rust Programming Language Book',
+      link: 'https://doc.rust-lang.org/book/',
+    },
+    rustByExample: {
+      index: 7,
+      name: 'Rust by Example',
+      link: 'https://doc.rust-lang.org/rust-by-example/',
+    },
+    futureDirectionDL: {
+      index: 8,
+      name: 'Future Directions in Machine Learning',
+      link: 'https://www.frontiersin.org/articles/10.3389/frobt.2016.00079/full',
+    },
+  }
+
   return (
     <Layout>
       <Stars numStars={15} bot={30}/> 
@@ -76,8 +120,10 @@ const Lorem = () => {
             <p>
               When someone is getting used to "the Rust way", it becomes incredibly frustrating to work with any other language.
               This may explain why Rust has consistently been the most loved programming language since 2015 according to Stack Overflow surveys.
-              It is currently gaining a lot of momentum with Microsoft, Meta, Amazon, Google, and other big corporations embracing it.
-              The community has made tons of efforts into making the language more accessible by providing books, tutorials and general content, so there are lots of resources available to help learn Rust.
+              It is currently gaining a lot of momentum with Microsoft, Meta, and other big corporations embracing it
+              <ReferenceText references={[references.facebookDeveloperToolsRust, references.microsoftJoinRustFondation, references.githubRustCompanie]} />.
+              The community has made tons of efforts into making the language more accessible by providing books, tutorials and general content, so there are lots of resources available to help learn Rust
+              <ReferenceText references={[references.tourOfrust, references.theRustBook, references.rustByExample]}/>.
             </p>
             <p>
                Now let's dive into how this could impact deep learning.
@@ -120,6 +166,17 @@ const Lorem = () => {
               Rust has the power to bring researchers and engineers together in new and exciting ways, pushing the boundaries of what is possible.
               Of course this won't be easy, the ecosystem is much smaller than in Python, but I see it as a learning opportunity, and I plan to do my best to contribute and make it a reality.
             </p>
+            <h2>
+              References
+            </h2>
+            <ReferenceBiblio {...references.facebookDeveloperToolsRust} />
+            <ReferenceBiblio {...references.microsoftJoinRustFondation} />
+            <ReferenceBiblio {...references.githubRustCompanie} />
+            <ReferenceBiblio {...references.arxivAbs220909125} />
+            <ReferenceBiblio {...references.tourOfrust} />
+            <ReferenceBiblio {...references.theRustBook} />
+            <ReferenceBiblio {...references.rustByExample} />
+            <ReferenceBiblio {...references.futureDirectionDL} />
           </div>
       }/>
     </Layout >

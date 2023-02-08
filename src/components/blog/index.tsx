@@ -30,12 +30,12 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
               />
             </div>
             <div class="flex px-3 sm:px-8">
-              <div class="flex pt-1">
-                <div class="h-6 w-6 i-mdi-clipboard-text-clock" />
+              <div class="flex">
+                <div class="h-5 w-5 i-mdi-clipboard-text-clock" />
                 <span class="px-4">{new Date(props.publishedDate).toDateString()}</span>
               </div>
               <div class="flex">
-                <div class="h-6 w-6 i-mdi-account-edit" />
+                <div class="h-5 w-5 i-mdi-account-edit" />
                 <span class="px-4">{props.author}</span>
               </div>
             </div>
