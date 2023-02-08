@@ -1,52 +1,48 @@
 import Blog from '@components/blog'
 import Stars from '@components/stars'
-import { ReferenceText, ReferenceBiblio } from '@components/blog/reference'
+import { Reference, Bliblio } from '@components/blog/reference'
 import { aCaseForRustInDeepLearning } from 'src/content/blogs'
 import Layout from 'src/layout/page'
 
 const Lorem = () => {
-  const references = {
-    facebookDeveloperToolsRust: {
-      index: 1,
-      name: 'A brief history of Rust at Facebook',
-      link: 'https://engineering.fb.com/2021/04/29/developer-tools/rust/'
-    },
-    microsoftJoinRustFondation: {
-      index: 2,
-      name: 'Microsoft joins Rust Foundation',
-      link: 'https://cloudblogs.microsoft.com/opensource/2021/02/08/microsoft-joins-rust-foundation/',
-    },
-    githubRustCompanie: {
-      index: 3,
-      name: 'A curated list of companies using Rust in production, organized by industry',
-      link: 'https://github.com/omarabid/rust-companies',
-    },
-    arxivAbs220909125:   {
-      index: 4,
-      name: 'Operationalizing Machine Learning: An Interview Study',
-      link: 'https://arxiv.org/abs/2209.09125',
-    },
-    tourOfrust: {
-      index: 5,
-      name: 'Tour of Rust',
-      link: 'https://tourofrust.com/',
-    },
-    theRustBook: {
-      index: 6,
-      name: 'The Rust Programming Language Book',
-      link: 'https://doc.rust-lang.org/book/',
-    },
-    rustByExample: {
-      index: 7,
-      name: 'Rust by Example',
-      link: 'https://doc.rust-lang.org/rust-by-example/',
-    },
-    futureDirectionDL: {
-      index: 8,
-      name: 'Future Directions in Machine Learning',
-      link: 'https://www.frontiersin.org/articles/10.3389/frobt.2016.00079/full',
-    },
-  }
+  const biblio = new Bliblio();
+  const facebookDeveloperToolsRust = biblio.addReference(
+    'A brief history of Rust at Facebook',
+    'https://engineering.fb.com/2021/04/29/developer-tools/rust/',
+  );
+  const microsoftJoinRustFondation = biblio.addReference(
+    'Microsoft joins Rust Foundation',
+    'https://cloudblogs.microsoft.com/opensource/2021/02/08/microsoft-joins-rust-foundation/',
+  );
+  const githubRustCompanie = biblio.addReference(
+    'A curated list of companies using Rust in production, organized by industry',
+    'https://github.com/omarabid/rust-companies',
+  );
+  const tourOfrust = biblio.addReference(
+    'Tour of Rust',
+    'https://tourofrust.com/',
+  );
+  const theRustBook = biblio.addReference(
+    'The Rust Programming Language Book',
+    'https://doc.rust-lang.org/book/',
+  );
+  const theRustBookOwnership = biblio.addReference(
+    'The Rust Programming Language Book: Understanding Ownership',
+    'https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html',
+  );
+  const rustByExample = biblio.addReference(
+    'Rust by Example',
+    'https://doc.rust-lang.org/rust-by-example/',
+  );
+
+  biblio.addReference(
+    'Operationalizing Machine Learning: An Interview Study',
+    'https://arxiv.org/abs/2209.09125',
+  );
+  biblio.addReference(
+    'Future Directions in Machine Learning',
+    'https://www.frontiersin.org/articles/10.3389/frobt.2016.00079/full',
+  );
 
   return (
     <Layout>
@@ -87,12 +83,12 @@ const Lorem = () => {
             <p>
               In this context, there are two groups of people: the engineers who develop and optimize the low-level details in frameworks, and the researchers who use Python to experiment and do cool stuff.
               While this approach has proven successful, it's far from ideal.
-              From creating frictions between engineers and researchers to restricting the amount of people who can meaningfully contribute to the deep learning frameworks, having a two-language solution creates more complexity and frustration than necessary.
-              Onboarding new people becomes difficult since they need to navigate a big codebase and a complex architecture to accommodate the constraints of both languages.
+              From potentially creating frictions between engineers and researchers to restricting the amount of people who can meaningfully contribute to deep learning frameworks, having a two-language solution creates more complexity and frustration than necessary.
+              Onboarding new people also becomes more difficult since they need to navigate a big codebase and a complex architecture to accommodate the constraints of both languages.
               This makes the development of deep learning frameworks inaccessible to most users and limits the amount of meaningful contributions.
             </p>
             <p>
-              To be perfectly honest, it's hard to come up with another alternative to this before Rust.
+              To be perfectly honest, it's hard to think of another viable alternative before Rust.
               This is the first programming language that I know of that has extremely high-level abstractions while also allowing for low-level control and performance.
             </p>
             <h2>
@@ -114,16 +110,18 @@ const Lorem = () => {
               It's well known that Rust is not the easiest programming language to learn.
               It does not perfectly conform to the traditional object-oriented or functional programming paradigms.
               This requires adaptation since old patterns don't translate directly into Rust.
-              The reason is that most patterns are not concurrent and/or memory-friendly by assuming one or multiple concepts such as single-threaded execution, unsafe manual memory management, garbage collection, copy-on-write, etc.
+              The reason is that most patterns are not concurrent and/or memory-friendly because they assume one or multiple concepts such as single-threaded execution, unsafe manual memory management, garbage collection, copy-on-write, etc.
               To allow for zero-cost concurrent and memory-safe abstractions, Rust uses the ownership system with inner mutability.
+              Without going into details, the method consists of enforcing ownership and borrowing rules at compile time, as seen in the chapter on ownership in the Rust book
+              <Reference references={[theRustBookOwnership.ref()]} />.
             </p>
             <p>
               When someone is getting used to "the Rust way", it becomes incredibly frustrating to work with any other language.
               This may explain why Rust has consistently been the most loved programming language since 2015 according to Stack Overflow surveys.
               It is currently gaining a lot of momentum with Microsoft, Meta, and other big corporations embracing it
-              <ReferenceText references={[references.facebookDeveloperToolsRust, references.microsoftJoinRustFondation, references.githubRustCompanie]} />.
+              <Reference references={[facebookDeveloperToolsRust.ref(), microsoftJoinRustFondation.ref(), githubRustCompanie.ref()]} />.
               The community has made tons of efforts into making the language more accessible by providing books, tutorials and general content, so there are lots of resources available to help learn Rust
-              <ReferenceText references={[references.tourOfrust, references.theRustBook, references.rustByExample]}/>.
+              <Reference references={[tourOfrust.ref(), theRustBook.ref(), rustByExample.ref()]}/>.
             </p>
             <p>
                Now let's dive into how this could impact deep learning.
@@ -169,14 +167,7 @@ const Lorem = () => {
             <h2>
               References
             </h2>
-            <ReferenceBiblio {...references.facebookDeveloperToolsRust} />
-            <ReferenceBiblio {...references.microsoftJoinRustFondation} />
-            <ReferenceBiblio {...references.githubRustCompanie} />
-            <ReferenceBiblio {...references.arxivAbs220909125} />
-            <ReferenceBiblio {...references.tourOfrust} />
-            <ReferenceBiblio {...references.theRustBook} />
-            <ReferenceBiblio {...references.rustByExample} />
-            <ReferenceBiblio {...references.futureDirectionDL} />
+            {biblio.generate()}
           </div>
       }/>
     </Layout >
