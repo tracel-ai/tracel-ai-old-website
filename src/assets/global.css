@@ -56,7 +56,7 @@ div, p, h1, h2, h3, h4, h5 {
 }
 
 .blog {
-  @apply text-white text-justify rounded-lg bg-white/5;
+  @apply text-white text-justify;
 
   h1 {
     @apply text-6xl mb-7 font-bold;

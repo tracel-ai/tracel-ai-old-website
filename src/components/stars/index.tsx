@@ -24,7 +24,7 @@ const Stars: Component<Props> = (props) => {
 
   return (
       <For each={Array.from({ length: props.numStars })} children={(_, i) => (
-        <div id={`star-${i()}`} class="absolute bg-[#EBC65D] rounded-full" />
+        <div id={`star-${i()}`} class="absolute bg-[#EBC65D] rounded-full invisible sm:visible" />
       )} />
   )
 }
