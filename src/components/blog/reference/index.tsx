@@ -13,10 +13,19 @@ type PropsTextMultiple = {
 
 export const Reference: Component<PropsTextMultiple> = (props) => {
   const text = props.references.map((ref, index) => {
-    if (index + 1 === props.references.length) {
-      return <a href={`#${refid(ref)}`}>{ref.index}</a>;
+    let displayedText = `${ref.index}`;
+    if (index + 1 !== props.references.length) {
+      displayedText = `${displayedText},`;
     }
-    return <a href={`#${refid(ref)}`}>{ref.index},</a>;
+
+    return (
+      <a
+        class="hover:text-[#69b8e1]"
+        href={`#${refid(ref)}`}
+      >
+        {displayedText}
+      </a>
+    );
   });
 
   return (
@@ -36,7 +45,7 @@ export class Bliblio {
     this.references = [];
   }
 
-  public inc(): number {
+  inc(): number {
     this.indexes += 1;
     return this.indexes;
   }

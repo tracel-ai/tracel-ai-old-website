@@ -34,6 +34,10 @@ const Lorem = () => {
     'Rust by Example',
     'https://doc.rust-lang.org/rust-by-example/',
   );
+  const stackoverflowSurveyRust = biblio.addReference(
+    'Stack Overflow Developer Survey: Programming, scripting, and markup languages',
+    'https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-programming-scripting-and-markup-languages'
+  );
 
   biblio.addReference(
     'Operationalizing Machine Learning: An Interview Study',
@@ -55,26 +59,28 @@ const Lorem = () => {
               Introduction
             </h2>
             <p>
-              Despite the progress made in deep learning, the ongoing struggle to train and deploy models effectively at reasonable cost continues to limit the potential impact of that technology.
+              Despite the progress made in deep learning, the ongoing struggle to train and deploy models effectively at reasonable cost continues to limit its adoption in the real world.
               While Python has been the go-to language for developing deep learning models, it's not known for its efficiency nor its ease of deployment.
-              Recent advancements in other programming languages such as Rust and Go promise efficiency and scalable solutions.
+              From poor package versioning to incompatible Python versions, it's not always easy to get everything right.
+              Recent programming languages such as Rust and Go resolved those problems and are enabling scalable and efficient solutions to be made.
             </p>
             <p>
-              In this blog post, we will explore the case for Rust in deep learning and why it may be a better option than Python.
-              With its ability to handle complexity through safe and concurrent abstractions, Rust has the potential to tackle the challenges of this field in a way that Python cannot.
+              In this blog post, we'll explore the case for Rust in deep learning and why it may be a better option than Python.
+              With its ability to handle complexity through safe and concurrent abstractions, Rust has the potential to tackle this field's biggest challenges in a way that Python cannot.
             </p>
             <h2>
               Why Python?
             </h2>
             <p>
               Why is Python used in deep learning? At first glance, it appears to be a language for simple and short programs without strong requirements for performance.
-              Deep learning systems today are far from simple, from complex model architectures to highly distributed computing at scale, it's unclear why the entire ecosystem has been written in Python.
-              Let's first explore why this is the case by analyzing its properties that fit deep learning.
+              Deep learning systems are far from simple and require huge amount of compute.
+              From sophisticated model architectures to highly distributed training and inference, it's unclear why the entire ecosystem has been written in Python.
+              Let's explore the reasons why it became the most used programming language that shaped the entire field.
             </p>
             <p>
               The need for flexibility and high-level abstractions in developing deep learning models made Python a decent choice among researchers.
               The simplicity of the language with its low barrier of entry enabled fast iteration cycles, which is crucial when doing research.
-              Coupled with its large ecosystem of libraries, it is clearer why Python became the leader in scientific computing.
+              Coupled with its large library ecosystem, it better explains the reasons why Python became the leader in scientific computing.
             </p>
             <p>
               However, even if the first deep learning models were quite small and simple, it rapidly evolved into the complex field it is today.
@@ -97,7 +103,7 @@ const Lorem = () => {
             <p>
               The main advantage of Rust for deep learning is its unique approach to abstractions.
               While commonly referred to as a system programming language, Rust offers much more potential.
-              This is quite misleading, since it is a versatile language that allows for all kinds of applications on all scales of abstractions.
+              This is quite misleading, since it's a versatile language that allows for all kinds of applications on all scales of abstractions.
             </p>
             <p>
               Compared to other programming languages, Rust is the one that pushes zero-cost abstractions the furthest.
@@ -117,7 +123,8 @@ const Lorem = () => {
             </p>
             <p>
               When someone is getting used to "the Rust way", it becomes incredibly frustrating to work with any other language.
-              This may explain why Rust has consistently been the most loved programming language since 2015 according to Stack Overflow surveys.
+              This may explain why Rust has consistently been the most loved programming language since 2015 according to Stack Overflow surveys
+              <Reference references={[stackoverflowSurveyRust.ref()]} />.
               It is currently gaining a lot of momentum with Microsoft, Meta, and other big corporations embracing it
               <Reference references={[facebookDeveloperToolsRust.ref(), microsoftJoinRustFondation.ref(), githubRustCompanie.ref()]} />.
               The community has made tons of efforts into making the language more accessible by providing books, tutorials and general content, so there are lots of resources available to help learn Rust

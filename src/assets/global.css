@@ -78,3 +78,17 @@ div, p, h1, h2, h3, h4, h5 {
     @apply mt-4 text-2xl text-left mb-3 font-bold;
   }
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: lightgrey;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #edc567;
+}
+body {
+  overflow: overlay;
+}
