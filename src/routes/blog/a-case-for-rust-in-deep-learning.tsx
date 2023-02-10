@@ -72,8 +72,9 @@ const Lorem = () => {
               Why Python?
             </h2>
             <p>
-              Why is Python used in deep learning? At first glance, it appears to be a language for simple and short programs without strong requirements for performance.
-              Deep learning systems are far from simple and require huge amount of compute.
+              Why is Python used in deep learning?
+              At first glance, it appears to be a language for simple and short programs without strong requirements for performance.
+              However, deep learning systems are far from simple and require a huge amount of compute.
               From sophisticated model architectures to highly distributed training and inference, it's unclear why the entire ecosystem has been written in Python.
               Let's explore the reasons why it became the most used programming language that shaped the entire field.
             </p>
@@ -102,13 +103,13 @@ const Lorem = () => {
             </h2>
             <p>
               The main advantage of Rust for deep learning is its unique approach to abstractions.
-              While commonly referred to as a system programming language, Rust offers much more potential.
-              This is quite misleading, since it's a versatile language that allows for all kinds of applications on all scales of abstractions.
+              It is commonly referred to as a system programming language, but this can be misleading.
+              Rust offers much more potential, it's a versatile language that allows for all kinds of applications on all scales of abstractions.
             </p>
             <p>
               Compared to other programming languages, Rust is the one that pushes zero-cost abstractions the furthest.
               This means that there are no performance costs to building abstractions within the language.
-              Rust provides all of the tools you need and more to express high-level concepts, from meta-programming, which is writing code that generates code, to trait and associated types, which let you define type abstractions and relationships.
+              Rust provides all of the tools you need and more to express high-level concepts, from meta-programming, which is writing code that generates code, to trait and associated types, which let you define type relationships.
             </p>
             <p>
               With all of those options, Rust is a promising language for deep learning.
@@ -122,12 +123,12 @@ const Lorem = () => {
               <Reference references={[theRustBookOwnership.ref()]} />.
             </p>
             <p>
-              When someone is getting used to "the Rust way", it becomes incredibly frustrating to work with any other language.
+              When someone is getting used to "the Rust way", it becomes incredibly frustrating to work with other languages.
               This may explain why Rust has consistently been the most loved programming language since 2015 according to Stack Overflow surveys
               <Reference references={[stackoverflowSurveyRust.ref()]} />.
               It is currently gaining a lot of momentum with Microsoft, Meta, and other big corporations embracing it
               <Reference references={[facebookDeveloperToolsRust.ref(), microsoftJoinRustFondation.ref(), githubRustCompanie.ref()]} />.
-              The community has made tons of efforts into making the language more accessible by providing books, tutorials and general content, so there are lots of resources available to help learn Rust
+              The community has made tons of efforts into making the language more accessible by providing books, tutorials and general content, so there are a lot of resources online available to help the learning process
               <Reference references={[tourOfrust.ref(), theRustBook.ref(), rustByExample.ref()]}/>.
             </p>
             <p>
@@ -144,7 +145,8 @@ const Lorem = () => {
             <p>
               Therefore, this enables the community to share and collaborate on a diverse set of libraries and frameworks that are ready to be deployed.
               Even if those packages are new, immature, and unstable, it's not uncommon to deploy them and be confident they will work as expected without much effort.
-              The same could occur in deep learning with new models being deployed into the world without the need for additional effort into creating optimized inference pipelines.
+              The same could occur in deep learning with new models being deployed into the world without the need for additional effort.
+              The creation of optimized inference pipelines should be automated, eliminating the need for adapting models to specific runtimes.
             </p>
             <h3>
               Flexibility
@@ -152,12 +154,12 @@ const Lorem = () => {
             <p>
               This is all sunshine and rainbows, but the need for deep learning is not only defined by how easy it is to deploy, but also how easy it is to invent, create, and discover new techniques.
               To do that, deep learning frameworks need to be extremely flexible, which is enabled by high-level abstractions, and as mentioned above, Rust provides them.
-              In addition, Rust also enables safe concurrent programming, which could materialize into an asynchronous and sparse neural architecture, which has the potential to scale models way more efficiently than methods used today.
+              Furthermore, Rust also enables safe concurrent programming, which could result in the creation of asynchronous and sparse neural architectures, potentially enabling models to be scaled way more efficiently.
             </p>
             <p>
               Almost the only way to increase performance in deep learning systems today is by leveraging operations executed by low-level routines.
-              This limits the use of for-loops and other programming language constructs, which hurt flexibility.
-              Having one performant language that is used at all levels of abstraction would allow for way more innovations.
+              This restricts the use of for-loops and other programming language constructs, limitting flexibility.
+              Having one performant language that is used at all levels of abstraction could allow for more innovations.
             </p>
             <p>
               Giving researchers and engineers the ability to collaborate and investigate new solutions in every part of the deep learning stack seems like a big win to me.

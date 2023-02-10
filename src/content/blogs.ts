@@ -10,7 +10,7 @@ export type BlogMetadata = {
 
 export const aCaseForRustInDeepLearning = {
   links: '/blog/a-case-for-rust-in-deep-learning',
-  title: 'A case for Rust in Deep Learning',
+  title: 'A Case for Rust in Deep Learning',
   description: 'In this blog post, we\'ll explore the case for Rust in deep learning and why it may be a better option than Python. With its ability to handle complexity through safe and concurrent abstractions, Rust has the potential to tackle this field\'s biggest challenges in a way that Python cannot.',
   author: 'Nathaniel Simard',
   publishedDate: '2023-02-10T00:00:00.000Z',
