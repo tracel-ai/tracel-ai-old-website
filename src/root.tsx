@@ -13,6 +13,8 @@ export default function Root() {
     <Html lang="en">
       <Head>
         <script defer src="https://service.watchthem.live/pixel/l77gs7ZIl7d5b9Zs" />
+        <script src = '/analytics.js'/>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S6CQMW5DNY"></script>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
         <Link rel="manifest" href="/manifest.webmanifest" />
