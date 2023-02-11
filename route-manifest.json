@@ -1,78 +1,78 @@
 {
-  "/blog/lorem": [
+  "/*404": [
     {
       "type": "script",
-      "href": "/assets/lorem-69ca48d0.js"
+      "href": "/assets/_...404_-3ca8b701.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-53c42d90.js"
+      "href": "/assets/entry-client-df4e8996.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-7a066e7c.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-139116f7.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-55fb459a.js"
+      "href": "/assets/entry-client-21eb0df5.css"
     }
   ],
   "/blog/": [
     {
       "type": "script",
-      "href": "/assets/index-4ddb9ebe.js"
+      "href": "/assets/index-167edb96.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-53c42d90.js"
+      "href": "/assets/entry-client-df4e8996.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-7a066e7c.css"
+      "href": "/assets/entry-client-21eb0df5.css"
     },
     {
       "type": "script",
-      "href": "/assets/index-139116f7.js"
+      "href": "/assets/index-a8e4282a.js"
     },
     {
       "type": "script",
-      "href": "/assets/blogs-55fb459a.js"
+      "href": "/assets/blogs-4de9864b.js"
     }
   ],
-  "/*404": [
+  "/blog/a-case-for-rust-in-deep-learning": [
     {
       "type": "script",
-      "href": "/assets/_...404_-467f1339.js"
+      "href": "/assets/a-case-for-rust-in-deep-learning-15500aea.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-53c42d90.js"
+      "href": "/assets/entry-client-df4e8996.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-7a066e7c.css"
+      "href": "/assets/entry-client-21eb0df5.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-a8e4282a.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-4de9864b.js"
     }
   ],
   "/": [
     {
       "type": "script",
-      "href": "/assets/index-a0a0f950.js"
+      "href": "/assets/index-91e688a0.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-53c42d90.js"
+      "href": "/assets/entry-client-df4e8996.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-7a066e7c.css"
+      "href": "/assets/entry-client-21eb0df5.css"
     },
     {
       "type": "script",
-      "href": "/assets/index-139116f7.js"
+      "href": "/assets/index-a8e4282a.js"
     },
     {
       "type": "style",
@@ -90,11 +90,11 @@
   "entry-client": [
     {
       "type": "script",
-      "href": "/assets/entry-client-53c42d90.js"
+      "href": "/assets/entry-client-df4e8996.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-7a066e7c.css"
+      "href": "/assets/entry-client-21eb0df5.css"
     }
   ],
   "index.html": []
