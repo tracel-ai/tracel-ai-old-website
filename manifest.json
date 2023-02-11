@@ -15,50 +15,50 @@
     "file": "assets/entry-client-21eb0df5.css",
     "src": "src/entry-client.css"
   },
-  "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-3ca8b701.js",
-    "src": "src/routes/[...404].tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "src/routes/blog/index.tsx": {
-    "file": "assets/index-167edb96.js",
-    "src": "src/routes/blog/index.tsx",
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
+    "file": "assets/a-case-for-rust-in-deep-learning-1cf16bd2.js",
+    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-a8e4282a.js",
+      "_index-70c0cadf.js",
       "_blogs-4de9864b.js"
     ]
   },
   "_blogs-4de9864b.js": {
     "file": "assets/blogs-4de9864b.js"
   },
-  "_index-a8e4282a.js": {
-    "file": "assets/index-a8e4282a.js",
+  "src/routes/blog/index.tsx": {
+    "file": "assets/index-544d187e.js",
+    "src": "src/routes/blog/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-70c0cadf.js",
+      "_blogs-4de9864b.js"
+    ]
+  },
+  "src/routes/[...404].tsx": {
+    "file": "assets/_...404_-f102fdc5.js",
+    "src": "src/routes/[...404].tsx",
+    "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-15500aea.js",
-    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
-    "isDynamicEntry": true,
+  "_index-70c0cadf.js": {
+    "file": "assets/index-70c0cadf.js",
     "imports": [
-      "src/entry-client.tsx",
-      "_index-a8e4282a.js",
-      "_blogs-4de9864b.js"
+      "src/entry-client.tsx"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-91e688a0.js",
+    "file": "assets/index-1325cb40.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-a8e4282a.js"
+      "_index-70c0cadf.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -69,7 +69,7 @@
     ]
   },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-df4e8996.js",
+    "file": "assets/entry-client-fe0a969e.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
