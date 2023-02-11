@@ -154,21 +154,19 @@ const Lorem = () => {
             <p>
               This is all sunshine and rainbows, but the need for deep learning is not only defined by how easy it is to deploy, but also how easy it is to invent, create, and discover new techniques.
               To do that, deep learning frameworks need to be extremely flexible, which is enabled by high-level abstractions, and as mentioned above, Rust provides them.
-              Furthermore, Rust also enables safe concurrent programming, which could result in the creation of asynchronous and sparse neural architectures, potentially enabling models to be scaled way more efficiently.
+              Furthermore, Rust also enables safe concurrent programming, which could allow the creation of asynchronous and sparse neural architectures, potentially enabling models to be scaled way more efficiently.
             </p>
             <p>
               Almost the only way to increase performance in deep learning systems today is by leveraging operations executed by low-level routines.
               This restricts the use of for-loops and other programming language constructs, limitting flexibility.
-              Having one performant language that is used at all levels of abstraction could allow for more innovations.
-            </p>
-            <p>
+              Having one performant language that is used across all levels of abstraction could enable more innovations.
               Giving researchers and engineers the ability to collaborate and investigate new solutions in every part of the deep learning stack seems like a big win to me.
             </p>
             <h2>
               Conclusion
             </h2>
             <p>
-              I believe Rust has a good chance to become the go-to language in deep learning despite the initial high barrier to entry.
+              I believe Rust has a chance to become the go-to language in deep learning despite the initial high barrier to entry.
               I also believe that people can overcome it and learn new concepts; is this not what we like to do anyway?
               Rust has the power to bring researchers and engineers together in new and exciting ways, pushing the boundaries of what is possible.
               Of course this won't be easy, the ecosystem is much smaller than in Python, but I see it as a learning opportunity, and I plan to do my best to contribute and make it a reality.

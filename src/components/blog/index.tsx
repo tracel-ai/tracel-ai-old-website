@@ -32,12 +32,12 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
             <div class="flex px-3 sm:px-8">
               <div class="flex">
                 <div class="h-5 w-5 i-mdi-clipboard-text-clock" />
-                <span class="px-4">{new Date(props.publishedDate).toDateString()}</span>
+                <span class="px-2">{new Date(props.publishedDate).toDateString()}</span>
               </div>
-              <div class="flex">
+              <a class="pl-2 flex" href={props.authorLink} target="_blank">
                 <div class="h-5 w-5 i-mdi-account-edit" />
-                <span class="px-4">{props.author}</span>
-              </div>
+                <span class="px-2">{props.author}</span>
+              </a>
             </div>
           </div>
           <div class="pb-4 px-3 sm:px-8">
