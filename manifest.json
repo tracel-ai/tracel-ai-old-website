@@ -16,7 +16,7 @@
     "src": "src/entry-client.css"
   },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-5140de8b.js",
+    "file": "assets/_...404_-2ec6fde8.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -27,38 +27,38 @@
     "file": "assets/blogs-4de9864b.js"
   },
   "src/routes/blog/index.tsx": {
-    "file": "assets/index-6f73522d.js",
+    "file": "assets/index-23685631.js",
     "src": "src/routes/blog/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-0ce46d94.js",
+      "_index-0fb44276.js",
       "_blogs-4de9864b.js"
     ]
   },
-  "_index-0ce46d94.js": {
-    "file": "assets/index-0ce46d94.js",
+  "_index-0fb44276.js": {
+    "file": "assets/index-0fb44276.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
   "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-c503d69d.js",
+    "file": "assets/a-case-for-rust-in-deep-learning-7c46504c.js",
     "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-0ce46d94.js",
+      "_index-0fb44276.js",
       "_blogs-4de9864b.js"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-0c77e612.js",
+    "file": "assets/index-1f6a6822.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-0ce46d94.js"
+      "_index-0fb44276.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -69,7 +69,7 @@
     ]
   },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-32fceafa.js",
+    "file": "assets/entry-client-0fdab6df.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
