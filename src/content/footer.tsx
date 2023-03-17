@@ -22,7 +22,7 @@ export const footerSections: FooterSection[] = [
     name: 'community',
     items: [
       { label: 'Github', href: 'https://github.com/burn-rs/burn', icon: 'i-mdi-github' },
-      { label: 'Discord', href: 'https://discord.gg/KcVGzmCcWj', icon: 'i-mdi-discord' },
+      { label: 'Discord', href: 'https://discord.gg/uPEBbYYDB6', icon: 'i-mdi-discord' },
     ],
   },
   {
