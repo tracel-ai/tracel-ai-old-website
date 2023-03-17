@@ -4,7 +4,7 @@ import { Reference, Bliblio } from '@components/blog/reference'
 import { aCaseForRustInDeepLearning } from 'src/content/blogs'
 import Layout from 'src/layout/page'
 
-const Lorem = () => {
+const Content = () => {
   const biblio = new Bliblio();
   const facebookDeveloperToolsRust = biblio.addReference(
     'A brief history of Rust at Facebook',
@@ -181,5 +181,5 @@ const Lorem = () => {
   )
 }
 
-export default Lorem
+export default Content
 
