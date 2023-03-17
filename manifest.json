@@ -16,49 +16,49 @@
     "src": "src/entry-client.css"
   },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-2ec6fde8.js",
+    "file": "assets/_...404_-2d507c65.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "_blogs-4de9864b.js": {
-    "file": "assets/blogs-4de9864b.js"
-  },
-  "src/routes/blog/index.tsx": {
-    "file": "assets/index-23685631.js",
-    "src": "src/routes/blog/index.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-0fb44276.js",
-      "_blogs-4de9864b.js"
-    ]
-  },
-  "_index-0fb44276.js": {
-    "file": "assets/index-0fb44276.js",
+  "_index-a3e95f70.js": {
+    "file": "assets/index-a3e95f70.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
+  "src/routes/blog/index.tsx": {
+    "file": "assets/index-fdd8c83a.js",
+    "src": "src/routes/blog/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-a3e95f70.js",
+      "_blogs-4de9864b.js"
+    ]
+  },
   "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-7c46504c.js",
+    "file": "assets/a-case-for-rust-in-deep-learning-0922fcae.js",
     "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-0fb44276.js",
+      "_index-a3e95f70.js",
       "_blogs-4de9864b.js"
     ]
   },
+  "_blogs-4de9864b.js": {
+    "file": "assets/blogs-4de9864b.js"
+  },
   "src/routes/index.tsx": {
-    "file": "assets/index-1f6a6822.js",
+    "file": "assets/index-0307534d.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-0fb44276.js"
+      "_index-a3e95f70.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -69,7 +69,7 @@
     ]
   },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-0fdab6df.js",
+    "file": "assets/entry-client-a3ee6ed8.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
