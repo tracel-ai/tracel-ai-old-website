@@ -3,6 +3,7 @@ import Prism from 'prismjs'
 import Blog from '@components/blog'
 import Stars from '@components/stars'
 import { Code } from '@components/blog/code'
+import { Table } from '@components/blog/table'
 import { Reference, Bliblio } from '@components/blog/reference'
 import { reducedMemoryUsage } from 'src/content/blogs'
 import Layout from 'src/layout/page'
@@ -334,61 +335,72 @@ const Content = () => {
             <p>
             The tests were performed on my laptop, so they are not fully reliable, but still informative to look at what kind of performance improvement we can expect.
             </p>
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>PyTorch - Inference</th>
-                  <th>Burn - Inference</th>
-                  <th>PyTorch - Autodiff</th>
-                  <th>Burn - Autodiff</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>CPU - f32</td>
-                  <td>4.739 s</td>
-                  <td>3.425 s</td>
-                  <td>11.180 s</td>
-                  <td>14.693 s</td>
-                </tr>
-                <tr>
-                  <td>GPU - f16</td>
-                  <td>14.738 s</td>
-                  <td>14.796 s</td>
-                  <td>103 s</td>
-                  <td>5.365 s</td>
-                </tr>
-              </tbody>
-            </table>
 
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>PyTorch - Inference</th>
-                  <th>Burn - Inference</th>
-                  <th>PyTorch - Autodiff</th>
-                  <th>Burn - Autodiff</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>CPU - f32</td>
-                  <td>586 MiB</td>
-                  <td>353 MiB</td>
-                  <td>837 MiB</td>
-                  <td>1047 MiB</td>
-                </tr>
-                <tr>
-                  <td>GPU - f16</td>
-                  <td>852 MiB</td>
-                  <td>756 MiB</td>
-                  <td>980 MiB</td>
-                  <td>1076 MiB</td>
-                </tr>
-              </tbody>
-            </table>
+            <Table
+              title="MLP Experiment"
+              description="Note that inference benchmarks were executed 100 times on CPU and 5000 times on GPU, while the autodiff benchmarks were executed 200 times on CPU and 5000 times on GPU."
+              columnNames={[
+                <div/>,
+                <div>
+                  <div>Inference</div>
+                  <div>Memory</div>
+                </div>,
+                <div>
+                  <div>Inference</div>
+                  <div>Speed</div>
+                </div>,
+                <div>
+                  <div>Autodiff</div>
+                  <div>Memory</div>
+                </div>,
+                <div>
+                  <div>Autodiff</div>
+                  <div>Speed</div>
+                </div>
+              ]}
+              entries={[
+                {
+                  title: 'PyTorch CPU',
+                  values: [
+                    <span>433 M</span>,
+                    <span>22.765 ms</span>,
+                    <span>708 M</span>,
+                    <span class="font-bold">76.85 ms</span>,
+                  ]
+                },
+                {
+                  title: 'Burn CPU',
+                  values: [
+                    <span class="font-bold">385 M</span>,
+                    <span class="font-bold">22.695 ms</span>,
+                    <span class="font-bold">576 M</span>,
+                    <span>80.429 ms</span>,
+                  ]
+                },
+                {
+                  separator: true,
+                },
+                {
+                  title: 'PyTorch GPU',
+                  values: [
+                    <span>1190 M</span>,
+                    <span>0.8474 s</span>,
+                    <span class="font-bold">1204 M</span>,
+                    <span>3.2708 s</span>,
+                  ]
+                },
+                {
+                  title: 'Burn GPU',
+                  values: [
+                    <span class="font-bold">1096 M</span>,
+                    <span class="font-bold">0.8042 ms</span>,
+                    <span>1222 M</span>,
+                    <span class="font-bold">2.4874 ms</span>,
+                  ]
+                }
+
+              ]}
+            />
 
             <h2>
               References

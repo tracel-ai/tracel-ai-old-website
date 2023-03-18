@@ -92,20 +92,3 @@ div, p, h1, h2, h3, h4, h5 {
 body {
   overflow: overlay;
 }
-
-table {
-  border-collapse: collapse;
-  margin: auto;
-  width: 80%;
-}
-
-th, td {
-  border: 1px solid #586473;
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #1f2835;
-  color: #fff;
-}
