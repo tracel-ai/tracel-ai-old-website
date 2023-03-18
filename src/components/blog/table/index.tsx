@@ -34,7 +34,7 @@ export const Table: Component<TableProps> = (props) => {
   const maxNumColumns = Math.max(...numColumns);
 
   return (
-    <div class="px-6">
+    <div class="px-6 pb-8">
       <div class="py-2 px-6 w-full text-center font-bold text-xl">
         {props.title}
       </div>

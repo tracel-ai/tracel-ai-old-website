@@ -1,5 +1,5 @@
 export type BlogMetadata = {
-  links: string
+  link: string
   title: string
   description: string
   author: string
@@ -10,7 +10,7 @@ export type BlogMetadata = {
 }
 
 export const aCaseForRustInDeepLearning = {
-  links: '/blog/a-case-for-rust-in-deep-learning',
+  link: '/blog/a-case-for-rust-in-deep-learning',
   title: 'A Case for Rust in Deep Learning',
   description: 'In this blog post, we\'ll explore the case for Rust in deep learning and why it may be a better option than Python. With its ability to handle complexity through safe and concurrent abstractions, Rust has the potential to tackle this field\'s biggest challenges in a way that Python cannot.',
   author: 'Nathaniel Simard',
@@ -21,7 +21,7 @@ export const aCaseForRustInDeepLearning = {
 }
 
 export const reducedMemoryUsage = {
-  links: '/blog/burn-rusty-approach-to-tensor-handling',
+  link: '/blog/burn-rusty-approach-to-tensor-handling',
   title: 'Reduced Memory Usage: Burn\'s Rusty Approach to Tensor Handling',
   description: 'The latest release of Burn includes significant changes to its memory management strategy, and tensor-allocated memory can now be reused way more often. Overall, these changes significantly reduce memory usage, especially on the CPU compared to PyTorch.',
   author: 'Nathaniel Simard',

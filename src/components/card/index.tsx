@@ -4,7 +4,7 @@ import { BlogMetadata } from 'src/content/blogs'
 
 const Card: Component<BlogMetadata> = (props) => {
   return (
-    <A href={props.links} class="flex justify-center max-w-5xl">
+    <A href={props.link} class="flex justify-center max-w-5xl">
       <div class="py-4 w-full">
         <div class="w-full flex flex-col sm:flex-row bg-white/5 rounded-lg text-white hover:scale-110 transition-all hover:shadow-lg">
           <img 

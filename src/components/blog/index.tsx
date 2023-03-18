@@ -3,6 +3,20 @@ import { BlogMetadata } from 'src/content/blogs'
 import { Component, JSX } from 'solid-js'
 
 const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, children}) => {
+  let link = props.link;
+  if (props.link[0] == '/') {
+    link = props.link.slice(1);
+  }
+
+  let current = ''
+  const paths = link.split('/').map(value => {
+    current = current + `/${value}`;
+    return {
+      href: current,
+      name: value,
+    };
+  });
+
   return (
     <div class="pt-20 flex justify-center bg-gradient-to-b from-[#202124] to-gray-800">
       <div class="max-w-5xl mb-10 mx-3">
@@ -14,7 +28,14 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
         <Meta property='article:published_time' content={new Date(props.publishedDate).toISOString()} />
         <div class="mb-3">
           <p class="text-white font-bold text-xl px-2">
-            burn {props.links.replaceAll('/', ' · ')}
+            <a href="/" class="hover:text-[#edc567]">burn</a>
+
+            <For each={paths} children={(path) => (
+              <span>
+                <span>{' · '}</span>
+                <a href={path.href} class="hover:text-[#edc567]">{path.name}</a>
+              </span>
+            )} />
           </p>
         </div>
         <article class="blog rounded-lg bg-white/5 pt-4">
