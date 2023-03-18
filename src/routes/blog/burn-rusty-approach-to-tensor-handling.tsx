@@ -337,6 +337,94 @@ const Content = () => {
             </p>
 
             <Table
+              title="Softmax Experiment"
+              description="Note that inference benchmarks were executed 100 times on CPU and 10000 times on GPU, while the autodiff benchmarks were executed 100 times on CPU and 1000 times on GPU."
+              columnNames={[
+                <div/>,
+                <div>
+                  <div>Inference</div>
+                  <div>Memory</div>
+                </div>,
+                <div>
+                  <div>Inference</div>
+                  <div>Speed</div>
+                </div>,
+                <div>
+                  <div>Autodiff</div>
+                  <div>Memory</div>
+                </div>,
+                <div>
+                  <div>Autodiff</div>
+                  <div>Speed</div>
+                </div>
+              ]}
+              entries={[
+                {
+                  title: 'CPU - PyTorch',
+                  values: [
+                    <span>586 M</span>,
+                    <span>47.39 ms</span>,
+                    <span class="font-bold">980 M</span>,
+                    <span class="font-bold">111.8 ms</span>,
+                  ]
+                },
+                {
+                  title: 'CPU - Burn',
+                  values: [
+                    <span class="font-bold">353 M</span>,
+                    <span class="font-bold">34.25 ms</span>,
+                    <span>1047 M</span>,
+                    <span>146.93 ms</span>,
+                  ]
+                },
+                {
+                  separator: true,
+                },
+                {
+                  title: 'GPU - PyTorch',
+                  values: [
+                    <span>852 M</span>,
+                    <span class="font-bold">1.474 ms</span>,
+                    <span class="font-bold">980 M</span>,
+                    <span class="font-bold">4.103 ms</span>,
+                  ]
+                },
+                {
+                  title: 'GPU - Burn',
+                  values: [
+                    <span class="font-bold">756 M</span>,
+                    <span>1.479 ms</span>,
+                    <span>1076 M</span>,
+                    <span>5.365 ms</span>,
+                  ]
+                }
+              ]}
+            />
+
+            <p>
+              An interesting takeaway here is that burn seems to be much faster during inference on the CPU, while pretty comparable on the GPU.
+              In all cases, it seems to take less memory, with a bigger difference on the CPU.
+              This may be because PyTorch has taken great care of their GPU implementation and may have something similar to a memory pool or other tricks to handle GPU memory efficiently.
+            </p>
+
+            <p>
+              We also see that PyTorch seems to be faster and takes less memory to calculate gradients.
+              The probable reason for that is that their backward implementation of each tensor operation executes only one kernel.
+              In the case of burn, the logarithm backward implementation uses 2 kernels, and the sum allocates a new tensor while using 2 other kernels.
+              To test that hypothesis, we will have to do another set of benchmarks where we reduce the difference in the number of kernels executed by both frameworks.
+            </p>
+
+            <h3>
+              Multi layer perceptron (MLP)
+            </h3>
+
+            <p>
+              The second set of benchmarks is pretty simple.
+              We are going to compare a simple Multi-layer perceptron implementation using a simple linear layer with the ReLU activation function.
+              Even if the ReLU backward implementation of burn uses two kernels, the difference is smaller than in the previous experiment, and we should see a smaller difference in execution time when calculating gradients.
+            </p>
+
+            <Table
               title="MLP Experiment"
               description="Note that inference benchmarks were executed 100 times on CPU and 5000 times on GPU, while the autodiff benchmarks were executed 200 times on CPU and 5000 times on GPU."
               columnNames={[
@@ -360,7 +448,7 @@ const Content = () => {
               ]}
               entries={[
                 {
-                  title: 'PyTorch CPU',
+                  title: 'CPU - PyTorch',
                   values: [
                     <span>433 M</span>,
                     <span>22.765 ms</span>,
@@ -369,7 +457,7 @@ const Content = () => {
                   ]
                 },
                 {
-                  title: 'Burn CPU',
+                  title: 'CPU - Burn',
                   values: [
                     <span class="font-bold">385 M</span>,
                     <span class="font-bold">22.695 ms</span>,
@@ -381,16 +469,16 @@ const Content = () => {
                   separator: true,
                 },
                 {
-                  title: 'PyTorch GPU',
+                  title: 'GPU - PyTorch',
                   values: [
                     <span>1190 M</span>,
-                    <span>0.8474 s</span>,
+                    <span>0.8474 ms</span>,
                     <span class="font-bold">1204 M</span>,
-                    <span>3.2708 s</span>,
+                    <span>3.2708 ms</span>,
                   ]
                 },
                 {
-                  title: 'Burn GPU',
+                  title: 'GPU - Burn',
                   values: [
                     <span class="font-bold">1096 M</span>,
                     <span class="font-bold">0.8042 ms</span>,
@@ -398,9 +486,39 @@ const Content = () => {
                     <span class="font-bold">2.4874 ms</span>,
                   ]
                 }
-
               ]}
             />
+
+            <p>
+              The results are pretty much what I expected, except for the fact that burn is considerably faster on the GPU when calculating gradients.
+              This could be explained by how the ReLU backward is implemented in burn, which would be faster in that specific use case.
+              However, I would not conclude that burn is faster in training MLP, and I would be really careful in coming up with conclusions; it might just be an outlier data point.
+            </p>
+
+            <p>
+              For the other data points, we see that burn and PyTorch are generally similar in execution time, but burn uses less memory, especially on the CPU.
+            </p>
+
+            <h2>
+              Conclusion
+            </h2>
+
+            <p>
+              So this is the end of this blog post.
+              I presented how burn leverages Rust’s ownership tracking to safely reuse tensor-allocated memory when possible.
+              I presented the necessary changes to the tensor API and the autodiff backend to leverage owned tensor to reduce memory usage.
+              Some small benchmarks were made to validate the effectiveness of that strategy, which showed consistent reduced memory usage, especially on the CPU.
+              However, we also saw the necessity of operation fusion to really speed up computation, and that’s why it’s the major focus on PyTorch 2 with its new graph compilation capabilities. The next phase of burn will be on stabilizing the API, improving the docs, and making the project easier to use. After that, it will be crucial to focus on operation fusion and come up with a strategy that respects all the previously mentioned wishes.
+            </p>
+
+            <p>
+              Note that this was not a full report of what has been accomplished since the last release.
+              A lot of work has been done, and Burn can now be compiled to WebAssembly, which runs natively on browsers on the client side.
+            </p>
+
+            <p>
+              If the future of Burn interests you, don’t hesitate to reach out on Discord or GitHub, and come say what kind of wishes you have for your deep learning framework of choice.
+            </p>
 
             <h2>
               References
