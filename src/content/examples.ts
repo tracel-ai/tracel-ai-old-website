@@ -11,7 +11,7 @@ export const codeExamples = [
       let x = Tensor::<B, 2>::random([3, 3], Distribution::Standard);
       let y = Tensor::<B, 2>::random([3, 3], Distribution::Standard);
 
-      x.matmul(&y)
+      x.matmul(y)
   }
 
   fn main() {
@@ -75,10 +75,11 @@ export const codeExamples = [
   use burn::config::Config;
   
   #[derive(Config)]
-  struct MyConfig {
-      #[config(default = 1.0e-6)]
-      pub epsilon: usize,
-      pub dim: usize,
+  pub struct PositionWiseFeedForwardConfig {
+      pub d_model: usize,
+      pub d_ff: usize,
+      #[config(default = 0.1)]
+      pub dropout: f64,
   }
 `,
     description: 'The config derive simplifies the management of module and component configurations and hyper-parameters, providing a serializable and deserializable structure for efficient deep learning model development.',
