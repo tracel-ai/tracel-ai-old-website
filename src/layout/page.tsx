@@ -26,6 +26,9 @@ const Layout: FlowComponent<Props> = (props) => {
         <a href="/" class="text-3xl hover:scale-110 transition-all">Burn</a>
         <ul class="ml-auto flex space-x-12 text-xl">
           <li class="hover:scale-110 transition-all">
+            <Outterlink className="text-white" src="demo.html">Demo</Outterlink>
+          </li>
+          <li class="hover:scale-110 transition-all">
             <A class="text-white" href="/blog">Blog</A>
           </li>
           <li class="hover:scale-110 transition-all">
