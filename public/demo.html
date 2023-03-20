@@ -37,6 +37,11 @@
     />
 
     <style>
+      div, th, td, span, p, h1, h2, h3, h4, h5 {
+        font-family: 'Nunito', sans-serif;
+        color: white;
+      }
+
       h1 {
         padding: 15px;
       }
@@ -46,11 +51,13 @@
         text-align: center;
         vertical-align: middle;
       }
+      .drawing {
+        background-color: white;
+        border-radius: 8px;
+      }
     </style>
   </head>
   <body>
-    <h1>Burn MNIST Inference Demo</h1>
-
     <table>
       <tr>
         <th>Draw a digit here</th>
@@ -58,17 +65,24 @@
         <th>Probability result</th>
       </tr>
       <tr>
-        <td>
-          <canvas id="main-canvas" width="300" height="300" style="border: 1px solid #aaa"></canvas>
+        <td class="drawing">
+          <canvas id="main-canvas" width="300" height="300"></canvas>
         </td>
-        <td>
-          <canvas
-            id="scaled-canvas"
+        <td >
+          <div class="drawing">
+            <canvas
+              id="scaled-canvas"
+              width="28"
+              height="28"
+              style="width: 100px; height: 100px"
+            ></canvas>
+          </div>
+          <canvas 
+            id="crop-canvas"
             width="28"
             height="28"
-            style="border: 1px solid #aaa; width: 100px; height: 100px"
+            style="display: none"
           ></canvas>
-          <canvas id="crop-canvas" width="28" height="28" style="display: none"></canvas>
         </td>
         <td>
           <canvas id="chart" style="border: 1px solid #aaa; width: 600px; height: 300px"></canvas>
