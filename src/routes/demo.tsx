@@ -3,9 +3,14 @@ import Layout from 'src/layout/page'
 export default function() {
   return (
     <Layout>
-      <div class="pt-[100px] px-20 flex justify-center ">
-        <div class="bg-[#2a333e] rounded-lg px-6">
-          <iframe class="w-[1050px] bg-[#2a333e]" height="450px" src="demo.html" />
+      <div class="pt-[100px] px-6 flex justify-center ">
+        <div class="w-full flex justify-center">
+          <iframe 
+            id="demo-iframe"
+            class="max-w-[1500px] w-full bg-[#2a333e] rounded-lg px-6"
+            height="680px"
+            src="demo.html" 
+          />
         </div>
       </div>
     </Layout>

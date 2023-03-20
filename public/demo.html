@@ -41,6 +41,18 @@
         font-family: 'Nunito', sans-serif;
         color: white;
       }
+      span {
+        font-size: 16px;
+      }
+      a {
+        font-size: 16px;
+        font-family: 'Nunito', sans-serif;
+        text-decoration: underline;
+      }
+      a:hover {
+        color: #edc567;
+        cursor: pointer;
+      }
 
       h1 {
         padding: 15px;
@@ -53,50 +65,76 @@
       }
       .drawing {
         background-color: white;
-        border-radius: 8px;
+        border-radius: 4px;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .container div {
+        padding: 20px;
+      }
+      .clearable-container {
+        display: flex;
+        justify-content: center;
+      }
+      .clearable-container button {
+        background-color: white;
+        border-radius: 6px;
+        padding: 8px;
+        border: none;
+      }
+      .clearable-container button:hover {
+        background-color: #edc567;
+        font-weight: 600;
+
       }
     </style>
   </head>
   <body>
-    <table>
-      <tr>
-        <th>Draw a digit here</th>
-        <th>Cropped and scaled</th>
-        <th>Probability result</th>
-      </tr>
-      <tr>
-        <td class="drawing">
-          <canvas id="main-canvas" width="300" height="300"></canvas>
-        </td>
-        <td >
-          <div class="drawing">
-            <canvas
-              id="scaled-canvas"
-              width="28"
-              height="28"
-              style="width: 100px; height: 100px"
-            ></canvas>
-          </div>
-          <canvas 
-            id="crop-canvas"
+    <div class="container">
+      <h1>MNIST Inference Demo</h1>
+    </div>
+    <div class="container">
+      <div>
+        <h3>Draw a digit here</h3>
+        <div class="drawing" style="width: 300px; height: 300px; max-width: 100%;">
+          <canvas id="main-canvas" height="300"></canvas>
+        </div>
+        <div class="clearable-container">
+          <button id="clear">Clear</button>
+        </div>
+      </div>
+      <div>
+        <h3>Cropped and scaled</h3>
+        <div class="drawing">
+          <canvas
+            id="scaled-canvas"
             width="28"
             height="28"
-            style="display: none"
+            style="width: 100px; height: 100px; max-width: 100%;"
           ></canvas>
-        </td>
-        <td>
-          <canvas id="chart" style="border: 1px solid #aaa; width: 600px; height: 300px"></canvas>
-        </td>
-      </tr>
-      <tr>
-        <td><button id="clear">Clear</button></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </table>
-
-    <div></div>
-
+        </div>
+      </div>
+      <canvas 
+        id="crop-canvas"
+        width="28"
+        height="28"
+        style="display: none"
+      ></canvas>
+      <div>
+        <h3>Probability result</h3>
+        <div class="drawing" />
+          <canvas id="chart" style="width: 600px; height: 300px; max-width: 100%;"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <span>The code can be found
+        <a href="https://github.com/burn-rs/burn/tree/main/examples/mnist-inference-web" target="_blank">here</a>
+      </span>
+    </div>
     <script type="module">
       import { $, cropScaleGetImageData, toFixed, chartConfigBuilder } from "/demo.js";
 
