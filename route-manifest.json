@@ -2,77 +2,25 @@
   "/*404": [
     {
       "type": "script",
-      "href": "/assets/_...404_-d272072b.js"
+      "href": "/assets/_...404_-c49d4698.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-f2586bc9.js"
+      "href": "/assets/entry-client-77822a71.js"
     },
     {
       "type": "style",
       "href": "/assets/entry-client-b5cdc9b5.css"
-    }
-  ],
-  "/blog/": [
-    {
-      "type": "script",
-      "href": "/assets/index-f6aa11f0.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-f2586bc9.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-b5cdc9b5.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-a2124f4a.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-4de9864b.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-48d4c0b2.js"
-    }
-  ],
-  "/blog/a-case-for-rust-in-deep-learning": [
-    {
-      "type": "script",
-      "href": "/assets/a-case-for-rust-in-deep-learning-415dc64b.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-f2586bc9.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-b5cdc9b5.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-a2124f4a.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-4de9864b.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-48d4c0b2.js"
     }
   ],
   "/demo": [
     {
       "type": "script",
-      "href": "/assets/demo-2673c502.js"
+      "href": "/assets/demo-ac69a091.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-f2586bc9.js"
+      "href": "/assets/entry-client-77822a71.js"
     },
     {
       "type": "style",
@@ -80,17 +28,69 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-48d4c0b2.js"
+      "href": "/assets/page-9c577f38.js"
+    }
+  ],
+  "/blog/a-case-for-rust-in-deep-learning": [
+    {
+      "type": "script",
+      "href": "/assets/a-case-for-rust-in-deep-learning-43ea2a13.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-77822a71.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-b5cdc9b5.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-f3b65d2e.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-4de9864b.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-9c577f38.js"
+    }
+  ],
+  "/blog/": [
+    {
+      "type": "script",
+      "href": "/assets/index-56212ffd.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-77822a71.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-b5cdc9b5.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-f3b65d2e.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-4de9864b.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-9c577f38.js"
     }
   ],
   "/": [
     {
       "type": "script",
-      "href": "/assets/index-fdf4def6.js"
+      "href": "/assets/index-cb62746f.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-f2586bc9.js"
+      "href": "/assets/entry-client-77822a71.js"
     },
     {
       "type": "style",
@@ -98,11 +98,11 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-48d4c0b2.js"
+      "href": "/assets/page-9c577f38.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-a2124f4a.js"
+      "href": "/assets/index-f3b65d2e.js"
     },
     {
       "type": "style",
@@ -120,7 +120,7 @@
   "entry-client": [
     {
       "type": "script",
-      "href": "/assets/entry-client-f2586bc9.js"
+      "href": "/assets/entry-client-77822a71.js"
     },
     {
       "type": "style",

@@ -16,58 +16,67 @@
     "src": "src/entry-client.css"
   },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-d272072b.js",
+    "file": "assets/_...404_-c49d4698.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "src/routes/blog/index.tsx": {
-    "file": "assets/index-f6aa11f0.js",
-    "src": "src/routes/blog/index.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-a2124f4a.js",
-      "_blogs-4de9864b.js",
-      "_page-48d4c0b2.js"
-    ]
+  "_blogs-4de9864b.js": {
+    "file": "assets/blogs-4de9864b.js"
   },
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-415dc64b.js",
-    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-a2124f4a.js",
-      "_blogs-4de9864b.js",
-      "_page-48d4c0b2.js"
-    ]
-  },
-  "_index-a2124f4a.js": {
-    "file": "assets/index-a2124f4a.js",
+  "_page-9c577f38.js": {
+    "file": "assets/page-9c577f38.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
   "src/routes/demo.tsx": {
-    "file": "assets/demo-2673c502.js",
+    "file": "assets/demo-ac69a091.js",
     "src": "src/routes/demo.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-48d4c0b2.js"
+      "_page-9c577f38.js"
+    ]
+  },
+  "_index-f3b65d2e.js": {
+    "file": "assets/index-f3b65d2e.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
+    "file": "assets/a-case-for-rust-in-deep-learning-43ea2a13.js",
+    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-f3b65d2e.js",
+      "_blogs-4de9864b.js",
+      "_page-9c577f38.js"
+    ]
+  },
+  "src/routes/blog/index.tsx": {
+    "file": "assets/index-56212ffd.js",
+    "src": "src/routes/blog/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-f3b65d2e.js",
+      "_blogs-4de9864b.js",
+      "_page-9c577f38.js"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-fdf4def6.js",
+    "file": "assets/index-cb62746f.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-48d4c0b2.js",
-      "_index-a2124f4a.js"
+      "_page-9c577f38.js",
+      "_index-f3b65d2e.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -77,17 +86,8 @@
       "assets/burn-33192fe7.png"
     ]
   },
-  "_page-48d4c0b2.js": {
-    "file": "assets/page-48d4c0b2.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "_blogs-4de9864b.js": {
-    "file": "assets/blogs-4de9864b.js"
-  },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-f2586bc9.js",
+    "file": "assets/entry-client-77822a71.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
