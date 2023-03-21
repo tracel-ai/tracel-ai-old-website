@@ -45,7 +45,7 @@ const Layout: FlowComponent<Props> = (props) => {
         </ul>
       </nav>
       {props.children}
-      <div class="flex justify-center pt-10 pb-10 border-t-2 border-gray-900 mt-10">
+      <div class="w-full flex justify-center pt-10 pb-10 border-t-2 border-gray-900 mt-10">
         <div class="grid md:grid-cols-3 gap-x-16 gap-y-6 md:gap-x-60 bg-gray-800 text-gray-500">
           <For each={footerSections} children={section => (
             <ul class="space-y-2">

@@ -18,8 +18,8 @@ const Blog: Component<{props: BlogMetadata, children: JSX.Element}> = ({props, c
   });
 
   return (
-    <div class="pt-20 bg-gradient-to-b from-[#202124] to-gray-800">
-      <div class="max-w-5xl mb-10 mx-3">
+    <div class="flex justify-center w-full pt-20 bg-gradient-to-b from-[#202124] to-gray-800">
+      <div class="w-full max-w-5xl mb-10 mx-3">
         <Meta property='og:type' content='article' />
         <Meta property='og:title' content={props.title} />
         <Meta property='og:description' content={props.description} />
