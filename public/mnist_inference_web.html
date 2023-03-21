@@ -41,6 +41,9 @@
         font-family: 'Nunito', sans-serif;
         color: white;
       }
+      body {
+        overflow: hidden;
+      }
       span {
         font-size: 16px;
       }
@@ -71,9 +74,10 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        overflow: hidden;
       }
       .container div {
-        padding: 20px;
+        padding: 12px;
       }
       .clearable-container {
         display: flex;
@@ -88,7 +92,10 @@
       .clearable-container button:hover {
         background-color: #edc567;
         font-weight: 600;
-
+      }
+      .footer {
+        padding-top: 12px;
+        text-align: center;
       }
     </style>
   </head>
@@ -99,8 +106,8 @@
     <div class="container">
       <div>
         <h3>Draw a digit here</h3>
-        <div class="drawing" style="width: 300px; height: 300px; max-width: 100%;">
-          <canvas id="main-canvas" height="300"></canvas>
+        <div class="drawing" style="width: 250px; height: 250px; max-width: 100%;">
+          <canvas id="main-canvas" height="250"></canvas>
         </div>
         <div class="clearable-container">
           <button id="clear">Clear</button>
@@ -126,14 +133,17 @@
       <div>
         <h3>Probability result</h3>
         <div class="drawing" />
-          <canvas id="chart" style="width: 600px; height: 300px; max-width: 100%;"></canvas>
+          <canvas id="chart" style="width: 600px; height: 250px; max-width: 100%;"></canvas>
         </div>
       </div>
     </div>
-    <div class="container">
-      <span>The code can be found
-        <a href="https://github.com/burn-rs/burn/tree/main/examples/mnist-inference-web" target="_blank">here</a>
-      </span>
+    <div class="footer">
+      <div>
+        The model is built using Web Assembly and runs entirely in the browser.
+      </div>
+      <div>
+        The code can be found <a href="https://github.com/burn-rs/burn/tree/main/examples/mnist-inference-web" target="_blank">here</a>.
+       </div>
     </div>
     <script type="module">
       import { $, cropScaleGetImageData, toFixed, chartConfigBuilder } from "/mnist_inference_web_utils.js";
@@ -151,6 +161,8 @@
 
       const fabricCanvas = new fabric.Canvas(mainCanvasEl, {
         isDrawingMode: true,
+        width : 250,
+        height : 250,
       });
 
       const backgroundColor = "rgba(255, 255, 255, 255)"; // White with solid alha
