@@ -4,28 +4,32 @@ import { createSignal } from 'solid-js';
 export default function() {
   let [height, setHeight] = createSignal(615);
 
-  onMount(() => {
-    const resize = (doc: Document) => {
-      if (doc.body) {
-        const rect = doc.body.getBoundingClientRect();
-        if (rect && rect.height > 500) {
-          setHeight(rect.height + 40);
-        }
-      }
-    }
-
+  const resizeIframe = () => {
     const iframe: any = document.getElementById('demo-iframe');
     const doc: Document = iframe.contentDocument;
+
+    if (doc.body) {
+      const rect = doc.body.getBoundingClientRect();
+      console.log(rect);
+      if (rect && rect.height > 500) {
+        setHeight(rect.height + 40);
+      }
+    }
+  };
+
+
+  onMount(() => {
+    const iframe: any = document.getElementById('demo-iframe');
     const win: Window = iframe.contentWindow;
 
-    win.addEventListener("resize", () => resize(doc));
+    win.addEventListener("resize", () => resizeIframe());
 
     // Initilize the iframe height
-    resize(doc);
+    resizeIframe();
 
     // Adding some timeouts to make sure it is correctly initialized
-    setTimeout(() => resize(doc), 200);
-    setTimeout(() => resize(doc), 1000);
+    setTimeout(() => resizeIframe(), 200);
+    setTimeout(() => resizeIframe(), 1000);
   });
 
   return (
