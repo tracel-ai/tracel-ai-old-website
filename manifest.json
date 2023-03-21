@@ -7,111 +7,107 @@
     "file": "assets/burn-33192fe7.png",
     "src": "src/assets/burn.png"
   },
-  "src/routes/index.css": {
-    "file": "assets/index-ba8e677e.css",
-    "src": "src/routes/index.css"
-  },
   "src/entry-client.css": {
-    "file": "assets/entry-client-e7c6a03d.css",
+    "file": "assets/entry-client-52be6c4d.css",
     "src": "src/entry-client.css"
   },
-  "_index-b8a83b50.js": {
-    "file": "assets/index-b8a83b50.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-ce2e4c43.js",
+    "file": "assets/_...404_-e6f619aa.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
+  "src/routes/demo.tsx": {
+    "file": "assets/demo-6f540e9f.js",
+    "src": "src/routes/demo.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_page-f495e333.js"
+    ]
+  },
+  "_index-5d74c660.js": {
+    "file": "assets/index-5d74c660.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/routes/blog/index.tsx": {
+    "file": "assets/index-f6c72c7e.js",
+    "src": "src/routes/blog/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-5d74c660.js",
+      "_blogs-e7ca3124.js",
+      "_page-f495e333.js"
+    ]
+  },
+  "_index-042250ad.js": {
+    "file": "assets/index-042250ad.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
   "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-0e08b43e.js",
+    "file": "assets/a-case-for-rust-in-deep-learning-b965c0db.js",
     "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-2d00884e.js",
-      "_index-b8a83b50.js",
+      "_index-e638412b.js",
+      "_index-5d74c660.js",
       "_blogs-e7ca3124.js",
-      "_page-2f13de8a.js"
+      "_page-f495e333.js"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-2d200ae9.js",
+    "file": "assets/index-af8bd9d0.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_prism-python-5cf8424c.js",
-      "_page-2f13de8a.js",
-      "_index-b8a83b50.js"
-    ],
-    "css": [
-      "assets/index-ba8e677e.css"
+      "_page-f495e333.js",
+      "_index-5d74c660.js",
+      "_index-042250ad.js"
     ],
     "assets": [
       "assets/logo-d7813d0c.png",
       "assets/burn-33192fe7.png"
     ]
   },
-  "src/routes/demo.tsx": {
-    "file": "assets/demo-414b4e17.js",
-    "src": "src/routes/demo.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_page-2f13de8a.js"
-    ]
-  },
-  "_page-2f13de8a.js": {
-    "file": "assets/page-2f13de8a.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "_prism-python-5cf8424c.js": {
-    "file": "assets/prism-python-5cf8424c.js"
-  },
-  "_blogs-e7ca3124.js": {
-    "file": "assets/blogs-e7ca3124.js"
-  },
-  "src/routes/blog/index.tsx": {
-    "file": "assets/index-66aebdc8.js",
-    "src": "src/routes/blog/index.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-b8a83b50.js",
-      "_blogs-e7ca3124.js",
-      "_page-2f13de8a.js"
-    ]
-  },
-  "_index-2d00884e.js": {
-    "file": "assets/index-2d00884e.js",
+  "_index-e638412b.js": {
+    "file": "assets/index-e638412b.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
   "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
-    "file": "assets/burn-rusty-approach-to-tensor-handling-4a26ad88.js",
+    "file": "assets/burn-rusty-approach-to-tensor-handling-1c4f3c7c.js",
     "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-2d00884e.js",
-      "_page-2f13de8a.js",
-      "_index-b8a83b50.js",
-      "_prism-python-5cf8424c.js",
+      "_index-e638412b.js",
+      "_page-f495e333.js",
+      "_index-5d74c660.js",
+      "_index-042250ad.js",
       "_blogs-e7ca3124.js"
     ]
   },
+  "_page-f495e333.js": {
+    "file": "assets/page-f495e333.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "_blogs-e7ca3124.js": {
+    "file": "assets/blogs-e7ca3124.js"
+  },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-7448adb7.js",
+    "file": "assets/entry-client-6ff44973.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
@@ -123,7 +119,7 @@
       "src/routes/blog/index.tsx"
     ],
     "css": [
-      "assets/entry-client-e7c6a03d.css"
+      "assets/entry-client-52be6c4d.css"
     ]
   }
 }
