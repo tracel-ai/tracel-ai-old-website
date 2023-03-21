@@ -11,9 +11,8 @@ import Layout from 'src/layout/page'
 import Stars from '@components/stars'
 
 export default function() {
-
-  createEffect(() => {
-    Prism.highlightAll()
+  onMount(() => {
+    Prism.highlightAll();
   })
 
   return (
@@ -46,7 +45,7 @@ export default function() {
       </div>
       <div class="bg-gray-800 flex w-full justify-center items-center flex-col">
         <h2 class="w-full text-center py-10 pt-20"><span class="font-black uppercase text-[#d1d5db] p-1 text-5xl">Code Snippets</span></h2>
-        <div class="max-w-7xl justify-center items-center space-y-10 sm:space-y-32 pb-14 w-full max-w-full">
+        <div class="max-w-7xl justify-center items-center space-y-10 sm:space-y-32 pb-14">
           <For each={codeExamples} children={(example, i) => (
             <Motion.div
               initial={{ opacity: 0, x: (i() % 2 === 0 ? 1 : -1) * 20 }}

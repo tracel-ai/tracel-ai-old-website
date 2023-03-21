@@ -8,9 +8,10 @@ type Props = {
 }
 
 export const Code: Component<Props> = (props) => {
-  createEffect(() => {
-    Prism.highlightAll()
+  onMount(() => {
+    Prism.highlightAll();
   })
+
   const lang = `language-${props.lang}`;
 
   return (

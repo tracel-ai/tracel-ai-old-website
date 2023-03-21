@@ -34,7 +34,7 @@ export const Table: Component<TableProps> = (props) => {
   const maxNumColumns = Math.max(...numColumns);
 
   return (
-    <div class="w-full px-6 pb-8 overflow-auto">
+    <div class="px-6 pb-8 w-full overflow-auto">
       <div class="py-2 px-6 w-full text-center font-bold text-xl">
         {props.title}
       </div>
@@ -79,7 +79,7 @@ const entry2element = (entry: TableEntriesProps, maxNumColumns: number): JSXElem
   return (
     <tr class="border border-[#586473]">
       <For each={[...Array(maxNumColumns + 1).keys()]} children={() => (
-          <td class="w-full p-[6px] bg-[#1f2835] "/>
+          <td class="p-[6px] bg-[#1f2835] "/>
         )}/>
     </tr>
   );
