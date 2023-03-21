@@ -2,77 +2,33 @@
   "/*404": [
     {
       "type": "script",
-      "href": "/assets/_...404_-783570d1.js"
+      "href": "/assets/_...404_-d272072b.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-3f672d07.js"
+      "href": "/assets/entry-client-f2586bc9.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-46af8c56.css"
-    }
-  ],
-  "/demo": [
-    {
-      "type": "script",
-      "href": "/assets/demo-9ddfbf90.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-3f672d07.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-46af8c56.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-6d9fbadf.js"
-    }
-  ],
-  "/blog/a-case-for-rust-in-deep-learning": [
-    {
-      "type": "script",
-      "href": "/assets/a-case-for-rust-in-deep-learning-372ac64e.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-3f672d07.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-46af8c56.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-02c78364.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-4de9864b.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-6d9fbadf.js"
+      "href": "/assets/entry-client-b5cdc9b5.css"
     }
   ],
   "/blog/": [
     {
       "type": "script",
-      "href": "/assets/index-af8aaa96.js"
+      "href": "/assets/index-f6aa11f0.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-3f672d07.js"
+      "href": "/assets/entry-client-f2586bc9.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-46af8c56.css"
+      "href": "/assets/entry-client-b5cdc9b5.css"
     },
     {
       "type": "script",
-      "href": "/assets/index-02c78364.js"
+      "href": "/assets/index-a2124f4a.js"
     },
     {
       "type": "script",
@@ -80,29 +36,73 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-6d9fbadf.js"
+      "href": "/assets/page-48d4c0b2.js"
+    }
+  ],
+  "/blog/a-case-for-rust-in-deep-learning": [
+    {
+      "type": "script",
+      "href": "/assets/a-case-for-rust-in-deep-learning-415dc64b.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-f2586bc9.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-b5cdc9b5.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-a2124f4a.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-4de9864b.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-48d4c0b2.js"
+    }
+  ],
+  "/demo": [
+    {
+      "type": "script",
+      "href": "/assets/demo-2673c502.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-f2586bc9.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-b5cdc9b5.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-48d4c0b2.js"
     }
   ],
   "/": [
     {
       "type": "script",
-      "href": "/assets/index-ea884748.js"
+      "href": "/assets/index-fdf4def6.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-3f672d07.js"
+      "href": "/assets/entry-client-f2586bc9.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-46af8c56.css"
+      "href": "/assets/entry-client-b5cdc9b5.css"
     },
     {
       "type": "script",
-      "href": "/assets/page-6d9fbadf.js"
+      "href": "/assets/page-48d4c0b2.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-02c78364.js"
+      "href": "/assets/index-a2124f4a.js"
     },
     {
       "type": "style",
@@ -120,11 +120,11 @@
   "entry-client": [
     {
       "type": "script",
-      "href": "/assets/entry-client-3f672d07.js"
+      "href": "/assets/entry-client-f2586bc9.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-46af8c56.css"
+      "href": "/assets/entry-client-b5cdc9b5.css"
     }
   ],
   "index.html": []
