@@ -311,15 +311,6 @@ const Content = () => {
             </p>
 
             <p>
-              The direction Burn wants to take is probably different from other frameworks.
-              It's kind of sad that writing mathematical operations in a more declarative way is less performant than using a high-level function that uses a highly optimized kernel implementation.
-              It should be possible to detect that such a kernel exists and use them when possible without requiring the code to be changed.
-              This is the kind of developer experience Burn will try to meet: allowing users to write mathematical operations using primitives, and backend developers declaring graphs of operations that can be fused for optimal performance.
-              I would also like to allow users to profile their model, see which functions take the most time, and write operation fusion for those functions using their backend of choice, without the need to fork a framework, rewrite the model, or change the programming language.
-              All of this while still supporting fully dynamic graphs and custom control flow with an eager-like programming model.
-              This is a lot of constraints, so I'll have to think hard about how I can make this happen.
-              If you have any comments, suggestions, or recommendations regarding fused operations, I invite you to join the Discord and come talk to us.
-
               Burn's development direction is likely to differ from other frameworks.
               It's unfortunate that writing mathematical operations in a more declarative way can be less performant than using a high-level function with a highly optimized kernel implementation.
               Ideally, Burn should be able to detect when such a kernel exists and use it automatically, without requiring any changes to the code.
