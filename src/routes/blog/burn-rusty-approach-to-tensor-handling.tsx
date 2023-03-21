@@ -1,7 +1,7 @@
 import Blog from '@components/blog'
 import Outterlink from '@components/outterlink'
 import Stars from '@components/stars'
-import { Code } from '@components/blog/code'
+import { Code } from '@components/code'
 import { Table } from '@components/blog/table'
 import { Reference, Bliblio } from '@components/blog/reference'
 import { reducedMemoryUsage } from 'src/content/blogs'

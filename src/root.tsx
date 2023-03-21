@@ -5,7 +5,9 @@ import { Routes } from '@solidjs/router'
 import { Suspense } from 'solid-js'
 import { Toaster } from 'solid-toast'
 
+import '@assets/prism-theme.css'
 import './assets/global.css'
+
 import { ThemeProvider } from '@context/theme'
 
 export default function Root() {

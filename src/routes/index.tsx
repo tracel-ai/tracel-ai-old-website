@@ -1,7 +1,3 @@
-// @ts-ignore
-import Prism from 'prismjs'
-import '@assets/prism-theme.css'
-
 import { Motion } from '@motionone/solid'
 import logo from '@assets/logo.png'
 import burn from '@assets/burn.png'
@@ -9,12 +5,9 @@ import { mainFeatures } from 'src/content/features'
 import { codeExamples } from 'src/content/examples'
 import Layout from 'src/layout/page'
 import Stars from '@components/stars'
+import { Code } from '@components/code'
 
 export default function() {
-  onMount(() => {
-    Prism.highlightAll();
-  })
-
   return (
     <Layout>
       <Stars numStars={30} />
@@ -43,29 +36,29 @@ export default function() {
           )} />
         </div>
       </div>
-      <div class="bg-gray-800 flex w-full justify-center items-center flex-col">
-        <h2 class="w-full text-center py-10 pt-20"><span class="font-black uppercase text-[#d1d5db] p-1 text-5xl">Code Snippets</span></h2>
-        <div class="max-w-7xl justify-center items-center space-y-10 sm:space-y-32 pb-14">
-          <For each={codeExamples} children={(example, i) => (
-            <Motion.div
-              initial={{ opacity: 0, x: (i() % 2 === 0 ? 1 : -1) * 20 }}
-              inView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
-              class={`flex flex-col-reverse p-4 sm:p-0 sm:space-x-10 items-center ${i() % 2 === 1 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}
-            >
-              <pre class="border-2 border-gray-900 shadow rounded-lg w-80 md:w-full">
-                <code class="language-rust">
-                  {example.code}
-                </code>
-              </pre>
-              <div>
-                <h3 class="font-black uppercase text-[#F34918] text-4xl">{example.title}</h3>
-                <p class="text-gray-50">
-                  {example.description}
-                </p>
-              </div>
-            </Motion.div>
-          )} />
+      <div class="flex justify-center bg-gray-800 w-full px-10">
+        <div>
+          <h2 class="w-full text-center py-10 pt-20"><span class="font-black uppercase text-[#d1d5db] p-1 text-5xl">Code Snippets</span></h2>
+          <div class="max-w-7xl flex-row justify-center space-y-10 sm:space-y-32 pb-14">
+            <For each={codeExamples} children={(example, i) => (
+              <Motion.div
+                initial={{ opacity: 0, x: (i() % 2 === 0 ? 1 : -1) * 20 }}
+                inView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1 }}
+                class={`flex flex-col-reverse p-4 md:space-x-10 items-center ${i() % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
+              >
+                  <div class="w-full">
+                    <Code lang="rust" code={example.code} />
+                  </div>
+                  <div>
+                    <h3 class="font-black uppercase text-[#F34918] text-4xl">{example.title}</h3>
+                    <p class="text-gray-50">
+                      {example.description}
+                    </p>
+                  </div>
+              </Motion.div>
+            )} />
+          </div>
         </div>
       </div>
     </Layout>
