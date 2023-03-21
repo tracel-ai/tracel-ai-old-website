@@ -47,8 +47,8 @@ export default function() {
                 transition={{ duration: 1 }}
                 class={`flex flex-col-reverse p-4 md:space-x-10 items-center ${i() % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
               >
-                  <div class="w-full">
-                    <Code lang="rust" code={example.code} />
+                  <div class="w-full flex justify-center">
+                    <Code class="w-80 md:w-full" lang="rust" code={example.code} />
                   </div>
                   <div>
                     <h3 class="font-black uppercase text-[#F34918] text-4xl">{example.title}</h3>

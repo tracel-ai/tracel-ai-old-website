@@ -6,6 +6,7 @@ import type { Component } from 'solid-js'
 type Props = {
   code: string;
   lang: string;
+  class?: string;
 }
 
 export const Code: Component<Props> = (props) => {
@@ -17,9 +18,14 @@ export const Code: Component<Props> = (props) => {
   })
 
   const lang = `language-${props.lang}`;
+  let classes = 'py-2';
+
+  if (props.class) {
+    classes = `${classes} ${props.class}`;
+  }
 
   return (
-    <div class="pt-t pb-2 w-full max-w-full">
+    <div class={classes}>
       <pre class="border-2 border-gray-900 shadow rounded-lg w-full max-w-full">
         <code id={id} class={lang}>
           {props.code}
@@ -28,3 +34,4 @@ export const Code: Component<Props> = (props) => {
     </div>
   )
 }
+
