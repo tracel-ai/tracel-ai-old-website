@@ -15,68 +15,68 @@
     "file": "assets/entry-client-b5cdc9b5.css",
     "src": "src/entry-client.css"
   },
+  "_index-2088c62a.js": {
+    "file": "assets/index-2088c62a.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
+    "file": "assets/a-case-for-rust-in-deep-learning-44200f3e.js",
+    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-2088c62a.js",
+      "_blogs-4de9864b.js",
+      "_page-5bc72985.js"
+    ]
+  },
+  "_blogs-4de9864b.js": {
+    "file": "assets/blogs-4de9864b.js"
+  },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-c49d4698.js",
+    "file": "assets/_...404_-b160fdfd.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "_blogs-4de9864b.js": {
-    "file": "assets/blogs-4de9864b.js"
+  "src/routes/blog/index.tsx": {
+    "file": "assets/index-0636a5ca.js",
+    "src": "src/routes/blog/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-2088c62a.js",
+      "_blogs-4de9864b.js",
+      "_page-5bc72985.js"
+    ]
   },
-  "_page-9c577f38.js": {
-    "file": "assets/page-9c577f38.js",
+  "_page-5bc72985.js": {
+    "file": "assets/page-5bc72985.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
   "src/routes/demo.tsx": {
-    "file": "assets/demo-ac69a091.js",
+    "file": "assets/demo-f5217820.js",
     "src": "src/routes/demo.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-9c577f38.js"
-    ]
-  },
-  "_index-f3b65d2e.js": {
-    "file": "assets/index-f3b65d2e.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-43ea2a13.js",
-    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-f3b65d2e.js",
-      "_blogs-4de9864b.js",
-      "_page-9c577f38.js"
-    ]
-  },
-  "src/routes/blog/index.tsx": {
-    "file": "assets/index-56212ffd.js",
-    "src": "src/routes/blog/index.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-f3b65d2e.js",
-      "_blogs-4de9864b.js",
-      "_page-9c577f38.js"
+      "_page-5bc72985.js"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-cb62746f.js",
+    "file": "assets/index-34c19cbb.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-9c577f38.js",
-      "_index-f3b65d2e.js"
+      "_page-5bc72985.js",
+      "_index-2088c62a.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -87,7 +87,7 @@
     ]
   },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-77822a71.js",
+    "file": "assets/entry-client-e227fe55.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
