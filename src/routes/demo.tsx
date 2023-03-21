@@ -17,7 +17,6 @@ export default function() {
     }
   };
 
-
   onMount(() => {
     const iframe: any = document.getElementById('demo-iframe');
     const win: Window = iframe.contentWindow;

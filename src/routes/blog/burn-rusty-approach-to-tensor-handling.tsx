@@ -6,6 +6,7 @@ import { Table } from '@components/blog/table'
 import { Reference, Bliblio } from '@components/blog/reference'
 import { reducedMemoryUsage } from 'src/content/blogs'
 import Layout from 'src/layout/page'
+import { A } from 'solid-start'
 
 const Content = () => {
   const biblio = new Bliblio();
@@ -560,6 +561,7 @@ const Content = () => {
             <p>
               Note that this is not a full report of what has been accomplished since the last release.
               A lot of work has been done by contributors, and Burn can now be compiled to Web Assembly for inference, which runs natively on browsers on the client side.
+              You can test it yourself with the online <A class="underline" href="/demo">demo</A>.
               I want to thank everybody that got involved with the project, I received so much constructive feedback that has or will definitively improve Burn.
               It's also always interesting to see what kind of project, research, or product Burn can help you with, so don't hesitate to reach out if you find value in what we are building.
             </p>
