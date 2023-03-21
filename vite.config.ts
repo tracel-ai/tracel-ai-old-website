@@ -35,7 +35,7 @@ export default defineConfig({
     tsconfigPaths(),
     AutoImport(autoImportOptions),
     prismjsPlugin({
-      languages: ['rust'],
+      languages: ['rust', 'python'],
       theme: 'solarizedlight',
     }),
   ],
