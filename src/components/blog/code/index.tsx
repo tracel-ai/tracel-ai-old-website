@@ -14,8 +14,8 @@ export const Code: Component<Props> = (props) => {
   const lang = `language-${props.lang}`;
 
   return (
-    <div class="pt-t pb-2">
-      <pre class="border-2 border-gray-900 shadow rounded-lg w-80 md:w-full">
+    <div class="pt-t pb-2 w-full max-w-full">
+      <pre class="border-2 border-gray-900 shadow rounded-lg w-full max-w-full">
         <code class={lang}>
           {props.code}
         </code>
