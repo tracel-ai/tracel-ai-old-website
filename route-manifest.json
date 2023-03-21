@@ -1,44 +1,26 @@
 {
-  "/demo": [
-    {
-      "type": "script",
-      "href": "/assets/demo-db494492.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-eeef2f26.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-991c6ee2.js"
-    }
-  ],
   "/*404": [
     {
       "type": "script",
-      "href": "/assets/_...404_-b45965ef.js"
+      "href": "/assets/_...404_-24bc2be4.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-eeef2f26.js"
+      "href": "/assets/entry-client-2ff7046e.js"
     },
     {
       "type": "style",
       "href": "/assets/entry-client-cebc6d54.css"
     }
   ],
-  "/blog/": [
+  "/demo": [
     {
       "type": "script",
-      "href": "/assets/index-a5bad795.js"
+      "href": "/assets/demo-23ca653a.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-eeef2f26.js"
+      "href": "/assets/entry-client-2ff7046e.js"
     },
     {
       "type": "style",
@@ -46,25 +28,17 @@
     },
     {
       "type": "script",
-      "href": "/assets/index-aeb79e79.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-e7ca3124.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-991c6ee2.js"
+      "href": "/assets/page-43b42363.js"
     }
   ],
   "/blog/a-case-for-rust-in-deep-learning": [
     {
       "type": "script",
-      "href": "/assets/a-case-for-rust-in-deep-learning-53887965.js"
+      "href": "/assets/a-case-for-rust-in-deep-learning-295cdbd9.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-eeef2f26.js"
+      "href": "/assets/entry-client-2ff7046e.js"
     },
     {
       "type": "style",
@@ -72,11 +46,11 @@
     },
     {
       "type": "script",
-      "href": "/assets/index-db0825c0.js"
+      "href": "/assets/index-3072f1ec.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-aeb79e79.js"
+      "href": "/assets/index-1adecf54.js"
     },
     {
       "type": "script",
@@ -84,17 +58,17 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-991c6ee2.js"
+      "href": "/assets/page-43b42363.js"
     }
   ],
   "/blog/burn-rusty-approach-to-tensor-handling": [
     {
       "type": "script",
-      "href": "/assets/burn-rusty-approach-to-tensor-handling-d15cbd73.js"
+      "href": "/assets/burn-rusty-approach-to-tensor-handling-1d291448.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-eeef2f26.js"
+      "href": "/assets/entry-client-2ff7046e.js"
     },
     {
       "type": "style",
@@ -102,15 +76,15 @@
     },
     {
       "type": "script",
-      "href": "/assets/index-db0825c0.js"
+      "href": "/assets/index-3072f1ec.js"
     },
     {
       "type": "script",
-      "href": "/assets/page-991c6ee2.js"
+      "href": "/assets/page-43b42363.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-aeb79e79.js"
+      "href": "/assets/index-1adecf54.js"
     },
     {
       "type": "script",
@@ -121,14 +95,40 @@
       "href": "/assets/blogs-e7ca3124.js"
     }
   ],
-  "/": [
+  "/blog/": [
     {
       "type": "script",
-      "href": "/assets/index-f03a15a8.js"
+      "href": "/assets/index-9cdf3083.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-eeef2f26.js"
+      "href": "/assets/entry-client-2ff7046e.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-cebc6d54.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-1adecf54.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-e7ca3124.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-43b42363.js"
+    }
+  ],
+  "/": [
+    {
+      "type": "script",
+      "href": "/assets/index-2a9c398c.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-2ff7046e.js"
     },
     {
       "type": "style",
@@ -140,11 +140,11 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-991c6ee2.js"
+      "href": "/assets/page-43b42363.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-aeb79e79.js"
+      "href": "/assets/index-1adecf54.js"
     },
     {
       "type": "style",
@@ -162,7 +162,7 @@
   "entry-client": [
     {
       "type": "script",
-      "href": "/assets/entry-client-eeef2f26.js"
+      "href": "/assets/entry-client-2ff7046e.js"
     },
     {
       "type": "style",
