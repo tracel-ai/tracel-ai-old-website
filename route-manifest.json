@@ -2,55 +2,37 @@
   "/*404": [
     {
       "type": "script",
-      "href": "/assets/_...404_-24bc2be4.js"
+      "href": "/assets/_...404_-ce2e4c43.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-2ff7046e.js"
+      "href": "/assets/entry-client-7448adb7.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
-    }
-  ],
-  "/demo": [
-    {
-      "type": "script",
-      "href": "/assets/demo-23ca653a.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-2ff7046e.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-43b42363.js"
+      "href": "/assets/entry-client-e7c6a03d.css"
     }
   ],
   "/blog/a-case-for-rust-in-deep-learning": [
     {
       "type": "script",
-      "href": "/assets/a-case-for-rust-in-deep-learning-295cdbd9.js"
+      "href": "/assets/a-case-for-rust-in-deep-learning-0e08b43e.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-2ff7046e.js"
+      "href": "/assets/entry-client-7448adb7.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
+      "href": "/assets/entry-client-e7c6a03d.css"
     },
     {
       "type": "script",
-      "href": "/assets/index-3072f1ec.js"
+      "href": "/assets/index-2d00884e.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-1adecf54.js"
+      "href": "/assets/index-b8a83b50.js"
     },
     {
       "type": "script",
@@ -58,81 +40,21 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-43b42363.js"
-    }
-  ],
-  "/blog/burn-rusty-approach-to-tensor-handling": [
-    {
-      "type": "script",
-      "href": "/assets/burn-rusty-approach-to-tensor-handling-1d291448.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-2ff7046e.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-3072f1ec.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-43b42363.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-1adecf54.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/prism-python-5cf8424c.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-e7ca3124.js"
-    }
-  ],
-  "/blog/": [
-    {
-      "type": "script",
-      "href": "/assets/index-9cdf3083.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-2ff7046e.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-1adecf54.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-e7ca3124.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-43b42363.js"
+      "href": "/assets/page-2f13de8a.js"
     }
   ],
   "/": [
     {
       "type": "script",
-      "href": "/assets/index-2a9c398c.js"
+      "href": "/assets/index-2d200ae9.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-2ff7046e.js"
+      "href": "/assets/entry-client-7448adb7.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
+      "href": "/assets/entry-client-e7c6a03d.css"
     },
     {
       "type": "script",
@@ -140,11 +62,11 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-43b42363.js"
+      "href": "/assets/page-2f13de8a.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-1adecf54.js"
+      "href": "/assets/index-b8a83b50.js"
     },
     {
       "type": "style",
@@ -159,14 +81,92 @@
       "href": "/assets/burn-33192fe7.png"
     }
   ],
-  "entry-client": [
+  "/demo": [
     {
       "type": "script",
-      "href": "/assets/entry-client-2ff7046e.js"
+      "href": "/assets/demo-414b4e17.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-7448adb7.js"
     },
     {
       "type": "style",
-      "href": "/assets/entry-client-cebc6d54.css"
+      "href": "/assets/entry-client-e7c6a03d.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-2f13de8a.js"
+    }
+  ],
+  "/blog/": [
+    {
+      "type": "script",
+      "href": "/assets/index-66aebdc8.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-7448adb7.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-e7c6a03d.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-b8a83b50.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-e7ca3124.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-2f13de8a.js"
+    }
+  ],
+  "/blog/burn-rusty-approach-to-tensor-handling": [
+    {
+      "type": "script",
+      "href": "/assets/burn-rusty-approach-to-tensor-handling-4a26ad88.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-7448adb7.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-e7c6a03d.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-2d00884e.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-2f13de8a.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-b8a83b50.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/prism-python-5cf8424c.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-e7ca3124.js"
+    }
+  ],
+  "entry-client": [
+    {
+      "type": "script",
+      "href": "/assets/entry-client-7448adb7.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-e7c6a03d.css"
     }
   ],
   "index.html": []

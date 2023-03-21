@@ -12,95 +12,44 @@
     "src": "src/routes/index.css"
   },
   "src/entry-client.css": {
-    "file": "assets/entry-client-cebc6d54.css",
+    "file": "assets/entry-client-e7c6a03d.css",
     "src": "src/entry-client.css"
   },
+  "_index-b8a83b50.js": {
+    "file": "assets/index-b8a83b50.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-24bc2be4.js",
+    "file": "assets/_...404_-ce2e4c43.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "src/routes/demo.tsx": {
-    "file": "assets/demo-23ca653a.js",
-    "src": "src/routes/demo.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_page-43b42363.js"
-    ]
-  },
-  "_page-43b42363.js": {
-    "file": "assets/page-43b42363.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "_prism-python-5cf8424c.js": {
-    "file": "assets/prism-python-5cf8424c.js"
-  },
-  "_index-1adecf54.js": {
-    "file": "assets/index-1adecf54.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
   "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-295cdbd9.js",
+    "file": "assets/a-case-for-rust-in-deep-learning-0e08b43e.js",
     "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-3072f1ec.js",
-      "_index-1adecf54.js",
+      "_index-2d00884e.js",
+      "_index-b8a83b50.js",
       "_blogs-e7ca3124.js",
-      "_page-43b42363.js"
-    ]
-  },
-  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
-    "file": "assets/burn-rusty-approach-to-tensor-handling-1d291448.js",
-    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-3072f1ec.js",
-      "_page-43b42363.js",
-      "_index-1adecf54.js",
-      "_prism-python-5cf8424c.js",
-      "_blogs-e7ca3124.js"
-    ]
-  },
-  "_blogs-e7ca3124.js": {
-    "file": "assets/blogs-e7ca3124.js"
-  },
-  "src/routes/blog/index.tsx": {
-    "file": "assets/index-9cdf3083.js",
-    "src": "src/routes/blog/index.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-1adecf54.js",
-      "_blogs-e7ca3124.js",
-      "_page-43b42363.js"
-    ]
-  },
-  "_index-3072f1ec.js": {
-    "file": "assets/index-3072f1ec.js",
-    "imports": [
-      "src/entry-client.tsx"
+      "_page-2f13de8a.js"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-2a9c398c.js",
+    "file": "assets/index-2d200ae9.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
       "_prism-python-5cf8424c.js",
-      "_page-43b42363.js",
-      "_index-1adecf54.js"
+      "_page-2f13de8a.js",
+      "_index-b8a83b50.js"
     ],
     "css": [
       "assets/index-ba8e677e.css"
@@ -110,8 +59,59 @@
       "assets/burn-33192fe7.png"
     ]
   },
+  "src/routes/demo.tsx": {
+    "file": "assets/demo-414b4e17.js",
+    "src": "src/routes/demo.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_page-2f13de8a.js"
+    ]
+  },
+  "_page-2f13de8a.js": {
+    "file": "assets/page-2f13de8a.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "_prism-python-5cf8424c.js": {
+    "file": "assets/prism-python-5cf8424c.js"
+  },
+  "_blogs-e7ca3124.js": {
+    "file": "assets/blogs-e7ca3124.js"
+  },
+  "src/routes/blog/index.tsx": {
+    "file": "assets/index-66aebdc8.js",
+    "src": "src/routes/blog/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-b8a83b50.js",
+      "_blogs-e7ca3124.js",
+      "_page-2f13de8a.js"
+    ]
+  },
+  "_index-2d00884e.js": {
+    "file": "assets/index-2d00884e.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
+    "file": "assets/burn-rusty-approach-to-tensor-handling-4a26ad88.js",
+    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-2d00884e.js",
+      "_page-2f13de8a.js",
+      "_index-b8a83b50.js",
+      "_prism-python-5cf8424c.js",
+      "_blogs-e7ca3124.js"
+    ]
+  },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-2ff7046e.js",
+    "file": "assets/entry-client-7448adb7.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
@@ -123,7 +123,7 @@
       "src/routes/blog/index.tsx"
     ],
     "css": [
-      "assets/entry-client-cebc6d54.css"
+      "assets/entry-client-e7c6a03d.css"
     ]
   }
 }
