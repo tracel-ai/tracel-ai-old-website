@@ -55,10 +55,10 @@ export const codeExamples = [
  
   #[derive(Module, Debug)]
   pub struct MultiHeadAttention<B: Backend> {
-      query: Param<nn::Linear<B>>,
-      key: Param<nn::Linear<B>>,
-      value: Param<nn::Linear<B>>,
-      output: Param<nn::Linear<B>>,
+      query: nn::Linear<B>,
+      key: nn::Linear<B>,
+      value: nn::Linear<B>,
+      output: nn::Linear<B>,
       dropout: nn::Dropout,
       activation: nn::GELU,
       n_heads: usize,
