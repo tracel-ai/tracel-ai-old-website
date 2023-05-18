@@ -11,7 +11,7 @@ export const mainFeatures = [
   },
   {
     icon: <div class="i-mdi-fire" />,
-    title: 'Fast',
+    title: 'Blazingly Fast',
     description: 'Amazing performance during both training and inference.',
   },
   {
