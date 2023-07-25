@@ -36,8 +36,8 @@ export const reducedMemoryUsage = {
 export const crossPlatformGpuBackend = {
   link: '/blog/cross-platform-gpu-backend',
   title: "Burn's New Cross-Platform GPU Backend",
-  description: '',
-  authors: ['Nathaniel Simard', 'Louis Fortier'],
+  description: "Introducing Burn's new Cross-Platform GPU Backend built using WGPU. Burn now supports running deep learning models on a variety of hardware configurations, leveraging graphics APIs such as Vulkan, DirectX 11/12, Metal, OpenGL, and WebGPU. We discuss the possible applications in various domains and glimpse into the promising future of the framework.",
+  authors: ['Nathaniel Simard', 'Louis Fortier-Dubois'],
   authorsLinks: [
     'https://github.com/nathanielsimard',
     'https://github.com/louisfd',

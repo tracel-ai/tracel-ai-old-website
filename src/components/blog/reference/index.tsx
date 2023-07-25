@@ -36,7 +36,7 @@ export const Reference: Component<PropsTextMultiple> = (props) => {
   )
 }
 
-export class Bliblio {
+export class Biblio {
   private indexes: number;
   private references: BiblioRef[];
 
@@ -72,11 +72,11 @@ export class Bliblio {
 
 class BiblioRef {
   private index?: number;
-  private bliblio: Bliblio;
+  private bliblio: Biblio;
   private name: string;
   private link: string;
 
-  constructor(bliblio: Bliblio, name: string, link: string) {
+  constructor(bliblio: Biblio, name: string, link: string) {
     this.bliblio = bliblio;
     this.name = name;
     this.link = link;

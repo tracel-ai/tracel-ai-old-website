@@ -3,13 +3,13 @@ import Outterlink from '@components/outterlink'
 import Stars from '@components/stars'
 import { Code } from '@components/code'
 import { Table } from '@components/blog/table'
-import { Reference, Bliblio } from '@components/blog/reference'
+import { Reference, Biblio } from '@components/blog/reference'
 import { reducedMemoryUsage } from 'src/content/blogs'
 import Layout from 'src/layout/page'
 import { A } from 'solid-start'
 
 const Content = () => {
-  const biblio = new Bliblio();
+  const biblio = new Biblio();
   const burnReleaseV060 = biblio.addReference(
     'Burn v0.6.0 release notes',
     'https://github.com/burn-rs/burn/releases/tag/v0.6.0',

@@ -1,11 +1,11 @@
 import Blog from '@components/blog'
 import Stars from '@components/stars'
-import { Reference, Bliblio } from '@components/blog/reference'
+import { Reference, Biblio } from '@components/blog/reference'
 import { aCaseForRustInDeepLearning } from 'src/content/blogs'
 import Layout from 'src/layout/page'
 
 const Content = () => {
-  const biblio = new Bliblio();
+  const biblio = new Biblio();
   const facebookDeveloperToolsRust = biblio.addReference(
     'A brief history of Rust at Facebook',
     'https://engineering.fb.com/2021/04/29/developer-tools/rust/',

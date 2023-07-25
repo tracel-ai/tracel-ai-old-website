@@ -20,6 +20,12 @@ const Blog: Component<{ props: BlogMetadata; children: JSX.Element }> = ({
     }
   })
 
+  const authorsInfo: any[] = []
+  props.authors.forEach((author, index) => {
+    const link = props.authorsLinks[index]
+    authorsInfo.push({ author, link })
+  })
+
   return (
     <div class="flex justify-center w-full pt-20 bg-gradient-to-b from-[#202124] to-gray-800">
       <div class="w-full max-w-5xl mb-10 mx-3">
@@ -69,15 +75,15 @@ const Blog: Component<{ props: BlogMetadata; children: JSX.Element }> = ({
                 </span>
               </div>
               <For
-                each={props.authors}
-                children={(author, index) => (
+                each={authorsInfo}
+                children={(info) => (
                   <a
                     class="pl-2 flex"
-                    href={props.authorsLinks.at(index as any)}
+                    href={info.link}
                     target="_blank"
                   >
                     <div class="h-5 w-5 i-mdi-account-edit" />
-                    <span class="px-2">{author}</span>
+                    <span class="px-2">{info.author}</span>
                   </a>
                 )}
               />
