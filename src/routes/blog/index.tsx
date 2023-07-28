@@ -14,7 +14,7 @@ const Blogs = () => {
             <h2 class="text-xl text-red-300 font-bold text-normal w-full text-center">Where we share ideas</h2>
           </div>
           <div class="mx-5 sm:mx-0 flex flex-col items-center">
-            <For each={blogs} children={(blog) => (
+            <For each={blogs.reverse()} children={(blog) => (
               <Card {...blog} />
             )}/>
           </div>
