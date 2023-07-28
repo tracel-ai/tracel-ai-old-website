@@ -1,26 +1,38 @@
 {
-  "/*404": [
+  "/blog/": [
     {
       "type": "script",
-      "href": "/assets/_...404_-2ba61488.js"
+      "href": "/assets/index-aec76479.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
+      "href": "/assets/entry-client-ad9c363f.js"
     },
     {
       "type": "style",
       "href": "/assets/entry-client-59998e4e.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-e11cc5f1.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-31dabd14.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-82cf0773.js"
     }
   ],
   "/demo": [
     {
       "type": "script",
-      "href": "/assets/demo-7f79408c.js"
+      "href": "/assets/demo-6ab1b719.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
+      "href": "/assets/entry-client-ad9c363f.js"
     },
     {
       "type": "style",
@@ -28,17 +40,31 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-2bb01411.js"
+      "href": "/assets/page-82cf0773.js"
+    }
+  ],
+  "/*404": [
+    {
+      "type": "script",
+      "href": "/assets/_...404_-b829fc00.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-ad9c363f.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-59998e4e.css"
     }
   ],
   "/": [
     {
       "type": "script",
-      "href": "/assets/index-6412b5f1.js"
+      "href": "/assets/index-57abf7e3.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
+      "href": "/assets/entry-client-ad9c363f.js"
     },
     {
       "type": "style",
@@ -46,15 +72,15 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-2bb01411.js"
+      "href": "/assets/page-82cf0773.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-f7c807f5.js"
+      "href": "/assets/index-e11cc5f1.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-54e1f707.js"
+      "href": "/assets/index-9cc496a2.js"
     },
     {
       "type": "asset",
@@ -65,14 +91,44 @@
       "href": "/assets/burn-33192fe7.png"
     }
   ],
+  "/blog/cross-platform-gpu-backend": [
+    {
+      "type": "script",
+      "href": "/assets/cross-platform-gpu-backend-54903909.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-ad9c363f.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-59998e4e.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-fe3e8bd6.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-e11cc5f1.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-31dabd14.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-82cf0773.js"
+    }
+  ],
   "/blog/a-case-for-rust-in-deep-learning": [
     {
       "type": "script",
-      "href": "/assets/a-case-for-rust-in-deep-learning-6b935a3e.js"
+      "href": "/assets/a-case-for-rust-in-deep-learning-5a61ee71.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
+      "href": "/assets/entry-client-ad9c363f.js"
     },
     {
       "type": "style",
@@ -80,37 +136,11 @@
     },
     {
       "type": "script",
-      "href": "/assets/index-62d58566.js"
+      "href": "/assets/index-fe3e8bd6.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-f7c807f5.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-31dabd14.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-2bb01411.js"
-    }
-  ],
-  "/blog/": [
-    {
-      "type": "script",
-      "href": "/assets/index-1238e94c.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-59998e4e.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-f7c807f5.js"
+      "href": "/assets/index-e11cc5f1.js"
     },
     {
       "type": "script",
@@ -118,17 +148,17 @@
     },
     {
       "type": "script",
-      "href": "/assets/page-2bb01411.js"
+      "href": "/assets/page-82cf0773.js"
     }
   ],
   "/blog/burn-rusty-approach-to-tensor-handling": [
     {
       "type": "script",
-      "href": "/assets/burn-rusty-approach-to-tensor-handling-f1155957.js"
+      "href": "/assets/burn-rusty-approach-to-tensor-handling-1a6bbb42.js"
     },
     {
       "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
+      "href": "/assets/entry-client-ad9c363f.js"
     },
     {
       "type": "style",
@@ -136,59 +166,29 @@
     },
     {
       "type": "script",
-      "href": "/assets/index-62d58566.js"
+      "href": "/assets/index-fe3e8bd6.js"
     },
     {
       "type": "script",
-      "href": "/assets/page-2bb01411.js"
+      "href": "/assets/page-82cf0773.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-f7c807f5.js"
+      "href": "/assets/index-e11cc5f1.js"
     },
     {
       "type": "script",
-      "href": "/assets/index-54e1f707.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-31dabd14.js"
-    }
-  ],
-  "/blog/cross-platform-gpu-backend": [
-    {
-      "type": "script",
-      "href": "/assets/cross-platform-gpu-backend-86793a7d.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-59998e4e.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-62d58566.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-f7c807f5.js"
+      "href": "/assets/index-9cc496a2.js"
     },
     {
       "type": "script",
       "href": "/assets/blogs-31dabd14.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-2bb01411.js"
     }
   ],
   "entry-client": [
     {
       "type": "script",
-      "href": "/assets/entry-client-b81441a1.js"
+      "href": "/assets/entry-client-ad9c363f.js"
     },
     {
       "type": "style",
