@@ -14,7 +14,6 @@ export default function Root() {
   return (
     <Html lang="en">
       <Head>
-        <script defer src="https://service.watchthem.live/pixel/l77gs7ZIl7d5b9Zs" />
         <script src = '/analytics.js'/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-S6CQMW5DNY"></script>
         <Meta charset="utf-8" />
@@ -26,7 +25,7 @@ export default function Root() {
         <Meta name="theme-color" content="#202A37" />
         <Title>burn-rs</Title>
       </Head>
-      <Body>
+      <Body class="overflow-x-hidden">
         <ErrorBoundary>
           <Suspense>
             <ThemeProvider>

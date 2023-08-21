@@ -50,7 +50,7 @@ export default function () {
               Code Snippets
             </span>
           </h2>
-          <div class="max-w-7xl flex-row justify-center space-y-10 sm:space-y-32 pb-14">
+          <div class="max-w-7xl flex-row justify-center space-y-10 sm:space-y-32 pb-14 overflow-x-hidden">
             <For
               each={codeExamples}
               children={(example, i) => (
@@ -58,22 +58,25 @@ export default function () {
                   initial={{ opacity: 0, x: (i() % 2 === 0 ? 1 : -1) * 50 }}
                   inView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 1 }}
-                  class={`flex flex-col-reverse p-4 md:space-x-10 items-center ${
-                    i() % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'
-                  }`}
                 >
-                  <div class="w-full flex justify-center">
-                    <Code
-                      class="w-80 md:w-full"
-                      lang="rust"
-                      code={example.code}
-                    />
-                  </div>
-                  <div>
-                    <h3 class="font-black uppercase text-[#F34918] text-4xl">
-                      {example.title}
-                    </h3>
-                    <p class="text-gray-50">{example.description}</p>
+                  <div
+                    class={`flex flex-col-reverse p-4 md:space-x-10 items-center box-border ${
+                      i() % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'
+                    }`}
+                  >
+                    <div class="w-full flex justify-center">
+                      <Code
+                        class="w-80 md:w-full"
+                        lang="rust"
+                        code={example.code}
+                      />
+                    </div>
+                    <div>
+                      <h3 class="font-black uppercase text-[#F34918] text-4xl">
+                        {example.title}
+                      </h3>
+                      <p class="text-gray-50">{example.description}</p>
+                    </div>
                   </div>
                 </Motion.div>
               )}
@@ -81,7 +84,7 @@ export default function () {
           </div>
         </div>
       </div>
-      <div class="w-full text-center">
+      <div class="w-full text-center overflow-x-hidden">
         <Motion.div
           initial={{ opacity: 0, x: 50 }}
           inView={{ opacity: 1, x: 0 }}
