@@ -15,6 +15,7 @@ export const footerSections: FooterSection[] = [
     items: [
       { label: 'MNIST', href: 'https://github.com/burn-rs/burn/tree/main/examples/mnist' },
       { label: 'Text Classification', href: 'https://github.com/burn-rs/burn/tree/main/examples/text-classification' },
+      { label: 'ONNX Inference', href: 'https://github.com/burn-rs/burn/tree/main/examples/onnx-inference' },
     ],
   },
 
@@ -29,6 +30,7 @@ export const footerSections: FooterSection[] = [
     name: 'about',
     items: [
       { label: 'Documentation', href: 'https://docs.rs/burn' },
+      { label: 'Book', href: '/book' },
       { label: 'Crates.io', href: 'https://crates.io/crates/burn' },
       { label: 'License', href: 'https://github.com/burn-rs/burn#license' },
     ],

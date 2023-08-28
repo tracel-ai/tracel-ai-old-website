@@ -4,7 +4,7 @@
   "scripts": {
     "start": "solid-start start",
     "dev": "solid-start dev",
-    "build": "solid-start build",
+    "build": "./update-burn.sh; solid-start build",
     "test": "vitest",
     "test:cov": "vitest run --coverage",
     "lint": "eslint . --ext .ts,.tsx,.js",

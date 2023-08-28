@@ -1,5 +1,8 @@
 coverage
 node_modules
+burn
+public/book
+public/docs
 dist
 .DS_Store
 .vercel
