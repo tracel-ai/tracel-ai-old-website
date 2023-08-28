@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["conv","pool"],"struct":["Conv1dBackward","Conv2dBackward","ConvOptions","ConvTransposeOptions","MaxPool1dBackward","MaxPool1dWithIndices","MaxPool2dBackward","MaxPool2dWithIndices"],"trait":["ActivationOps","BoolTensorOps","IntTensorOps","ModuleOps","TensorOps"]};

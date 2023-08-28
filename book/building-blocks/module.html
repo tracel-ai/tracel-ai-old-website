@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Module - The Burn Book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../motivation.html"><strong aria-hidden="true">2.</strong> Why Burn?</a></li><li class="chapter-item expanded "><a href="../basic-workflow/index.html"><strong aria-hidden="true">3.</strong> Basic Workflow: From Training to Inference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../basic-workflow/model.html"><strong aria-hidden="true">3.1.</strong> Model</a></li><li class="chapter-item expanded "><a href="../basic-workflow/data.html"><strong aria-hidden="true">3.2.</strong> Data</a></li><li class="chapter-item expanded "><a href="../basic-workflow/training.html"><strong aria-hidden="true">3.3.</strong> Training</a></li><li class="chapter-item expanded "><a href="../basic-workflow/backend.html"><strong aria-hidden="true">3.4.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../basic-workflow/inference.html"><strong aria-hidden="true">3.5.</strong> Inference</a></li><li class="chapter-item expanded "><a href="../basic-workflow/conclusion.html"><strong aria-hidden="true">3.6.</strong> Conclusion</a></li></ol></li><li class="chapter-item expanded "><a href="../building-blocks/index.html"><strong aria-hidden="true">4.</strong> Building Blocks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../building-blocks/backend.html"><strong aria-hidden="true">4.1.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../building-blocks/tensor.html"><strong aria-hidden="true">4.2.</strong> Tensor</a></li><li class="chapter-item expanded "><a href="../building-blocks/autodiff.html"><strong aria-hidden="true">4.3.</strong> Autodiff</a></li><li class="chapter-item expanded "><a href="../building-blocks/module.html" class="active"><strong aria-hidden="true">4.4.</strong> Module</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Import ONNX Model</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Advanced</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Custom Training Loops</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> Custom Metric</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Custom Kernels</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.1.</strong> WGPU</div></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Burn Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="module"><a class="header" href="#module">Module</a></h1>
+<p>The <code>Module</code> derive allows you to create your own neural network modules, similar to PyTorch.
+The derive function only generates the necessary methods to essentially act as a parameter container for your type, it makes no assumptions about how the forward pass is declared.</p>
+<pre><code class="language-rust  ignore">use burn::nn;
+use burn::module::Module;
+use burn::tensor::backend::Backend;
+
+#[derive(Module, Debug)]
+pub struct PositionWiseFeedForward&lt;B: Backend&gt; {
+    linear_inner: Linear&lt;B&gt;,
+    linear_outer: Linear&lt;B&gt;,
+    dropout: Dropout,
+    gelu: GELU,
+}
+
+impl&lt;B: Backend&gt; PositionWiseFeedForward&lt;B&gt; {
+    /// Normal method added to a struct.
+    pub fn forward&lt;const D: usize&gt;(&amp;self, input: Tensor&lt;B, D&gt;) -&gt; Tensor&lt;B, D&gt; {
+        let x = self.linear_inner.forward(input);
+        let x = self.gelu.forward(x);
+        let x = self.dropout.forward(x);
+
+        self.linear_outer.forward(x)
+    }
+}</code></pre>
+<p>Note that all fields declared in the struct must also implement the <code>Module</code> trait.</p>
+<h2 id="tensor"><a class="header" href="#tensor">Tensor</a></h2>
+<p>If you want to create your own module that contains tensors, and not just other modules defined with the <code>Module</code> derive, you need to be careful to achieve the behavior you want.</p>
+<ul>
+<li>
+<p><code>Param&lt;Tensor&lt;B, D&gt;&gt;</code>:
+If you want the tensor to be included as a parameter of your modules, you need to wrap the tensor in a <code>Param</code> struct.
+This will create an ID that will be used to identify this parameter.
+This is essential when performing module optimization and when saving states such as optimizer and module checkpoints.
+Note that a module's record only contains parameters.</p>
+</li>
+<li>
+<p><code>Param&lt;Tensor&lt;B, D&gt;&gt;.set_require_grad(false)</code>:
+If you want the tensor to be included as a parameter of your modules, and therefore saved with the module's weights, but you don't want it to be updated by the optimizer.</p>
+</li>
+<li>
+<p><code>Tensor&lt;B, D&gt;</code>:
+If you want the tensor to act as a constant that can be recreated when instantiating a module.
+This can be useful when generating sinusoidal embeddings, for example.</p>
+</li>
+</ul>
+<h2 id="methods"><a class="header" href="#methods">Methods</a></h2>
+<p>These methods are available for all modules.</p>
+<div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
+<tr><td><code>module.devices()</code></td><td>N/A</td></tr>
+<tr><td><code>module.fork(device)</code></td><td>Similar to <code>module.to(device).detach()</code></td></tr>
+<tr><td><code>module.to_device(device)</code></td><td><code>module.to(device)</code></td></tr>
+<tr><td><code>module.no_grad()</code></td><td><code>module.require_grad_(False)</code></td></tr>
+<tr><td><code>module.num_params()</code></td><td>N/A</td></tr>
+<tr><td><code>module.visit(visitor)</code></td><td>N/A</td></tr>
+<tr><td><code>module.map(mapper)</code></td><td>N/A</td></tr>
+<tr><td><code>module.into_record()</code></td><td>Similar to <code>state_dict</code></td></tr>
+<tr><td><code>module.load_record(record)</code></td><td>Similar to <code>load_state_dict(state_dict)</code></td></tr>
+<tr><td><code>module.save_file(file_path, recorder)</code></td><td>N/A</td></tr>
+<tr><td><code>module.load_file(file_path, recorder)</code></td><td>N/A</td></tr>
+</tbody></table>
+</div>
+<p>Similar to the backend trait, there is also the <code>ADModule</code> trait to signify a module with autodiff support.</p>
+<div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
+<tr><td><code>module.valid()</code></td><td><code>module.eval()</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="visitor--mapper"><a class="header" href="#visitor--mapper">Visitor &amp; Mapper</a></h2>
+<p>As mentioned earlier, modules primarily function as parameter containers.
+Therefore, we naturally offer several ways to perform functions on each parameter.
+This is distinct from PyTorch, where extending module functionalities is not as straightforward.</p>
+<p>The <code>map</code> and <code>visitor</code> methods are quite similar but serve different purposes.
+Mapping is used for potentially mutable operations where each parameter of a module can be updated to a new value.
+In Burn, optimizers are essentially just sophisticated module mappers.
+Visitors, on the other hand, are used when you don't intend to modify the module but need to retrieve specific information from it, such as the number of parameters or a list of devices in use.</p>
+<p>You can implement your own mapper or visitor by implementing these simple traits:</p>
+<pre><code class="language-rust  ignore">/// Module visitor trait.
+pub trait ModuleVisitor&lt;B: Backend&gt; {
+    /// Visit a tensor in the module.
+    fn visit&lt;const D: usize&gt;(&amp;mut self, id: &amp;ParamId, tensor: &amp;Tensor&lt;B, D&gt;);
+}
+
+/// Module mapper trait.
+pub trait ModuleMapper&lt;B: Backend&gt; {
+    /// Map a tensor in the module.
+    fn map&lt;const D: usize&gt;(&amp;mut self, id: &amp;ParamId, tensor: Tensor&lt;B, D&gt;) -&gt; Tensor&lt;B, D&gt;;
+}</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../building-blocks/autodiff.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../building-blocks/autodiff.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

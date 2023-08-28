@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["calculate_conv_output_size","calculate_conv_padding"]};

@@ -11,79 +11,49 @@
     "file": "assets/entry-client-19fc50bf.css",
     "src": "src/entry-client.css"
   },
-  "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-eb3e0047.js",
-    "src": "src/routes/[...404].tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "src/routes/demo.tsx": {
-    "file": "assets/demo-a794b524.js",
-    "src": "src/routes/demo.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_page-43f852f4.js"
-    ]
-  },
-  "_index-346c976d.js": {
-    "file": "assets/index-346c976d.js",
+  "_index-30423bfa.js": {
+    "file": "assets/index-30423bfa.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
   "src/routes/blog/index.tsx": {
-    "file": "assets/index-7ae44fe7.js",
+    "file": "assets/index-0328becb.js",
     "src": "src/routes/blog/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-346c976d.js",
+      "_index-30423bfa.js",
       "_blogs-31dabd14.js",
-      "_page-43f852f4.js"
-    ]
-  },
-  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
-    "file": "assets/burn-rusty-approach-to-tensor-handling-796b4e01.js",
-    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-9c89ef40.js",
-      "_page-43f852f4.js",
-      "_index-346c976d.js",
-      "_index-bcc2916c.js",
-      "_blogs-31dabd14.js"
-    ]
-  },
-  "_index-9c89ef40.js": {
-    "file": "assets/index-9c89ef40.js",
-    "imports": [
-      "src/entry-client.tsx"
+      "_page-f4108470.js"
     ]
   },
   "src/routes/blog/cross-platform-gpu-backend.tsx": {
-    "file": "assets/cross-platform-gpu-backend-4b3884e3.js",
+    "file": "assets/cross-platform-gpu-backend-f5978a7c.js",
     "src": "src/routes/blog/cross-platform-gpu-backend.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-9c89ef40.js",
-      "_index-346c976d.js",
+      "_index-fe52d109.js",
+      "_index-30423bfa.js",
       "_blogs-31dabd14.js",
-      "_page-43f852f4.js"
+      "_page-f4108470.js"
     ]
   },
-  "_page-43f852f4.js": {
-    "file": "assets/page-43f852f4.js",
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
+    "file": "assets/a-case-for-rust-in-deep-learning-e252ae69.js",
+    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
+    "isDynamicEntry": true,
     "imports": [
-      "src/entry-client.tsx"
+      "src/entry-client.tsx",
+      "_index-fe52d109.js",
+      "_index-30423bfa.js",
+      "_blogs-31dabd14.js",
+      "_page-f4108470.js"
     ]
   },
-  "_index-bcc2916c.js": {
-    "file": "assets/index-bcc2916c.js",
+  "_index-fe52d109.js": {
+    "file": "assets/index-fe52d109.js",
     "imports": [
       "src/entry-client.tsx"
     ]
@@ -91,35 +61,65 @@
   "_blogs-31dabd14.js": {
     "file": "assets/blogs-31dabd14.js"
   },
+  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
+    "file": "assets/burn-rusty-approach-to-tensor-handling-c128f566.js",
+    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-fe52d109.js",
+      "_page-f4108470.js",
+      "_index-30423bfa.js",
+      "_index-0a6815af.js",
+      "_blogs-31dabd14.js"
+    ]
+  },
+  "src/routes/[...404].tsx": {
+    "file": "assets/_...404_-2131681d.js",
+    "src": "src/routes/[...404].tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "_page-f4108470.js": {
+    "file": "assets/page-f4108470.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/routes/demo.tsx": {
+    "file": "assets/demo-b730f150.js",
+    "src": "src/routes/demo.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_page-f4108470.js"
+    ]
+  },
+  "_index-0a6815af.js": {
+    "file": "assets/index-0a6815af.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
   "src/routes/index.tsx": {
-    "file": "assets/index-f2ba9c2e.js",
+    "file": "assets/index-6828c39a.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-43f852f4.js",
-      "_index-346c976d.js",
-      "_index-bcc2916c.js"
+      "_page-f4108470.js",
+      "_index-30423bfa.js",
+      "_index-0a6815af.js"
     ],
     "assets": [
       "assets/logo-d7813d0c.png",
       "assets/burn-33192fe7.png"
     ]
   },
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-c6630a28.js",
-    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-9c89ef40.js",
-      "_index-346c976d.js",
-      "_blogs-31dabd14.js",
-      "_page-43f852f4.js"
-    ]
-  },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-350342f0.js",
+    "file": "assets/entry-client-b35941c6.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [

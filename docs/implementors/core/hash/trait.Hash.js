@@ -1,0 +1,5 @@
+(function() {var implementors = {
+"burn_common":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.72.0/core/hash/trait.Hash.html\" title=\"trait core::hash::Hash\">Hash</a> for <a class=\"struct\" href=\"burn_common/stub/struct.ThreadId.html\" title=\"struct burn_common::stub::ThreadId\">ThreadId</a>"]],
+"burn_core":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.72.0/core/hash/trait.Hash.html\" title=\"trait core::hash::Hash\">Hash</a> for <a class=\"struct\" href=\"burn_core/module/struct.ParamId.html\" title=\"struct burn_core::module::ParamId\">ParamId</a>"]],
+"burn_wgpu":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.72.0/core/hash/trait.Hash.html\" title=\"trait core::hash::Hash\">Hash</a> for <a class=\"enum\" href=\"burn_wgpu/enum.WgpuDevice.html\" title=\"enum burn_wgpu::WgpuDevice\">WgpuDevice</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

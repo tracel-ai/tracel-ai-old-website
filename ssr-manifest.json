@@ -1,359 +1,359 @@
 {
-  "src/routes/[...404].tsx": [
-    "/assets/_...404_-eb3e0047.js"
-  ],
-  "src/routes/demo.tsx": [
-    "/assets/demo-a794b524.js"
-  ],
   "src/components/stars/index.tsx": [
-    "/assets/index-346c976d.js"
+    "/assets/index-30423bfa.js"
   ],
   "src/components/card/index.tsx": [
-    "/assets/index-7ae44fe7.js"
+    "/assets/index-0328becb.js"
   ],
   "src/routes/blog/index.tsx": [
-    "/assets/index-7ae44fe7.js"
-  ],
-  "src/components/blog/table/index.tsx": [
-    "/assets/burn-rusty-approach-to-tensor-handling-796b4e01.js"
-  ],
-  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
-    "/assets/burn-rusty-approach-to-tensor-handling-796b4e01.js"
-  ],
-  "src/components/blog/index.tsx": [
-    "/assets/index-9c89ef40.js"
-  ],
-  "src/components/blog/reference/index.tsx": [
-    "/assets/index-9c89ef40.js"
+    "/assets/index-0328becb.js"
   ],
   "src/routes/blog/cross-platform-gpu-backend.tsx": [
-    "/assets/cross-platform-gpu-backend-4b3884e3.js"
+    "/assets/cross-platform-gpu-backend-f5978a7c.js"
   ],
-  "src/components/outterlink/index.tsx": [
-    "/assets/page-43f852f4.js"
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
+    "/assets/a-case-for-rust-in-deep-learning-e252ae69.js"
   ],
-  "src/content/footer.tsx": [
-    "/assets/page-43f852f4.js"
+  "src/components/blog/index.tsx": [
+    "/assets/index-fe52d109.js"
   ],
-  "src/layout/page.tsx": [
-    "/assets/page-43f852f4.js"
-  ],
-  "\u0000commonjsHelpers.js": [
-    "/assets/index-bcc2916c.js"
-  ],
-  "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js?commonjs-module": [
-    "/assets/index-bcc2916c.js"
-  ],
-  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js": [
-    "/assets/index-bcc2916c.js"
-  ],
-  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-rust.js": [
-    "/assets/index-bcc2916c.js"
-  ],
-  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-python.js": [
-    "/assets/index-bcc2916c.js"
-  ],
-  "node_modules/.pnpm/nanoid@4.0.1/node_modules/nanoid/index.browser.js": [
-    "/assets/index-bcc2916c.js"
-  ],
-  "src/components/code/index.tsx": [
-    "/assets/index-bcc2916c.js"
+  "src/components/blog/reference/index.tsx": [
+    "/assets/index-fe52d109.js"
   ],
   "src/content/blogs.ts": [
     "/assets/blogs-31dabd14.js"
   ],
+  "src/components/blog/table/index.tsx": [
+    "/assets/burn-rusty-approach-to-tensor-handling-c128f566.js"
+  ],
+  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
+    "/assets/burn-rusty-approach-to-tensor-handling-c128f566.js"
+  ],
+  "src/routes/[...404].tsx": [
+    "/assets/_...404_-2131681d.js"
+  ],
+  "src/components/outterlink/index.tsx": [
+    "/assets/page-f4108470.js"
+  ],
+  "src/content/footer.tsx": [
+    "/assets/page-f4108470.js"
+  ],
+  "src/layout/page.tsx": [
+    "/assets/page-f4108470.js"
+  ],
+  "src/routes/demo.tsx": [
+    "/assets/demo-b730f150.js"
+  ],
+  "\u0000commonjsHelpers.js": [
+    "/assets/index-0a6815af.js"
+  ],
+  "\u0000/home/runner/work/burn-rs.github.io/burn-rs.github.io/node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js?commonjs-module": [
+    "/assets/index-0a6815af.js"
+  ],
+  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js": [
+    "/assets/index-0a6815af.js"
+  ],
+  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-rust.js": [
+    "/assets/index-0a6815af.js"
+  ],
+  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-python.js": [
+    "/assets/index-0a6815af.js"
+  ],
+  "node_modules/.pnpm/nanoid@4.0.1/node_modules/nanoid/index.browser.js": [
+    "/assets/index-0a6815af.js"
+  ],
+  "src/components/code/index.tsx": [
+    "/assets/index-0a6815af.js"
+  ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/array.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/clamp.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/defaults.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-number.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-easing-list.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/wrap.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/easing.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/mix.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/noop.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/progress.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/offset.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/interpolate.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-cubic-bezier.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-easing-generator.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-function.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/is-string.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/time.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+easing@10.15.1/node_modules/@motionone/easing/dist/cubic-bezier.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+easing@10.15.1/node_modules/@motionone/easing/dist/steps.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+animation@10.15.1/node_modules/@motionone/animation/dist/utils/easing.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+animation@10.15.1/node_modules/@motionone/animation/dist/Animation.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/hey-listen@1.0.8/node_modules/hey-listen/dist/hey-listen.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+types@10.15.1/node_modules/@motionone/types/dist/MotionValue.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/data.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/transforms.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/css-var.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/feature-detection.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/easing.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/keyframes.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/get-style-name.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/style.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/stop-animation.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/get-unit.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/animate-style.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/options.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/utils/resolve-elements.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/tslib.es6.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/gestures/in-view.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/has-changed.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/is-variant.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/resolve-variant.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/schedule.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/utils/events.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/gestures/in-view.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/gestures/hover.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/gestures/press.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/state/index.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+dom@10.15.5/node_modules/@motionone/dom/dist/animate/utils/style-object.es.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+solid@10.15.5_solid-js@1.6.10/node_modules/@motionone/solid/dist/source/context.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+solid@10.15.5_solid-js@1.6.10/node_modules/@motionone/solid/dist/source/primitives.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@solid-primitives+props@3.0.3_solid-js@1.6.10/node_modules/@solid-primitives/props/dist/index.js": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "node_modules/.pnpm/@motionone+solid@10.15.5_solid-js@1.6.10/node_modules/@motionone/solid/dist/source/motion.jsx": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/assets/logo.png": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/assets/burn.png": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/content/features.tsx": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/content/examples.ts": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/components/sponsors/index.tsx": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
   ],
   "src/routes/index.tsx": [
-    "/assets/index-f2ba9c2e.js",
+    "/assets/index-6828c39a.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
-  ],
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
-    "/assets/a-case-for-rust-in-deep-learning-c6630a28.js"
   ],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/dist/dev.js": [],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/web/dist/dev.js": [],
@@ -395,11 +395,11 @@
   "node_modules/.pnpm/solid-start@0.2.17_ash22hvqyuqb4bc34tpf7zghmi/node_modules/solid-start/entry-client/StartClient.tsx": [],
   "node_modules/.pnpm/@lottiefiles+lottie-player@1.7.0/node_modules/@lottiefiles/lottie-player/dist/lottie-player.esm.js": [],
   "src/entry-client.tsx": [],
-  "_...404_-eb3e0047.js": [],
-  "demo-a794b524.js": [],
-  "index-f2ba9c2e.js": [],
-  "a-case-for-rust-in-deep-learning-c6630a28.js": [],
-  "burn-rusty-approach-to-tensor-handling-796b4e01.js": [],
-  "cross-platform-gpu-backend-4b3884e3.js": [],
-  "index-7ae44fe7.js": []
+  "_...404_-2131681d.js": [],
+  "demo-b730f150.js": [],
+  "index-6828c39a.js": [],
+  "a-case-for-rust-in-deep-learning-e252ae69.js": [],
+  "burn-rusty-approach-to-tensor-handling-c128f566.js": [],
+  "cross-platform-gpu-backend-f5978a7c.js": [],
+  "index-0328becb.js": []
 }

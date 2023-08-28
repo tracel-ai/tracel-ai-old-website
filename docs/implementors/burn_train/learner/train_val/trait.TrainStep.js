@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"guide":[["impl&lt;B: ADBackend&gt; TrainStep&lt;<a class=\"struct\" href=\"guide/data/struct.MNISTBatch.html\" title=\"struct guide::data::MNISTBatch\">MNISTBatch</a>&lt;B&gt;, ClassificationOutput&lt;B&gt;&gt; for <a class=\"struct\" href=\"guide/model/struct.Model.html\" title=\"struct guide::model::Model\">Model</a>&lt;B&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

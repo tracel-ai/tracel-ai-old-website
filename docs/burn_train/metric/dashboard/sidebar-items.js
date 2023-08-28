@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DashboardMetricState"],"mod":["cli"],"struct":["Dashboard","TextPlot","TrainingProgress"],"trait":["DashboardRenderer"]};

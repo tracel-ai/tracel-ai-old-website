@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"burn_dataset":[["impl&lt;'a, I&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/1.72.0/core/iter/traits/iterator/trait.Iterator.html\" title=\"trait core::iter::traits::iterator::Iterator\">Iterator</a> for <a class=\"struct\" href=\"burn_dataset/struct.DatasetIterator.html\" title=\"struct burn_dataset::DatasetIterator\">DatasetIterator</a>&lt;'a, I&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Config"],"enum":["ConfigError"],"fn":["config_to_json"],"trait":["Config"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["inference","training"],"struct":["AgNewsDataset","DbPediaDataset"],"trait":["TextClassificationDataset"]};
