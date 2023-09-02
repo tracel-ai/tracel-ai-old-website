@@ -23,6 +23,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#21" id="21">21</a>
 <a href="#22" id="22">22</a>
 <a href="#23" id="23">23</a>
+<a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::TchElement, TchBackend, TchTensor};
 <span class="kw">use </span>burn_tensor::ops::ActivationOps;
 
@@ -30,12 +32,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>relu&lt;<span class="kw">const </span>D: usize&gt;(tensor: TchTensor&lt;E, D&gt;) -&gt; TchTensor&lt;E, D&gt; {
         tensor.unary_ops(|<span class="kw-2">mut </span>tensor| tensor.relu_(), |tensor| tensor.relu())
     }
+
     <span class="kw">fn </span>gelu&lt;<span class="kw">const </span>D: usize&gt;(tensor: TchTensor&lt;E, D&gt;) -&gt; TchTensor&lt;E, D&gt; {
         tensor.unary_ops(
             |<span class="kw-2">mut </span>tensor| tensor.gelu_(<span class="string">&quot;none&quot;</span>),
             |tensor| tensor.gelu(<span class="string">&quot;none&quot;</span>),
         )
     }
+
     <span class="kw">fn </span>gelu_backward&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: TchTensor&lt;E, D&gt;,
         grad: TchTensor&lt;E, D&gt;,

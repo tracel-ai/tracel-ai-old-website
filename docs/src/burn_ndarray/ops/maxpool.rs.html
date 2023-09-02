@@ -184,7 +184,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#182" id="182">182</a>
 <a href="#183" id="183">183</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
-    element::FloatNdArrayElement, iter_par, ops::padding::apply_padding_4d, run_par,
+    element::FloatNdArrayElement, iter_range_par, ops::padding::apply_padding_4d, run_par,
     sharing::UnsafeSharedRef, tensor::NdArrayTensor,
 };
 
@@ -218,7 +218,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>unsafe_shared_out = UnsafeSharedRef::new(<span class="kw-2">&amp;mut </span>output);
 
     <span class="macro">run_par!</span>(|| {
-        <span class="macro">iter_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
+        <span class="macro">iter_range_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
             <span class="kw">let </span>b = k / channels;
             <span class="kw">let </span>c = k % channels;
 
@@ -281,7 +281,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>unsafe_shared_indices = UnsafeSharedRef::new(<span class="kw-2">&amp;mut </span>indices);
 
     <span class="macro">run_par!</span>(|| {
-        <span class="macro">iter_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
+        <span class="macro">iter_range_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
             <span class="kw">let </span>b = k / channels;
             <span class="kw">let </span>c = k % channels;
 
@@ -344,7 +344,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>unsafe_shared_out = UnsafeSharedRef::new(<span class="kw-2">&amp;mut </span>output);
 
     <span class="macro">run_par!</span>(|| {
-        <span class="macro">iter_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
+        <span class="macro">iter_range_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
             <span class="kw">let </span>b = k / channels;
             <span class="kw">let </span>c = k % channels;
 

@@ -466,6 +466,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#464" id="464">464</a>
 <a href="#465" id="465">465</a>
 <a href="#466" id="466">466</a>
+<a href="#467" id="467">467</a>
+<a href="#468" id="468">468</a>
+<a href="#469" id="469">469</a>
+<a href="#470" id="470">470</a>
+<a href="#471" id="471">471</a>
+<a href="#472" id="472">472</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>burn_tensor::Data;
 <span class="kw">use </span>burn_tensor::ElementConversion;
@@ -860,30 +866,36 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         arg(tensor, dim, CmpType::Min)
     }
 
-    <span class="kw">pub fn </span>clamp_min&lt;<span class="kw">const </span>D: usize&gt;(tensor: NdArrayTensor&lt;E, D&gt;, min: E) -&gt; NdArrayTensor&lt;E, D&gt; {
-        <span class="kw">let </span>array = tensor.array.mapv(|x| <span class="kw">match </span>x &lt; min {
+    <span class="kw">pub fn </span>clamp_min&lt;<span class="kw">const </span>D: usize&gt;(
+        <span class="kw-2">mut </span>tensor: NdArrayTensor&lt;E, D&gt;,
+        min: E,
+    ) -&gt; NdArrayTensor&lt;E, D&gt; {
+        tensor.array.mapv_inplace(|x| <span class="kw">match </span>x &lt; min {
             <span class="bool-val">true </span>=&gt; min,
             <span class="bool-val">false </span>=&gt; x,
         });
 
-        NdArrayTensor::new(array.into_shared())
+        tensor
     }
 
-    <span class="kw">pub fn </span>clamp_max&lt;<span class="kw">const </span>D: usize&gt;(tensor: NdArrayTensor&lt;E, D&gt;, max: E) -&gt; NdArrayTensor&lt;E, D&gt; {
-        <span class="kw">let </span>array = tensor.array.mapv(|x| <span class="kw">match </span>x &gt; max {
+    <span class="kw">pub fn </span>clamp_max&lt;<span class="kw">const </span>D: usize&gt;(
+        <span class="kw-2">mut </span>tensor: NdArrayTensor&lt;E, D&gt;,
+        max: E,
+    ) -&gt; NdArrayTensor&lt;E, D&gt; {
+        tensor.array.mapv_inplace(|x| <span class="kw">match </span>x &gt; max {
             <span class="bool-val">true </span>=&gt; max,
             <span class="bool-val">false </span>=&gt; x,
         });
 
-        NdArrayTensor::new(array.into_shared())
+        tensor
     }
 
     <span class="kw">pub fn </span>clamp&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: NdArrayTensor&lt;E, D&gt;,
+        <span class="kw-2">mut </span>tensor: NdArrayTensor&lt;E, D&gt;,
         min: E,
         max: E,
     ) -&gt; NdArrayTensor&lt;E, D&gt; {
-        <span class="kw">let </span>array = tensor.array.mapv(|x| <span class="kw">match </span>x &lt; min {
+        tensor.array.mapv_inplace(|x| <span class="kw">match </span>x &lt; min {
             <span class="bool-val">true </span>=&gt; min,
             <span class="bool-val">false </span>=&gt; <span class="kw">match </span>x &gt; max {
                 <span class="bool-val">true </span>=&gt; max,
@@ -891,7 +903,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             },
         });
 
-        NdArrayTensor::new(array.into_shared())
+        tensor
     }
 }
 

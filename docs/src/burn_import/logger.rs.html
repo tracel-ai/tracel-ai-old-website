@@ -21,41 +21,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#19" id="19">19</a>
 <a href="#20" id="20">20</a>
 <a href="#21" id="21">21</a>
-<a href="#22" id="22">22</a>
-<a href="#23" id="23">23</a>
-<a href="#24" id="24">24</a>
-<a href="#25" id="25">25</a>
-<a href="#26" id="26">26</a>
-<a href="#27" id="27">27</a>
-<a href="#28" id="28">28</a>
-<a href="#29" id="29">29</a>
-<a href="#30" id="30">30</a>
-<a href="#31" id="31">31</a>
-<a href="#32" id="32">32</a>
-<a href="#33" id="33">33</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>log::{LevelFilter, SetLoggerError};
-<span class="kw">use </span>log4rs::{
-    append::console::ConsoleAppender,
-    config::{Appender, Root},
-    encode::pattern::PatternEncoder,
-    Config,
-};
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::error::Error;
+<span class="kw">use </span>tracing_core::LevelFilter;
 
-<span class="kw">pub fn </span>init_log() -&gt; <span class="prelude-ty">Result</span>&lt;(), SetLoggerError&gt; {
-    <span class="kw">let </span>stdout = ConsoleAppender::builder()
-        .encoder(Box::new(PatternEncoder::new(<span class="string">&quot;[{h({l})} - {f}:{L}] {m}{n}&quot;</span>)))
-        .build();
-    <span class="kw">let </span>appender = Appender::builder().build(<span class="string">&quot;stdout&quot;</span>, Box::new(stdout));
-
-    log4rs::init_config(
-        Config::builder()
-            .appender(appender)
-            .build(Root::builder().appender(<span class="string">&quot;stdout&quot;</span>).build(LevelFilter::Debug))
-            .unwrap(),
-    )<span class="question-mark">?</span>;
-    update_panic_hook();
-
-    <span class="prelude-val">Ok</span>(())
+<span class="kw">pub fn </span>init_log() -&gt; <span class="prelude-ty">Result</span>&lt;(), Box&lt;<span class="kw">dyn </span>Error + Send + Sync&gt;&gt; {
+    <span class="kw">let </span>result = tracing_subscriber::fmt()
+        .with_max_level(LevelFilter::INFO)
+        .try_init();
+    <span class="kw">if </span>result.is_ok() {
+        update_panic_hook();
+    }
+    result
 }
 
 <span class="kw">fn </span>update_panic_hook() {

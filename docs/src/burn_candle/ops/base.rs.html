@@ -102,7 +102,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#100" id="100">100</a>
 <a href="#101" id="101">101</a>
 <a href="#102" id="102">102</a>
-<a href="#103" id="103">103</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::marker::PhantomData;
 
 <span class="kw">use </span>burn_tensor::{backend::Backend, Data, Shape};
@@ -203,7 +202,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ranges: [std::ops::Range&lt;usize&gt;; D2],
     value: CandleTensor&lt;E, D1&gt;,
 ) -&gt; CandleTensor&lt;E, D1&gt; {
-    <span class="comment">// TODO: not trivial, because no view_ like in torch
-    </span><span class="macro">todo!</span>()
+    <span class="macro">panic!</span>(<span class="string">&quot;slice_assign not supported by Candle&quot;</span>)
 }
 </code></pre></div></section></main></body></html>

@@ -127,7 +127,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_max_pool1d_simple() {
         <span class="kw">let </span>kernel_size = <span class="number">3</span>;
-        <span class="kw">let </span>padding = <span class="number">1</span>;
+        <span class="kw">let </span>padding = <span class="number">0</span>;
         <span class="kw">let </span>stride = <span class="number">1</span>;
         <span class="kw">let </span>dilation = <span class="number">1</span>;
 
@@ -136,8 +136,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             [<span class="number">0.8148</span>, <span class="number">0.5474</span>, <span class="number">0.9490</span>, <span class="number">0.7890</span>, <span class="number">0.5537</span>, <span class="number">0.5689</span>],
         ]]);
         <span class="kw">let </span>y = TestTensor::from_floats([[
-            [<span class="number">0.9861</span>, <span class="number">0.9861</span>, <span class="number">0.5474</span>, <span class="number">0.4477</span>, <span class="number">0.8221</span>, <span class="number">0.8221</span>],
-            [<span class="number">0.8148</span>, <span class="number">0.9490</span>, <span class="number">0.9490</span>, <span class="number">0.9490</span>, <span class="number">0.7890</span>, <span class="number">0.5689</span>],
+            [<span class="number">0.9861</span>, <span class="number">0.5474</span>, <span class="number">0.4477</span>, <span class="number">0.8221</span>],
+            [<span class="number">0.949</span>, <span class="number">0.949</span>, <span class="number">0.949</span>, <span class="number">0.789</span>],
         ]]);
 
         <span class="kw">let </span>output = max_pool1d(x, kernel_size, stride, padding, dilation);
@@ -199,13 +199,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_max_pool1d_with_indices() {
         <span class="kw">let </span>kernel_size = <span class="number">2</span>;
-        <span class="kw">let </span>padding = <span class="number">1</span>;
+        <span class="kw">let </span>padding = <span class="number">0</span>;
         <span class="kw">let </span>stride = <span class="number">1</span>;
         <span class="kw">let </span>dilation = <span class="number">1</span>;
 
         <span class="kw">let </span>x = TestTensor::from_floats([[[<span class="number">0.2479</span>, <span class="number">0.6386</span>, <span class="number">0.3166</span>, <span class="number">0.5742</span>]]]);
-        <span class="kw">let </span>indices = Data::&lt;IntElem, <span class="number">3</span>&gt;::from([[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>]]]);
-        <span class="kw">let </span>y = TestTensor::from_floats([[[<span class="number">0.2479</span>, <span class="number">0.6386</span>, <span class="number">0.6386</span>, <span class="number">0.5742</span>, <span class="number">0.5742</span>]]]);
+        <span class="kw">let </span>indices = Data::&lt;IntElem, <span class="number">3</span>&gt;::from([[[<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>]]]);
+        <span class="kw">let </span>y = TestTensor::from_floats([[[<span class="number">0.6386</span>, <span class="number">0.6386</span>, <span class="number">0.5742</span>]]]);
 
         <span class="kw">let </span>(output, output_indices) =
             max_pool1d_with_indices(x, kernel_size, stride, padding, dilation);

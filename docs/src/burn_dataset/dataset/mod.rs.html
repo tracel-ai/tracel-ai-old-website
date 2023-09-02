@@ -13,17 +13,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#11" id="11">11</a>
 <a href="#12" id="12">12</a>
 <a href="#13" id="13">13</a>
+<a href="#14" id="14">14</a>
+<a href="#15" id="15">15</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>base;
-<span class="attr">#[cfg(feature = <span class="string">&quot;fake&quot;</span>)]
+<span class="attr">#[cfg(any(test, feature = <span class="string">&quot;fake&quot;</span>))]
 </span><span class="kw">mod </span>fake;
 <span class="kw">mod </span>in_memory;
 <span class="kw">mod </span>iterator;
-<span class="kw">mod </span>sqlite;
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;sqlite&quot;</span>, feature = <span class="string">&quot;sqlite-bundled&quot;</span>))]
+</span><span class="kw">mod </span>sqlite;
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;fake&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::fake::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>base::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>in_memory::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>iterator::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>sqlite::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;sqlite&quot;</span>, feature = <span class="string">&quot;sqlite-bundled&quot;</span>))]
+</span><span class="kw">pub use </span>sqlite::<span class="kw-2">*</span>;
 </code></pre></div></section></main></body></html>

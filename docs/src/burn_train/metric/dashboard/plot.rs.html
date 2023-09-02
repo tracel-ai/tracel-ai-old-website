@@ -149,11 +149,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#147" id="147">147</a>
 <a href="#148" id="148">148</a>
 <a href="#149" id="149">149</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>rgb::RGB8;
-<span class="kw">use </span>terminal_size::{terminal_size, Height, Width};
-<span class="kw">use </span>textplots::{Chart, ColorPlot, Shape};
-
-<span class="doccomment">/// Text plot.
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+</pre></div><pre class="rust"><code><span class="doccomment">/// Text plot.
 </span><span class="kw">pub struct </span>TextPlot {
     train: Vec&lt;(f32, f32)&gt;,
     valid: Vec&lt;(f32, f32)&gt;,
@@ -259,7 +266,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The rendered text plot.
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;ui&quot;</span>)]
     </span><span class="kw">pub fn </span>render(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="kw">use </span>rgb::RGB8;
+        <span class="kw">use </span>terminal_size::{terminal_size, Height, Width};
+        <span class="kw">use </span>textplots::{Chart, ColorPlot, Shape};
+
         <span class="kw">let </span>train_color = RGB8::new(<span class="number">255</span>, <span class="number">140</span>, <span class="number">140</span>);
         <span class="kw">let </span>valid_color = RGB8::new(<span class="number">140</span>, <span class="number">140</span>, <span class="number">255</span>);
 
@@ -296,6 +308,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             .linecolorplot(<span class="kw-2">&amp;</span>Shape::Lines(<span class="kw-2">&amp;</span><span class="self">self</span>.train), train_color)
             .linecolorplot(<span class="kw-2">&amp;</span>Shape::Lines(<span class="kw-2">&amp;</span><span class="self">self</span>.valid), valid_color)
             .to_string()
+    }
+
+    <span class="doccomment">/// Renders the text plot.
+    ///
+    /// # Returns
+    ///
+    /// The rendered text plot.
+    </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;ui&quot;</span>))]
+    </span><span class="kw">pub fn </span>render(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="macro">panic!</span>(<span class="string">&quot;ui feature not enabled on burn-train&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

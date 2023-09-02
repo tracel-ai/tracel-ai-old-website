@@ -80,7 +80,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Gelu::&lt;D&gt;.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Gelu::&lt;D&gt;.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>output = B::gelu(tensor.primitive.clone());
                 prep.finish(tensor.primitive, output)
@@ -104,7 +104,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
         <span class="kw">let </span>output = B::relu(tensor.primitive);
 
-        <span class="kw">match </span>Relu.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Relu.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(output.clone(), output),
             OpsKind::UnTracked(prep) =&gt; prep.finish(output),
         }

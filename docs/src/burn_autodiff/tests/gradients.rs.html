@@ -37,7 +37,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>x = tensor_1.clone().matmul(activation::gelu(tensor_2));
         <span class="kw">let </span><span class="kw-2">mut </span>grads = x.backward();
 
-        <span class="kw">let </span>grad_1 = tensor_1.grad(<span class="kw-2">&amp;mut </span>grads).unwrap();
+        <span class="kw">let </span>grad_1 = tensor_1.grad(<span class="kw-2">&amp;</span>grads).unwrap();
 
         <span class="kw">let </span>grad_1_updated = TestADTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default).require_grad();
         tensor_1.grad_replace(<span class="kw-2">&amp;mut </span>grads, grad_1_updated.clone().inner());

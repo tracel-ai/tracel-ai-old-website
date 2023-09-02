@@ -104,7 +104,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#102" id="102">102</a>
 <a href="#103" id="103">103</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
-    element::FloatNdArrayElement, iter_par, run_par, sharing::UnsafeSharedRef,
+    element::FloatNdArrayElement, iter_range_par, run_par, sharing::UnsafeSharedRef,
     tensor::NdArrayTensor,
 };
 <span class="kw">use </span>burn_tensor::ElementConversion;
@@ -124,7 +124,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>unsafe_shared_out = UnsafeSharedRef::new(<span class="kw-2">&amp;mut </span>output);
 
     <span class="macro">run_par!</span>(|| {
-        <span class="macro">iter_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
+        <span class="macro">iter_range_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
             <span class="kw">let </span>b = k / channels;
             <span class="kw">let </span>c = k % channels;
 
@@ -166,7 +166,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>unsafe_shared_out = UnsafeSharedRef::new(<span class="kw-2">&amp;mut </span>output_grad);
 
     <span class="macro">run_par!</span>(|| {
-        <span class="macro">iter_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
+        <span class="macro">iter_range_par!</span>(<span class="number">0</span>, batch_size * channels).for_each(|k| <span class="kw">unsafe </span>{
             <span class="kw">let </span>b = k / channels;
             <span class="kw">let </span>c = k % channels;
 

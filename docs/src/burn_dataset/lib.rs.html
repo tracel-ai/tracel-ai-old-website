@@ -36,6 +36,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#34" id="34">34</a>
 <a href="#35" id="35">35</a>
 <a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
 </pre></div><pre class="rust"><code><span class="attr">#![warn(missing_docs)]
 
 </span><span class="doccomment">//! # Burn Dataset
@@ -59,7 +60,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">mod </span>dataset;
 <span class="kw">pub use </span>dataset::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>source::huggingface::downloader::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;sqlite&quot;</span>, feature = <span class="string">&quot;sqlite-bundled&quot;</span>))]
+</span><span class="kw">pub use </span>source::huggingface::downloader::<span class="kw-2">*</span>;
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test_data {

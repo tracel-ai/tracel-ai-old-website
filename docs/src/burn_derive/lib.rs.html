@@ -34,40 +34,38 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#32" id="32">32</a>
 <a href="#33" id="33">33</a>
 <a href="#34" id="34">34</a>
-<a href="#35" id="35">35</a>
 </pre></div><pre class="rust"><code><span class="attr">#![warn(missing_docs)]
 
 </span><span class="doccomment">//! The derive crate of Burn.
 
-</span><span class="kw">use </span>proc_macro::TokenStream;
+</span><span class="attr">#[macro_use]
+</span><span class="kw">extern crate </span>derive_new;
+
+<span class="kw">use </span>proc_macro::TokenStream;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>config;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>module;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>record;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>shared;
 
-<span class="kw">use </span>config::config_attr_impl;
-<span class="kw">use </span>module::module_derive_impl;
-<span class="kw">use </span>record::record_derive_impl;
-
 <span class="doccomment">/// Derive macro for the module.
 </span><span class="attr">#[proc_macro_derive(Module)]
 </span><span class="kw">pub fn </span>module_derive(input: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span>input = syn::parse(input).unwrap();
-    module_derive_impl(<span class="kw-2">&amp;</span>input)
+    module::derive_impl(<span class="kw-2">&amp;</span>input)
 }
 
 <span class="doccomment">/// Derive macro for the record.
 </span><span class="attr">#[proc_macro_derive(Record)]
 </span><span class="kw">pub fn </span>record_derive(input: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span>input = syn::parse(input).unwrap();
-    record_derive_impl(<span class="kw-2">&amp;</span>input)
+    record::derive_impl(<span class="kw-2">&amp;</span>input)
 }
 
 <span class="doccomment">/// Derive macro for the config.
 </span><span class="attr">#[proc_macro_derive(Config, attributes(config))]
 </span><span class="kw">pub fn </span>config_derive(input: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span>item = syn::parse(input).unwrap();
-    config_attr_impl(<span class="kw-2">&amp;</span>item).into()
+    config::derive_impl(<span class="kw-2">&amp;</span>item)
 }
 </code></pre></div></section></main></body></html>

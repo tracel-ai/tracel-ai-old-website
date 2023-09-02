@@ -25,6 +25,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#23" id="23">23</a>
 <a href="#24" id="24">24</a>
 <a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a>
 </pre></div><pre class="rust"><code><span class="doccomment">/// Dashboard module for training progress.
 </span><span class="kw">pub mod </span>dashboard;
 
@@ -33,21 +43,31 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">mod </span>acc;
 <span class="kw">mod </span>base;
-<span class="kw">mod </span>cpu_temp;
-<span class="kw">mod </span>cpu_use;
-<span class="kw">mod </span>cuda;
-<span class="kw">mod </span>gpu_temp;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">mod </span>cpu_temp;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">mod </span>cpu_use;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">mod </span>cuda;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">mod </span>gpu_temp;
 <span class="kw">mod </span>learning_rate;
 <span class="kw">mod </span>loss;
-<span class="kw">mod </span>memory_use;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">mod </span>memory_use;
 
 <span class="kw">pub use </span>acc::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>base::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>cpu_temp::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>cpu_use::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>cuda::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>gpu_temp::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">pub use </span>cpu_temp::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">pub use </span>cpu_use::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">pub use </span>cuda::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">pub use </span>gpu_temp::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>learning_rate::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>loss::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>memory_use::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;metrics&quot;</span>)]
+</span><span class="kw">pub use </span>memory_use::<span class="kw-2">*</span>;
 </code></pre></div></section></main></body></html>

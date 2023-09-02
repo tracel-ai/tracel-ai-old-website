@@ -372,6 +372,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#370" id="370">370</a>
 <a href="#371" id="371">371</a>
 <a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::ops::Range;
 
 <span class="kw">use </span>burn_tensor::{backend::Backend, ops::IntTensorOps, Data, Shape};
@@ -569,10 +581,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>int_div_scalar&lt;<span class="kw">const </span>D: usize&gt;(lhs: TchTensor&lt;i64, D&gt;, rhs: i64) -&gt; TchTensor&lt;i64, D&gt; {
-        lhs.unary_ops(
+        <span class="kw">let </span>lhs: TchTensor&lt;f64, D&gt; =
+            TchTensor::new(lhs.tensor.to_dtype(tch::Kind::Float, <span class="bool-val">true</span>, <span class="bool-val">false</span>));
+        <span class="kw">let </span>output: TchTensor&lt;i64, D&gt; = lhs.unary_ops(
             |<span class="kw-2">mut </span>tensor| tensor.f_div_scalar_(rhs).unwrap(),
             |tensor| tensor.f_div_scalar(rhs).unwrap(),
-        )
+        );
+        TchTensor::&lt;i64, D&gt;::new(output.tensor.to_dtype(tch::Kind::Int64, <span class="bool-val">true</span>, <span class="bool-val">false</span>))
     }
 
     <span class="kw">fn </span>int_neg&lt;<span class="kw">const </span>D: usize&gt;(tensor: TchTensor&lt;i64, D&gt;) -&gt; TchTensor&lt;i64, D&gt; {
@@ -623,11 +638,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>int_mean&lt;<span class="kw">const </span>D: usize&gt;(tensor: TchTensor&lt;i64, D&gt;) -&gt; TchTensor&lt;i64, <span class="number">1</span>&gt; {
-        TchOps::mean(tensor)
+        <span class="kw">let </span>tensor: TchTensor&lt;f64, D&gt; =
+            TchTensor::new(tensor.tensor.to_dtype(tch::Kind::Float, <span class="bool-val">true</span>, <span class="bool-val">false</span>));
+        <span class="kw">let </span>output: TchTensor&lt;i64, <span class="number">1</span>&gt; = TchTensor::new(TchOps::mean(tensor).tensor);
+
+        TchTensor::&lt;i64, <span class="number">1</span>&gt;::new(output.tensor.to_dtype(tch::Kind::Int64, <span class="bool-val">true</span>, <span class="bool-val">false</span>))
     }
 
     <span class="kw">fn </span>int_mean_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: TchTensor&lt;i64, D&gt;, dim: usize) -&gt; TchTensor&lt;i64, D&gt; {
-        TchOps::mean_dim(tensor, dim)
+        <span class="kw">let </span>tensor: TchTensor&lt;f64, D&gt; =
+            TchTensor::new(tensor.tensor.to_dtype(tch::Kind::Float, <span class="bool-val">true</span>, <span class="bool-val">false</span>));
+
+        <span class="kw">let </span>output: TchTensor&lt;i64, D&gt; = TchTensor::new(TchOps::mean_dim(tensor, dim).tensor);
+
+        TchTensor::&lt;i64, D&gt;::new(output.tensor.to_dtype(tch::Kind::Int64, <span class="bool-val">true</span>, <span class="bool-val">false</span>))
     }
 
     <span class="kw">fn </span>int_gather&lt;<span class="kw">const </span>D: usize&gt;(
@@ -672,9 +696,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         TchTensor::binary_ops_tensor(
             tensor,
             source,
-            |tensor, source| tensor.f_masked_scatter_(<span class="kw-2">&amp;</span>mask.tensor, source).unwrap(),
-            |tensor, source| tensor.f_masked_scatter(<span class="kw-2">&amp;</span>mask.tensor, source).unwrap(),
-            |tensor, source| tensor.f_masked_scatter(<span class="kw-2">&amp;</span>mask.tensor, source).unwrap(),
+            |tensor, source| source.f_where_self(<span class="kw-2">&amp;</span>mask.tensor, tensor).unwrap(),
+            |tensor, source| source.f_where_self(<span class="kw-2">&amp;</span>mask.tensor, tensor).unwrap(),
+            |tensor, source| source.f_where_self(<span class="kw-2">&amp;</span>mask.tensor, tensor).unwrap(),
         )
     }
 

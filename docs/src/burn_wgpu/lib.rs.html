@@ -51,6 +51,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#49" id="49">49</a>
 <a href="#50" id="50">50</a>
 <a href="#51" id="51">51</a>
+<a href="#52" id="52">52</a>
+<a href="#53" id="53">53</a>
 </pre></div><pre class="rust"><code><span class="attr">#![warn(missing_docs)]
 
 </span><span class="doccomment">//! Burn WGPU Backend
@@ -62,12 +64,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Benchmark module
 </span><span class="kw">pub mod </span>benchmark;
+<span class="doccomment">/// Context module.
+</span><span class="kw">pub mod </span>context;
 <span class="doccomment">/// Kernel module
 </span><span class="kw">pub mod </span>kernel;
+<span class="doccomment">/// Tensor module.
+</span><span class="kw">pub mod </span>tensor;
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>context;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>pool;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>tensor;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>tune;
 
 <span class="kw">mod </span>element;

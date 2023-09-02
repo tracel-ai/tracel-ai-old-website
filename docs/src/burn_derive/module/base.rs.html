@@ -126,13 +126,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#124" id="124">124</a>
 <a href="#125" id="125">125</a>
 <a href="#126" id="126">126</a>
-</pre></div><pre class="rust"><code><span class="kw">use super</span>::{generator::FnGenerator, record::ModuleRecordGenerator};
+<a href="#127" id="127">127</a>
+</pre></div><pre class="rust"><code><span class="kw">use super</span>::{
+    codegen::ModuleCodegen, codegen_struct::StructModuleCodegen, record::ModuleRecordCodegen,
+    record_struct::StructModuleRecordCodegen,
+};
 <span class="kw">use </span><span class="kw">crate</span>::module::display;
 <span class="kw">use </span>proc_macro::TokenStream;
 <span class="kw">use </span>quote::quote;
-<span class="kw">use </span>syn::parse_quote;
+<span class="kw">use </span>syn::{parse_quote, Ident};
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>module_derive_impl(ast: <span class="kw-2">&amp;</span>syn::DeriveInput) -&gt; TokenStream {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>derive_impl(ast: <span class="kw-2">&amp;</span>syn::DeriveInput) -&gt; TokenStream {
     <span class="kw">let </span>name = <span class="kw-2">&amp;</span>ast.ident;
     <span class="kw">let </span>has_backend = ast
         .generics
@@ -149,21 +153,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">let </span>display_fn = display::display_fn(name);
 
-    <span class="kw">let </span>generator = FnGenerator::from_ast(ast);
-    <span class="kw">let </span>num_params_fn = generator.gen_num_params_fn();
-    <span class="kw">let </span>visit = generator.gen_visit_fn();
-    <span class="kw">let </span>map_mut = generator.gen_map_fn();
-    <span class="kw">let </span>valid_fn = generator.gen_valid_fn();
-    <span class="kw">let </span>into_record_fn = generator.gen_into_record_fn();
-    <span class="kw">let </span>load_record_fn = generator.gen_load_record_fn();
-    <span class="kw">let </span>clone_fn = generator.gen_clone_fn();
+    <span class="kw">let </span>generator = StructModuleCodegen::from_ast(ast);
+    <span class="kw">let </span>num_params_fn = generator.gen_num_params();
+    <span class="kw">let </span>visit = generator.gen_visit();
+    <span class="kw">let </span>map_mut = generator.gen_map();
+    <span class="kw">let </span>valid_fn = generator.gen_valid();
+    <span class="kw">let </span>into_record_fn = generator.gen_into_record();
+    <span class="kw">let </span>load_record_fn = generator.gen_load_record();
+    <span class="kw">let </span>clone_fn = generator.gen_clone();
     <span class="kw">let </span>generics_names_except_backend = generics_names_except_backend(<span class="kw-2">&amp;</span>ast.generics);
 
-    <span class="kw">let </span>record_gen =
-        ModuleRecordGenerator::new(name.clone(), generator.fields, ast.generics.clone());
-
-    <span class="kw">let </span>record_name = record_gen.record_name();
-    <span class="kw">let </span>record_struct = record_gen.gen_record_struct();
+    <span class="kw">let </span>record_name = Ident::new(<span class="macro">format!</span>(<span class="string">&quot;{}Record&quot;</span>, name).as_str(), name.span());
+    <span class="kw">let </span>record_gen = StructModuleRecordCodegen::new(generator.fields);
+    <span class="kw">let </span>record_struct = record_gen.gen_record_type(<span class="kw-2">&amp;</span>record_name, <span class="kw-2">&amp;</span>ast.generics);
 
     <span class="kw">let </span>gen = <span class="macro">quote! </span>{
         <span class="kw">impl </span>#generics burn::module::Module&lt;B&gt; <span class="kw">for </span>#name #generics_ty #generics_where {

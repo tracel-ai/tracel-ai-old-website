@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["matmul_add_relu_custom","matmul_add_relu_reference"],"trait":["ADBackend","Backend"],"type":["FloatTensor"]};

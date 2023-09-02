@@ -181,6 +181,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#179" id="179">179</a>
 <a href="#180" id="180">180</a>
 <a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Learner;
 
 <span class="kw">use crate</span>::{TrainEpoch, ValidEpoch};
@@ -339,14 +345,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     <span class="kw-2">&amp;mut </span><span class="self">self</span>.lr_scheduler,
                     <span class="kw-2">&amp;mut </span><span class="self">self</span>.callback,
                     <span class="self">self</span>.devices.clone(),
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.interrupter,
                 )
             } <span class="kw">else </span>{
-                (model, optim) =
-                    epoch_train.run(model, optim, <span class="kw-2">&amp;mut </span><span class="self">self</span>.lr_scheduler, <span class="kw-2">&amp;mut </span><span class="self">self</span>.callback);
+                (model, optim) = epoch_train.run(
+                    model,
+                    optim,
+                    <span class="kw-2">&amp;mut </span><span class="self">self</span>.lr_scheduler,
+                    <span class="kw-2">&amp;mut </span><span class="self">self</span>.callback,
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.interrupter,
+                );
             }
 
             <span class="kw">let </span>epoch_valid = ValidEpoch::new(dataloader_valid.clone(), epoch, <span class="self">self</span>.num_epochs);
-            epoch_valid.run(<span class="kw-2">&amp;</span>model, <span class="kw-2">&amp;mut </span><span class="self">self</span>.callback);
+            epoch_valid.run(<span class="kw-2">&amp;</span>model, <span class="kw-2">&amp;mut </span><span class="self">self</span>.callback, <span class="kw-2">&amp;</span><span class="self">self</span>.interrupter);
 
             <span class="self">Self</span>::checkpoint(
                 <span class="kw-2">&amp;</span>model,

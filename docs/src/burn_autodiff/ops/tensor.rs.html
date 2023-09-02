@@ -1470,40 +1470,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1468" id="1468">1468</a>
 <a href="#1469" id="1469">1469</a>
 <a href="#1470" id="1470">1470</a>
-<a href="#1471" id="1471">1471</a>
-<a href="#1472" id="1472">1472</a>
-<a href="#1473" id="1473">1473</a>
-<a href="#1474" id="1474">1474</a>
-<a href="#1475" id="1475">1475</a>
-<a href="#1476" id="1476">1476</a>
-<a href="#1477" id="1477">1477</a>
-<a href="#1478" id="1478">1478</a>
-<a href="#1479" id="1479">1479</a>
-<a href="#1480" id="1480">1480</a>
-<a href="#1481" id="1481">1481</a>
-<a href="#1482" id="1482">1482</a>
-<a href="#1483" id="1483">1483</a>
-<a href="#1484" id="1484">1484</a>
-<a href="#1485" id="1485">1485</a>
-<a href="#1486" id="1486">1486</a>
-<a href="#1487" id="1487">1487</a>
-<a href="#1488" id="1488">1488</a>
-<a href="#1489" id="1489">1489</a>
-<a href="#1490" id="1490">1490</a>
-<a href="#1491" id="1491">1491</a>
-<a href="#1492" id="1492">1492</a>
-<a href="#1493" id="1493">1493</a>
-<a href="#1494" id="1494">1494</a>
-<a href="#1495" id="1495">1495</a>
-<a href="#1496" id="1496">1496</a>
-<a href="#1497" id="1497">1497</a>
-<a href="#1498" id="1498">1498</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::marker::PhantomData;
 
 <span class="kw">use crate</span>::{
     grads::Gradients,
     graph::{NodeRef, Requirement, Step},
-    ops::{binary, unary, unary_different_backend, Backward, Ops, OpsKind},
+    ops::{binary, broadcast_shape, unary, unary_different_backend, Backward, Ops, OpsKind},
     tensor::{ADTensor, BoolTensor, FloatElem, IntTensor},
     utils::duplicate,
     ADBackendDecorator,
@@ -1567,7 +1539,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>ToDevice.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>ToDevice.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>device_old = B::device(<span class="kw-2">&amp;</span>tensor.primitive);
                 prep.finish(device_old, B::to_device(tensor.primitive, device))
@@ -1606,7 +1578,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>Add
             .prepare([lhs.node, rhs.node], [lhs.graph, rhs.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(preps) =&gt; preps.finish(
                 (B::shape(<span class="kw-2">&amp;</span>lhs.primitive), B::shape(<span class="kw-2">&amp;</span>rhs.primitive)),
@@ -1655,7 +1627,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>Sub
             .prepare([lhs.node, rhs.node], [lhs.graph, rhs.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(preps) =&gt; preps.finish(
                 (B::shape(<span class="kw-2">&amp;</span>lhs.primitive), B::shape(<span class="kw-2">&amp;</span>rhs.primitive)),
@@ -1718,7 +1690,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>Mul
             .prepare([lhs.node, rhs.node], [lhs.graph, rhs.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -1746,7 +1718,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>MulScalar.prepare([lhs.node], [lhs.graph]).statefull() {
+        <span class="kw">match </span>MulScalar.prepare([lhs.node], [lhs.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(rhs, B::mul_scalar(lhs.primitive, rhs)),
             OpsKind::UnTracked(prep) =&gt; prep.finish(B::mul_scalar(lhs.primitive, rhs)),
         }
@@ -1796,7 +1768,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>Div
             .prepare([lhs.node, rhs.node], [lhs.graph, rhs.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -1825,7 +1797,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>DivScalar.prepare([lhs.node], [lhs.graph]).statefull() {
+        <span class="kw">match </span>DivScalar.prepare([lhs.node], [lhs.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(rhs, B::div_scalar(lhs.primitive, rhs)),
             OpsKind::UnTracked(prep) =&gt; prep.finish(B::div_scalar(lhs.primitive, rhs)),
         }
@@ -1871,7 +1843,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>Matmul
             .prepare([lhs.node, rhs.node], [lhs.graph, rhs.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -1923,7 +1895,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>output = B::swap_dims(tensor.primitive, dim1, dim2);
 
-        <span class="kw">match </span>SwapDim.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>SwapDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish((dim1, dim2), output),
             OpsKind::UnTracked(prep) =&gt; prep.finish(output),
         }
@@ -1957,10 +1929,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>ReshapeDim
-            .prepare([tensor.node], [tensor.graph])
-            .statefull()
-        {
+        <span class="kw">match </span>ReshapeDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (B::shape(<span class="kw-2">&amp;</span>tensor.primitive), shape.clone()),
                 B::reshape(tensor.primitive, shape),
@@ -1990,7 +1959,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Gather.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Gather.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
                     dim,
@@ -2038,7 +2007,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>Scatter
             .prepare([tensor.node, value.node], [tensor.graph, value.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -2079,7 +2048,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>IndexSelectDim
             .prepare([tensor.node], [tensor.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -2128,7 +2097,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>IndexSelectDimAssign::&lt;D&gt;
             .prepare([tensor.node, value.node], [tensor.graph, value.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -2169,7 +2138,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Index.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Index.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
                     ranges.clone(),
@@ -2212,7 +2181,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>IndexAssign
             .prepare([tensor.node, value.node], [tensor.graph, value.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -2265,7 +2234,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">match </span>MaskWhere
             .prepare([tensor.node, source.node], [tensor.graph, source.graph])
-            .statefull()
+            .stateful()
         {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (
@@ -2300,7 +2269,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>MaskFill.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>MaskFill.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(mask.clone(), B::mask_fill(tensor.primitive, mask, value))
             }
@@ -2403,7 +2372,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Mean.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Mean.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(B::shape(<span class="kw-2">&amp;</span>tensor.primitive), B::mean(tensor.primitive))
             }
@@ -2430,7 +2399,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Sum.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Sum.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(B::shape(<span class="kw-2">&amp;</span>tensor.primitive), B::sum(tensor.primitive))
             }
@@ -2459,7 +2428,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>MeamDim.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>MeamDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (B::shape(<span class="kw-2">&amp;</span>tensor.primitive), dim),
                 B::mean_dim(tensor.primitive, dim),
@@ -2487,7 +2456,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>SumDim.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>SumDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (B::shape(<span class="kw-2">&amp;</span>tensor.primitive), dim),
                 B::sum_dim(tensor.primitive, dim),
@@ -2575,7 +2544,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>output = B::exp(tensor.primitive);
 
-        <span class="kw">match </span>Exp.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Exp.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(output.clone(), output),
             OpsKind::UnTracked(prep) =&gt; prep.finish(output),
         }
@@ -2596,7 +2565,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Log.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Log.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(tensor.primitive.clone(), B::log(tensor.primitive))
             }
@@ -2621,7 +2590,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Log1P.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Log1P.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(tensor.primitive.clone(), B::log1p(tensor.primitive))
             }
@@ -2648,7 +2617,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>PowF.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>PowF.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish(
                 (tensor.primitive.clone(), value),
                 B::powf(tensor.primitive, value),
@@ -2674,7 +2643,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Sqrt.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Sqrt.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(tensor.primitive.clone(), B::sqrt(tensor.primitive))
             }
@@ -2694,7 +2663,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Abs.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Abs.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>output = B::abs(tensor.primitive.clone());
                 <span class="kw">let </span>state = B::div(tensor.primitive, output.clone());
@@ -2721,7 +2690,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Cos.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Cos.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(tensor.primitive.clone(), B::cos(tensor.primitive))
             }
@@ -2744,7 +2713,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Sin.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Sin.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(tensor.primitive.clone(), B::sin(tensor.primitive))
             }
@@ -2767,7 +2736,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Tanh.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Tanh.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>output = B::tanh(tensor.primitive);
                 prep.finish(output.clone(), output)
@@ -2795,7 +2764,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">match </span>Erf.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>Erf.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 prep.finish(tensor.primitive.clone(), B::erf(tensor.primitive))
             }
@@ -2870,7 +2839,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>max_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: ADTensor&lt;B, D&gt;, dim: usize) -&gt; ADTensor&lt;B, D&gt; {
-        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor.primitive);
                 <span class="kw">let </span>(tensor, index) = B::max_dim_with_indices(tensor.primitive, dim);
@@ -2883,7 +2852,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         tensor: ADTensor&lt;B, D&gt;,
         dim: usize,
     ) -&gt; (ADTensor&lt;B, D&gt;, IntTensor&lt;B, D&gt;) {
-        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor.primitive);
                 <span class="kw">let </span>(tensor, index) = B::max_dim_with_indices(tensor.primitive, dim);
@@ -2900,7 +2869,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
     <span class="kw">fn </span>min_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: ADTensor&lt;B, D&gt;, dim: usize) -&gt; ADTensor&lt;B, D&gt; {
-        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor.primitive);
                 <span class="kw">let </span>(tensor, index) = B::min_dim_with_indices(tensor.primitive, dim);
@@ -2913,7 +2882,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         tensor: ADTensor&lt;B, D&gt;,
         dim: usize,
     ) -&gt; (ADTensor&lt;B, D&gt;, IntTensor&lt;B, D&gt;) {
-        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).statefull() {
+        <span class="kw">match </span>MaxMinDim.prepare([tensor.node], [tensor.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor.primitive);
                 <span class="kw">let </span>(tensor, index) = B::min_dim_with_indices(tensor.primitive, dim);
@@ -2970,30 +2939,5 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             BinaryOpsBroadcast::None =&gt; grad,
         }
     }
-}
-
-<span class="doccomment">/// Make sure the grad tensor has the given shape.
-///
-/// If broadcasting happened during the forward pass, the gradients will be sum along the
-/// broadcasted dimension.
-</span><span class="kw">fn </span>broadcast_shape&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(
-    <span class="kw-2">mut </span>grad: B::TensorPrimitive&lt;D&gt;,
-    shape: <span class="kw-2">&amp;</span>Shape&lt;D&gt;,
-) -&gt; B::TensorPrimitive&lt;D&gt; {
-    <span class="kw">let </span>shape_grad = B::shape(<span class="kw-2">&amp;</span>grad);
-
-    <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..D {
-        <span class="kw">if </span>shape_grad.dims[i] != shape.dims[i] {
-            <span class="kw">if </span>shape.dims[i] != <span class="number">1 </span>{
-                <span class="macro">panic!</span>(
-                    <span class="string">&quot;Invalid broadcast shapes: Next grad shape {:?}, Previous grad shape {:?}. {}&quot;</span>,
-                    shape.dims, shape_grad.dims, <span class="string">&quot;Expected the shape of the next grad to be 1.&quot;
-                </span>);
-            }
-            grad = B::sum_dim(grad, i);
-        }
-    }
-
-    grad
 }
 </code></pre></div></section></main></body></html>

@@ -148,6 +148,39 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#146" id="146">146</a>
 <a href="#147" id="147">147</a>
 <a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Backward;
 <span class="kw">use crate</span>::{
     grads::Gradients,
@@ -156,7 +189,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     },
     tensor::ADTensor,
 };
-<span class="kw">use </span>burn_tensor::backend::Backend;
+<span class="kw">use </span>burn_tensor::{backend::Backend, Shape};
 <span class="kw">use </span>std::marker::PhantomData;
 
 <span class="doccomment">/// Operation in preparation.
@@ -174,18 +207,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     marker: PhantomData&lt;Mode&gt;,
 }
 
-<span class="kw">pub struct </span>Init;
-<span class="kw">pub struct </span>Tracked;
-<span class="kw">pub struct </span>UnTracked;
+<span class="doccomment">/// Init operation tag.
+</span><span class="kw">pub struct </span>Init;
+<span class="doccomment">/// Tracked operation tag.
+</span><span class="kw">pub struct </span>Tracked;
+<span class="doccomment">/// Untracked operation tag.
+</span><span class="kw">pub struct </span>UnTracked;
 
 <span class="kw">impl</span>&lt;BO, B, <span class="kw">const </span>D: usize, <span class="kw">const </span>N: usize&gt; OpsPrep&lt;BO, B, (), D, N, Init&gt;
 <span class="kw">where
     </span>B: Backend,
     BO: Backward&lt;B, D, N, State = ()&gt;,
 {
-    <span class="doccomment">/// Prepare an stateless operation.
+    <span class="doccomment">/// Prepare a stateless operation.
     </span><span class="kw">pub fn </span>stateless(<span class="self">self</span>, output: &lt;B <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;D&gt;) -&gt; ADTensor&lt;B, D&gt; {
-        <span class="kw">match </span><span class="self">self</span>.statefull() {
+        <span class="kw">match </span><span class="self">self</span>.stateful() {
             OpsKind::Tracked(prep) =&gt; prep.finish((), output),
             OpsKind::UnTracked(prep) =&gt; prep.finish(output),
         }
@@ -199,7 +235,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     BO: Backward&lt;B, D, N, State = S&gt;,
 {
     <span class="doccomment">/// Prepare an operation that requires a state during the backward pass.
-    </span><span class="kw">pub fn </span>statefull(<span class="self">self</span>) -&gt; OpsKind&lt;BO, B, S, D, N&gt; {
+    </span><span class="kw">pub fn </span>stateful(<span class="self">self</span>) -&gt; OpsKind&lt;BO, B, S, D, N&gt; {
         <span class="kw">match </span><span class="self">self</span>.requirement.is_none() {
             <span class="bool-val">false </span>=&gt; OpsKind::Tracked(OpsPrep::new(
                 <span class="self">self</span>.nodes,
@@ -257,16 +293,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Enum used before finishing tracked and untracked operations.
 </span><span class="kw">pub enum </span>OpsKind&lt;BO, B, S, <span class="kw">const </span>D: usize, <span class="kw">const </span>N: usize&gt; {
-    Tracked(OpsPrep&lt;BO, B, S, D, N, Tracked&gt;),
-    UnTracked(OpsPrep&lt;BO, B, S, D, N, UnTracked&gt;),
+    <span class="doccomment">/// Tracked operation preparation.
+    </span>Tracked(OpsPrep&lt;BO, B, S, D, N, Tracked&gt;),
+    <span class="doccomment">/// Untracked operation preparation.
+    </span>UnTracked(OpsPrep&lt;BO, B, S, D, N, UnTracked&gt;),
 }
 
 <span class="doccomment">/// Operation containing its parent nodes, its own node and the backward step state.
 </span><span class="attr">#[derive(new, Debug)]
 </span><span class="kw">pub struct </span>Ops&lt;S, <span class="kw">const </span>N: usize&gt; {
-    <span class="kw">pub </span>parents: [<span class="prelude-ty">Option</span>&lt;NodeRef&gt;; N],
-    <span class="kw">pub </span>node: NodeRef,
-    <span class="kw">pub </span>state: S,
+    <span class="doccomment">/// Parents nodes.
+    </span><span class="kw">pub </span>parents: [<span class="prelude-ty">Option</span>&lt;NodeRef&gt;; N],
+    <span class="doccomment">/// The node.
+    </span><span class="kw">pub </span>node: NodeRef,
+    <span class="doccomment">/// The state.
+    </span><span class="kw">pub </span>state: S,
 }
 
 <span class="doccomment">/// Operation implementing backward [step](Step) with type erasing.
@@ -295,5 +336,30 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>node(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NodeRef {
         <span class="self">self</span>.ops.node.clone()
     }
+}
+
+<span class="doccomment">/// Make sure the grad tensor has the given shape.
+///
+/// If broadcasting happened during the forward pass, the gradients will be sum along the
+/// broadcasted dimension.
+</span><span class="kw">pub fn </span>broadcast_shape&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(
+    <span class="kw-2">mut </span>grad: B::TensorPrimitive&lt;D&gt;,
+    shape: <span class="kw-2">&amp;</span>Shape&lt;D&gt;,
+) -&gt; B::TensorPrimitive&lt;D&gt; {
+    <span class="kw">let </span>shape_grad = B::shape(<span class="kw-2">&amp;</span>grad);
+
+    <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..D {
+        <span class="kw">if </span>shape_grad.dims[i] != shape.dims[i] {
+            <span class="kw">if </span>shape.dims[i] != <span class="number">1 </span>{
+                <span class="macro">panic!</span>(
+                    <span class="string">&quot;Invalid broadcast shapes: Next grad shape {:?}, Previous grad shape {:?}. {}&quot;</span>,
+                    shape.dims, shape_grad.dims, <span class="string">&quot;Expected the shape of the next grad to be 1.&quot;
+                </span>);
+            }
+            grad = B::sum_dim(grad, i);
+        }
+    }
+
+    grad
 }
 </code></pre></div></section></main></body></html>

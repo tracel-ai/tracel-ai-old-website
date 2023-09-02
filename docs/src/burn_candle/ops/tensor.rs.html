@@ -425,7 +425,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#423" id="423">423</a>
 <a href="#424" id="424">424</a>
 <a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::borrow::Borrow;
 
 <span class="kw">use </span>burn_tensor::{ops::TensorOps, Data, Distribution, ElementConversion, Shape};
@@ -462,7 +461,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             Distribution::Bernoulli(prob) =&gt; CandleTensor::new(
                 candle_core::Tensor::rand(<span class="number">0.</span>, <span class="number">1.</span>, shape, device)
                     .unwrap()
-                    .gt(<span class="kw-2">&amp;</span><span class="kw">super</span>::candle_utils::fill(prob, shape, F::DTYPE, device))
+                    .to_dtype(F::DTYPE)
+                    .unwrap()
+                    .lt(<span class="kw-2">&amp;</span><span class="kw">super</span>::candle_utils::fill(prob, shape, F::DTYPE, device))
                     .unwrap()
                     .to_dtype(F::DTYPE)
                     .unwrap(),
@@ -795,7 +796,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>powf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, value: f32) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">panic!</span>(<span class="string">&quot;powf not supported by Candle&quot;</span>)
+        CandleTensor::new(tensor.tensor.powf(value.elem::&lt;f64&gt;()).unwrap())
     }
 
     <span class="kw">fn </span>sqrt&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
@@ -815,10 +816,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>tanh&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="comment">// TODO submit an issue at Candle
-        </span><span class="kw">let </span>e_x = tensor.tensor.exp().unwrap();
-        <span class="kw">let </span>e_minus_x = tensor.tensor.neg().unwrap().exp().unwrap();
-        CandleTensor::new(((e_x.clone() - e_minus_x.clone()).unwrap() / (e_x + e_minus_x)).unwrap())
+        CandleTensor::new(tensor.tensor.tanh().unwrap())
     }
 
     <span class="kw">fn </span>erf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {

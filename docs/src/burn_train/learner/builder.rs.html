@@ -307,13 +307,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#305" id="305">305</a>
 <a href="#306" id="306">306</a>
 <a href="#307" id="307">307</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::log::update_log_file;
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::log::install_file_logger;
 <span class="kw">use </span><span class="kw">super</span>::Learner;
 <span class="kw">use </span><span class="kw">crate</span>::checkpoint::{AsyncCheckpointer, Checkpointer, FileCheckpointer};
 <span class="kw">use </span><span class="kw">crate</span>::logger::{FileMetricLogger, MetricLogger};
-<span class="kw">use </span><span class="kw">crate</span>::metric::dashboard::cli::CLIDashboardRenderer;
+<span class="kw">use </span><span class="kw">crate</span>::metric::dashboard::CLIDashboardRenderer;
 <span class="kw">use </span><span class="kw">crate</span>::metric::dashboard::{Dashboard, DashboardRenderer, MetricWrapper, Metrics};
-<span class="kw">use </span><span class="kw">crate</span>::metric::{Adaptor, Metric, Numeric};
+<span class="kw">use </span><span class="kw">crate</span>::metric::{Adaptor, Metric};
 <span class="kw">use </span><span class="kw">crate</span>::AsyncTrainerCallback;
 <span class="kw">use </span>burn_core::lr_scheduler::LRScheduler;
 <span class="kw">use </span>burn_core::module::ADModule;
@@ -321,6 +321,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="kw">use </span>burn_core::record::FileRecorder;
 <span class="kw">use </span>burn_core::tensor::backend::ADBackend;
 
+<span class="kw">use </span><span class="kw">crate</span>::learner::base::TrainingInterrupter;
 <span class="kw">use </span>std::sync::Arc;
 
 <span class="doccomment">/// Struct to configure and create a [learner](Learner).
@@ -345,7 +346,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     metric_logger_valid: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>MetricLogger + <span class="lifetime">&#39;static</span>&gt;&gt;,
     renderer: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>DashboardRenderer + <span class="lifetime">&#39;static</span>&gt;&gt;,
     metrics: Metrics&lt;T, V&gt;,
-    log_to_file: bool,
+    interrupter: TrainingInterrupter,
 }
 
 <span class="kw">impl</span>&lt;B, T, V, Model, Optim, LR&gt; LearnerBuilder&lt;B, T, V, Model, Optim, LR&gt;
@@ -376,7 +377,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             metric_logger_valid: <span class="prelude-val">None</span>,
             metrics: Metrics::new(),
             renderer: <span class="prelude-val">None</span>,
-            log_to_file: <span class="bool-val">true</span>,
+            interrupter: TrainingInterrupter::new(),
         }
     }
 
@@ -450,12 +451,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// # Notes
     ///
-    /// Only [numeric](Numeric) metric can be displayed on a plot.
+    /// Only [numeric](crate::metric::Numeric) metric can be displayed on a plot.
     /// If the same metric is also registered for the [validation split](Self::metric_valid_plot),
     /// the same graph will be used for both.
     </span><span class="kw">pub fn </span>metric_train_plot&lt;M&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: M) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>M: Metric + Numeric + <span class="lifetime">&#39;static</span>,
+        </span>M: Metric + <span class="kw">crate</span>::metric::Numeric + <span class="lifetime">&#39;static</span>,
         T: Adaptor&lt;M::Input&gt;,
     {
         <span class="self">self</span>.metrics
@@ -468,10 +469,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// # Notes
     ///
-    /// Only [numeric](Numeric) metric can be displayed on a plot.
+    /// Only [numeric](crate::metric::Numeric) metric can be displayed on a plot.
     /// If the same metric is also registered for the [training split](Self::metric_train_plot),
     /// the same graph will be used for both.
-    </span><span class="kw">pub fn </span>metric_valid_plot&lt;M: Metric + Numeric + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: M) -&gt; <span class="self">Self
+    </span><span class="kw">pub fn </span>metric_valid_plot&lt;M: Metric + <span class="kw">crate</span>::metric::Numeric + <span class="lifetime">&#39;static</span>&gt;(
+        <span class="kw-2">mut </span><span class="self">self</span>,
+        metric: M,
+    ) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>V: Adaptor&lt;M::Input&gt;,
     {
@@ -499,13 +503,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// By default, Rust logs are captured and written into
-    /// `experiment.log`. If disabled, standard Rust log handling
-    /// will apply.
-    </span><span class="kw">pub fn </span>log_to_file(<span class="kw-2">mut </span><span class="self">self</span>, enabled: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.log_to_file = enabled;
-        <span class="self">self
-    </span>}
+    <span class="doccomment">/// Provides a handle that can be used to interrupt training.
+    </span><span class="kw">pub fn </span>interrupter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TrainingInterrupter {
+        <span class="self">self</span>.interrupter.clone()
+    }
 
     <span class="doccomment">/// Register a checkpointer that will save the [optimizer](Optimizer) and the
     /// [model](ADModule).
@@ -552,9 +553,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         Optim::Record: <span class="lifetime">&#39;static</span>,
         LR::Record: <span class="lifetime">&#39;static</span>,
     {
-        <span class="kw">if </span><span class="self">self</span>.log_to_file {
-            <span class="self">self</span>.init_logger();
-        }
+        <span class="self">self</span>.init_logger();
         <span class="kw">let </span>renderer = <span class="self">self
             </span>.renderer
             .unwrap_or_else(|| Box::new(CLIDashboardRenderer::new()));
@@ -606,12 +605,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             checkpointer_scheduler,
             grad_accumulation: <span class="self">self</span>.grad_accumulation,
             devices: <span class="self">self</span>.devices,
+            interrupter: <span class="self">self</span>.interrupter,
         }
     }
 
     <span class="kw">fn </span>init_logger(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let </span>file_path = <span class="macro">format!</span>(<span class="string">&quot;{}/experiment.log&quot;</span>, <span class="self">self</span>.directory);
-        update_log_file(file_path.as_str());
+        install_file_logger(file_path.as_str());
     }
 }
 </code></pre></div></section></main></body></html>

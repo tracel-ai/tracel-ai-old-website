@@ -259,6 +259,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{DashboardMetricState, DashboardRenderer, TextPlot, TrainingProgress};
 <span class="kw">use </span>indicatif::{MultiProgress, ProgressBar, ProgressState, ProgressStyle};
 <span class="kw">use </span>std::{collections::HashMap, fmt::Write};
@@ -276,6 +283,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     metric_both_plot: HashMap&lt;String, TextPlot&gt;,
     metric_train_plot: HashMap&lt;String, TextPlot&gt;,
     metric_valid_plot: HashMap&lt;String, TextPlot&gt;,
+}
+
+<span class="kw">impl </span>TrainingProgress {
+    <span class="kw">fn </span>finished(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.epoch == <span class="self">self</span>.epoch_total &amp;&amp; <span class="self">self</span>.progress.items_processed == <span class="self">self</span>.progress.items_total
+    }
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>CLIDashboardRenderer {
@@ -454,10 +467,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>render(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">if </span>std::time::Instant::now()
-            .duration_since(<span class="self">self</span>.last_update)
-            .as_millis()
-            &lt; MAX_REFRESH_RATE_MILLIS
+        <span class="kw">if </span>!<span class="self">self</span>.progress.finished()
+            &amp;&amp; std::time::Instant::now()
+                .duration_since(<span class="self">self</span>.last_update)
+                .as_millis()
+                &lt; MAX_REFRESH_RATE_MILLIS
         {
             <span class="kw">return</span>;
         }

@@ -112,7 +112,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#110" id="110">110</a>
 <a href="#111" id="111">111</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArrayBackend};
-<span class="kw">use crate</span>::{iter_par, run_par, UnsafeSharedRef};
+<span class="kw">use crate</span>::{iter_range_par, run_par, UnsafeSharedRef};
 <span class="kw">use </span>burn_tensor::ElementConversion;
 <span class="kw">use </span>burn_tensor::{ops::TensorOps, Shape};
 <span class="kw">use </span>ndarray::s;
@@ -171,7 +171,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>lhs_array = lhs.array.into_shape((batch_size_lhs, m, k)).unwrap();
         <span class="kw">let </span>rhs_array = rhs.array.into_shape((batch_size_rhs, k, n)).unwrap();
 
-        <span class="macro">iter_par!</span>(<span class="number">0</span>, batch_size).for_each(|b| {
+        <span class="macro">iter_range_par!</span>(<span class="number">0</span>, batch_size).for_each(|b| {
             <span class="kw">let </span>lhs_slice = <span class="kw">match </span>batch_size_lhs == <span class="number">1 </span>{
                 <span class="bool-val">true </span>=&gt; lhs_array.slice(<span class="macro">s!</span>(<span class="number">0</span>, .., ..)),
                 <span class="bool-val">false </span>=&gt; lhs_array.slice(<span class="macro">s!</span>(b, .., ..)),

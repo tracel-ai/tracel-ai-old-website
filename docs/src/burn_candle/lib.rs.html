@@ -142,6 +142,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
 </pre></div><pre class="rust"><code><span class="attr">#![warn(missing_docs)]
 #![allow(unused)] </span><span class="comment">// TODO remove when backend filled
 
@@ -172,16 +173,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">type </span>TestADTensor&lt;<span class="kw">const </span>D: usize, K&gt; = burn_tensor::Tensor&lt;TestADBackend, D, K&gt;;
 
     <span class="comment">// test activation
-    // burn_tensor::testgen_gelu!();
-    // burn_tensor::testgen_relu!();
-    // burn_tensor::testgen_softmax!();
-    // burn_tensor::testgen_sigmoid!();
-    // burn_tensor::testgen_silu!();
+    </span><span class="macro">burn_tensor::testgen_gelu!</span>();
+    <span class="macro">burn_tensor::testgen_relu!</span>();
+    <span class="macro">burn_tensor::testgen_softmax!</span>();
+    <span class="macro">burn_tensor::testgen_sigmoid!</span>();
+    <span class="macro">burn_tensor::testgen_silu!</span>();
 
-    // test module
-    // burn_tensor::testgen_module_forward!();
-    // burn_tensor::testgen_module_conv1d!();
-    // burn_tensor::testgen_module_conv2d!();
+    <span class="comment">// test module
+    </span><span class="macro">burn_tensor::testgen_module_forward!</span>();
+    <span class="macro">burn_tensor::testgen_module_conv1d!</span>();
+    <span class="comment">// burn_tensor::testgen_module_conv2d!();
     // burn_tensor::testgen_module_conv_transpose1d!();
     // burn_tensor::testgen_module_conv_transpose2d!();
     // burn_tensor::testgen_module_max_pool1d!();
@@ -193,21 +194,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     // test ops
     </span><span class="macro">burn_tensor::testgen_add!</span>();
-    <span class="macro">burn_tensor::testgen_aggregation!</span>();
-    <span class="macro">burn_tensor::testgen_arange!</span>();
+    <span class="comment">// burn_tensor::testgen_aggregation!();
+    </span><span class="macro">burn_tensor::testgen_arange!</span>();
     <span class="macro">burn_tensor::testgen_arange_step!</span>();
     <span class="macro">burn_tensor::testgen_arg!</span>();
     <span class="macro">burn_tensor::testgen_cast!</span>();
     <span class="macro">burn_tensor::testgen_cat!</span>();
     <span class="macro">burn_tensor::testgen_clamp!</span>();
     <span class="macro">burn_tensor::testgen_cos!</span>();
-    <span class="macro">burn_tensor::testgen_div!</span>();
-    <span class="macro">burn_tensor::testgen_empty!</span>();
-    <span class="comment">// burn_tensor::testgen_erf!();
+    <span class="comment">// burn_tensor::testgen_div!();
+    // burn_tensor::testgen_erf!();
     </span><span class="macro">burn_tensor::testgen_exp!</span>();
     <span class="macro">burn_tensor::testgen_flatten!</span>();
     <span class="macro">burn_tensor::testgen_full!</span>();
     <span class="macro">burn_tensor::testgen_gather_scatter!</span>();
+    <span class="macro">burn_tensor::testgen_init!</span>();
     <span class="macro">burn_tensor::testgen_log!</span>();
     <span class="macro">burn_tensor::testgen_log1p!</span>();
     <span class="macro">burn_tensor::testgen_map_comparison!</span>();
@@ -216,8 +217,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="macro">burn_tensor::testgen_maxmin!</span>();
     <span class="macro">burn_tensor::testgen_mul!</span>();
     <span class="macro">burn_tensor::testgen_neg!</span>();
-    <span class="comment">// burn_tensor::testgen_powf!();
-    </span><span class="macro">burn_tensor::testgen_random!</span>();
+    <span class="macro">burn_tensor::testgen_powf!</span>();
+    <span class="macro">burn_tensor::testgen_random!</span>();
     <span class="comment">// burn_tensor::testgen_repeat!();
     </span><span class="macro">burn_tensor::testgen_reshape!</span>();
     <span class="macro">burn_tensor::testgen_select!</span>();
@@ -231,16 +232,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="macro">burn_tensor::testgen_transpose!</span>();
 
     <span class="comment">// test stats
-    // burn_tensor::testgen_stats!();
+    </span><span class="macro">burn_tensor::testgen_var!</span>();
+    <span class="macro">burn_tensor::testgen_display!</span>();
 
-    // Behavior
+    <span class="comment">// Behavior
     // burn_autodiff::testgen_ad_broadcast!();
 
     // Activation
-    // burn_autodiff::testgen_ad_relu!();
-    // burn_autodiff::testgen_ad_gelu!();
+    </span><span class="macro">burn_autodiff::testgen_ad_relu!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_gelu!</span>();
 
-    // Modules
+    <span class="comment">// Modules
     // burn_autodiff::testgen_ad_conv1d!();
     // burn_autodiff::testgen_ad_conv2d!();
     // burn_autodiff::testgen_ad_conv_transpose1d!();
@@ -251,37 +253,37 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     // burn_autodiff::testgen_ad_avg_pool2d!();
     // burn_autodiff::testgen_ad_adaptive_avg_pool1d!();
     // burn_autodiff::testgen_ad_adaptive_avg_pool2d!();
-    // burn_autodiff::testgen_module_backward!();
+    </span><span class="macro">burn_autodiff::testgen_module_backward!</span>();
 
-    // Tensor
-    // burn_autodiff::testgen_ad_complex!();
-    // burn_autodiff::testgen_ad_multithread!();
-    // burn_autodiff::testgen_ad_add!();
-    // burn_autodiff::testgen_ad_aggregation!();
-    // burn_autodiff::testgen_ad_maxmin!();
-    // burn_autodiff::testgen_ad_cat!();
-    // burn_autodiff::testgen_ad_cos!();
-    // burn_autodiff::testgen_ad_cross_entropy_loss!();
-    // burn_autodiff::testgen_ad_div!();
-    // burn_autodiff::testgen_ad_erf!();
-    // burn_autodiff::testgen_ad_exp!();
-    // burn_autodiff::testgen_ad_slice!();
-    // burn_autodiff::testgen_ad_gather_scatter!();
-    // burn_autodiff::testgen_ad_select!();
-    // burn_autodiff::testgen_ad_log!();
-    // burn_autodiff::testgen_ad_log1p!();
-    // burn_autodiff::testgen_ad_mask!();
-    // burn_autodiff::testgen_ad_matmul!();
-    // burn_autodiff::testgen_ad_mul!();
-    // burn_autodiff::testgen_ad_neg!();
-    // burn_autodiff::testgen_ad_powf!();
-    // burn_autodiff::testgen_ad_reshape!();
-    // burn_autodiff::testgen_ad_sin!();
-    // burn_autodiff::testgen_ad_softmax!();
-    // burn_autodiff::testgen_ad_sqrt!();
-    // burn_autodiff::testgen_ad_abs!();
-    // burn_autodiff::testgen_ad_sub!();
-    // burn_autodiff::testgen_ad_tanh!();
-    // burn_autodiff::testgen_ad_transpose!();
-</span>}
+    <span class="comment">// Tensor
+    </span><span class="macro">burn_autodiff::testgen_ad_complex!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_multithread!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_add!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_aggregation!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_maxmin!</span>();
+    <span class="comment">// burn_autodiff::testgen_ad_cat!();
+    </span><span class="macro">burn_autodiff::testgen_ad_cos!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_cross_entropy_loss!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_div!</span>();
+    <span class="comment">// burn_autodiff::testgen_ad_erf!();
+    </span><span class="macro">burn_autodiff::testgen_ad_exp!</span>();
+    <span class="comment">// burn_autodiff::testgen_ad_slice!();
+    </span><span class="macro">burn_autodiff::testgen_ad_gather_scatter!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_select!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_log!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_log1p!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_mask!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_matmul!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_mul!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_neg!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_powf!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_reshape!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_sin!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_softmax!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_sqrt!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_abs!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_sub!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_tanh!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_transpose!</span>();
+}
 </code></pre></div></section></main></body></html>

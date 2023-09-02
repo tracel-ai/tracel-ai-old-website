@@ -1,0 +1,620 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Custom WGPU Kernel - The Burn Book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../../motivation.html"><strong aria-hidden="true">2.</strong> Why Burn?</a></li><li class="chapter-item expanded "><a href="../../getting-started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="../../basic-workflow/index.html"><strong aria-hidden="true">4.</strong> Basic Workflow: From Training to Inference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../basic-workflow/model.html"><strong aria-hidden="true">4.1.</strong> Model</a></li><li class="chapter-item expanded "><a href="../../basic-workflow/data.html"><strong aria-hidden="true">4.2.</strong> Data</a></li><li class="chapter-item expanded "><a href="../../basic-workflow/training.html"><strong aria-hidden="true">4.3.</strong> Training</a></li><li class="chapter-item expanded "><a href="../../basic-workflow/backend.html"><strong aria-hidden="true">4.4.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../../basic-workflow/inference.html"><strong aria-hidden="true">4.5.</strong> Inference</a></li><li class="chapter-item expanded "><a href="../../basic-workflow/conclusion.html"><strong aria-hidden="true">4.6.</strong> Conclusion</a></li></ol></li><li class="chapter-item expanded "><a href="../../building-blocks/index.html"><strong aria-hidden="true">5.</strong> Building Blocks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../building-blocks/backend.html"><strong aria-hidden="true">5.1.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../../building-blocks/tensor.html"><strong aria-hidden="true">5.2.</strong> Tensor</a></li><li class="chapter-item expanded "><a href="../../building-blocks/autodiff.html"><strong aria-hidden="true">5.3.</strong> Autodiff</a></li><li class="chapter-item expanded "><a href="../../building-blocks/module.html"><strong aria-hidden="true">5.4.</strong> Module</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Config</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.6.</strong> Learner</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.7.</strong> Metric</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.8.</strong> Record</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.9.</strong> Dataset</div></li></ol></li><li class="chapter-item expanded "><a href="../../import/onnx-model.html"><strong aria-hidden="true">6.</strong> Import ONNX Model</a></li><li class="chapter-item expanded "><a href="../../advanced/index.html"><strong aria-hidden="true">7.</strong> Advanced</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../advanced/backend-extension/index.html"><strong aria-hidden="true">7.1.</strong> Backend Extension</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../advanced/backend-extension/custom-wgpu-kernel.html" class="active"><strong aria-hidden="true">7.1.1.</strong> Custom WGPU Kernel</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Custom Training Loops</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Custom Optimizer</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Custom Metric</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Custom Kernels</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.1.</strong> WGPU</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> WebAssembly</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.7.</strong> No-Std</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Terms and Concepts</div></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Burn Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="custom-wgpu-kernel"><a class="header" href="#custom-wgpu-kernel">Custom WGPU Kernel</a></h1>
+<p>In this section, you will learn how to create your own custom operation by writing your own kernel
+with the WGPU backend. We will take the example of a common workflow in the deep learning field,
+where we create a kernel to fuse multiple operations together. We will fuse a matmul kernel followed
+by an addition and the ReLU activation function, which is commonly found in various models. All the
+code can be found under the
+<a href="https://github.com/burn-rs/burn/tree/main/examples/custom-wgpu-kernel">examples directory</a>.</p>
+<h2 id="custom-backend-trait"><a class="header" href="#custom-backend-trait">Custom Backend Trait</a></h2>
+<p>First, we need to determine the type signature of our newly created operation by defining our custom
+backend traits. As we will use the associated type <code>TensorPrimitive</code> of the <code>Backend</code> trait, which
+encapsulates the underlying tensor implementation of the backend, we will use a type alias to avoid
+the ugly disambiguation with associated types.</p>
+<pre><code class="language-rust  ignore">/// We use a type alias for better readability.
+pub type FloatTensor&lt;B, const D: usize&gt; = &lt;B as burn::tensor::backend::Backend&gt;::TensorPrimitive&lt;D&gt;;
+
+/// We create our own Backend trait that extends the Burn backend trait.
+pub trait Backend: burn::tensor::backend::Backend {
+    fn fused_matmul_add_relu&lt;const D: usize&gt;(
+        lhs: FloatTensor&lt;Self, D&gt;,
+        rhs: FloatTensor&lt;Self, D&gt;,
+        bias: FloatTensor&lt;Self, D&gt;,
+    ) -&gt; FloatTensor&lt;Self, D&gt;;
+}
+
+/// We create our own ADBackend trait that extends the Burn autodiff backend trait.
+pub trait ADBackend: Backend + burn::tensor::backend::ADBackend {}</code></pre>
+<p>In our project, we can use these traits instead of the <code>burn::tensor::backend::{Backend, ADBackend}</code>
+traits provided by Burn. Burn's user APIs typically make use of the <code>Tensor</code> struct rather than
+dealing directly with primitive tensor types. Therefore, we can encapsulate our newly defined
+backend traits with functions that expose new operations while maintaining a consistent API.</p>
+<pre><code class="language-rust  ignore">/// We define our custom implementation using the added function on our custom backend.
+pub fn matmul_add_relu_custom&lt;B: Backend&gt;(
+    lhs: Tensor&lt;B, 3&gt;,
+    rhs: Tensor&lt;B, 3&gt;,
+    bias: Tensor&lt;B, 3&gt;,
+) -&gt; Tensor&lt;B, 3&gt; {
+    let output = B::fused_matmul_add_relu(
+        lhs.into_primitive(),
+        rhs.into_primitive(),
+        bias.into_primitive(),
+    );
+
+    Tensor::from_primitive(output)
+}
+
+/// We define a reference implementation using basic tensor operations.
+pub fn matmul_add_relu_reference&lt;B: Backend&gt;(
+    lhs: Tensor&lt;B, 3&gt;,
+    rhs: Tensor&lt;B, 3&gt;,
+    bias: Tensor&lt;B, 3&gt;,
+) -&gt; Tensor&lt;B, 3&gt; {
+    let x = lhs.matmul(rhs) + bias;
+
+    activation::relu(x)
+}
+</code></pre>
+<p>Note that we also provide a reference implementation for testing purposes, which allows us to easily
+validate our new implementation. While not mandatory, having a reference implementation can be
+valuable, especially in projects where creating a reference implementation solely using basic tensor
+operations is feasible.</p>
+<h2 id="forward-kernel"><a class="header" href="#forward-kernel">Forward Kernel</a></h2>
+<p>Now, let's proceed to write the fused kernel using the WGSL shading language. To keep things simple,
+we'll create a straightforward matmul kernel without employing any intricate techniques. Although we
+won't delve into the details of the WGSL syntax, as it falls beyond the scope of this guide, we
+still provide the implementation below for readers who are curious. The actual matmul, add and relu
+computations are found at the end, after an extensive overhead whose use is to correctly map each
+thread to the data it is responsible of, with support for batches.</p>
+<pre><code class="language-wgsl  ignore">@group(0)
+@binding(0)
+var&lt;storage, read&gt; lhs: array&lt;{{ elem }}&gt;;
+
+@group(0)
+@binding(1)
+var&lt;storage, read&gt; rhs: array&lt;{{ elem }}&gt;;
+
+@group(0)
+@binding(2)
+var&lt;storage, read&gt; bias: array&lt;{{ elem }}&gt;;
+
+@group(0)
+@binding(3)
+var&lt;storage, read_write&gt; output: array&lt;{{ elem }}&gt;;
+
+@group(0)
+@binding(4)
+var&lt;storage, read&gt; info: array&lt;u32&gt;;
+
+const BLOCK_SIZE = {{ workgroup_size_x }}u;
+
+@compute
+@workgroup_size({{ workgroup_size_x }}, {{ workgroup_size_y }}, 1)
+fn main(
+    @builtin(global_invocation_id) global_id: vec3&lt;u32&gt;,
+    @builtin(local_invocation_index) local_idx: u32,
+    @builtin(workgroup_id) workgroup_id: vec3&lt;u32&gt;,
+) {
+    // Indices
+    let row = workgroup_id.x * BLOCK_SIZE + (local_idx / BLOCK_SIZE);
+    let col = workgroup_id.y * BLOCK_SIZE + (local_idx % BLOCK_SIZE);
+    let batch = global_id.z;
+
+    // Basic information
+    let dim = info[0];
+    let n_rows = info[6u * dim - 1u];
+    let n_cols = info[6u * dim];
+    let K = info[5u * dim - 1u];
+
+    // Returns if outside the output dimension
+    if row &gt;= n_rows || col &gt;= n_cols {
+        return;
+    }
+
+    // Calculate the corresponding offsets with support for broadcasting.
+    let offset_output = batch * n_rows * n_cols;
+    var offset_lhs: u32 = 0u;
+    var offset_rhs: u32 = 0u;
+
+    let batch_dims = dim - 2u;
+    for (var b: u32 = 1u; b &lt;= batch_dims; b++) {
+        let stride_lhs = info[b];
+        let stride_rhs = info[b + dim];
+        let stride_output = info[b + 2u * dim];
+        let shape_lhs = info[b + 3u * dim];
+        let shape_rhs = info[b + 4u * dim];
+
+        offset_lhs += offset_output / stride_output % shape_lhs * stride_lhs;
+        offset_rhs += offset_output / stride_output % shape_rhs * stride_rhs;
+    }
+
+    // Basic matmul implementation
+    var sum = 0.0;
+    for (var k: u32 = 0u; k &lt; K; k++) {
+        let lhs_index = row * K + k;
+        let rhs_index = k * n_cols + col;
+
+        sum += lhs[offset_lhs + lhs_index] * rhs[offset_rhs + rhs_index];
+    }
+
+    let output_index = row * n_cols + col;
+    let index = offset_output + output_index;
+
+    // Add and ReLU
+    output[index] = max(sum + bias[index], 0.0);
+}
+</code></pre>
+<p>Now, let's move on to the next step, which involves implementing the remaining code to launch the
+kernel. The initial part entails loading the template and populating it with the appropriate
+variables. The <code>register(name, value)</code> method simply replaces occurrences of <code>{{ name }}</code> in the
+above WGSL code with some other string before it is compilated.</p>
+<pre><code class="language-rust  ignore">// Source the kernel written in WGSL.
+kernel_wgsl!(FusedMatmulAddReluRaw, &quot;./kernel.wgsl&quot;);
+
+// Define our kernel type with workgroup information.
+#[derive(new, Debug)]
+struct FusedMatmulAddRelu&lt;E: FloatElement&gt; {
+    workgroup_size_x: usize,
+    workgroup_size_y: usize,
+    _elem: PhantomData&lt;E&gt;,
+}
+
+// Implement the dynamic kernel trait for our kernel type.
+impl&lt;E: FloatElement&gt; DynamicKernel for FusedMatmulAddRelu&lt;E&gt; {
+    fn source_template(self) -&gt; SourceTemplate {
+        // Extend our raw kernel with workgroup size information using the
+        // `SourceTemplate` trait.
+        FusedMatmulAddReluRaw::source_template()
+            .register(&quot;workgroup_size_x&quot;, self.workgroup_size_x.to_string())
+            .register(&quot;workgroup_size_y&quot;, self.workgroup_size_y.to_string())
+            .register(&quot;elem&quot;, E::type_name())
+    }
+
+    fn id(&amp;self) -&gt; String {
+        format!(&quot;{:?}&quot;, self)
+    }
+}</code></pre>
+<p>Subsequently, we'll go into implementing our custom backend trait for the WGPU backend.</p>
+<pre><code class="language-rust  ignore">/// Implement our custom backend trait for the existing backend `WgpuBackend`.
+impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; Backend for WgpuBackend&lt;G, F, I&gt; {
+    fn fused_matmul_add_relu&lt;const D: usize&gt;(
+        lhs: FloatTensor&lt;Self, D&gt;,
+        rhs: FloatTensor&lt;Self, D&gt;,
+        bias: FloatTensor&lt;Self, D&gt;,
+    ) -&gt; WgpuTensor&lt;F, D&gt; {
+        // Define workgroup size, hardcoded for simplicity.
+        let workgroup_size_x = 16;
+        let workgroup_size_y = 16;
+
+        lhs.assert_is_on_same_device(&amp;rhs);
+        lhs.assert_is_on_same_device(&amp;bias);
+
+        // For simplicity, make sure each tensor is continuous.
+        let lhs = into_contiguous(lhs);
+        let rhs = into_contiguous(rhs);
+        let bias = into_contiguous(bias);
+
+        // Get the matmul relevant shapes.
+        let num_rows = lhs.shape.dims[D - 2];
+        let num_cols = rhs.shape.dims[D - 1];
+
+        // Compute shape of output, while tracking number of batches.
+        let mut num_batches = 1;
+        let mut shape_out = [0; D];
+        for i in 0..D - 2 {
+            shape_out[i] = usize::max(lhs.shape.dims[i], rhs.shape.dims[i]);
+            num_batches *= shape_out[i];
+        }
+        shape_out[D - 2] = num_rows;
+        shape_out[D - 1] = num_cols;
+        let shape_out = Shape::new(shape_out);
+
+        // Create a buffer for the output tensor.
+        let buffer = lhs
+            .context
+            .create_buffer(shape_out.num_elements() * core::mem::size_of::&lt;F&gt;());
+
+        // Create the output tensor primitive.
+        let output = WgpuTensor::new(lhs.context.clone(), shape_out, buffer);
+
+        let blocks_needed_in_x = f32::ceil(num_rows as f32 / workgroup_size_x as f32) as u32;
+        let blocks_needed_in_y = f32::ceil(num_cols as f32 / workgroup_size_y as f32) as u32;
+
+        // Compile the kernel or use the cache based on the template id.
+        let kernel = lhs.context.compile_dynamic(FusedMatmulAddRelu::&lt;F&gt;::new(
+            workgroup_size_x,
+            workgroup_size_y,
+        ));
+
+        // Build info buffer with tensor information needed by the kernel, such as shapes and strides.
+        let info = build_info(&amp;[&amp;lhs, &amp;rhs, &amp;output]);
+        let info_buffer = lhs
+            .context
+            .create_buffer_with_data(bytemuck::cast_slice(&amp;info));
+
+        // Declare the wgsl workgroup with the number of blocks in x, y and z.
+        let workgroup = WorkGroup::new(blocks_needed_in_x, blocks_needed_in_y, num_batches as u32);
+
+        // Execute lazily the kernel with the launch information and the given buffers.
+        lhs.context.execute(
+            workgroup,
+            kernel,
+            &amp;[
+                &amp;lhs.buffer,
+                &amp;rhs.buffer,
+                &amp;bias.buffer,
+                &amp;output.buffer,
+                &amp;info_buffer,
+            ],
+        );
+
+        // Return the output tensor.
+        output
+    }
+}</code></pre>
+<p>In the preceding code block, we demonstrated how to launch the kernel that modifies the correct
+buffer. It's important to note that Rust's mutability safety doesn't apply here; the context has the
+capability to execute any mutable operation on any buffer. While this isn't a problem in the
+previous scenario where we only modify the newly created output buffer, it is wise to keep this in
+mind.</p>
+<h2 id="backward"><a class="header" href="#backward">Backward</a></h2>
+<p>Now that the custom backend trait is implemented for the WGPU backend, you can use it to invoke the
+<code>matmul_add_relu_custom</code> function. However, calculating gradients is not yet possible at this stage.
+If your use case does not extend beyond inference, there is no need to implement any of the
+following code.</p>
+<p>For the backward pass, we will leverage the backend implementation from <code>burn-autodiff</code>, which is
+actually generic over the backend. Instead of crafting our own WGSL kernel for the backward pass, we
+will use our fused kernel only for the forward pass, and compute the gradient using basic
+operations.</p>
+<pre><code class="language-rust  ignore">// Implement our custom backend trait for any backend that also implements our custom backend trait.
+//
+// Note that we could implement the backend trait only for the Wgpu backend instead of any backend that
+// also implements our own API. This would allow us to call any function only implemented for Wgpu
+// and potentially call a custom kernel crafted only for this task.
+impl&lt;B: Backend&gt; Backend for ADBackendDecorator&lt;B&gt; {
+    fn fused_matmul_add_relu&lt;const D: usize&gt;(
+        lhs: FloatTensor&lt;Self, D&gt;,
+        rhs: FloatTensor&lt;Self, D&gt;,
+        bias: FloatTensor&lt;Self, D&gt;,
+    ) -&gt; FloatTensor&lt;Self, D&gt; {
+        // Create our zero-sized type that will implement the Backward trait.
+        #[derive(Debug)]
+        struct FusedMatmulAddReluBackward&lt;const D: usize&gt;;
+
+        // Implement the backward trait for the given backend B, the node gradient being of rank D
+        // with three other gradients to calculate (lhs, rhs, and bias).
+        impl&lt;B: Backend, const D: usize&gt; Backward&lt;B, D, 3&gt; for FusedMatmulAddReluBackward&lt;D&gt; {
+            // The state that must be built during the forward pass to compute the backward pass.
+            //
+            // Note that we could improve the performance further by only keeping the state of
+            // tensors that are tracked, improving memory management, but for simplicity, we avoid
+            // that part.
+            type State = (
+                FloatTensor&lt;B, D&gt;,
+                FloatTensor&lt;B, D&gt;,
+                FloatTensor&lt;B, D&gt;,
+                Shape&lt;D&gt;,
+            );
+
+            fn backward(self, ops: Ops&lt;Self::State, 3&gt;, grads: &amp;mut Gradients) {
+                // Get the nodes of each variable.
+                let [node_lhs, node_rhs, node_bias] = ops.parents;
+                // Fetch the gradient for the current node.
+                let grad = grads.consume::&lt;B, D&gt;(&amp;ops.node);
+
+                // Set the state.
+                let (lhs, rhs, output, shape_bias) = ops.state;
+
+                // Fetch shapes of the tensors to support broadcasting.
+                let shape_lhs = B::shape(&amp;lhs);
+                let shape_rhs = B::shape(&amp;rhs);
+
+                // Compute the gradient of the output using the already existing `relu_backward`
+                // function in the basic Burn backend trait.
+                let grad_output = B::relu_backward(output, grad);
+
+                // Compute the lhs gradient, which is the derivative of matmul with support for
+                // broadcasting.
+                let grad_lhs = broadcast_shape::&lt;B, D&gt;(
+                    B::matmul(grad_output.clone(), B::transpose(rhs)),
+                    &amp;shape_lhs,
+                );
+                // Compute the rhs gradient, which is the derivative of matmul with support for
+                // broadcasting.
+                let grad_rhs = broadcast_shape::&lt;B, D&gt;(
+                    B::matmul(B::transpose(lhs), grad_output.clone()),
+                    &amp;shape_rhs,
+                );
+                // The add derivative is only 1, so we just need to support broadcasting to
+                // compute the bias gradient.
+                let grad_bias = broadcast_shape::&lt;B, D&gt;(grad_output, &amp;shape_bias);
+
+                // Register the gradient for each variable based on whether they are marked as
+                // `tracked`.
+                if let Some(node) = node_bias {
+                    grads.register::&lt;B, D&gt;(node, grad_bias);
+                }
+                if let Some(node) = node_lhs {
+                    grads.register::&lt;B, D&gt;(node, grad_lhs);
+                }
+                if let Some(node) = node_rhs {
+                    grads.register::&lt;B, D&gt;(node, grad_rhs);
+                }
+            }
+        }
+
+        // Prepare a stateful operation with each variable node and corresponding graph.
+        //
+        // Each node can be fetched with `ops.parents` in the same order as defined here.
+        match FusedMatmulAddReluBackward
+            .prepare(
+                [lhs.node, rhs.node, bias.node],
+                [lhs.graph, rhs.graph, bias.graph],
+            )
+            .stateful()
+        {
+            OpsKind::Tracked(prep) =&gt; {
+                // When at least one node is tracked, we should register our backward step.
+                // We compute the output and the state before finishing the preparation.
+                let bias_shape = B::shape(&amp;bias.primitive);
+                let output = B::fused_matmul_add_relu(
+                    lhs.primitive.clone(),
+                    rhs.primitive.clone(),
+                    bias.primitive,
+                );
+
+                let state = (lhs.primitive, rhs.primitive, output.clone(), bias_shape);
+                prep.finish(state, output)
+            }
+            OpsKind::UnTracked(prep) =&gt; {
+                // When no node is tracked, we can just compute the original operation without
+                // keeping any state.
+                let output = B::fused_matmul_add_relu(lhs.primitive, rhs.primitive, bias.primitive);
+                prep.finish(output)
+            }
+        }
+    }
+}</code></pre>
+<p>The previous code is self-documented to make it clearer, but here is what it does in summary.</p>
+<p>We define <code>fused_matmul_add_relu</code> within <code>ADBackendDecorator&lt;B&gt;</code>, allowing any autodiff-decorated
+backend to benefit from our implementation. In an autodiff-decorated backend, the forward pass must
+still be implemented. This is achieved using a comprehensive match statement block where computation
+is delegated to the inner backend, while keeping track of a state. The state comprises any
+information relevant to the backward pass, such as input and output tensors, along with the bias
+shape. When an operation isn't tracked (meaning there won't be a backward pass for this specific
+operation in the graph), storing a state becomes unnecessary, and we simply perform the forward
+computation.</p>
+<p>The backward pass uses the gradient obtained from the preceding node in the computation graph. It
+calculates the derivatives for <code>relu</code> (<code>relu_backward</code>), add (no operation is required here, as the
+derivative is one), and <code>matmul</code> (another <code>matmul</code> with transposed inputs). This results in
+gradients for both input tensors and the bias, which are registered for consumption by subsequent
+operation nodes.</p>
+<p>The only remaining part is to implement our autodiff-decorated backend trait for our WGPUBackend.</p>
+<pre><code class="language-rust  ignore">impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; ADBackend
+    for ADBackendDecorator&lt;WgpuBackend&lt;G, F, I&gt;&gt;
+{
+}</code></pre>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>In this guide, we've implemented a fused kernel using the WGPU backend, enabling execution on any
+GPU. By delving into the inner workings of both the WGPU backend and the autodiff backend, we've
+gained a deeper understanding of these systems.</p>
+<p>While extending a backend may be harder than working with straightforward tensors, the benefits can
+be worth it. This approach enables the crafting of custom models with greater control over
+execution, which can potentially greatly enhance the performance of your models.</p>
+<p>It is worth noting that while the manual fusion of operations can be valuable, our future plans
+include the development of a backend extension that will automate this process. As we conclude this
+guide, we hope that you have gained insights into Burn's world of backend extensions, and that it
+will help you to unleash the full potential of your projects.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../advanced/backend-extension/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../advanced/backend-extension/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
