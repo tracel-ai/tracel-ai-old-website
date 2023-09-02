@@ -2,7 +2,8 @@
 
 echo "Cloning Burn"
 git clone https://github.com/burn-rs/burn
-# TODO checkout a version: git checkout v0.8.0
+# Checkout the version of the book
+git checkout main
 
 echo "Updating Burn Book"
 cd burn/burn-book

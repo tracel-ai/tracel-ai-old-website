@@ -32,7 +32,7 @@ const Layout: FlowComponent<Props> = (props) => {
             <A class="text-white" href="/blog">Blog</A>
           </li>
           <li class="hover:scale-110 transition-all">
-            <Outterlink className="text-white" src="https://docs.rs/burn/latest/burn">Docs</Outterlink>
+            <Outterlink className="text-white" src="https://burn-rs.github.io/book/">Book</Outterlink>
           </li>
           <li class="hidden sm:block">
             <iframe 
