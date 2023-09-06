@@ -114,13 +114,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#112" id="112">112</a>
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::data::TrainingTextGenerationBatch;
 <span class="kw">use </span>burn::{
     config::Config,
     module::Module,
     nn::{
         attention::generate_autoregressive_mask,
-        loss::CrossEntropyLoss,
+        loss::CrossEntropyLossConfig,
         transformer::{TransformerEncoder, TransformerEncoderConfig, TransformerEncoderInput},
         Embedding, EmbeddingConfig, Linear, LinearConfig,
     },
@@ -199,7 +201,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>output_flatten = output.reshape([batch_size * seq_length, <span class="self">self</span>.vocab_size]);
         <span class="kw">let </span>targets_flatten = targets.reshape([batch_size * seq_length]);
 
-        <span class="kw">let </span>loss = CrossEntropyLoss::new(<span class="prelude-val">Some</span>(<span class="self">self</span>.pad_token));
+        <span class="kw">let </span>loss = CrossEntropyLossConfig::new()
+            .with_pad_tokens(<span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="self">self</span>.pad_token]))
+            .init();
         <span class="kw">let </span>loss = loss.forward(output_flatten.clone(), targets_flatten.clone());
 
         ClassificationOutput {

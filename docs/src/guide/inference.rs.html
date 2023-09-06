@@ -28,6 +28,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#26" id="26">26</a>
 <a href="#27" id="27">27</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{data::MNISTBatcher, training::TrainingConfig};
+<span class="kw">use </span>burn::data::dataset::source::huggingface::MNISTItem;
 <span class="kw">use </span>burn::{
     config::Config,
     data::dataloader::batcher::Batcher,
@@ -35,7 +36,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     record::{CompactRecorder, Recorder},
     tensor::backend::Backend,
 };
-<span class="kw">use </span>burn_dataset::source::huggingface::MNISTItem;
 
 <span class="kw">pub fn </span>infer&lt;B: Backend&gt;(artifact_dir: <span class="kw-2">&amp;</span>str, device: B::Device, item: MNISTItem) {
     <span class="kw">let </span>config =

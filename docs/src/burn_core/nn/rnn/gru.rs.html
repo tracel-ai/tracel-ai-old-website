@@ -378,7 +378,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// Returns:
     ///     The resulting state tensor, with shape [batch_size, sequence_length, hidden_size].
     </span><span class="kw">pub fn </span>forward(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
         batched_input: Tensor&lt;B, <span class="number">3</span>&gt;,
         state: <span class="prelude-ty">Option</span>&lt;Tensor&lt;B, <span class="number">3</span>&gt;&gt;,
     ) -&gt; Tensor&lt;B, <span class="number">3</span>&gt; {

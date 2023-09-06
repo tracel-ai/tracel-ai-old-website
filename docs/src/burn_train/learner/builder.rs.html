@@ -307,6 +307,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#305" id="305">305</a>
 <a href="#306" id="306">306</a>
 <a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::log::install_file_logger;
 <span class="kw">use </span><span class="kw">super</span>::Learner;
 <span class="kw">use </span><span class="kw">crate</span>::checkpoint::{AsyncCheckpointer, Checkpointer, FileCheckpointer};
@@ -347,6 +359,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     renderer: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>DashboardRenderer + <span class="lifetime">&#39;static</span>&gt;&gt;,
     metrics: Metrics&lt;T, V&gt;,
     interrupter: TrainingInterrupter,
+    log_to_file: bool,
 }
 
 <span class="kw">impl</span>&lt;B, T, V, Model, Optim, LR&gt; LearnerBuilder&lt;B, T, V, Model, Optim, LR&gt;
@@ -378,6 +391,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             metrics: Metrics::new(),
             renderer: <span class="prelude-val">None</span>,
             interrupter: TrainingInterrupter::new(),
+            log_to_file: <span class="bool-val">true</span>,
         }
     }
 
@@ -508,6 +522,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self</span>.interrupter.clone()
     }
 
+    <span class="doccomment">/// By default, Rust logs are captured and written into
+    /// `experiment.log`. If disabled, standard Rust log handling
+    /// will apply.
+    </span><span class="kw">pub fn </span>log_to_file(<span class="kw-2">mut </span><span class="self">self</span>, enabled: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.log_to_file = enabled;
+        <span class="self">self
+    </span>}
+
     <span class="doccomment">/// Register a checkpointer that will save the [optimizer](Optimizer) and the
     /// [model](ADModule).
     ///
@@ -553,7 +575,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         Optim::Record: <span class="lifetime">&#39;static</span>,
         LR::Record: <span class="lifetime">&#39;static</span>,
     {
-        <span class="self">self</span>.init_logger();
+        <span class="kw">if </span><span class="self">self</span>.log_to_file {
+            <span class="self">self</span>.init_logger();
+        }
         <span class="kw">let </span>renderer = <span class="self">self
             </span>.renderer
             .unwrap_or_else(|| Box::new(CLIDashboardRenderer::new()));

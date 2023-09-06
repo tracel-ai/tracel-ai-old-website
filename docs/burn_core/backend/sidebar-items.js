@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["NdArrayAutodiffBackend","NdArrayBackend","TchAutodiffBackend","TchBackend","WgpuAutodiffBackend","WgpuBackend"]};

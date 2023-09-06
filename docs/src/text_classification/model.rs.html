@@ -297,7 +297,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             .slice([<span class="number">0</span>..batch_size, <span class="number">0</span>..<span class="number">1</span>])
             .reshape([batch_size, <span class="self">self</span>.n_classes]);
 
-        <span class="kw">let </span>loss = CrossEntropyLoss::new(<span class="prelude-val">None</span>);
+        <span class="kw">let </span>loss = CrossEntropyLoss::default();
         <span class="kw">let </span>loss = loss.forward(output_classification.clone(), labels.clone());
 
         <span class="comment">// Return the output and loss

@@ -65,11 +65,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#63" id="63">63</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::env::args;
 
+<span class="kw">use </span>burn::backend::ndarray::NdArrayBackend;
 <span class="kw">use </span>burn::tensor::Tensor;
-<span class="kw">use </span>burn_ndarray::NdArrayBackend;
 
-<span class="kw">use </span>burn_dataset::source::huggingface::MNISTDataset;
-<span class="kw">use </span>burn_dataset::Dataset;
+<span class="kw">use </span>burn::data::dataset::source::huggingface::MNISTDataset;
+<span class="kw">use </span>burn::data::dataset::Dataset;
 
 <span class="kw">use </span>onnx_inference::mnist::Model;
 

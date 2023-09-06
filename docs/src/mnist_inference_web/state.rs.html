@@ -21,11 +21,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#19" id="19">19</a>
 <a href="#20" id="20">20</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::model::Model;
+<span class="kw">use </span>burn::backend::ndarray::NdArrayBackend;
 <span class="kw">use </span>burn::module::Module;
 <span class="kw">use </span>burn::record::BinBytesRecorder;
 <span class="kw">use </span>burn::record::FullPrecisionSettings;
 <span class="kw">use </span>burn::record::Recorder;
-<span class="kw">use </span>burn_ndarray::NdArrayBackend;
 
 <span class="kw">pub type </span>Backend = NdArrayBackend&lt;f32&gt;;
 

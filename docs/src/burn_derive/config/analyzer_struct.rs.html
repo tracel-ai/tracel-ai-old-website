@@ -292,6 +292,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#290" id="290">290</a>
 <a href="#291" id="291">291</a>
 <a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::ConfigAnalyzer;
 <span class="kw">use </span><span class="kw">crate</span>::shared::{attribute::AttributeItem, field::FieldTypeAnalyzer};
 <span class="kw">use </span>proc_macro2::{Ident, TokenStream};
@@ -499,12 +504,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">for </span>(field, <span class="kw">_</span>) <span class="kw">in </span><span class="self">self</span>.fields_default.iter() {
             <span class="kw">let </span>name = field.ident();
+            <span class="kw">let </span>doc = field.doc().unwrap_or_else(|| {
+                <span class="macro">quote! </span>{
+                        <span class="doccomment">/// Set the default value for the field.
+                </span>}
+            });
             <span class="kw">let </span>ty = <span class="kw-2">&amp;</span>field.field.ty;
             <span class="kw">let </span>fn_name = Ident::new(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;with_{name}&quot;</span>), name.span());
 
             body.extend(<span class="macro">quote! </span>{
-                <span class="doccomment">/// Set the default value for the field.
-                </span><span class="kw">pub fn </span>#fn_name(<span class="kw-2">mut </span><span class="self">self</span>, #name: #ty) -&gt; <span class="self">Self </span>{
+                #doc
+                <span class="kw">pub fn </span>#fn_name(<span class="kw-2">mut </span><span class="self">self</span>, #name: #ty) -&gt; <span class="self">Self </span>{
                     <span class="self">self</span>.#name = #name;
                     <span class="self">self
                 </span>}

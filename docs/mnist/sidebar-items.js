@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["training"]};
+window.SIDEBAR_ITEMS = {"mod":["data","model","training"]};

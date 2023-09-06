@@ -118,18 +118,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#116" id="116">116</a>
 <a href="#117" id="117">117</a>
 <a href="#118" id="118">118</a>
-<a href="#119" id="119">119</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::FloatTensor;
 
 <span class="kw">use </span><span class="kw">super</span>::Backend;
-<span class="kw">use </span>burn::tensor::Shape;
-<span class="kw">use </span>burn_wgpu::{
+<span class="kw">use </span>burn::backend::wgpu::{
     context::WorkGroup,
     kernel::{build_info, into_contiguous, DynamicKernel, SourceTemplate, StaticKernel},
     kernel_wgsl,
     tensor::WgpuTensor,
     FloatElement, GraphicsApi, IntElement, WgpuBackend,
 };
+<span class="kw">use </span>burn::tensor::Shape;
 <span class="kw">use </span>derive_new::new;
 <span class="kw">use </span>std::marker::PhantomData;
 
@@ -203,9 +202,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="comment">// Create the output tensor primitive.
         </span><span class="kw">let </span>output = WgpuTensor::new(lhs.context.clone(), shape_out, buffer);
 
-        <span class="kw">let </span>blocks_needed_in_x = f32::ceil(num_rows <span class="kw">as </span>f32 / workgroup_size_x <span class="kw">as </span>f32) <span class="kw">as </span>u32;
-        <span class="kw">let </span>blocks_needed_in_y = f32::ceil(num_cols <span class="kw">as </span>f32 / workgroup_size_y <span class="kw">as </span>f32) <span class="kw">as </span>u32;
-
         <span class="comment">// Compile the kernel or use the cache based on the template id.
         </span><span class="kw">let </span>kernel = lhs.context.compile_dynamic(FusedMatmulAddRelu::&lt;F&gt;::new(
             workgroup_size_x,
@@ -219,7 +215,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             .create_buffer_with_data(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
 
         <span class="comment">// Declare the wgsl workgroup with the number of blocks in x, y and z.
-        </span><span class="kw">let </span>workgroup = WorkGroup::new(blocks_needed_in_x, blocks_needed_in_y, num_batches <span class="kw">as </span>u32);
+        </span><span class="kw">let </span>blocks_needed_in_x = f32::ceil(num_rows <span class="kw">as </span>f32 / workgroup_size_x <span class="kw">as </span>f32) <span class="kw">as </span>u32;
+        <span class="kw">let </span>blocks_needed_in_y = f32::ceil(num_cols <span class="kw">as </span>f32 / workgroup_size_y <span class="kw">as </span>f32) <span class="kw">as </span>u32;
+        <span class="kw">let </span>workgroup = WorkGroup::new(blocks_needed_in_x, blocks_needed_in_y, num_batches <span class="kw">as </span>u32);
 
         <span class="comment">// Execute lazily the kernel with the launch information and the given buffers.
         </span>lhs.context.execute(

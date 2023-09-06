@@ -127,6 +127,35 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#125" id="125">125</a>
 <a href="#126" id="126">126</a>
 <a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{
     codegen::ModuleCodegen, codegen_struct::StructModuleCodegen, record::ModuleRecordCodegen,
     record_struct::StructModuleRecordCodegen,
@@ -150,6 +179,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">let </span>(generics, generics_ty, generics_where) = ast.generics.split_for_impl();
+    <span class="kw">let </span>backend_trait = fetch_backend_trait(<span class="kw-2">&amp;</span>ast.generics);
 
     <span class="kw">let </span>display_fn = display::display_fn(name);
 
@@ -180,7 +210,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             #map_mut
         }
 
-        <span class="kw">impl </span>#generics burn::module::ADModule&lt;B&gt; <span class="kw">for </span>#name #generics_ty <span class="kw">where </span>B: burn::tensor::backend::ADBackend, {
+        <span class="kw">impl </span>#generics burn::module::ADModule&lt;B&gt; <span class="kw">for </span>#name #generics_ty
+        <span class="kw">where
+            </span>B: burn::tensor::backend::ADBackend,
+            &lt;B <span class="kw">as </span>burn::tensor::backend::ADBackend&gt;::InnerBackend: #backend_trait,
+        {
             <span class="kw">type </span>InnerModule=#name&lt;B::InnerBackend, #generics_names_except_backend&gt;;
 
             #valid_fn
@@ -231,6 +265,30 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     };
 
     gen.into()
+}
+
+<span class="kw">fn </span>fetch_backend_trait(generics: <span class="kw-2">&amp;</span>syn::Generics) -&gt; proc_macro2::TokenStream {
+    <span class="kw">static </span>BACKEND_TRAIT_COMPILATION_ERROR_MSG: <span class="kw-2">&amp;</span>str = <span class="string">&quot;Modules should be generic over a backend.
+    - The generic argument named `B` should have its first trait bound being a backend trait.
+    - The default backend trait is `burn::tensor::backend::Backend`.
+    - Any backend trait is supported.&quot;</span>;
+
+    <span class="kw">for </span>param <span class="kw">in </span>generics.params.iter() {
+        <span class="kw">if let </span>syn::GenericParam::Type(ty) = <span class="kw-2">&amp;</span>param {
+            <span class="kw">if </span>ty.ident == <span class="string">&quot;B&quot; </span>{
+                <span class="kw">let </span>bound = ty
+                    .bounds
+                    .first()
+                    .expect(BACKEND_TRAIT_COMPILATION_ERROR_MSG);
+
+                <span class="kw">return </span><span class="macro">quote! </span>{
+                    #bound
+                };
+            }
+        }
+    }
+
+    <span class="macro">panic!</span>(<span class="string">&quot;{BACKEND_TRAIT_COMPILATION_ERROR_MSG}&quot;</span>);
 }
 
 <span class="kw">fn </span>generics_names_except_backend(generics: <span class="kw-2">&amp;</span>syn::Generics) -&gt; proc_macro2::TokenStream {

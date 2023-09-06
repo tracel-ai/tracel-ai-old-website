@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Dataset - The Burn Book 🔥</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../motivation.html"><strong aria-hidden="true">2.</strong> Why Burn?</a></li><li class="chapter-item expanded "><a href="../getting-started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="../basic-workflow/index.html"><strong aria-hidden="true">4.</strong> Basic Workflow: From Training to Inference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../basic-workflow/model.html"><strong aria-hidden="true">4.1.</strong> Model</a></li><li class="chapter-item expanded "><a href="../basic-workflow/data.html"><strong aria-hidden="true">4.2.</strong> Data</a></li><li class="chapter-item expanded "><a href="../basic-workflow/training.html"><strong aria-hidden="true">4.3.</strong> Training</a></li><li class="chapter-item expanded "><a href="../basic-workflow/backend.html"><strong aria-hidden="true">4.4.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../basic-workflow/inference.html"><strong aria-hidden="true">4.5.</strong> Inference</a></li><li class="chapter-item expanded "><a href="../basic-workflow/conclusion.html"><strong aria-hidden="true">4.6.</strong> Conclusion</a></li></ol></li><li class="chapter-item expanded "><a href="../building-blocks/index.html"><strong aria-hidden="true">5.</strong> Building Blocks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../building-blocks/backend.html"><strong aria-hidden="true">5.1.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../building-blocks/tensor.html"><strong aria-hidden="true">5.2.</strong> Tensor</a></li><li class="chapter-item expanded "><a href="../building-blocks/autodiff.html"><strong aria-hidden="true">5.3.</strong> Autodiff</a></li><li class="chapter-item expanded "><a href="../building-blocks/module.html"><strong aria-hidden="true">5.4.</strong> Module</a></li><li class="chapter-item expanded "><a href="../building-blocks/learner.html"><strong aria-hidden="true">5.5.</strong> Learner</a></li><li class="chapter-item expanded "><a href="../building-blocks/metric.html"><strong aria-hidden="true">5.6.</strong> Metric</a></li><li class="chapter-item expanded "><a href="../building-blocks/config.html"><strong aria-hidden="true">5.7.</strong> Config</a></li><li class="chapter-item expanded "><a href="../building-blocks/record.html"><strong aria-hidden="true">5.8.</strong> Record</a></li><li class="chapter-item expanded "><a href="../building-blocks/dataset.html" class="active"><strong aria-hidden="true">5.9.</strong> Dataset</a></li></ol></li><li class="chapter-item expanded "><a href="../custom-training-loop.html"><strong aria-hidden="true">6.</strong> Custom Training Loop</a></li><li class="chapter-item expanded "><a href="../import/onnx-model.html"><strong aria-hidden="true">7.</strong> Import ONNX Model</a></li><li class="chapter-item expanded "><a href="../advanced/index.html"><strong aria-hidden="true">8.</strong> Advanced</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/backend-extension/index.html"><strong aria-hidden="true">8.1.</strong> Backend Extension</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/backend-extension/custom-wgpu-kernel.html"><strong aria-hidden="true">8.1.1.</strong> Custom WGPU Kernel</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> Custom Optimizer</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> WebAssembly</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> No-Std</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Burn Book 🔥</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="dataset"><a class="header" href="#dataset">Dataset</a></h1>
+<p>Most deep learning training being done on datasets –with perhaps the exception of reinforcement learning–, it is essential to provide a convenient and performant API.
+The dataset trait is quite similar to the dataset abstract class in PyTorch:</p>
+<pre><code class="language-rust  ignore">pub trait Dataset&lt;I&gt;: Send + Sync {
+    fn get(&amp;self, index: usize) -&gt; Option&lt;I&gt;;
+    fn len(&amp;self) -&gt; usize;
+}</code></pre>
+<p>The dataset trait assumes a fixed-length set of items that can be randomly accessed in constant
+time. This is a major difference from datasets that use Apache Arrow underneath to improve streaming
+performance. Datasets in Burn don't assume <em>how</em> they are going to be accessed; it's just a
+collection of items.</p>
+<p>However, you can compose multiple dataset transformations to lazily obtain what you want with zero
+pre-processing, so that your training can start instantly!</p>
+<h2 id="transformation"><a class="header" href="#transformation">Transformation</a></h2>
+<p>Transformations in Burn are all lazy and modify one or multiple input datasets. The goal of these
+transformations is to provide you with the necessary tools so that you can model complex data
+distributions.</p>
+<div class="table-wrapper"><table><thead><tr><th>Transformation</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>SamplerDataset</code></td><td>Samples items from a dataset. This is a convenient way to model a dataset as a probability distribution of a fixed size.</td></tr>
+<tr><td><code>ShuffledDataset</code></td><td>Maps each input index to a random index, similar to a dataset sampled without replacement.</td></tr>
+<tr><td><code>PartialDataset</code></td><td>Returns a view of the input dataset with a specified range.</td></tr>
+<tr><td><code>MapperDataset</code></td><td>Computes a transformation lazily on the input dataset.</td></tr>
+<tr><td><code>ComposedDataset</code></td><td>Composes multiple datasets together to create a larger one without copying any data.</td></tr>
+</tbody></table>
+</div>
+<h2 id="storage"><a class="header" href="#storage">Storage</a></h2>
+<p>There are multiple dataset storage options available for you to choose from. The choice of the
+dataset to use should be based on the dataset's size as well as its intended purpose.</p>
+<div class="table-wrapper"><table><thead><tr><th>Storage</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>InMemDataset</code></td><td>In-memory dataset that uses a vector to store items. Well-suited for smaller datasets.</td></tr>
+<tr><td><code>SqliteDataset</code></td><td>Dataset that uses SQLite to index items that can be saved in a simple SQL database file. Well-suited for larger datasets.</td></tr>
+</tbody></table>
+</div>
+<h2 id="sources"><a class="header" href="#sources">Sources</a></h2>
+<p>For now, there is only one dataset source available with Burn, but more to come!</p>
+<h3 id="hugging-face"><a class="header" href="#hugging-face">Hugging Face</a></h3>
+<p>You can easily import any Hugging Face dataset with Burn. We use SQLite as the storage to avoid
+downloading the model each time or starting a Python process. You need to know the format of each
+item in the dataset beforehand. Here's an example with the
+<a href="https://huggingface.co/datasets/dbpedia_14">dbpedia dataset</a>.</p>
+<pre><code class="language-rust  ignore">#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
+pub struct DbPediaItem {
+    pub title: String,
+    pub content: String,
+    pub label: usize,
+}
+
+fn main() {
+    let dataset: SqliteDataset&lt;DbPediaItem&gt; = HuggingfaceDatasetLoader::new(&quot;dbpedia_14&quot;)
+        .dataset(&quot;train&quot;) // The training split.
+        .unwrap();
+}</code></pre>
+<p>We see that items must derive <code>serde::Serialize</code>, <code>serde::Deserialize</code>, <code>Clone</code>, and <code>Debug</code>, but
+those are the only requirements.</p>
+<p><strong>What about streaming datasets?</strong></p>
+<p>There is no streaming dataset API with Burn, and this is by design! The learner struct will iterate
+multiple times over the dataset and only checkpoint when done. You can consider the length of the
+dataset as the number of iterations before performing checkpointing and running the validation.
+There is nothing stopping you from returning different items even when called with the same <code>index</code>
+multiple times.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../building-blocks/record.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../custom-training-loop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../building-blocks/record.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../custom-training-loop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

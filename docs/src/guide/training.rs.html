@@ -113,6 +113,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     data::{MNISTBatch, MNISTBatcher},
     model::{Model, ModelConfig},
 };
+<span class="kw">use </span>burn::data::dataset::source::huggingface::MNISTDataset;
+<span class="kw">use </span>burn::train::{
+    metric::{AccuracyMetric, LossMetric},
+    ClassificationOutput, LearnerBuilder, TrainOutput, TrainStep, ValidStep,
+};
 <span class="kw">use </span>burn::{
     <span class="self">self</span>,
     config::Config,
@@ -126,11 +131,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         Int, Tensor,
     },
 };
-<span class="kw">use </span>burn_dataset::source::huggingface::MNISTDataset;
-<span class="kw">use </span>burn_train::{
-    metric::{AccuracyMetric, LossMetric},
-    ClassificationOutput, LearnerBuilder, TrainOutput, TrainStep, ValidStep,
-};
 
 <span class="kw">impl</span>&lt;B: Backend&gt; Model&lt;B&gt; {
     <span class="kw">pub fn </span>forward_classification(
@@ -139,7 +139,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         targets: Tensor&lt;B, <span class="number">1</span>, Int&gt;,
     ) -&gt; ClassificationOutput&lt;B&gt; {
         <span class="kw">let </span>output = <span class="self">self</span>.forward(images);
-        <span class="kw">let </span>loss = CrossEntropyLoss::new(<span class="prelude-val">None</span>).forward(output.clone(), targets.clone());
+        <span class="kw">let </span>loss = CrossEntropyLoss::default().forward(output.clone(), targets.clone());
 
         ClassificationOutput::new(loss, output, targets)
     }

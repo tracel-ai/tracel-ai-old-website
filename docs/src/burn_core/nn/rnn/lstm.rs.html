@@ -451,7 +451,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///     the second tensor represents the hidden states for each sequence element.
     ///     Both output tensors have the shape [batch_size, sequence_length, hidden_size].
     </span><span class="kw">pub fn </span>forward(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
         batched_input: Tensor&lt;B, <span class="number">3</span>&gt;,
         state: <span class="prelude-ty">Option</span>&lt;(Tensor&lt;B, <span class="number">2</span>&gt;, Tensor&lt;B, <span class="number">2</span>&gt;)&gt;,
     ) -&gt; (Tensor&lt;B, <span class="number">3</span>&gt;, Tensor&lt;B, <span class="number">3</span>&gt;) {

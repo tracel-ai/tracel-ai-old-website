@@ -128,13 +128,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::FloatTensor;
 
 <span class="kw">use super</span>::{ADBackend, Backend};
-<span class="kw">use </span>burn::tensor::Shape;
-<span class="kw">use </span>burn_autodiff::{
+<span class="kw">use </span>burn::autodiff::{
     grads::Gradients,
     ops::{broadcast_shape, Backward, Ops, OpsKind},
     ADBackendDecorator,
 };
-<span class="kw">use </span>burn_wgpu::{FloatElement, GraphicsApi, IntElement, WgpuBackend};
+<span class="kw">use </span>burn::backend::wgpu::{FloatElement, GraphicsApi, IntElement, WgpuBackend};
+<span class="kw">use </span>burn::tensor::Shape;
 
 <span class="kw">impl</span>&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; ADBackend
     <span class="kw">for </span>ADBackendDecorator&lt;WgpuBackend&lt;G, F, I&gt;&gt;
