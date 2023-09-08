@@ -187,7 +187,7 @@ pub struct MyModuleConfig {
 }</code></pre>
 <p>The derive also adds useful <code>with_</code> methods for every attribute of your config, similar to a builder
 pattern, along with a <code>save</code> method.</p>
-<pre><pre class="playground"><code class="language-rust">fn main() {
+<pre><code class="language-rust  ignore">fn main() {
     let config = MyModuleConfig::new(512, 2048);
     println!(&quot;{}&quot;, config.d_model); // 512
     println!(&quot;{}&quot;, config.d_ff); // 2048
@@ -196,13 +196,11 @@ pattern, along with a <code>save</code> method.</p>
     println!(&quot;{}&quot;, config.dropout); // 0.2
 
     config.save(&quot;config.json&quot;).unwrap();
-}</code></pre></pre>
+}</code></pre>
 <h2 id="good-practices"><a class="header" href="#good-practices">Good practices</a></h2>
 <p>The interest of the Config pattern is to be able to easily create instances, factoried from this
 config. In that optic, initialization methods should be implemented on the config struct.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>impl MyModuleConfig {
+<pre><code class="language-rust  ignore">impl MyModuleConfig {
     /// Create a module with random weights.
     pub fn init(&amp;self) -&gt; MyModule {
         MyModule {
@@ -221,13 +219,9 @@ config. In that optic, initialization methods should be implemented on the confi
             dropout: DropoutConfig::new(self.dropout).init(),
         }
     }
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>Then we could add this line to the above <code>main</code>:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let my_module = config.init()
-<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-rust  ignore">let my_module = config.init()</code></pre>
 
                     </main>
 

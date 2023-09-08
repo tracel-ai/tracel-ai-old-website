@@ -182,13 +182,13 @@ inference. This section lays the groundwork for your Burn expertise.</p>
 they fit together. This knowledge forms the basis for more advanced usage and customization.</p>
 </li>
 <li>
-<p><a href="./custom-training-loop">Custom Training Loop</a>: Gain the power to customize your training loops,
-fine-tuning your models to meet your specific requirements. This section empowers you to harness
-Burn's flexibility to its fullest.</p>
+<p><a href="./custom-training-loop.html">Custom Training Loop</a>: Gain the power to customize your training
+loops, fine-tuning your models to meet your specific requirements. This section empowers you to
+harness Burn's flexibility to its fullest.</p>
 </li>
 <li>
-<p><a href="./import">Import ONNX Model</a>: Learn how to seamlessly import models from ONNX, expanding your
-compatibility with other deep learning ecosystems.</p>
+<p><a href="./import/onnx-model.html">Import ONNX Model</a>: Learn how to seamlessly import models from ONNX,
+expanding your compatibility with other deep learning ecosystems.</p>
 </li>
 <li>
 <p><a href="./advanced">Advanced</a>: Finally, venture into advanced topics, exploring Burn's capabilities at
@@ -235,28 +235,20 @@ do in order to run Burn.</p>
 Cargo, which was installed with Rust. In the directory of your choice, run</p>
 <pre><code class="language-console">cargo new my_burn_app
 </code></pre>
-<p>This will create the <code>my_burn_app</code> project directory. Head inside and open the <code>Cargo.toml</code> file. It
-should contain something like:</p>
-<pre><code class="language-toml">[package]
-name = &quot;my_burn_app&quot;
-version = &quot;0.1.0&quot;
-edition = &quot;2021&quot;
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+<p>This will create the <code>my_burn_app</code> project directory. Head inside with </p>
+<pre><code class="language-console">cd my_burn_app
 </code></pre>
-<p>Under dependencies, add</p>
-<pre><code class="language-toml">burn = { version = &quot;0.9.0&quot;, features = [&quot;wgpu&quot;] }
+<p>then add the dependency with</p>
+<pre><code class="language-console">cargo add burn --features wgpu
 </code></pre>
-<p>Then, to compile the dependencies, execute</p>
+<p>and compile it by executing</p>
 <pre><code class="language-console">cargo build
 </code></pre>
 <p>This will install Burn, along with the WGPU backend for Burn, which allows to execute low-level
 operations on every platform, using the GPU.</p>
 <h2 id="writing-a-code-snippet"><a class="header" href="#writing-a-code-snippet">Writing a code snippet</a></h2>
 <p>Now open <code>src/main.rs</code> and replace its content with</p>
-<pre><pre class="playground"><code class="language-rust">use burn::tensor::Tensor;
+<pre><code class="language-rust  ignore">use burn::tensor::Tensor;
 use burn::backend::WgpuBackend;
 
 // Type alias for the backend to use.
@@ -269,7 +261,7 @@ fn main() {
 
     // Print the element-wise addition (done with the WGPU backend) of the two tensors.
     println!(&quot;{}&quot;, tensor_1 + tensor_2);
-}</code></pre></pre>
+}</code></pre>
 <p>By running <code>cargo run</code>, you should now see the result of the addition:</p>
 <pre><code class="language-console">Tensor {
   data: [[3.0, 4.0], [5.0, 6.0]],
@@ -1292,7 +1284,7 @@ pub struct MyModuleConfig {
 }</code></pre>
 <p>The derive also adds useful <code>with_</code> methods for every attribute of your config, similar to a builder
 pattern, along with a <code>save</code> method.</p>
-<pre><pre class="playground"><code class="language-rust">fn main() {
+<pre><code class="language-rust  ignore">fn main() {
     let config = MyModuleConfig::new(512, 2048);
     println!(&quot;{}&quot;, config.d_model); // 512
     println!(&quot;{}&quot;, config.d_ff); // 2048
@@ -1301,13 +1293,11 @@ pattern, along with a <code>save</code> method.</p>
     println!(&quot;{}&quot;, config.dropout); // 0.2
 
     config.save(&quot;config.json&quot;).unwrap();
-}</code></pre></pre>
+}</code></pre>
 <h2 id="good-practices"><a class="header" href="#good-practices">Good practices</a></h2>
 <p>The interest of the Config pattern is to be able to easily create instances, factoried from this
 config. In that optic, initialization methods should be implemented on the config struct.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>impl MyModuleConfig {
+<pre><code class="language-rust  ignore">impl MyModuleConfig {
     /// Create a module with random weights.
     pub fn init(&amp;self) -&gt; MyModule {
         MyModule {
@@ -1326,13 +1316,9 @@ config. In that optic, initialization methods should be implemented on the confi
             dropout: DropoutConfig::new(self.dropout).init(),
         }
     }
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>Then we could add this line to the above <code>main</code>:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let my_module = config.init()
-<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-rust  ignore">let my_module = config.init()</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="record"><a class="header" href="#record">Record</a></h1>
 <p>Records are how states are saved with Burn. Compared to most other frameworks, Burn has its own
 advanced saving mechanism that allows interoperability between backends with minimal possible
@@ -1609,7 +1595,7 @@ where
     }
 }</code></pre>
 <p>This will result in the following compilation error:</p>
-<pre><code>1. the type parameter `B` is not constrained by the impl trait, self type, or predicates
+<pre><code class="language-console">1. the type parameter `B` is not constrained by the impl trait, self type, or predicates
    unconstrained type parameter [E0207]
 </code></pre>
 <p>To resolve this issue, you have two options. The first one is to make your function is generic over
@@ -1700,7 +1686,7 @@ architectures, thereby improving performance.</p>
 <p>Below is a step-by-step guide to importing an ONNX model into a Burn-based project:</p>
 <h4 id="step-1-update-buildrs"><a class="header" href="#step-1-update-buildrs">Step 1: Update <code>build.rs</code></a></h4>
 <p>Include the <code>burn-import</code> crate and use the following Rust code in your <code>build.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust">use burn_import::onnx::ModelGen;
+<pre><code class="language-rust  ignore">use burn_import::onnx::ModelGen;
 
 fn main() {
     // Generate Rust code from the ONNX model file
@@ -1708,18 +1694,15 @@ fn main() {
         .input(&quot;src/model/mnist.onnx&quot;)
         .out_dir(&quot;model/&quot;)
         .run_from_script();
-}</code></pre></pre>
+}</code></pre>
 <h4 id="step-2-modify-modrs"><a class="header" href="#step-2-modify-modrs">Step 2: Modify <code>mod.rs</code></a></h4>
 <p>Add this code to the <code>mod.rs</code> file located in <code>src/model</code>:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub mod mnist {
+<pre><code class="language-rust  ignore">pub mod mnist {
     include!(concat!(env!(&quot;OUT_DIR&quot;), &quot;/model/mnist.rs&quot;));
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <h4 id="step-3-utilize-imported-model"><a class="header" href="#step-3-utilize-imported-model">Step 3: Utilize Imported Model</a></h4>
 <p>Here's how to use the imported model in your application:</p>
-<pre><pre class="playground"><code class="language-rust">mod model;
+<pre><code class="language-rust  ignore">mod model;
 
 use burn::tensor;
 use burn_ndarray::NdArrayBackend;
@@ -1737,7 +1720,7 @@ fn main() {
 
     // Print the output
     println!(&quot;{:?}&quot;, output);
-}</code></pre></pre>
+}</code></pre>
 <h3 id="working-examples"><a class="header" href="#working-examples">Working Examples</a></h3>
 <p>For practical examples, please refer to:</p>
 <ol>

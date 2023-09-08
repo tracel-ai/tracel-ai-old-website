@@ -28,7 +28,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 </span><span class="kw">pub use </span>burn_core::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Train module
-</span><span class="attr">#[cfg(feature = <span class="string">&quot;train&quot;</span>)]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;train&quot;</span>, feature = <span class="string">&quot;train-minimal&quot;</span>))]
 </span><span class="kw">pub mod </span>train {
     <span class="kw">pub use </span>burn_train::<span class="kw-2">*</span>;
 }

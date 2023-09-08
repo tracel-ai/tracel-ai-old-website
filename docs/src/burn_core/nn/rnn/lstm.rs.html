@@ -325,7 +325,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#323" id="323">323</a>
 <a href="#324" id="324">324</a>
 <a href="#325" id="325">325</a>
-<a href="#326" id="326">326</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate as </span>burn;
 
 <span class="kw">use </span><span class="kw">crate</span>::config::Config;
@@ -467,9 +466,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             ),
         };
 
-        <span class="kw">for </span>t <span class="kw">in </span><span class="number">0</span>..seq_length {
-            <span class="kw">let </span>indices = Tensor::arange(t..t + <span class="number">1</span>);
-            <span class="kw">let </span>input_t = batched_input.clone().select(<span class="number">1</span>, indices).squeeze(<span class="number">1</span>);
+        <span class="kw">for </span>(t, input_t) <span class="kw">in </span>batched_input.iter_dim(<span class="number">1</span>).enumerate() {
+            <span class="kw">let </span>input_t = input_t.squeeze(<span class="number">1</span>);
             <span class="comment">// f(orget)g(ate) tensors
             </span><span class="kw">let </span>biased_fg_input_sum = <span class="self">self</span>.gate_product(<span class="kw-2">&amp;</span>input_t, <span class="kw-2">&amp;</span>hidden_state, <span class="kw-2">&amp;</span><span class="self">self</span>.forget_gate);
             <span class="kw">let </span>forget_values = activation::sigmoid(biased_fg_input_sum); <span class="comment">// to multiply with cell state

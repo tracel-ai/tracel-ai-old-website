@@ -68,14 +68,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#66" id="66">66</a>
 <a href="#67" id="67">67</a>
 <a href="#68" id="68">68</a>
-<a href="#69" id="69">69</a>
-<a href="#70" id="70">70</a>
-<a href="#71" id="71">71</a>
-<a href="#72" id="72">72</a>
-<a href="#73" id="73">73</a>
-<a href="#74" id="74">74</a>
-<a href="#75" id="75">75</a>
-<a href="#76" id="76">76</a>
 </pre></div><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![warn(missing_docs)]
 
@@ -123,19 +115,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">extern crate </span>alloc;
 
-<span class="attr">#[cfg(all(
-    test,
-    not(feature = <span class="string">&quot;test-tch&quot;</span>),
-    not(feature = <span class="string">&quot;test-wgpu&quot;</span>),
-    not(feature = <span class="string">&quot;test-candle&quot;</span>)
-))]
+<span class="attr">#[cfg(all(test, not(feature = <span class="string">&quot;test-tch&quot;</span>), not(feature = <span class="string">&quot;test-wgpu&quot;</span>),))]
 </span><span class="kw">pub type </span>TestBackend = burn_ndarray::NdArrayBackend&lt;f32&gt;;
 
 <span class="attr">#[cfg(all(test, feature = <span class="string">&quot;test-tch&quot;</span>))]
 </span><span class="kw">pub type </span>TestBackend = burn_tch::TchBackend&lt;f32&gt;;
-
-<span class="attr">#[cfg(all(test, feature = <span class="string">&quot;test-candle&quot;</span>))]
-</span><span class="kw">pub type </span>TestBackend = burn_candle::CandleBackend&lt;f32, u32&gt;;
 
 <span class="attr">#[cfg(all(test, feature = <span class="string">&quot;test-wgpu&quot;</span>, not(target_os = <span class="string">&quot;macos&quot;</span>)))]
 </span><span class="kw">pub type </span>TestBackend = burn_wgpu::WgpuBackend&lt;burn_wgpu::Vulkan, f32, i32&gt;;

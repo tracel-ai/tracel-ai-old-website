@@ -180,28 +180,20 @@ do in order to run Burn.</p>
 Cargo, which was installed with Rust. In the directory of your choice, run</p>
 <pre><code class="language-console">cargo new my_burn_app
 </code></pre>
-<p>This will create the <code>my_burn_app</code> project directory. Head inside and open the <code>Cargo.toml</code> file. It
-should contain something like:</p>
-<pre><code class="language-toml">[package]
-name = &quot;my_burn_app&quot;
-version = &quot;0.1.0&quot;
-edition = &quot;2021&quot;
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+<p>This will create the <code>my_burn_app</code> project directory. Head inside with </p>
+<pre><code class="language-console">cd my_burn_app
 </code></pre>
-<p>Under dependencies, add</p>
-<pre><code class="language-toml">burn = { version = &quot;0.9.0&quot;, features = [&quot;wgpu&quot;] }
+<p>then add the dependency with</p>
+<pre><code class="language-console">cargo add burn --features wgpu
 </code></pre>
-<p>Then, to compile the dependencies, execute</p>
+<p>and compile it by executing</p>
 <pre><code class="language-console">cargo build
 </code></pre>
 <p>This will install Burn, along with the WGPU backend for Burn, which allows to execute low-level
 operations on every platform, using the GPU.</p>
 <h2 id="writing-a-code-snippet"><a class="header" href="#writing-a-code-snippet">Writing a code snippet</a></h2>
 <p>Now open <code>src/main.rs</code> and replace its content with</p>
-<pre><pre class="playground"><code class="language-rust">use burn::tensor::Tensor;
+<pre><code class="language-rust  ignore">use burn::tensor::Tensor;
 use burn::backend::WgpuBackend;
 
 // Type alias for the backend to use.
@@ -214,7 +206,7 @@ fn main() {
 
     // Print the element-wise addition (done with the WGPU backend) of the two tensors.
     println!(&quot;{}&quot;, tensor_1 + tensor_2);
-}</code></pre></pre>
+}</code></pre>
 <p>By running <code>cargo run</code>, you should now see the result of the addition:</p>
 <pre><code class="language-console">Tensor {
   data: [[3.0, 4.0], [5.0, 6.0]],

@@ -349,9 +349,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#347" id="347">347</a>
 <a href="#348" id="348">348</a>
 <a href="#349" id="349">349</a>
-<a href="#350" id="350">350</a>
-<a href="#351" id="351">351</a>
-<a href="#352" id="352">352</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! This script is run before a PR is created.
 //!
 //! It is used to check that the code compiles and passes all tests.
@@ -562,10 +559,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="comment">// Run cargo test --features test-tch
     </span>cargo_test(<span class="kw-2">&amp;</span>[<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-core&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;test-tch&quot;</span>]);
 
-    <span class="comment">// Run cargo test --features test-candle
-    // cargo_test(&amp;[&quot;-p&quot;, &quot;burn-core&quot;, &quot;--features&quot;, &quot;test-candle&quot;]);
-
-    // Run cargo test --features test-wgpu
+    <span class="comment">// Run cargo test --features test-wgpu
     </span>cargo_test(<span class="kw-2">&amp;</span>[<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-core&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;test-wgpu&quot;</span>]);
 }
 
@@ -591,7 +585,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="macro">println!</span>(<span class="string">&quot;Running std checks&quot;</span>);
 
     <span class="comment">// Build each workspace
-    </span>cargo_build(<span class="kw-2">&amp;</span>[<span class="string">&quot;--workspace&quot;</span>]);
+    </span>cargo_build(<span class="kw-2">&amp;</span>[<span class="string">&quot;--workspace&quot;</span>, <span class="string">&quot;--exclude=xtask&quot;</span>]);
 
     <span class="comment">// Test each workspace
     </span>cargo_test(<span class="kw-2">&amp;</span>[<span class="string">&quot;--workspace&quot;</span>]);

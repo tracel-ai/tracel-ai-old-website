@@ -30,17 +30,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#28" id="28">28</a>
 <a href="#29" id="29">29</a>
 <a href="#30" id="30">30</a>
-<a href="#31" id="31">31</a>
-<a href="#32" id="32">32</a>
-<a href="#33" id="33">33</a>
-<a href="#34" id="34">34</a>
-<a href="#35" id="35">35</a>
-<a href="#36" id="36">36</a>
-<a href="#37" id="37">37</a>
-<a href="#38" id="38">38</a>
-<a href="#39" id="39">39</a>
-<a href="#40" id="40">40</a>
-<a href="#41" id="41">41</a>
 </pre></div><pre class="rust"><code><span class="doccomment">/// Ndarray module.
 </span><span class="attr">#[cfg(feature = <span class="string">&quot;ndarray&quot;</span>)]
 </span><span class="kw">pub use </span>burn_ndarray <span class="kw">as </span>ndarray;
@@ -71,15 +60,4 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="doccomment">/// A TchBackend with autodiffing enabled.
 </span><span class="attr">#[cfg(all(feature = <span class="string">&quot;tch&quot;</span>, feature = <span class="string">&quot;autodiff&quot;</span>))]
 </span><span class="kw">pub type </span>TchAutodiffBackend&lt;F = f32&gt; = <span class="kw">crate</span>::autodiff::ADBackendDecorator&lt;TchBackend&lt;F&gt;&gt;;
-
-<span class="doccomment">/// Candle module.
-</span><span class="attr">#[cfg(feature = <span class="string">&quot;candle&quot;</span>)]
-</span><span class="kw">pub use </span>burn_candle <span class="kw">as </span>candle;
-<span class="doccomment">/// A CandleBackend with a default type of f32/i32.
-</span><span class="attr">#[cfg(feature = <span class="string">&quot;candle&quot;</span>)]
-</span><span class="kw">pub type </span>CandleBackend&lt;F = f32, I = i32&gt; = candle::CandleBackend&lt;F, I&gt;;
-<span class="doccomment">/// A CandleBackend with autodiffing enabled.
-</span><span class="attr">#[cfg(all(feature = <span class="string">&quot;candle&quot;</span>, feature = <span class="string">&quot;autodiff&quot;</span>))]
-</span><span class="kw">pub type </span>CandleAutodiffBackend&lt;F = f32, I = i32&gt; =
-    <span class="kw">crate</span>::autodiff::ADBackendDecorator&lt;CandleBackend&lt;F, I&gt;&gt;;
 </code></pre></div></section></main></body></html>

@@ -228,7 +228,7 @@ architectures, thereby improving performance.</p>
 <p>Below is a step-by-step guide to importing an ONNX model into a Burn-based project:</p>
 <h4 id="step-1-update-buildrs"><a class="header" href="#step-1-update-buildrs">Step 1: Update <code>build.rs</code></a></h4>
 <p>Include the <code>burn-import</code> crate and use the following Rust code in your <code>build.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust">use burn_import::onnx::ModelGen;
+<pre><code class="language-rust  ignore">use burn_import::onnx::ModelGen;
 
 fn main() {
     // Generate Rust code from the ONNX model file
@@ -236,18 +236,15 @@ fn main() {
         .input(&quot;src/model/mnist.onnx&quot;)
         .out_dir(&quot;model/&quot;)
         .run_from_script();
-}</code></pre></pre>
+}</code></pre>
 <h4 id="step-2-modify-modrs"><a class="header" href="#step-2-modify-modrs">Step 2: Modify <code>mod.rs</code></a></h4>
 <p>Add this code to the <code>mod.rs</code> file located in <code>src/model</code>:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub mod mnist {
+<pre><code class="language-rust  ignore">pub mod mnist {
     include!(concat!(env!(&quot;OUT_DIR&quot;), &quot;/model/mnist.rs&quot;));
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <h4 id="step-3-utilize-imported-model"><a class="header" href="#step-3-utilize-imported-model">Step 3: Utilize Imported Model</a></h4>
 <p>Here's how to use the imported model in your application:</p>
-<pre><pre class="playground"><code class="language-rust">mod model;
+<pre><code class="language-rust  ignore">mod model;
 
 use burn::tensor;
 use burn_ndarray::NdArrayBackend;
@@ -265,7 +262,7 @@ fn main() {
 
     // Print the output
     println!(&quot;{:?}&quot;, output);
-}</code></pre></pre>
+}</code></pre>
 <h3 id="working-examples"><a class="header" href="#working-examples">Working Examples</a></h3>
 <p>For practical examples, please refer to:</p>
 <ol>
