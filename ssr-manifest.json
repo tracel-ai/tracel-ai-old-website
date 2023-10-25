@@ -1,15 +1,30 @@
 {
+  "src/components/blog/index.tsx": [
+    "/assets/index-a199484c.js"
+  ],
+  "src/components/blog/reference/index.tsx": [
+    "/assets/index-a199484c.js"
+  ],
+  "src/routes/blog/cross-platform-gpu-backend.tsx": [
+    "/assets/cross-platform-gpu-backend-484819e1.js"
+  ],
+  "src/routes/[...404].tsx": [
+    "/assets/_...404_-e5ec665e.js"
+  ],
+  "src/routes/demo.tsx": [
+    "/assets/demo-b2aec67c.js"
+  ],
   "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
     "/assets/a-case-for-rust-in-deep-learning-39a3be39.js"
   ],
-  "src/components/outterlink/index.tsx": [
-    "/assets/page-b14d742d.js"
+  "src/components/card/index.tsx": [
+    "/assets/index-eed4c878.js"
   ],
-  "src/content/footer.tsx": [
-    "/assets/page-b14d742d.js"
+  "src/routes/blog/index.tsx": [
+    "/assets/index-eed4c878.js"
   ],
-  "src/layout/page.tsx": [
-    "/assets/page-b14d742d.js"
+  "src/components/stars/index.tsx": [
+    "/assets/index-b8c52bfe.js"
   ],
   "\u0000commonjsHelpers.js": [
     "/assets/index-67a2ab02.js"
@@ -32,29 +47,8 @@
   "src/components/code/index.tsx": [
     "/assets/index-67a2ab02.js"
   ],
-  "src/routes/demo.tsx": [
-    "/assets/demo-b2aec67c.js"
-  ],
-  "src/routes/[...404].tsx": [
-    "/assets/_...404_-e5ec665e.js"
-  ],
-  "src/routes/blog/cross-platform-gpu-backend.tsx": [
-    "/assets/cross-platform-gpu-backend-484819e1.js"
-  ],
-  "src/components/card/index.tsx": [
-    "/assets/index-eed4c878.js"
-  ],
-  "src/routes/blog/index.tsx": [
-    "/assets/index-eed4c878.js"
-  ],
-  "src/components/stars/index.tsx": [
-    "/assets/index-b8c52bfe.js"
-  ],
-  "src/components/blog/index.tsx": [
-    "/assets/index-a199484c.js"
-  ],
-  "src/components/blog/reference/index.tsx": [
-    "/assets/index-a199484c.js"
+  "src/content/blogs.ts": [
+    "/assets/blogs-31dabd14.js"
   ],
   "src/components/blog/table/index.tsx": [
     "/assets/burn-rusty-approach-to-tensor-handling-73e05f2d.js"
@@ -62,8 +56,14 @@
   "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
     "/assets/burn-rusty-approach-to-tensor-handling-73e05f2d.js"
   ],
-  "src/content/blogs.ts": [
-    "/assets/blogs-31dabd14.js"
+  "src/components/outterlink/index.tsx": [
+    "/assets/page-b14d742d.js"
+  ],
+  "src/content/footer.tsx": [
+    "/assets/page-b14d742d.js"
+  ],
+  "src/layout/page.tsx": [
+    "/assets/page-b14d742d.js"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/array.es.js": [
     "/assets/index-36084891.js",
