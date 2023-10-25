@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/checkpoint/async_checkpoint.rs`."><title>async_checkpoint.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/checkpoint/async_checkpoint.rs`."><title>async_checkpoint.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.72.0 (5680fa18f 2023-08-23)" data-channel="1.72.0" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_train/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.73.0 (cc66ad468 2023-10-03)" data-channel="1.73.0" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_train/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -84,26 +84,77 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#82" id="82">82</a>
 <a href="#83" id="83">83</a>
 <a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{Checkpointer, CheckpointerError};
 <span class="kw">use </span>burn_core::record::Record;
-<span class="kw">use </span>std::sync::{mpsc, Arc};
+<span class="kw">use </span>std::sync::mpsc;
 
 <span class="kw">enum </span>Message&lt;R&gt; {
+    Restore(usize, mpsc::SyncSender&lt;<span class="prelude-ty">Result</span>&lt;R, CheckpointerError&gt;&gt;),
     Save(usize, R),
+    Delete(usize),
     End,
 }
 
 <span class="attr">#[derive(new)]
-</span><span class="kw">struct </span>CheckpointerThread&lt;R&gt; {
-    checkpointer: Arc&lt;<span class="kw">dyn </span>Checkpointer&lt;R&gt; + Send + Sync&gt;,
+</span><span class="kw">struct </span>CheckpointerThread&lt;C, R&gt; {
+    checkpointer: C,
     receiver: mpsc::Receiver&lt;Message&lt;R&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;R: Record&gt; CheckpointerThread&lt;R&gt; {
+<span class="kw">impl</span>&lt;C: Checkpointer&lt;R&gt;, R: Record&gt; CheckpointerThread&lt;C, R&gt; {
     <span class="kw">fn </span>run(<span class="self">self</span>) {
         <span class="kw">for </span>item <span class="kw">in </span><span class="self">self</span>.receiver.iter() {
             <span class="kw">match </span>item {
-                Message::Save(epoch, state) =&gt; <span class="self">self</span>.checkpointer.save(epoch, state).unwrap(),
+                Message::Restore(epoch, callback) =&gt; {
+                    <span class="kw">let </span>record = <span class="self">self</span>.checkpointer.restore(epoch);
+                    callback
+                        .send(record)
+                        .expect(<span class="string">&quot;Can send response through callback channel.&quot;</span>);
+                }
+                Message::Save(epoch, state) =&gt; <span class="self">self
+                    </span>.checkpointer
+                    .save(epoch, state)
+                    .expect(<span class="string">&quot;Can save the state.&quot;</span>),
+                Message::Delete(epoch) =&gt; <span class="self">self
+                    </span>.checkpointer
+                    .delete(epoch)
+                    .expect(<span class="string">&quot;Can delete the state.&quot;</span>),
                 Message::End =&gt; {
                     <span class="kw">return</span>;
                 }
@@ -113,9 +164,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Async checkpointer.
-</span><span class="kw">pub struct </span>AsyncCheckpointer&lt;E&gt; {
-    checkpointer: Arc&lt;<span class="kw">dyn </span>Checkpointer&lt;E&gt; + Send + Sync&gt;,
-    sender: mpsc::SyncSender&lt;Message&lt;E&gt;&gt;,
+</span><span class="kw">pub struct </span>AsyncCheckpointer&lt;Record&gt; {
+    sender: mpsc::SyncSender&lt;Message&lt;Record&gt;&gt;,
     handler: <span class="prelude-ty">Option</span>&lt;std::thread::JoinHandle&lt;()&gt;&gt;,
 }
 
@@ -129,17 +179,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The async checkpointer.
-    </span><span class="kw">pub fn </span>new(checkpointer: Arc&lt;<span class="kw">dyn </span>Checkpointer&lt;R&gt; + Send + Sync&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>new&lt;C&gt;(checkpointer: C) -&gt; <span class="self">Self
+    </span><span class="kw">where
+        </span>C: Checkpointer&lt;R&gt; + Send + <span class="lifetime">&#39;static</span>,
+    {
         <span class="comment">// Only on checkpoint can be done in advance.
         </span><span class="kw">let </span>(sender, receiver) = mpsc::sync_channel(<span class="number">0</span>);
-        <span class="kw">let </span>thread = CheckpointerThread::new(checkpointer.clone(), receiver);
+        <span class="kw">let </span>thread = CheckpointerThread::new(checkpointer, receiver);
         <span class="kw">let </span>handler = <span class="prelude-val">Some</span>(std::thread::spawn(<span class="kw">move </span>|| thread.run()));
 
-        <span class="self">Self </span>{
-            checkpointer,
-            sender,
-            handler,
-        }
+        <span class="self">Self </span>{ sender, handler }
     }
 }
 
@@ -148,23 +197,46 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span>R: Record + <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>, epoch: usize, record: R) -&gt; <span class="prelude-ty">Result</span>&lt;(), CheckpointerError&gt; {
-        <span class="self">self</span>.sender.send(Message::Save(epoch, record)).unwrap();
+        <span class="self">self</span>.sender
+            .send(Message::Save(epoch, record))
+            .expect(<span class="string">&quot;Can send message to checkpointer thread.&quot;</span>);
 
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>, epoch: usize) -&gt; <span class="prelude-ty">Result</span>&lt;R, CheckpointerError&gt; {
-        <span class="self">self</span>.checkpointer.restore(epoch)
+        <span class="kw">let </span>(sender, receiver) = mpsc::sync_channel(<span class="number">1</span>);
+        <span class="self">self</span>.sender
+            .send(Message::Restore(epoch, sender))
+            .map_err(|e| CheckpointerError::Unknown(e.to_string()))<span class="question-mark">?</span>;
+
+        <span class="kw">if let </span><span class="prelude-val">Ok</span>(record) = receiver.recv() {
+            <span class="kw">return </span>record;
+        };
+
+        <span class="prelude-val">Err</span>(CheckpointerError::Unknown(<span class="string">&quot;Channel error.&quot;</span>.to_string()))
+    }
+
+    <span class="kw">fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, epoch: usize) -&gt; <span class="prelude-ty">Result</span>&lt;(), CheckpointerError&gt; {
+        <span class="self">self</span>.sender
+            .send(Message::Delete(epoch))
+            .map_err(|e| CheckpointerError::Unknown(e.to_string()))<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(())
     }
 }
 
 <span class="kw">impl</span>&lt;E&gt; Drop <span class="kw">for </span>AsyncCheckpointer&lt;E&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.sender.send(Message::End).unwrap();
+        <span class="self">self</span>.sender
+            .send(Message::End)
+            .expect(<span class="string">&quot;Can send the end message to the checkpointer thread.&quot;</span>);
         <span class="kw">let </span>handler = <span class="self">self</span>.handler.take();
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(handler) = handler {
-            handler.join().unwrap();
+            handler
+                .join()
+                .expect(<span class="string">&quot;The checkpointer thread should stop.&quot;</span>);
         }
     }
 }

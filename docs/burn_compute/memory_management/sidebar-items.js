@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DeallocStrategy","SimpleHandle","SliceStrategy"],"struct":["ChunkId","SimpleMemoryManagement","SliceId"],"trait":["MemoryHandle","MemoryManagement"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WgpuResourceKind"],"fn":["compute_client","init_async","select_device"],"struct":["DynamicKernel","StaticKernel","WgpuResource","WgpuServer","WgpuStorage","WorkGroup"],"trait":["Kernel"],"type":["WgpuComputeClient","WgpuHandle"]};

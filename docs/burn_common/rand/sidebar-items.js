@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["get_seeded_rng"],"struct":["StdRng"],"trait":["Rng","SeedableRng"]};
+window.SIDEBAR_ITEMS = {"fn":["gen_random","get_seeded_rng"],"struct":["StdRng"],"trait":["Rng","SeedableRng"]};

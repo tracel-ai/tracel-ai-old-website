@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StorageUtilization"],"struct":["BytesResource","BytesStorage","StorageHandle","StorageId"],"trait":["ComputeStorage"]};

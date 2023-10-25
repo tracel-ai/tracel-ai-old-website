@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["id","rand","stub"]};
+window.SIDEBAR_ITEMS = {"mod":["benchmark","id","rand","reader","stub"]};

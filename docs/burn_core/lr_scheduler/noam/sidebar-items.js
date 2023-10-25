@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["NoamLRScheduler","NoamLRSchedulerConfig"]};
+window.SIDEBAR_ITEMS = {"struct":["NoamLrScheduler","NoamLrSchedulerConfig"]};

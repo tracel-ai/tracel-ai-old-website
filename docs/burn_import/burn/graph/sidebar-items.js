@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["BurnGraph"]};
+window.SIDEBAR_ITEMS = {"enum":["RecordType"],"struct":["BurnGraph"]};

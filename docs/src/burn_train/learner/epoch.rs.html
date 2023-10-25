@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/learner/epoch.rs`."><title>epoch.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/learner/epoch.rs`."><title>epoch.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.72.0 (5680fa18f 2023-08-23)" data-channel="1.72.0" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_train/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.73.0 (cc66ad468 2023-10-03)" data-channel="1.73.0" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_train/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -246,17 +246,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#244" id="244">244</a>
 <a href="#245" id="245">245</a>
 <a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>burn_core::{
-    data::dataloader::DataLoader,
-    lr_scheduler::LRScheduler,
-    module::ADModule,
-    optim::{GradientsAccumulator, Optimizer},
-    tensor::backend::ADBackend,
+    data::dataloader::DataLoader, lr_scheduler::LrScheduler, module::ADModule,
+    optim::GradientsAccumulator, tensor::backend::Backend,
 };
 <span class="kw">use </span>std::sync::Arc;
 
-<span class="kw">use </span><span class="kw">crate</span>::learner::base::TrainingInterrupter;
-<span class="kw">use crate</span>::{LearnerCallback, LearnerItem, MultiDevicesTrainStep, TrainStep, ValidStep};
+<span class="kw">use </span><span class="kw">crate</span>::metric::processor::{Event, EventProcessor, LearnerItem};
+<span class="kw">use crate</span>::{components::LearnerComponents, learner::base::TrainingInterrupter};
+<span class="kw">use crate</span>::{MultiDevicesTrainStep, TrainStep, ValidStep};
 
 <span class="doccomment">/// A validation epoch.
 </span><span class="attr">#[derive(new)]
@@ -275,22 +274,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     grad_accumulation: <span class="prelude-ty">Option</span>&lt;usize&gt;,
 }
 
-<span class="kw">impl</span>&lt;I&gt; ValidEpoch&lt;I&gt; {
+<span class="kw">impl</span>&lt;VI&gt; ValidEpoch&lt;VI&gt; {
     <span class="doccomment">/// Runs the validation epoch.
     ///
     /// # Arguments
     ///
     /// * `model` - The model to validate.
-    /// * `callback` - The callback to use.
-    </span><span class="kw">pub fn </span>run&lt;B, M, TO, VO&gt;(
+    /// * `processor` - The event processor to use.
+    </span><span class="kw">pub fn </span>run&lt;LC: LearnerComponents, VO&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        model: <span class="kw-2">&amp;</span>M,
-        callback: <span class="kw-2">&amp;mut </span>Box&lt;<span class="kw">dyn </span>LearnerCallback&lt;TO, VO&gt;&gt;,
+        model: <span class="kw-2">&amp;</span>LC::Model,
+        processor: <span class="kw-2">&amp;mut </span>LC::EventProcessor,
         interrupter: <span class="kw-2">&amp;</span>TrainingInterrupter,
     ) <span class="kw">where
-        </span>B: ADBackend,
-        M: ADModule&lt;B&gt;,
-        M::InnerModule: ValidStep&lt;I, VO&gt;,
+        </span>LC::EventProcessor: EventProcessor&lt;ItemValid = VO&gt;,
+        &lt;LC::Model <span class="kw">as </span>ADModule&lt;LC::Backend&gt;&gt;::InnerModule: ValidStep&lt;VI, VO&gt;,
     {
         <span class="macro">log::info!</span>(<span class="string">&quot;Executing validation step for epoch {}&quot;</span>, <span class="self">self</span>.epoch);
         <span class="kw">let </span>model = model.valid();
@@ -312,13 +310,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 <span class="prelude-val">None</span>,
             );
 
-            callback.on_valid_item(item);
+            processor.process_valid(Event::ProcessedItem(item));
+
             <span class="kw">if </span>interrupter.should_stop() {
                 <span class="macro">log::info!</span>(<span class="string">&quot;Training interrupted.&quot;</span>);
                 <span class="kw">break</span>;
             }
         }
-        callback.on_valid_end_epoch(<span class="self">self</span>.epoch);
+        processor.process_valid(Event::EndEpoch(<span class="self">self</span>.epoch));
     }
 }
 
@@ -330,24 +329,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// * `model` - The model to train.
     /// * `optim` - The optimizer to use.
     /// * `scheduler` - The learning rate scheduler to use.
-    /// * `callback` - The callback to use.
+    /// * `processor` - The event processor to use.
     ///
     /// # Returns
     ///
     /// The trained model and the optimizer.
-    </span><span class="kw">pub fn </span>run&lt;B, M, O, LR, TO, VO&gt;(
+    </span><span class="kw">pub fn </span>run&lt;LC: LearnerComponents, TO&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="kw-2">mut </span>model: M,
-        <span class="kw-2">mut </span>optim: O,
-        scheduler: <span class="kw-2">&amp;mut </span>LR,
-        callback: <span class="kw-2">&amp;mut </span>Box&lt;<span class="kw">dyn </span>LearnerCallback&lt;TO, VO&gt;&gt;,
+        <span class="kw-2">mut </span>model: LC::Model,
+        <span class="kw-2">mut </span>optim: LC::Optimizer,
+        scheduler: <span class="kw-2">&amp;mut </span>LC::LrScheduler,
+        processor: <span class="kw-2">&amp;mut </span>LC::EventProcessor,
         interrupter: <span class="kw-2">&amp;</span>TrainingInterrupter,
-    ) -&gt; (M, O)
+    ) -&gt; (LC::Model, LC::Optimizer)
     <span class="kw">where
-        </span>B: ADBackend,
-        M: TrainStep&lt;TI, TO&gt; + ADModule&lt;B&gt;,
-        O: Optimizer&lt;M, B&gt;,
-        LR: LRScheduler,
+        </span>LC::EventProcessor: EventProcessor&lt;ItemTrain = TO&gt;,
+        LC::Model: TrainStep&lt;TI, TO&gt;,
     {
         <span class="macro">log::info!</span>(<span class="string">&quot;Executing training step for epoch {}&quot;</span>, <span class="self">self</span>.epoch,);
 
@@ -387,13 +384,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 <span class="prelude-val">Some</span>(lr),
             );
 
-            callback.on_train_item(item);
+            processor.process_train(Event::ProcessedItem(item));
+
             <span class="kw">if </span>interrupter.should_stop() {
                 <span class="macro">log::info!</span>(<span class="string">&quot;Training interrupted.&quot;</span>);
                 <span class="kw">break</span>;
             }
         }
-        callback.on_train_end_epoch(<span class="self">self</span>.epoch);
+        processor.process_train(Event::EndEpoch(<span class="self">self</span>.epoch));
 
         (model, optim)
     }
@@ -407,29 +405,26 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// * `model` - The model to train.
     /// * `optim` - The optimizer to use.
     /// * `lr_scheduler` - The learning rate scheduler to use.
-    /// * `callback` - The callback to use.
+    /// * `processor` - The event processor to use.
     /// * `devices` - The devices to use.
     ///
     /// # Returns
     ///
     /// The trained model and the optimizer.
-    </span><span class="kw">pub fn </span>run_multi_device&lt;B, M, O, S, TO, VO&gt;(
+    </span><span class="kw">pub fn </span>run_multi_device&lt;LC: LearnerComponents, TO&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="kw-2">mut </span>model: M,
-        <span class="kw-2">mut </span>optim: O,
-        lr_scheduler: <span class="kw-2">&amp;mut </span>S,
-        callback: <span class="kw-2">&amp;mut </span>Box&lt;<span class="kw">dyn </span>LearnerCallback&lt;TO, VO&gt;&gt;,
-        devices: Vec&lt;B::Device&gt;,
+        <span class="kw-2">mut </span>model: LC::Model,
+        <span class="kw-2">mut </span>optim: LC::Optimizer,
+        lr_scheduler: <span class="kw-2">&amp;mut </span>LC::LrScheduler,
+        processor: <span class="kw-2">&amp;mut </span>LC::EventProcessor,
+        devices: Vec&lt;&lt;LC::Backend <span class="kw">as </span>Backend&gt;::Device&gt;,
         interrupter: <span class="kw-2">&amp;</span>TrainingInterrupter,
-    ) -&gt; (M, O)
+    ) -&gt; (LC::Model, LC::Optimizer)
     <span class="kw">where
-        </span>B: ADBackend,
-        M: ADModule&lt;B&gt; + <span class="lifetime">&#39;static</span>,
-        O: Optimizer&lt;M, B&gt;,
-        M: TrainStep&lt;TI, TO&gt;,
-        S: LRScheduler,
-        TI: Send + <span class="lifetime">&#39;static</span>,
+        </span>LC::EventProcessor: EventProcessor&lt;ItemTrain = TO&gt;,
+        LC::Model: TrainStep&lt;TI, TO&gt;,
         TO: Send + <span class="lifetime">&#39;static</span>,
+        TI: Send + <span class="lifetime">&#39;static</span>,
     {
         <span class="macro">log::info!</span>(
             <span class="string">&quot;Executing training step for epoch {} on devices {:?}&quot;</span>,
@@ -446,7 +441,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>step = MultiDevicesTrainStep::new(<span class="kw-2">&amp;</span>devices);
 
         <span class="comment">// The main device is always the first in the list.
-        </span><span class="kw">let </span>device_main = devices.get(<span class="number">0</span>).unwrap().clone();
+        </span><span class="kw">let </span>device_main = devices.get(<span class="number">0</span>).expect(<span class="string">&quot;A minimum of one device.&quot;</span>).clone();
+        <span class="kw">let </span><span class="kw-2">mut </span>interrupted = <span class="bool-val">false</span>;
 
         <span class="kw">loop </span>{
             <span class="kw">let </span>items = step.step(<span class="kw-2">&amp;mut </span>iterator, <span class="kw-2">&amp;</span>model);
@@ -479,15 +475,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     <span class="prelude-val">Some</span>(lr),
                 );
 
-                callback.on_train_item(item);
+                processor.process_train(Event::ProcessedItem(item));
+
                 <span class="kw">if </span>interrupter.should_stop() {
                     <span class="macro">log::info!</span>(<span class="string">&quot;Training interrupted.&quot;</span>);
+                    interrupted = <span class="bool-val">true</span>;
                     <span class="kw">break</span>;
                 }
             }
+
+            <span class="kw">if </span>interrupted {
+                <span class="kw">break</span>;
+            }
         }
 
-        callback.on_train_end_epoch(<span class="self">self</span>.epoch);
+        processor.process_train(Event::EndEpoch(<span class="self">self</span>.epoch));
 
         (model, optim)
     }

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["matmul_tiling_2d_vec4_primitive","matmul_tiling_2d_vec4_primitive_default"],"struct":["MatmulTiling2Dvec4PrimitiveRaw"]};

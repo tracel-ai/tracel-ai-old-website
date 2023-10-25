@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["constant","noam"],"trait":["LRScheduler"]};
+window.SIDEBAR_ITEMS = {"mod":["constant","noam"],"trait":["LrScheduler"]};

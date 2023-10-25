@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["dashboard","state"],"struct":["AccuracyInput","AccuracyMetric","CUDAMetric","CpuTemp","CpuUse","GpuTemp","LearningRateMetric","LossInput","LossMetric","MemoryUse","MetricEntry","MetricMetadata"],"trait":["Adaptor","Metric","Numeric"]};
+window.SIDEBAR_ITEMS = {"fn":["format_float"],"mod":["state","store"],"struct":["AccuracyInput","AccuracyMetric","CUDAMetric","CpuMemory","CpuTemperature","CpuUse","LearningRateMetric","LossInput","LossMetric","MetricEntry","MetricMetadata"],"trait":["Adaptor","Metric","Numeric"]};

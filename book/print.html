@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>The Burn Book 🔥</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,7 +32,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -62,24 +62,29 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -117,9 +122,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -592,10 +597,10 @@ pub fn train&lt;B: ADBackend&gt;(artifact_dir: &amp;str, config: TrainingConfig,
         .build(MNISTDataset::test());
 
     let learner = LearnerBuilder::new(artifact_dir)
-        .metric_train_plot(AccuracyMetric::new())
-        .metric_valid_plot(AccuracyMetric::new())
-        .metric_train_plot(LossMetric::new())
-        .metric_valid_plot(LossMetric::new())
+        .metric_train_numeric(AccuracyMetric::new())
+        .metric_valid_numeric(AccuracyMetric::new())
+        .metric_train_numeric(LossMetric::new())
+        .metric_valid_numeric(LossMetric::new())
         .with_file_checkpointer(1, CompactRecorder::new())
         .devices(vec![device])
         .num_epochs(config.num_epochs)
@@ -650,7 +655,7 @@ fn main() {
     type MyBackend = WgpuBackend&lt;AutoGraphicsApi, f32, i32&gt;;
     type MyAutodiffBackend = ADBackendDecorator&lt;MyBackend&gt;;
 
-    let device = burn_wgpu::WgpuDevice::default();
+    let device = burn::backend::wgpu::WgpuDevice::default();
     guide::training::train::&lt;MyAutodiffBackend&gt;(
         &quot;/tmp/guide&quot;,
         guide::training::TrainingConfig::new(ModelConfig::new(10, 512), AdamConfig::new()),
@@ -2027,11 +2032,8 @@ impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; Backend for WgpuBacke
         // Create the output tensor primitive.
         let output = WgpuTensor::new(lhs.context.clone(), shape_out, buffer);
 
-        // Compile the kernel or use the cache based on the template id.
-        let kernel = lhs.context.compile_dynamic(FusedMatmulAddRelu::&lt;F&gt;::new(
-            workgroup_size_x,
-            workgroup_size_y,
-        ));
+        // Create the kernel.
+        let kernel = FusedMatmulAddRelu::&lt;F&gt;::new(workgroup_size_x, workgroup_size_y);
 
         // Build info buffer with tensor information needed by the kernel, such as shapes and strides.
         let info = build_info(&amp;[&amp;lhs, &amp;rhs, &amp;output]);
@@ -2045,15 +2047,14 @@ impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; Backend for WgpuBacke
         let workgroup = WorkGroup::new(blocks_needed_in_x, blocks_needed_in_y, num_batches as u32);
 
         // Execute lazily the kernel with the launch information and the given buffers.
-        lhs.context.execute(
-            workgroup,
-            kernel,
+        lhs.client.execute(
+            Box::new(DynamicKernel::new(kernel, workgroup)),
             &amp;[
-                &amp;lhs.buffer,
-                &amp;rhs.buffer,
-                &amp;bias.buffer,
-                &amp;output.buffer,
-                &amp;info_buffer,
+                &amp;lhs.handle,
+                &amp;rhs.handle,
+                &amp;bias.handle,
+                &amp;output.handle,
+                &amp;info_handle,
             ],
         );
 

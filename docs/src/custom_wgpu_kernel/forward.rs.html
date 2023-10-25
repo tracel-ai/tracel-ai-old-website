@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `examples/custom-wgpu-kernel/src/forward.rs`."><title>forward.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `examples/custom-wgpu-kernel/src/forward.rs`."><title>forward.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="custom_wgpu_kernel" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.72.0 (5680fa18f 2023-08-23)" data-channel="1.72.0" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../custom_wgpu_kernel/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="custom_wgpu_kernel" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.73.0 (cc66ad468 2023-10-03)" data-channel="1.73.0" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../custom_wgpu_kernel/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -114,23 +114,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#112" id="112">112</a>
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
-<a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a>
-<a href="#117" id="117">117</a>
-<a href="#118" id="118">118</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::FloatTensor;
 
 <span class="kw">use </span><span class="kw">super</span>::Backend;
 <span class="kw">use </span>burn::backend::wgpu::{
-    context::WorkGroup,
-    kernel::{build_info, into_contiguous, DynamicKernel, SourceTemplate, StaticKernel},
+    compute::{DynamicKernel, WorkGroup},
+    kernel::{
+        build_info, into_contiguous, DynamicKernelSource, SourceTemplate, StaticKernelSource,
+    },
     kernel_wgsl,
     tensor::WgpuTensor,
     FloatElement, GraphicsApi, IntElement, WgpuBackend,
 };
 <span class="kw">use </span>burn::tensor::Shape;
 <span class="kw">use </span>derive_new::new;
-<span class="kw">use </span>std::marker::PhantomData;
+<span class="kw">use </span>std::{marker::PhantomData, sync::Arc};
 
 <span class="comment">// Source the kernel written in WGSL.
 </span><span class="macro">kernel_wgsl!</span>(FusedMatmulAddReluRaw, <span class="string">&quot;./kernel.wgsl&quot;</span>);
@@ -144,11 +142,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="comment">// Implement the dynamic kernel trait for our kernel type.
-</span><span class="kw">impl</span>&lt;E: FloatElement&gt; DynamicKernel <span class="kw">for </span>FusedMatmulAddRelu&lt;E&gt; {
-    <span class="kw">fn </span>source_template(<span class="self">self</span>) -&gt; SourceTemplate {
+</span><span class="kw">impl</span>&lt;E: FloatElement&gt; DynamicKernelSource <span class="kw">for </span>FusedMatmulAddRelu&lt;E&gt; {
+    <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SourceTemplate {
         <span class="comment">// Extend our raw kernel with workgroup size information using the
         // `SourceTemplate` trait.
-        </span>FusedMatmulAddReluRaw::source_template()
+        </span>FusedMatmulAddReluRaw::source()
             .register(<span class="string">&quot;workgroup_size_x&quot;</span>, <span class="self">self</span>.workgroup_size_x.to_string())
             .register(<span class="string">&quot;workgroup_size_y&quot;</span>, <span class="self">self</span>.workgroup_size_y.to_string())
             .register(<span class="string">&quot;elem&quot;</span>, E::type_name())
@@ -196,23 +194,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="comment">// Create a buffer for the output tensor.
         </span><span class="kw">let </span>buffer = lhs
-            .context
-            .create_buffer(shape_out.num_elements() * core::mem::size_of::&lt;F&gt;());
+            .client
+            .empty(shape_out.num_elements() * core::mem::size_of::&lt;F&gt;());
 
         <span class="comment">// Create the output tensor primitive.
-        </span><span class="kw">let </span>output = WgpuTensor::new(lhs.context.clone(), shape_out, buffer);
+        </span><span class="kw">let </span>output = WgpuTensor::new(lhs.client.clone(), lhs.device.clone(), shape_out, buffer);
 
-        <span class="comment">// Compile the kernel or use the cache based on the template id.
-        </span><span class="kw">let </span>kernel = lhs.context.compile_dynamic(FusedMatmulAddRelu::&lt;F&gt;::new(
-            workgroup_size_x,
-            workgroup_size_y,
-        ));
+        <span class="comment">// Create the kernel.
+        </span><span class="kw">let </span>kernel = FusedMatmulAddRelu::&lt;F&gt;::new(workgroup_size_x, workgroup_size_y);
 
         <span class="comment">// Build info buffer with tensor information needed by the kernel, such as shapes and strides.
         </span><span class="kw">let </span>info = build_info(<span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs, <span class="kw-2">&amp;</span>rhs, <span class="kw-2">&amp;</span>output]);
-        <span class="kw">let </span>info_buffer = lhs
-            .context
-            .create_buffer_with_data(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
+        <span class="kw">let </span>info_handle = lhs.client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
 
         <span class="comment">// Declare the wgsl workgroup with the number of blocks in x, y and z.
         </span><span class="kw">let </span>blocks_needed_in_x = f32::ceil(num_rows <span class="kw">as </span>f32 / workgroup_size_x <span class="kw">as </span>f32) <span class="kw">as </span>u32;
@@ -220,15 +213,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>workgroup = WorkGroup::new(blocks_needed_in_x, blocks_needed_in_y, num_batches <span class="kw">as </span>u32);
 
         <span class="comment">// Execute lazily the kernel with the launch information and the given buffers.
-        </span>lhs.context.execute(
-            workgroup,
-            kernel,
+        </span>lhs.client.execute(
+            Arc::new(DynamicKernel::new(kernel, workgroup)),
             <span class="kw-2">&amp;</span>[
-                <span class="kw-2">&amp;</span>lhs.buffer,
-                <span class="kw-2">&amp;</span>rhs.buffer,
-                <span class="kw-2">&amp;</span>bias.buffer,
-                <span class="kw-2">&amp;</span>output.buffer,
-                <span class="kw-2">&amp;</span>info_buffer,
+                <span class="kw-2">&amp;</span>lhs.handle,
+                <span class="kw-2">&amp;</span>rhs.handle,
+                <span class="kw-2">&amp;</span>bias.handle,
+                <span class="kw-2">&amp;</span>output.handle,
+                <span class="kw-2">&amp;</span>info_handle,
             ],
         );
 

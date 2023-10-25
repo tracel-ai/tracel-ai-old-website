@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MpscComputeChannel","MutexComputeChannel","RefCellComputeChannel"],"trait":["ComputeChannel"]};

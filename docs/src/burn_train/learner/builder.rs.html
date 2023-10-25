@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/learner/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/learner/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.72.0 (5680fa18f 2023-08-23)" data-channel="1.72.0" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_train/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.73.0 (cc66ad468 2023-10-03)" data-channel="1.73.0" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_train/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -319,22 +319,51 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#317" id="317">317</a>
 <a href="#318" id="318">318</a>
 <a href="#319" id="319">319</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::log::install_file_logger;
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
+
+<span class="kw">use </span><span class="kw">super</span>::log::install_file_logger;
 <span class="kw">use </span><span class="kw">super</span>::Learner;
-<span class="kw">use </span><span class="kw">crate</span>::checkpoint::{AsyncCheckpointer, Checkpointer, FileCheckpointer};
+<span class="kw">use </span><span class="kw">crate</span>::checkpoint::{
+    AsyncCheckpointer, CheckpointingStrategy, ComposedCheckpointingStrategy, FileCheckpointer,
+    KeepLastNCheckpoints, MetricCheckpointingStrategy,
+};
+<span class="kw">use </span><span class="kw">crate</span>::components::LearnerComponentsMarker;
+<span class="kw">use </span><span class="kw">crate</span>::learner::base::TrainingInterrupter;
+<span class="kw">use </span><span class="kw">crate</span>::learner::EarlyStoppingStrategy;
 <span class="kw">use </span><span class="kw">crate</span>::logger::{FileMetricLogger, MetricLogger};
-<span class="kw">use </span><span class="kw">crate</span>::metric::dashboard::CLIDashboardRenderer;
-<span class="kw">use </span><span class="kw">crate</span>::metric::dashboard::{Dashboard, DashboardRenderer, MetricWrapper, Metrics};
-<span class="kw">use </span><span class="kw">crate</span>::metric::{Adaptor, Metric};
-<span class="kw">use </span><span class="kw">crate</span>::AsyncTrainerCallback;
-<span class="kw">use </span>burn_core::lr_scheduler::LRScheduler;
+<span class="kw">use </span><span class="kw">crate</span>::metric::processor::{FullEventProcessor, Metrics};
+<span class="kw">use </span><span class="kw">crate</span>::metric::store::{Aggregate, Direction, EventStoreClient, LogEventStore, Split};
+<span class="kw">use </span><span class="kw">crate</span>::metric::{Adaptor, LossMetric, Metric};
+<span class="kw">use </span><span class="kw">crate</span>::renderer::{default_renderer, MetricsRenderer};
+<span class="kw">use </span><span class="kw">crate</span>::LearnerCheckpointer;
+<span class="kw">use </span>burn_core::lr_scheduler::LrScheduler;
 <span class="kw">use </span>burn_core::module::ADModule;
 <span class="kw">use </span>burn_core::optim::Optimizer;
 <span class="kw">use </span>burn_core::record::FileRecorder;
 <span class="kw">use </span>burn_core::tensor::backend::ADBackend;
-
-<span class="kw">use </span><span class="kw">crate</span>::learner::base::TrainingInterrupter;
-<span class="kw">use </span>std::sync::Arc;
 
 <span class="doccomment">/// Struct to configure and create a [learner](Learner).
 </span><span class="kw">pub struct </span>LearnerBuilder&lt;B, T, V, M, O, S&gt;
@@ -344,32 +373,40 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     B: ADBackend,
     M: ADModule&lt;B&gt;,
     O: Optimizer&lt;M, B&gt;,
-    S: LRScheduler,
+    S: LrScheduler,
 {
-    checkpointer_model: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>Checkpointer&lt;M::Record&gt; + Send + Sync&gt;&gt;,
-    checkpointer_optimizer: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>Checkpointer&lt;O::Record&gt; + Send + Sync&gt;&gt;,
-    checkpointer_scheduler: <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>Checkpointer&lt;S::Record&gt; + Send + Sync&gt;&gt;,
+    <span class="comment">// Not that complex and very convenient when the traits are
+    // already constrained correctly. Extracting in another type
+    // would be more complex.
+    </span><span class="attr">#[allow(clippy::type_complexity)]
+    </span>checkpointers: <span class="prelude-ty">Option</span>&lt;(
+        AsyncCheckpointer&lt;M::Record&gt;,
+        AsyncCheckpointer&lt;O::Record&gt;,
+        AsyncCheckpointer&lt;S::Record&gt;,
+    )&gt;,
     num_epochs: usize,
     checkpoint: <span class="prelude-ty">Option</span>&lt;usize&gt;,
     directory: String,
     grad_accumulation: <span class="prelude-ty">Option</span>&lt;usize&gt;,
     devices: Vec&lt;B::Device&gt;,
-    metric_logger_train: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>MetricLogger + <span class="lifetime">&#39;static</span>&gt;&gt;,
-    metric_logger_valid: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>MetricLogger + <span class="lifetime">&#39;static</span>&gt;&gt;,
-    renderer: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>DashboardRenderer + <span class="lifetime">&#39;static</span>&gt;&gt;,
+    renderer: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>MetricsRenderer + <span class="lifetime">&#39;static</span>&gt;&gt;,
     metrics: Metrics&lt;T, V&gt;,
+    event_store: LogEventStore,
     interrupter: TrainingInterrupter,
     log_to_file: bool,
+    num_loggers: usize,
+    checkpointer_strategy: Box&lt;<span class="kw">dyn </span>CheckpointingStrategy&gt;,
+    early_stopping: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>EarlyStoppingStrategy&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;B, T, V, Model, Optim, LR&gt; LearnerBuilder&lt;B, T, V, Model, Optim, LR&gt;
+<span class="kw">impl</span>&lt;B, T, V, M, O, S&gt; LearnerBuilder&lt;B, T, V, M, O, S&gt;
 <span class="kw">where
-    </span>T: Send + Sync + <span class="lifetime">&#39;static</span>,
+    </span>B: ADBackend,
+    T: Send + Sync + <span class="lifetime">&#39;static</span>,
     V: Send + Sync + <span class="lifetime">&#39;static</span>,
-    B: ADBackend,
-    Model: ADModule&lt;B&gt;,
-    Optim: Optimizer&lt;Model, B&gt;,
-    LR: LRScheduler,
+    M: ADModule&lt;B&gt; + core::fmt::Display + <span class="lifetime">&#39;static</span>,
+    O: Optimizer&lt;M, B&gt;,
+    S: LrScheduler,
 {
     <span class="doccomment">/// Creates a new learner builder.
     ///
@@ -380,18 +417,27 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">Self </span>{
             num_epochs: <span class="number">1</span>,
             checkpoint: <span class="prelude-val">None</span>,
-            checkpointer_model: <span class="prelude-val">None</span>,
-            checkpointer_optimizer: <span class="prelude-val">None</span>,
-            checkpointer_scheduler: <span class="prelude-val">None</span>,
+            checkpointers: <span class="prelude-val">None</span>,
             directory: directory.to_string(),
             grad_accumulation: <span class="prelude-val">None</span>,
             devices: <span class="macro">vec!</span>[B::Device::default()],
-            metric_logger_train: <span class="prelude-val">None</span>,
-            metric_logger_valid: <span class="prelude-val">None</span>,
-            metrics: Metrics::new(),
+            metrics: Metrics::default(),
+            event_store: LogEventStore::default(),
             renderer: <span class="prelude-val">None</span>,
             interrupter: TrainingInterrupter::new(),
             log_to_file: <span class="bool-val">true</span>,
+            num_loggers: <span class="number">0</span>,
+            checkpointer_strategy: Box::new(
+                ComposedCheckpointingStrategy::builder()
+                    .add(KeepLastNCheckpoints::new(<span class="number">2</span>))
+                    .add(MetricCheckpointingStrategy::new::&lt;LossMetric&lt;B&gt;&gt;(
+                        Aggregate::Mean,
+                        Direction::Lowest,
+                        Split::Valid,
+                    ))
+                    .build(),
+            ),
+            early_stopping: <span class="prelude-val">None</span>,
         }
     }
 
@@ -406,43 +452,48 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         </span>MT: MetricLogger + <span class="lifetime">&#39;static</span>,
         MV: MetricLogger + <span class="lifetime">&#39;static</span>,
     {
-        <span class="self">self</span>.metric_logger_train = <span class="prelude-val">Some</span>(Box::new(logger_train));
-        <span class="self">self</span>.metric_logger_valid = <span class="prelude-val">Some</span>(Box::new(logger_valid));
+        <span class="self">self</span>.event_store.register_logger_train(logger_train);
+        <span class="self">self</span>.event_store.register_logger_valid(logger_valid);
+        <span class="self">self</span>.num_loggers += <span class="number">1</span>;
         <span class="self">self
     </span>}
+
+    <span class="doccomment">/// Update the checkpointing_strategy.
+    </span><span class="kw">pub fn </span>with_checkpointing_strategy&lt;CS&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, strategy: CS)
+    <span class="kw">where
+        </span>CS: CheckpointingStrategy + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="self">self</span>.checkpointer_strategy = Box::new(strategy);
+    }
 
     <span class="doccomment">/// Replace the default CLI renderer with a custom one.
     ///
     /// # Arguments
     ///
     /// * `renderer` - The custom renderer.
-    </span><span class="kw">pub fn </span>renderer&lt;DR&gt;(<span class="kw-2">mut </span><span class="self">self</span>, renderer: DR) -&gt; <span class="self">Self
+    </span><span class="kw">pub fn </span>renderer&lt;MR&gt;(<span class="kw-2">mut </span><span class="self">self</span>, renderer: MR) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>DR: DashboardRenderer + <span class="lifetime">&#39;static</span>,
+        </span>MR: MetricsRenderer + <span class="lifetime">&#39;static</span>,
     {
         <span class="self">self</span>.renderer = <span class="prelude-val">Some</span>(Box::new(renderer));
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Register a training metric.
-    </span><span class="kw">pub fn </span>metric_train&lt;M: Metric + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: M) -&gt; <span class="self">Self
+    </span><span class="kw">pub fn </span>metric_train&lt;Me: Metric + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: Me) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>T: Adaptor&lt;M::Input&gt;,
+        </span>T: Adaptor&lt;Me::Input&gt;,
     {
-        <span class="self">self</span>.metrics
-            .train
-            .push(Box::new(MetricWrapper::new(metric)));
+        <span class="self">self</span>.metrics.register_metric_train(metric);
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Register a validation metric.
-    </span><span class="kw">pub fn </span>metric_valid&lt;M: Metric + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: M) -&gt; <span class="self">Self
+    </span><span class="kw">pub fn </span>metric_valid&lt;Me: Metric + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: Me) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>V: Adaptor&lt;M::Input&gt;,
+        </span>V: Adaptor&lt;Me::Input&gt;,
     {
-        <span class="self">self</span>.metrics
-            .valid
-            .push(Box::new(MetricWrapper::new(metric)));
+        <span class="self">self</span>.metrics.register_valid_metric(metric);
         <span class="self">self
     </span>}
 
@@ -461,41 +512,25 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Register a training metric and displays it on a plot.
-    ///
-    /// # Notes
-    ///
-    /// Only [numeric](crate::metric::Numeric) metric can be displayed on a plot.
-    /// If the same metric is also registered for the [validation split](Self::metric_valid_plot),
-    /// the same graph will be used for both.
-    </span><span class="kw">pub fn </span>metric_train_plot&lt;M&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: M) -&gt; <span class="self">Self
+    <span class="doccomment">/// Register a [numeric](crate::metric::Numeric) training [metric](Metric).
+    </span><span class="kw">pub fn </span>metric_train_numeric&lt;Me&gt;(<span class="kw-2">mut </span><span class="self">self</span>, metric: Me) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>M: Metric + <span class="kw">crate</span>::metric::Numeric + <span class="lifetime">&#39;static</span>,
-        T: Adaptor&lt;M::Input&gt;,
+        </span>Me: Metric + <span class="kw">crate</span>::metric::Numeric + <span class="lifetime">&#39;static</span>,
+        T: Adaptor&lt;Me::Input&gt;,
     {
-        <span class="self">self</span>.metrics
-            .train_numeric
-            .push(Box::new(MetricWrapper::new(metric)));
+        <span class="self">self</span>.metrics.register_train_metric_numeric(metric);
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Register a validation metric and displays it on a plot.
-    ///
-    /// # Notes
-    ///
-    /// Only [numeric](crate::metric::Numeric) metric can be displayed on a plot.
-    /// If the same metric is also registered for the [training split](Self::metric_train_plot),
-    /// the same graph will be used for both.
-    </span><span class="kw">pub fn </span>metric_valid_plot&lt;M: Metric + <span class="kw">crate</span>::metric::Numeric + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Register a [numeric](crate::metric::Numeric) validation [metric](Metric).
+    </span><span class="kw">pub fn </span>metric_valid_numeric&lt;Me: Metric + <span class="kw">crate</span>::metric::Numeric + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">mut </span><span class="self">self</span>,
-        metric: M,
+        metric: Me,
     ) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>V: Adaptor&lt;M::Input&gt;,
+        </span>V: Adaptor&lt;Me::Input&gt;,
     {
-        <span class="self">self</span>.metrics
-            .valid_numeric
-            .push(Box::new(MetricWrapper::new(metric)));
+        <span class="self">self</span>.metrics.register_valid_metric_numeric(metric);
         <span class="self">self
     </span>}
 
@@ -522,6 +557,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self</span>.interrupter.clone()
     }
 
+    <span class="doccomment">/// Register an [early stopping strategy](EarlyStoppingStrategy) to stop the training when the
+    /// conditions are meet.
+    </span><span class="kw">pub fn </span>early_stopping&lt;Strategy&gt;(<span class="kw-2">mut </span><span class="self">self</span>, strategy: Strategy) -&gt; <span class="self">Self
+    </span><span class="kw">where
+        </span>Strategy: EarlyStoppingStrategy + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="self">self</span>.early_stopping = <span class="prelude-val">Some</span>(Box::new(strategy));
+        <span class="self">self
+    </span>}
+
     <span class="doccomment">/// By default, Rust logs are captured and written into
     /// `experiment.log`. If disabled, standard Rust log handling
     /// will apply.
@@ -530,106 +575,107 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Register a checkpointer that will save the [optimizer](Optimizer) and the
-    /// [model](ADModule).
-    ///
-    /// The number of checkpoints to be keep should be set to a minimum of two to be safe, since
-    /// they are saved and deleted asynchronously and a crash during training might make a
-    /// checkpoint non-usable.
-    </span><span class="kw">pub fn </span>with_file_checkpointer&lt;FR&gt;(<span class="kw-2">mut </span><span class="self">self</span>, num_keep: usize, recorder: FR) -&gt; <span class="self">Self
+    <span class="doccomment">/// Register a checkpointer that will save the [optimizer](Optimizer), the
+    /// [model](ADModule) and the [scheduler](LrScheduler) to different files.
+    </span><span class="kw">pub fn </span>with_file_checkpointer&lt;FR&gt;(<span class="kw-2">mut </span><span class="self">self</span>, recorder: FR) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>FR: FileRecorder + <span class="lifetime">&#39;static</span>,
+        O::Record: <span class="lifetime">&#39;static</span>,
+        M::Record: <span class="lifetime">&#39;static</span>,
+        S::Record: <span class="lifetime">&#39;static</span>,
     {
-        <span class="self">self</span>.checkpointer_model = <span class="prelude-val">Some</span>(Arc::new(FileCheckpointer::new(
+        <span class="kw">let </span>checkpointer_model = FileCheckpointer::new(
             recorder.clone(),
             <span class="macro">format!</span>(<span class="string">&quot;{}/checkpoint&quot;</span>, <span class="self">self</span>.directory).as_str(),
             <span class="string">&quot;model&quot;</span>,
-            num_keep,
-        )));
-        <span class="self">self</span>.checkpointer_optimizer = <span class="prelude-val">Some</span>(Arc::new(FileCheckpointer::new(
+        );
+        <span class="kw">let </span>checkpointer_optimizer = FileCheckpointer::new(
             recorder.clone(),
             <span class="macro">format!</span>(<span class="string">&quot;{}/checkpoint&quot;</span>, <span class="self">self</span>.directory).as_str(),
             <span class="string">&quot;optim&quot;</span>,
-            num_keep,
-        )));
-        <span class="self">self</span>.checkpointer_scheduler = <span class="prelude-val">Some</span>(Arc::new(FileCheckpointer::new(
+        );
+        <span class="kw">let </span>checkpointer_scheduler = FileCheckpointer::new(
             recorder,
             <span class="macro">format!</span>(<span class="string">&quot;{}/checkpoint&quot;</span>, <span class="self">self</span>.directory).as_str(),
             <span class="string">&quot;scheduler&quot;</span>,
-            num_keep,
-        )));
+        );
+
+        <span class="self">self</span>.checkpointers = <span class="prelude-val">Some</span>((
+            AsyncCheckpointer::new(checkpointer_model),
+            AsyncCheckpointer::new(checkpointer_optimizer),
+            AsyncCheckpointer::new(checkpointer_scheduler),
+        ));
+
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Create the [learner](Learner) from a [model](ADModule) and an [optimizer](Optimizer).
-    /// The [learning rate scheduler](LRScheduler) can also be a simple
+    /// The [learning rate scheduler](LrScheduler) can also be a simple
     /// [learning rate](burn_core::LearningRate).
+    </span><span class="attr">#[allow(clippy::type_complexity)] </span><span class="comment">// The goal for the builder is to handle all types and
+                                      // creates a clean learner.
     </span><span class="kw">pub fn </span>build(
-        <span class="self">self</span>,
-        model: Model,
-        optim: Optim,
-        lr_scheduler: LR,
-    ) -&gt; Learner&lt;B, Model, Optim, LR, T, V&gt;
+        <span class="kw-2">mut </span><span class="self">self</span>,
+        model: M,
+        optim: O,
+        lr_scheduler: S,
+    ) -&gt; Learner&lt;
+        LearnerComponentsMarker&lt;
+            B,
+            S,
+            M,
+            O,
+            AsyncCheckpointer&lt;M::Record&gt;,
+            AsyncCheckpointer&lt;O::Record&gt;,
+            AsyncCheckpointer&lt;S::Record&gt;,
+            FullEventProcessor&lt;T, V&gt;,
+            Box&lt;<span class="kw">dyn </span>CheckpointingStrategy&gt;,
+        &gt;,
+    &gt;
     <span class="kw">where
-        </span>Model::Record: <span class="lifetime">&#39;static</span>,
-        Optim::Record: <span class="lifetime">&#39;static</span>,
-        LR::Record: <span class="lifetime">&#39;static</span>,
+        </span>M::Record: <span class="lifetime">&#39;static</span>,
+        O::Record: <span class="lifetime">&#39;static</span>,
+        S::Record: <span class="lifetime">&#39;static</span>,
     {
         <span class="kw">if </span><span class="self">self</span>.log_to_file {
             <span class="self">self</span>.init_logger();
         }
-        <span class="kw">let </span>renderer = <span class="self">self
-            </span>.renderer
-            .unwrap_or_else(|| Box::new(CLIDashboardRenderer::new()));
+        <span class="kw">let </span>renderer = <span class="self">self</span>.renderer.unwrap_or_else(|| {
+            Box::new(default_renderer(<span class="self">self</span>.interrupter.clone(), <span class="self">self</span>.checkpoint))
+        });
         <span class="kw">let </span>directory = <span class="kw-2">&amp;</span><span class="self">self</span>.directory;
-        <span class="kw">let </span>logger_train = <span class="self">self</span>.metric_logger_train.unwrap_or_else(|| {
-            Box::new(FileMetricLogger::new(<span class="macro">format!</span>(<span class="string">&quot;{directory}/train&quot;</span>).as_str()))
-        });
-        <span class="kw">let </span>logger_valid = <span class="self">self</span>.metric_logger_valid.unwrap_or_else(|| {
-            Box::new(FileMetricLogger::new(<span class="macro">format!</span>(<span class="string">&quot;{directory}/valid&quot;</span>).as_str()))
-        });
-        <span class="kw">let </span>dashboard = Dashboard::new(renderer, <span class="self">self</span>.metrics, logger_train, logger_valid);
-        <span class="kw">let </span>callback = Box::new(dashboard);
-        <span class="kw">let </span>callback = Box::new(AsyncTrainerCallback::new(callback));
 
-        <span class="kw">let </span>checkpointer_optimizer = <span class="kw">match </span><span class="self">self</span>.checkpointer_optimizer {
-            <span class="prelude-val">Some</span>(checkpointer) =&gt; {
-                <span class="kw">let </span>checkpointer: Box&lt;<span class="kw">dyn </span>Checkpointer&lt;Optim::Record&gt;&gt; =
-                    Box::new(AsyncCheckpointer::new(checkpointer));
-                <span class="prelude-val">Some</span>(checkpointer)
-            }
-            <span class="prelude-val">None </span>=&gt; <span class="prelude-val">None</span>,
-        };
-        <span class="kw">let </span>checkpointer_model = <span class="kw">match </span><span class="self">self</span>.checkpointer_model {
-            <span class="prelude-val">Some</span>(checkpointer) =&gt; {
-                <span class="kw">let </span>checkpointer: Box&lt;<span class="kw">dyn </span>Checkpointer&lt;Model::Record&gt;&gt; =
-                    Box::new(AsyncCheckpointer::new(checkpointer));
-                <span class="prelude-val">Some</span>(checkpointer)
-            }
-            <span class="prelude-val">None </span>=&gt; <span class="prelude-val">None</span>,
-        };
-        <span class="kw">let </span>checkpointer_scheduler = <span class="kw">match </span><span class="self">self</span>.checkpointer_scheduler {
-            <span class="prelude-val">Some</span>(checkpointer) =&gt; {
-                <span class="kw">let </span>checkpointer: Box&lt;<span class="kw">dyn </span>Checkpointer&lt;LR::Record&gt;&gt; =
-                    Box::new(AsyncCheckpointer::new(checkpointer));
-                <span class="prelude-val">Some</span>(checkpointer)
-            }
-            <span class="prelude-val">None </span>=&gt; <span class="prelude-val">None</span>,
-        };
+        <span class="kw">if </span><span class="self">self</span>.num_loggers == <span class="number">0 </span>{
+            <span class="self">self</span>.event_store
+                .register_logger_train(FileMetricLogger::new(
+                    <span class="macro">format!</span>(<span class="string">&quot;{directory}/train&quot;</span>).as_str(),
+                ));
+            <span class="self">self</span>.event_store
+                .register_logger_valid(FileMetricLogger::new(
+                    <span class="macro">format!</span>(<span class="string">&quot;{directory}/valid&quot;</span>).as_str(),
+                ));
+        }
+
+        <span class="kw">let </span>event_store = Arc::new(EventStoreClient::new(<span class="self">self</span>.event_store));
+        <span class="kw">let </span>event_processor = FullEventProcessor::new(<span class="self">self</span>.metrics, renderer, event_store.clone());
+
+        <span class="kw">let </span>checkpointer = <span class="self">self</span>.checkpointers.map(|(model, optim, scheduler)| {
+            LearnerCheckpointer::new(model, optim, scheduler, <span class="self">self</span>.checkpointer_strategy)
+        });
 
         Learner {
             model,
             optim,
             lr_scheduler,
+            checkpointer,
             num_epochs: <span class="self">self</span>.num_epochs,
-            callback,
+            event_processor,
+            event_store,
             checkpoint: <span class="self">self</span>.checkpoint,
-            checkpointer_model,
-            checkpointer_optimizer,
-            checkpointer_scheduler,
             grad_accumulation: <span class="self">self</span>.grad_accumulation,
             devices: <span class="self">self</span>.devices,
             interrupter: <span class="self">self</span>.interrupter,
+            early_stopping: <span class="self">self</span>.early_stopping,
         }
     }
 
