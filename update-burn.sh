@@ -2,10 +2,12 @@
 
 echo "Cloning Burn"
 git clone https://github.com/burn-rs/burn
-git checkout dbc5f0a340136251170138f8825062b42ed2d096
+cd burn
+git pull
+git checkout v0.10.0
 
 echo "Updating Burn Book"
-cd burn/burn-book
+cd burn-book
 
 cargo install mdbook 
 
