@@ -29,7 +29,7 @@ export const footerSections: FooterSection[] = [
   {
     name: 'about',
     items: [
-      { label: 'Documentation', href: 'https://docs.rs/burn' },
+      { label: 'Documentation', href: 'https://burn.dev/docs/burn' },
       { label: 'Book', href: '/book' },
       { label: 'Crates.io', href: 'https://crates.io/crates/burn' },
       { label: 'License', href: 'https://github.com/burn-rs/burn#license' },
