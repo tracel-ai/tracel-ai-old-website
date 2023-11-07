@@ -49,7 +49,7 @@ const Content = () => {
           <div>
             <h2>Introduction</h2>
             <p>
-              When we first published the <code>Burn-Wgpu</code>Burn-Wgpu crate{' '}
+              When we first published the <code>Burn-Wgpu</code> crate{' '}
               <Reference references={[crossPlatformGpuBackend.ref()]} />, our
               primary focus was on achieving great portability without
               sacrificing correctness, postponing efficiency optimizations a
@@ -146,7 +146,7 @@ const Content = () => {
               <li>
                 <span class="font-bold">Execute:</span> given a kernel and
                 handles to inputs and outputs of the kernel, asks the server to
-                run the kernel on the data;
+                run the kernel;
               </li>
               <li>
                 <span class="font-bold">Sync:</span> waits for all asynchronous
@@ -297,7 +297,7 @@ const Content = () => {
 
             <Table
               title="Benchmark: Static Convolution Network"
-              description="The peak amount of memory attained by different backend configurations using a simple ConvNet trained on images. The 'Never' deallocation period is not shown as it is unusable, leading to memory exhaustion."
+              description="The peak amount of memory attained by different backend configurations using a simple ConvNet trained on images. "
               columnNames={[
                 <div>
                   <div>Backend</div>
@@ -359,8 +359,8 @@ const Content = () => {
               ]}
             />
             <Table
-              title="Benchmark: Dynamic Transformer Encoder."
-              description="The peak amount of memory attained by different backend configurations using a Transformer Encoder trained on text with different sequence lengths."
+              title="Benchmark: Dynamic Transformer Encoder"
+              description="The peak amount of memory attained by different backend configurations using a Transformer Encoder trained on text with different sequence lengths. The 'Never' deallocation period is not shown as it is unusable, leading to memory exhaustion."
               columnNames={[
                 <div>
                   <div>Backend</div>
@@ -418,7 +418,7 @@ const Content = () => {
               usage of WGPU was always worse than LibTorch's. For static graphs,
               our simple memory management strategy is already very effective,
               dividing the memory use by 2. In this specific situation, we are
-              already quite better than LibTorch, the reason being that the
+              already better than LibTorch, the reason being that the
               combination of in-place operations with Burn-Compute brings near
               optimality for static graphs.
             </p>
@@ -468,7 +468,7 @@ const Content = () => {
               be mutable, imposing the use of another mutex? It is because the
               server works at a lower level of abstraction than the tuner. On
               the server side, it would have needed to take the handles logic of
-              te memory management into account, giving it very little
+              the memory management into account, giving it very little
               flexibility. Simply by being on the client side, it is able to
               benchmark complex operations that may be composed of several
               kernels.
