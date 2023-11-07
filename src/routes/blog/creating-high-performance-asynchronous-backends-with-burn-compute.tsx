@@ -20,7 +20,26 @@ const Content = () => {
     'WGPU Documentation',
     'https://docs.rs/wgpu/latest/wgpu/'
   )
-
+  const libTorch = biblio.addReference(
+    'LibTorch Documentation',
+    'https://pytorch.org/cppdocs/'
+  )
+  const candle = biblio.addReference(
+    'Candle GitHub',
+    'https://github.com/huggingface/candle'
+  )
+  const burnComputeCrate = biblio.addReference(
+    'Burn-Compute Crate',
+    'https://github.com/burn-rs/burn/tree/main/burn-compute'
+  )
+  const asynchronous = biblio.addReference(
+    'Dive Into Deep Learning: Asynchronous Compution',
+    'https://d2l.ai/chapter_computational-performance/async-computation.html'
+  )
+  const autotune = biblio.addReference(
+    'Lianmin Zheng: Automatic Kernel Optimization for Deep Learning on All Hardware Platforms',
+    'https://lmzheng.net/posts/2018/10/auto-tune-all'
+  )
   return (
     <Layout>
       <Stars numStars={15} bot={30} />
@@ -55,32 +74,34 @@ const Content = () => {
               the Burn-Wgpu crate, we figured we were going to face the same
               problems with all of our future <i>in-house</i> backends (which
               are self-contained within the Burn project, as opposed to our
-              third-party backends such as <code>Burn-Tch</code> and{' '}
-              <code>Burn-Candle</code>). So we decided to go for an abstract
-              approach, relying heavily on Rust traits, to write all the logic
-              that applies to every in-house backend in one place. Then the
-              specifics of every backend can be encapsulated within the trait
-              implementations.
+              third-party backends based on LibTorch{' '}
+              <Reference references={[libTorch.ref()]} /> or Candle{' '}
+              <Reference references={[candle.ref()]} />
+              ). So we decided to go for an abstract approach, relying heavily
+              on Rust traits, to write all the logic that applies to every
+              in-house backend in one place. Then the specifics of every backend
+              can be encapsulated within the trait implementations.
             </p>
             <p>
               This is how we arrived at the concept of <code>Burn-Compute</code>
-              . It is a crate within the Burn project that abstracts many
-              backend mechanics, even beyond memory management. Indeed, we have
-              used this architecture to separate mutable environments from
-              immutable ones, allow for transparent asynchronous kernel
-              execution, and even automatic kernel selection, which we call
-              autotuning.
+              <Reference references={[burnComputeCrate.ref()]} />. It is a crate
+              within the Burn project that abstracts many backend mechanics,
+              even beyond memory management. Indeed, we have used this
+              architecture to separate mutable environments from immutable ones,
+              allow for transparent asynchronous kernel execution, and even
+              automatic kernel selection, which we call autotuning.
             </p>
 
             <h2>Client-Server Architecture</h2>
             <p>
               In a high-performance backend, asynchronous computation is key for
-              parallelization and responsiveness. Put another way, the actual
-              computations on tensors in the model should not interfere with the
-              normal execution of the framework. <code>Burn-Compute</code>'s
-              main purpose is to isolate the asynchronous computations from the
-              rest of the software, using a client-server architecture like the
-              one below:
+              parallelization and responsiveness{' '}
+              <Reference references={[asynchronous.ref()]} />. Put another way,
+              the actual computations on tensors in the model should not
+              interfere with the normal execution of the framework.{' '}
+              <code>Burn-Compute</code>'s main purpose is to isolate the
+              asynchronous computations from the rest of the software, using a
+              client-server architecture like the one below:
             </p>
             <img
               class="w-full my-6 border-2 bg-white rounded"
@@ -410,7 +431,7 @@ const Content = () => {
             <h2>Autotune</h2>
             <p>
               Now, let us explain the autotune mechanism of Burn-Compute, which
-              is quite independant of the memory management but still within
+              is quite independant of the memory management but still within{' '}
               <code>Burn-Compute</code> as it can be used transparently on any
               in-house backend. When calling <code>Execute_autotune</code> on
               the Compute Client, it first goes through the Tuner struct, which
@@ -428,7 +449,9 @@ const Content = () => {
               faster only on specific hardware, making it impossible to have a
               fixed kernel selection strategy that works for everyone.
               Autotuning is about finding the fastest kernel in any setting,
-              simply by benchmarking all the possibilities first.
+              simply by benchmarking all the possibilities first. For more
+              details, you may refer to
+              <Reference references={[autotune.ref()]} />.
             </p>
             <p>
               This is a very dynamic and general strategy, but it comes at the
