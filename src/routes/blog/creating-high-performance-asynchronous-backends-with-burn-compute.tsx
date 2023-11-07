@@ -1,12 +1,9 @@
 import Blog from '@components/blog'
-import Outterlink from '@components/outterlink'
 import Stars from '@components/stars'
-import { Code } from '@components/code'
 import { Table } from '@components/blog/table'
 import { Reference, Biblio } from '@components/blog/reference'
 import { highPerformanceAsyncBackendBurnCompute } from 'src/content/blogs'
 import Layout from 'src/layout/page'
-import { A } from 'solid-start'
 
 const Content = () => {
   const biblio = new Biblio()
