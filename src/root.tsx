@@ -23,7 +23,7 @@ export default function Root() {
         <Link rel="icon" href="/favicon.ico" type="image/png" sizes="16x16" />
         <Link rel="apple-touch-icon" href="/pwa-192x192.png" sizes="192x192" />
         <Meta name="theme-color" content="#202A37" />
-        <Title>burn-rs</Title>
+        <Title>Burn - Deep Learning Framework</Title>
       </Head>
       <Body class="overflow-x-hidden">
         <ErrorBoundary>

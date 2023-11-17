@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Cloning Burn"
-git clone https://github.com/burn-rs/burn
+git clone https://github.com/Tracel-AI/burn
 cd burn
 git pull
 git checkout v0.10.0

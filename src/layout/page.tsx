@@ -32,11 +32,11 @@ const Layout: FlowComponent<Props> = (props) => {
             <A class="text-white" href="/blog">Blog</A>
           </li>
           <li class="hover:scale-110 transition-all">
-            <Outterlink className="text-white" src="https://burn-rs.github.io/book/">Book</Outterlink>
+            <Outterlink className="text-white" src="https://burn.dev/book/">Book</Outterlink>
           </li>
           <li class="hidden sm:block">
             <iframe 
-              src="https://ghbtns.com/github-btn.html?user=burn-rs&repo=burn&type=star&count=true&size=large"
+              src="https://ghbtns.com/github-btn.html?user=Tracel-AI&repo=burn&type=star&count=true&size=large"
               width="170"
               height="30"
               title="GitHub"
