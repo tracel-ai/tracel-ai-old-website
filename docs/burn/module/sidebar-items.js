@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"derive":["Module"],"fn":["list_param_ids"],"struct":["ConstantRecord","Param","ParamId","RunningState"],"trait":["ADModule","Module","ModuleMapper","ModuleVisitor"]};

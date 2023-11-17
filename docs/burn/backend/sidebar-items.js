@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["ndarray","tch","wgpu"],"type":["NdArrayAutodiffBackend","NdArrayBackend","TchAutodiffBackend","TchBackend","WgpuAutodiffBackend","WgpuBackend"]};

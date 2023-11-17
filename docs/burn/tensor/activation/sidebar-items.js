@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["gelu","log_sigmoid","log_softmax","relu","sigmoid","silu","softmax","tanh"]};

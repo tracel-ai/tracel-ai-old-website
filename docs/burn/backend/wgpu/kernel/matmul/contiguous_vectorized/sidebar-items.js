@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["matmul_tiling_2d","matmul_tiling_2d_default"]};

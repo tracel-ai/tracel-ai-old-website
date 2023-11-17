@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["WeightDecay","WeightDecayConfig","WeightDecayState","WeightDecayStateItem"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ComposedDataset","MapperDataset","PartialDataset","SamplerDataset","ShuffledDataset"],"trait":["Mapper"]};

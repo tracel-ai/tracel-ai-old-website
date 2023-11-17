@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["format_float"],"mod":["state","store"],"struct":["AccuracyInput","AccuracyMetric","CUDAMetric","CpuMemory","CpuTemperature","CpuUse","LearningRateMetric","LossInput","LossMetric","MetricEntry","MetricMetadata"],"trait":["Adaptor","Metric","Numeric"]};

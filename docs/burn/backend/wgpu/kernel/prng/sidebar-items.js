@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["random_bernoulli","random_normal","random_uniform"]};

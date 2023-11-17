@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["TchDevice"],"struct":["TchBackend","TchShape","TchTensor"],"trait":["TchElement"],"type":["StorageRef"]};
