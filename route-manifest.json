@@ -31,10 +31,10 @@
       "href": "/assets/page-d9d29565.js"
     }
   ],
-  "/blog/a-case-for-rust-in-deep-learning": [
+  "/blog/": [
     {
       "type": "script",
-      "href": "/assets/a-case-for-rust-in-deep-learning-e09ce5a8.js"
+      "href": "/assets/index-28fea3c9.js"
     },
     {
       "type": "script",
@@ -43,10 +43,6 @@
     {
       "type": "style",
       "href": "/assets/entry-client-3e7d4bd4.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-a994c9d3.js"
     },
     {
       "type": "script",
@@ -61,10 +57,10 @@
       "href": "/assets/page-d9d29565.js"
     }
   ],
-  "/blog/": [
+  "/blog/cross-platform-gpu-backend": [
     {
       "type": "script",
-      "href": "/assets/index-28fea3c9.js"
+      "href": "/assets/cross-platform-gpu-backend-d07de71a.js"
     },
     {
       "type": "script",
@@ -73,6 +69,10 @@
     {
       "type": "style",
       "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-a994c9d3.js"
     },
     {
       "type": "script",
@@ -121,10 +121,10 @@
       "href": "/assets/page-d9d29565.js"
     }
   ],
-  "/blog/cross-platform-gpu-backend": [
+  "/blog/a-case-for-rust-in-deep-learning": [
     {
       "type": "script",
-      "href": "/assets/cross-platform-gpu-backend-d07de71a.js"
+      "href": "/assets/a-case-for-rust-in-deep-learning-e09ce5a8.js"
     },
     {
       "type": "script",

@@ -5,39 +5,6 @@
   "src/routes/demo.tsx": [
     "/assets/demo-109cd000.js"
   ],
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
-    "/assets/a-case-for-rust-in-deep-learning-e09ce5a8.js"
-  ],
-  "src/components/stars/index.tsx": [
-    "/assets/index-88288498.js"
-  ],
-  "src/content/blogs.ts": [
-    "/assets/blogs-a75ac475.js"
-  ],
-  "src/components/card/index.tsx": [
-    "/assets/index-28fea3c9.js"
-  ],
-  "src/routes/blog/index.tsx": [
-    "/assets/index-28fea3c9.js"
-  ],
-  "src/components/blog/table/index.tsx": [
-    "/assets/index-94ae8409.js"
-  ],
-  "src/components/blog/index.tsx": [
-    "/assets/index-a994c9d3.js"
-  ],
-  "src/components/blog/reference/index.tsx": [
-    "/assets/index-a994c9d3.js"
-  ],
-  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": [
-    "/assets/creating-high-performance-asynchronous-backends-with-burn-compute-2594fb3d.js"
-  ],
-  "src/routes/blog/cross-platform-gpu-backend.tsx": [
-    "/assets/cross-platform-gpu-backend-d07de71a.js"
-  ],
-  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
-    "/assets/burn-rusty-approach-to-tensor-handling-507b9932.js"
-  ],
   "src/components/outterlink/index.tsx": [
     "/assets/page-d9d29565.js"
   ],
@@ -46,6 +13,9 @@
   ],
   "src/layout/page.tsx": [
     "/assets/page-d9d29565.js"
+  ],
+  "src/content/blogs.ts": [
+    "/assets/blogs-a75ac475.js"
   ],
   "\u0000commonjsHelpers.js": [
     "/assets/index-c940dcd0.js"
@@ -67,6 +37,36 @@
   ],
   "src/components/code/index.tsx": [
     "/assets/index-c940dcd0.js"
+  ],
+  "src/components/blog/table/index.tsx": [
+    "/assets/index-94ae8409.js"
+  ],
+  "src/components/card/index.tsx": [
+    "/assets/index-28fea3c9.js"
+  ],
+  "src/routes/blog/index.tsx": [
+    "/assets/index-28fea3c9.js"
+  ],
+  "src/routes/blog/cross-platform-gpu-backend.tsx": [
+    "/assets/cross-platform-gpu-backend-d07de71a.js"
+  ],
+  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": [
+    "/assets/creating-high-performance-asynchronous-backends-with-burn-compute-2594fb3d.js"
+  ],
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
+    "/assets/a-case-for-rust-in-deep-learning-e09ce5a8.js"
+  ],
+  "src/components/blog/index.tsx": [
+    "/assets/index-a994c9d3.js"
+  ],
+  "src/components/blog/reference/index.tsx": [
+    "/assets/index-a994c9d3.js"
+  ],
+  "src/components/stars/index.tsx": [
+    "/assets/index-88288498.js"
+  ],
+  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
+    "/assets/burn-rusty-approach-to-tensor-handling-507b9932.js"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/array.es.js": [
     "/assets/index-55786c53.js",
