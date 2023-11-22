@@ -52,8 +52,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>should_diff_max_dim() {
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_floats([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_floats([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_floats([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_floats([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = tensor_1.clone().mul(tensor_3.max_dim(<span class="number">1</span>).unsqueeze());
@@ -72,8 +72,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>should_diff_min_dim() {
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_floats([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_floats([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_floats([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_floats([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = tensor_1.clone().mul(tensor_3.min_dim(<span class="number">1</span>).unsqueeze());

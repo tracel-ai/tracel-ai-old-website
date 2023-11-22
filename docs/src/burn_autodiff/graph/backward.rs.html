@@ -39,11 +39,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#37" id="37">37</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>burn_tensor::backend::Backend;
 
-<span class="kw">use crate</span>::{grads::Gradients, tensor::ADTensor};
+<span class="kw">use crate</span>::{grads::Gradients, tensor::AutodiffTensor};
 
 <span class="kw">use super</span>::{traversal::BreadthFirstSearch, Graph, NodeRef, StepBoxed};
 
-<span class="kw">pub fn </span>backward&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(root: ADTensor&lt;B, D&gt;) -&gt; Gradients {
+<span class="kw">pub fn </span>backward&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(root: AutodiffTensor&lt;B, D&gt;) -&gt; Gradients {
     <span class="kw">let </span>grads = Gradients::new::&lt;B, D&gt;(root.node.clone(), root.primitive);
     <span class="kw">let </span>tape = build_tape(root.node, root.graph);
 

@@ -156,6 +156,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#154" id="154">154</a>
 <a href="#155" id="155">155</a>
 <a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{
     codegen::ModuleCodegen, codegen_struct::StructModuleCodegen, record::ModuleRecordCodegen,
     record_struct::StructModuleRecordCodegen,
@@ -187,6 +194,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>num_params_fn = generator.gen_num_params();
     <span class="kw">let </span>visit = generator.gen_visit();
     <span class="kw">let </span>map_mut = generator.gen_map();
+    <span class="kw">let </span>devices = generator.gen_devices();
+    <span class="kw">let </span>to_device = generator.gen_to_device();
+    <span class="kw">let </span>fork = generator.gen_fork();
     <span class="kw">let </span>valid_fn = generator.gen_valid();
     <span class="kw">let </span>into_record_fn = generator.gen_into_record();
     <span class="kw">let </span>load_record_fn = generator.gen_load_record();
@@ -208,12 +218,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
             #visit
             #map_mut
+
+            #devices
+            #to_device
+            #fork
         }
 
-        <span class="kw">impl </span>#generics burn::module::ADModule&lt;B&gt; <span class="kw">for </span>#name #generics_ty
+        <span class="kw">impl </span>#generics burn::module::AutodiffModule&lt;B&gt; <span class="kw">for </span>#name #generics_ty
         <span class="kw">where
-            </span>B: burn::tensor::backend::ADBackend,
-            &lt;B <span class="kw">as </span>burn::tensor::backend::ADBackend&gt;::InnerBackend: #backend_trait,
+            </span>B: burn::tensor::backend::AutodiffBackend,
+            &lt;B <span class="kw">as </span>burn::tensor::backend::AutodiffBackend&gt;::InnerBackend: #backend_trait,
         {
             <span class="kw">type </span>InnerModule=#name&lt;B::InnerBackend, #generics_names_except_backend&gt;;
 
@@ -240,7 +254,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>(<span class="kw">_</span>, generics_ty, generics_where) = ast.generics.split_for_impl();
 
     <span class="kw">let </span>backend: syn::Generics = <span class="macro">parse_quote! </span>{ &lt;B: burn::tensor::backend::Backend &gt;};
-    <span class="kw">let </span>backend_ad: syn::Generics = <span class="macro">parse_quote! </span>{ &lt;B: burn::tensor::backend::ADBackend &gt;};
+    <span class="kw">let </span>backend_ad: syn::Generics = <span class="macro">parse_quote! </span>{ &lt;B: burn::tensor::backend::AutodiffBackend &gt;};
 
     <span class="kw">let </span><span class="kw-2">mut </span>generics_module = ast.generics.clone();
     <span class="kw">let </span><span class="kw-2">mut </span>generics_module_ad = ast.generics.clone();
@@ -259,7 +273,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="macro">burn::constant!</span>(module);
         }
 
-        <span class="kw">impl </span>#generics_module_ad burn::module::ADModule&lt;B&gt; <span class="kw">for </span>#name #generics_ty #generics_where {
+        <span class="kw">impl </span>#generics_module_ad burn::module::AutodiffModule&lt;B&gt; <span class="kw">for </span>#name #generics_ty #generics_where {
             <span class="macro">burn::constant!</span>(ad_module, #name #generics_ty);
         }
     };

@@ -122,11 +122,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#120" id="120">120</a>
 <a href="#121" id="121">121</a>
 <a href="#122" id="122">122</a>
-<a href="#123" id="123">123</a>
-<a href="#124" id="124">124</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::StaticKernel,
     element::WgpuElement,
     kernel::{build_info, elemwise_workgroup, KernelSettings, WORKGROUP_DEFAULT},
@@ -159,7 +155,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>info_handle = input.client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
 
     input.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[
             <span class="kw-2">&amp;</span>input.handle,
             <span class="kw-2">&amp;</span>value_handle,
@@ -187,7 +183,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>info_handle = input.client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
 
     input.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>input.handle, <span class="kw-2">&amp;</span>value_handle, <span class="kw-2">&amp;</span>mask.handle, <span class="kw-2">&amp;</span>info_handle],
     );
 

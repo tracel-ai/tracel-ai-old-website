@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LibTorchDevice"],"struct":["LibTorch","TchShape","TchTensor"],"trait":["TchElement"],"type":["StorageRef"]};

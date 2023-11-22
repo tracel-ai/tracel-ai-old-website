@@ -108,11 +108,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#106" id="106">106</a>
 <a href="#107" id="107">107</a>
 <a href="#108" id="108">108</a>
-<a href="#109" id="109">109</a>
-<a href="#110" id="110">110</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::StaticKernel,
     element::WgpuElement,
     kernel::{<span class="self">self</span>, build_info, elemwise_workgroup, KernelSettings, WORKGROUP_DEFAULT},
@@ -184,7 +180,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ));
 
     input.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[
             <span class="kw-2">&amp;</span>input.handle,
             <span class="kw-2">&amp;</span>weight.handle,

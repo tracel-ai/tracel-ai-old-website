@@ -714,6 +714,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#712" id="712">712</a>
 <a href="#713" id="713">713</a>
 <a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
 </pre></div><pre class="rust"><code><span class="attr">#[burn_tensor_testgen::testgen(clone_invariance)]
 </span><span class="doccomment">/// This module tests whether basic tensor operations remain invariant when performed on clones,
 /// meaning that cloning input tensors won&#39;t affect the results.
@@ -747,6 +751,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="macro">macro_rules! </span>clone_invariance_test {
         (unary: <span class="macro-nonterminal">$name</span>:ident, ops_float: <span class="macro-nonterminal">$ops</span>:expr) =&gt; {
             <span class="attr">#[test]
+            #[allow(non_snake_case)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">struct </span><span class="macro-nonterminal">$name</span>;
 
@@ -778,6 +783,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         (binary: <span class="macro-nonterminal">$name</span>:ident, ops_float: <span class="macro-nonterminal">$ops</span>:expr) =&gt; {
             <span class="attr">#[test]
+            #[allow(non_snake_case)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">struct </span><span class="macro-nonterminal">$name</span>;
 
@@ -819,6 +825,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         (unary: <span class="macro-nonterminal">$name</span>:ident, ops_int: <span class="macro-nonterminal">$ops</span>:expr) =&gt; {
             <span class="attr">#[test]
+            #[allow(non_snake_case)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">struct </span><span class="macro-nonterminal">$name</span>;
 
@@ -850,6 +857,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         (binary: <span class="macro-nonterminal">$name</span>:ident, ops_int: <span class="macro-nonterminal">$ops</span>:expr) =&gt; {
             <span class="attr">#[test]
+            #[allow(non_snake_case)]
             </span><span class="kw">fn </span><span class="macro-nonterminal">$name</span>() {
                 <span class="kw">struct </span><span class="macro-nonterminal">$name</span>;
 

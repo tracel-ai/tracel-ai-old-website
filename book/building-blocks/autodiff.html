@@ -174,15 +174,15 @@
                         <h1 id="autodiff"><a class="header" href="#autodiff">Autodiff</a></h1>
 <p>Burn's tensor also supports autodifferentiation, which is an essential part of any deep learning
 framework. We introduced the <code>Backend</code> trait in the <a href="./backend.html">previous section</a>, but Burn also
-has another trait for autodiff: <code>ADBackend</code>.</p>
+has another trait for autodiff: <code>AutodiffBackend</code>.</p>
 <p>However, not all tensors support auto-differentiation; you need a backend that implements both the
-<code>Backend</code> and <code>ADBackend</code> traits. Fortunately, you can add autodifferentiation capabilities to any
-backend using a backend decorator: <code>type MyAutodiffBackend = ADBackendDecorator&lt;MyBackend&gt;</code>. This
-decorator implements both the <code>ADBackend</code> and <code>Backend</code> traits by maintaining a dynamic
+<code>Backend</code> and <code>AutodiffBackend</code> traits. Fortunately, you can add autodifferentiation capabilities to any
+backend using a backend decorator: <code>type MyAutodiffBackend = Autodiff&lt;MyBackend&gt;</code>. This
+decorator implements both the <code>AutodiffBackend</code> and <code>Backend</code> traits by maintaining a dynamic
 computational graph and utilizing the inner backend to execute tensor operations.</p>
-<p>The <code>ADBackend</code> trait adds new operations on float tensors that can't be called otherwise. It also
+<p>The <code>AutodiffBackend</code> trait adds new operations on float tensors that can't be called otherwise. It also
 provides a new associated type, <code>B::Gradients</code>, where each calculated gradient resides.</p>
-<pre><code class="language-rust  ignore">fn calculate_gradients&lt;B: ADBackend&gt;(tensor: Tensor&lt;B, 2&gt;) -&gt; B::Gradients {
+<pre><code class="language-rust  ignore">fn calculate_gradients&lt;B: AutodiffBackend&gt;(tensor: Tensor&lt;B, 2&gt;) -&gt; B::Gradients {
     let mut gradients = tensor.clone().backward();
 
     let tensor_grad = tensor.grad(&amp;gradients);        // get
@@ -191,7 +191,7 @@ provides a new associated type, <code>B::Gradients</code>, where each calculated
     gradients
 }</code></pre>
 <p>Note that some functions will always be available even if the backend doesn't implement the
-<code>ADBackend</code> trait. In such cases, those functions will do nothing.</p>
+<code>AutodiffBackend</code> trait. In such cases, those functions will do nothing.</p>
 <div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
 <tr><td><code>tensor.detach()</code></td><td><code>tensor.detach()</code></td></tr>
 <tr><td><code>tensor.require_grad()</code></td><td><code>tensor.requires_grad()</code></td></tr>
@@ -200,7 +200,7 @@ provides a new associated type, <code>B::Gradients</code>, where each calculated
 </tbody></table>
 </div>
 <p>However, you're unlikely to make any mistakes since you can't call <code>backward</code> on a tensor that is on
-a backend that doesn't implement <code>ADBackend</code>. Additionally, you can't retrieve the gradient of a
+a backend that doesn't implement <code>AutodiffBackend</code>. Additionally, you can't retrieve the gradient of a
 tensor without an autodiff backend.</p>
 <h2 id="difference-with-pytorch"><a class="header" href="#difference-with-pytorch">Difference with PyTorch</a></h2>
 <p>The way Burn handles gradients is different from PyTorch. First, when calling <code>backward</code>, each
@@ -222,10 +222,10 @@ torch.no_grad():
    # your code
    ...
 </code></pre>
-<p>With Burn, you don't need to wrap the backend with the <code>ADBackendDecorator</code> for inference, and you
-can call <code>inner()</code> to obtain the inner tensor, which is useful for validation.ß</p>
-<pre><code class="language-rust  ignore">/// Use `B: ADBackend`
-fn example_validation&lt;B: ADBackend&gt;(tensor: Tensor&lt;B, 2&gt;) {
+<p>With Burn, you don't need to wrap the backend with the <code>Autodiff</code> for inference, and you
+can call <code>inner()</code> to obtain the inner tensor, which is useful for validation.</p>
+<pre><code class="language-rust  ignore">/// Use `B: AutodiffBackend`
+fn example_validation&lt;B: AutodiffBackend&gt;(tensor: Tensor&lt;B, 2&gt;) {
     let inner_tensor: Tensor&lt;B::InnerBackend, 2&gt; = tensor.inner();
     let _ = inner_tensor + 5;
 }

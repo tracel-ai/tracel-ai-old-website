@@ -106,11 +106,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#104" id="104">104</a>
 <a href="#105" id="105">105</a>
 <a href="#106" id="106">106</a>
-<a href="#107" id="107">107</a>
-<a href="#108" id="108">108</a>
-<a href="#109" id="109">109</a>
-<a href="#110" id="110">110</a>
-<a href="#111" id="111">111</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>burn_tensor::backend::Backend;
 
 <span class="kw">use crate</span>::{
@@ -118,19 +113,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     graph::{
         Node, NodeID, NodeRef, Requirement, {Graph, Step},
     },
-    ADBackendDecorator,
 };
 
 <span class="attr">#[derive(Debug, Clone)]
-</span><span class="kw">pub struct </span>ADTensor&lt;B: Backend, <span class="kw">const </span>D: usize&gt; {
+</span><span class="kw">pub struct </span>AutodiffTensor&lt;B: Backend, <span class="kw">const </span>D: usize&gt; {
     <span class="kw">pub </span>primitive: B::TensorPrimitive&lt;D&gt;,
     <span class="kw">pub </span>node: NodeRef,
     <span class="kw">pub </span>graph: Graph,
 }
-
-<span class="kw">pub type </span>FloatElem&lt;B&gt; = &lt;ADBackendDecorator&lt;B&gt; <span class="kw">as </span>Backend&gt;::FloatElem;
-<span class="kw">pub type </span>BoolTensor&lt;B, <span class="kw">const </span>D: usize&gt; = &lt;ADBackendDecorator&lt;B&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;;
-<span class="kw">pub type </span>IntTensor&lt;B, <span class="kw">const </span>D: usize&gt; = &lt;ADBackendDecorator&lt;B&gt; <span class="kw">as </span>Backend&gt;::IntTensorPrimitive&lt;D&gt;;
 
 <span class="attr">#[derive(new, Debug)]
 </span><span class="kw">struct </span>RootStep {
@@ -147,7 +137,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="kw">impl</span>&lt;B: Backend, <span class="kw">const </span>D: usize&gt; ADTensor&lt;B, D&gt; {
+<span class="kw">impl</span>&lt;B: Backend, <span class="kw">const </span>D: usize&gt; AutodiffTensor&lt;B, D&gt; {
     <span class="doccomment">/// Create a new leaf tensor.
     </span><span class="kw">pub fn </span>new(primitive: B::TensorPrimitive&lt;D&gt;) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>id = NodeID::new();

@@ -41,44 +41,48 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#39" id="39">39</a>
 <a href="#40" id="40">40</a>
 <a href="#41" id="41">41</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>core::marker::PhantomData;
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::AutotuneKey;
+<span class="kw">use </span><span class="kw">super</span>::AutotuneOperation;
+<span class="kw">use </span><span class="kw">super</span>::AutotuneOperationSet;
+<span class="kw">use </span>alloc::boxed::Box;
 <span class="kw">use </span>hashbrown::HashMap;
 
-<span class="kw">use </span><span class="kw">crate</span>::server::ComputeServer;
-
-<span class="kw">use </span><span class="kw">super</span>::AutotuneKey;
-<span class="kw">use </span><span class="kw">super</span>::AutotuneOperation;
-<span class="kw">use </span><span class="kw">super</span>::Operation;
-<span class="kw">use </span>alloc::boxed::Box;
-
 <span class="doccomment">/// Use to find and reuse the best kernel for some input
-</span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>TuneCache&lt;S&gt; {
-    cache: HashMap&lt;AutotuneKey, usize&gt;,
-    _server: PhantomData&lt;S&gt;,
+</span><span class="attr">#[derive(Debug, Default)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TuneCache&lt;K&gt; {
+    cache: HashMap&lt;K, usize&gt;,
 }
 
-<span class="kw">impl</span>&lt;S: ComputeServer&gt; TuneCache&lt;S&gt; {
+<span class="doccomment">/// Result of the cache try
+</span><span class="kw">pub enum </span>TuneCacheResult&lt;K&gt; {
+    <span class="doccomment">/// An operation is found and given
+    </span>Hit(Box&lt;<span class="kw">dyn </span>AutotuneOperation&gt;),
+    <span class="doccomment">/// No operation is found and the set is given back for ownership
+    </span>Miss(Box&lt;<span class="kw">dyn </span>AutotuneOperationSet&lt;K&gt;&gt;),
+}
+
+<span class="kw">impl</span>&lt;K: AutotuneKey&gt; TuneCache&lt;K&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         TuneCache {
             cache: HashMap::new(),
-            _server: PhantomData,
         }
     }
 
     <span class="attr">#[allow(clippy::borrowed_box)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>try_cache(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        autotune_operation: <span class="kw-2">&amp;</span>Box&lt;<span class="kw">dyn </span>AutotuneOperation&lt;S&gt;&gt;,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;Operation&lt;S&gt;&gt; {
-        <span class="kw">let </span>index = <span class="self">self</span>.cache.get(<span class="kw-2">&amp;</span>autotune_operation.key());
+        autotune_operation_set: Box&lt;<span class="kw">dyn </span>AutotuneOperationSet&lt;K&gt;&gt;,
+    ) -&gt; TuneCacheResult&lt;K&gt; {
+        <span class="kw">let </span>index = <span class="self">self</span>.cache.get(<span class="kw-2">&amp;</span>autotune_operation_set.key());
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>i) = index {
-            <span class="kw">return </span><span class="prelude-val">Some</span>(autotune_operation.fastest(i));
+            <span class="kw">return </span>TuneCacheResult::Hit(autotune_operation_set.fastest(i));
         }
-        <span class="prelude-val">None
-    </span>}
+        TuneCacheResult::Miss(autotune_operation_set)
+    }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>cache_insert(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: AutotuneKey, fastest_index: usize) {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>cache_insert(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: K, fastest_index: usize) {
         <span class="self">self</span>.cache.insert(key, fastest_index);
     }
 }

@@ -240,7 +240,7 @@ do in order to run Burn.</p>
 Cargo, which was installed with Rust. In the directory of your choice, run</p>
 <pre><code class="language-console">cargo new my_burn_app
 </code></pre>
-<p>This will create the <code>my_burn_app</code> project directory. Head inside with </p>
+<p>This will create the <code>my_burn_app</code> project directory. Head inside with</p>
 <pre><code class="language-console">cd my_burn_app
 </code></pre>
 <p>then add the dependency with</p>
@@ -254,10 +254,10 @@ operations on every platform, using the GPU.</p>
 <h2 id="writing-a-code-snippet"><a class="header" href="#writing-a-code-snippet">Writing a code snippet</a></h2>
 <p>Now open <code>src/main.rs</code> and replace its content with</p>
 <pre><code class="language-rust  ignore">use burn::tensor::Tensor;
-use burn::backend::WgpuBackend;
+use burn::backend::Wgpu;
 
 // Type alias for the backend to use.
-type Backend = WgpuBackend;
+type Backend = Wgpu;
 
 fn main() {
     // Creation of two tensors, the first with explicit values and the second one with ones, with the same shape as the first
@@ -280,6 +280,11 @@ fn main() {
 <p>While the previous example is somewhat trivial, the upcoming
 <a href="./basic-workflow/README.html">basic workflow section</a> will walk you through a much more relevant
 example for deep learning applications.</p>
+<h2 id="running-examples"><a class="header" href="#running-examples">Running examples</a></h2>
+<p>Burn uses HuggingFace's <a href="https://huggingface.co/docs/datasets/index">datasets</a> library to load
+datasets. <code>datasets</code> is a Python library, and therefore, in order to run examples, you will need to
+install Python. Follow the instructions on the <a href="https://www.python.org/downloads/">official website</a>
+to install Python on your computer.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guide"><a class="header" href="#guide">Guide</a></h1>
 <p>This guide will walk you through the process of creating a custom model built with Burn. We will
 train a simple convolutional neural network model on the MNIST dataset and prepare it for inference.</p>
@@ -304,7 +309,7 @@ name = &quot;my-first-burn-model&quot;
 version = &quot;0.1.0&quot;
 
 [dependencies]
-burn = { version = &quot;0.9.0&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
+burn = { version = &quot;0.10.0&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
 
 # Serialization
 serde = &quot;1&quot;
@@ -532,7 +537,7 @@ employed in multiple instances, implying that certain operations won't be perfor
 summary, our API has been designed with owned tensors to optimize performance.</p>
 <p>Moving forward, we will proceed with the implementation of both the training and validation steps
 for our model.</p>
-<pre><code class="language-rust   ignore">impl&lt;B: ADBackend&gt; TrainStep&lt;MNISTBatch&lt;B&gt;, ClassificationOutput&lt;B&gt;&gt; for Model&lt;B&gt; {
+<pre><code class="language-rust   ignore">impl&lt;B: AutodiffBackend&gt; TrainStep&lt;MNISTBatch&lt;B&gt;, ClassificationOutput&lt;B&gt;&gt; for Model&lt;B&gt; {
     fn step(&amp;self, batch: MNISTBatch&lt;B&gt;) -&gt; TrainOutput&lt;ClassificationOutput&lt;B&gt;&gt; {
         let item = self.forward_classification(batch.images, batch.targets);
 
@@ -548,12 +553,12 @@ impl&lt;B: Backend&gt; ValidStep&lt;MNISTBatch&lt;B&gt;, ClassificationOutput&lt
 <p>Here we define the input and output types as generic arguments in the <code>TrainStep</code> and <code>ValidStep</code>.
 We will call them <code>MNISTBatch</code> and <code>ClassificationOutput</code>. In the training step, the computation of
 gradients is straightforward, necessitating a simple invocation of <code>backward()</code> on the loss. Note
-that contrary to PyTorch, gradients are not store alongside each tensor parameter, but are rather
+that contrary to PyTorch, gradients are not stored alongside each tensor parameter, but are rather
 returned by the backward pass, as such: <code>let gradients = loss.backward();</code>. The gradient of a
 parameter can be obtained with the grad function: <code>let grad = tensor.grad(&amp;gradients);</code>. Although it
 is not necessary when using the learner struct and the optimizers, it can prove to be quite useful
 when debugging or writing custom training loops. One of the differences between the training and the
-validation steps is that the former requires the backend to implement <code>ADBackend</code> and not just
+validation steps is that the former requires the backend to implement <code>AutodiffBackend</code> and not just
 <code>Backend</code>. Otherwise, the <code>backward</code> function is not available, as the backend does not support
 autodiff. We will see later how to create a backend with autodiff support.</p>
 <p>Let us move on to establishing the practical training configuration.</p>
@@ -573,7 +578,7 @@ pub struct TrainingConfig {
     pub learning_rate: f64,
 }
 
-pub fn train&lt;B: ADBackend&gt;(artifact_dir: &amp;str, config: TrainingConfig, device: B::Device) {
+pub fn train&lt;B: AutodiffBackend&gt;(artifact_dir: &amp;str, config: TrainingConfig, device: B::Device) {
     std::fs::create_dir_all(artifact_dir).ok();
     config
         .save(format!(&quot;{artifact_dir}/config.json&quot;))
@@ -601,7 +606,7 @@ pub fn train&lt;B: ADBackend&gt;(artifact_dir: &amp;str, config: TrainingConfig,
         .metric_valid_numeric(AccuracyMetric::new())
         .metric_train_numeric(LossMetric::new())
         .metric_valid_numeric(LossMetric::new())
-        .with_file_checkpointer(1, CompactRecorder::new())
+        .with_file_checkpointer(CompactRecorder::new())
         .devices(vec![device])
         .num_epochs(config.num_epochs)
         .build(
@@ -647,13 +652,12 @@ regardless of precision, can load recorded data of any kind.</p>
 <p>We have effectively written most of the necessary code for training our model. However, we have not
 explicitly designated the backend to be used at any point. Indeed, only the <code>main</code> function remains.</p>
 <pre><code class="language-rust   ignore">use burn::optim::AdamConfig;
-use burn::backend::{WgpuBackend, wgpu::AutoGraphicsApi};
-use burn::autodiff::ADBackendDecorator;
+use burn::backend::{Autodiff, Wgpu, wgpu::AutoGraphicsApi};
 use guide::model::ModelConfig;
 
 fn main() {
-    type MyBackend = WgpuBackend&lt;AutoGraphicsApi, f32, i32&gt;;
-    type MyAutodiffBackend = ADBackendDecorator&lt;MyBackend&gt;;
+    type MyBackend = Wgpu&lt;AutoGraphicsApi, f32, i32&gt;;
+    type MyAutodiffBackend = Autodiff&lt;MyBackend&gt;;
 
     let device = burn::backend::wgpu::WgpuDevice::default();
     guide::training::train::&lt;MyAutodiffBackend&gt;(
@@ -662,12 +666,12 @@ fn main() {
         device,
     );
 }</code></pre>
-<p>In this example, we use the <code>WgpuBackend</code> which is compatible with any operating system and will use
-the GPU. For other options, see the Burn README. This backend type takes the graphics api, the float
-type and the int type as generic arguments that will be used during the training. By leaving the
-graphics API as <code>AutoGraphicsApi</code>, it should automatically use an API available on your machine. The
-autodiff backend is simply the same backend, wrapped within the <code>ADBackendDecorator</code> struct which
-imparts differentiability to any backend.</p>
+<p>In this example, we use the <code>Wgpu</code> backend which is compatible with any operating system and will
+use the GPU. For other options, see the Burn README. This backend type takes the graphics api, the
+float type and the int type as generic arguments that will be used during the training. By leaving
+the graphics API as <code>AutoGraphicsApi</code>, it should automatically use an API available on your machine.
+The autodiff backend is simply the same backend, wrapped within the <code>Autodiff</code> struct which imparts
+differentiability to any backend.</p>
 <p>We call the <code>train</code> function defined earlier with a directory for artifacts, the configuration of
 the model (the number of digit classes is 10 and the hidden dimension is 512), the optimizer
 configuration which in our case will be the default Adam configuration, and the device which can be
@@ -735,11 +739,11 @@ it can provide a smoother learning curve and help you grasp the nuances more eff
 <div style="break-before: page; page-break-before: always;"></div><h1 id="backend-1"><a class="header" href="#backend-1">Backend</a></h1>
 <p>Nearly everything in Burn is based on the <code>Backend</code> trait, which enables you to run tensor
 operations using different implementations without having to modify your code. While a backend may
-not necessarily have autodiff capabilities, the <code>ADBackend</code> trait specifies when autodiff is needed.
-This trait not only abstracts operations but also tensor, device, and element types, providing each
-backend the flexibility they need. It's worth noting that the trait assumes eager mode since burn
-fully supports dynamic graphs. However, we may create another API to assist with integrating
-graph-based backends, without requiring any changes to the user's code.</p>
+not necessarily have autodiff capabilities, the <code>AutodiffBackend</code> trait specifies when autodiff is
+needed. This trait not only abstracts operations but also tensor, device, and element types,
+providing each backend the flexibility they need. It's worth noting that the trait assumes eager
+mode since burn fully supports dynamic graphs. However, we may create another API to assist with
+integrating graph-based backends, without requiring any changes to the user's code.</p>
 <p>Users are not expected to directly use the backend trait methods, as it is primarily designed with
 backend developers in mind rather than Burn users. Therefore, most Burn userland APIs are generic
 across backends. This approach helps users discover the API more organically with proper
@@ -779,6 +783,7 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 <tr><td><code>tensor.flatten(start_dim, end_dim)</code></td><td><code>tensor.flatten(start_dim, end_dim)</code></td></tr>
 <tr><td><code>tensor.squeeze(dim)</code></td><td><code>tensor.squeeze(dim)</code></td></tr>
 <tr><td><code>tensor.unsqueeze()</code></td><td><code>tensor.unsqueeze(0)</code></td></tr>
+<tr><td><code>tensor.unsqueeze_dim(dim)</code></td><td><code>tensor.unsqueeze(dim)</code></td></tr>
 <tr><td><code>tensor.slice(ranges)</code></td><td><code>tensor[(*ranges,)]</code></td></tr>
 <tr><td><code>tensor.slice_assign(ranges, values)</code></td><td><code>tensor[(*ranges,)] = values</code></td></tr>
 <tr><td><code>tensor.device()</code></td><td><code>tensor.device</code></td></tr>
@@ -855,6 +860,7 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 <tr><td><code>tensor.erf()</code></td><td><code>tensor.erf()</code></td></tr>
 <tr><td><code>tensor.powf(value)</code></td><td><code>tensor.pow(value)</code></td></tr>
 <tr><td><code>tensor.sqrt()</code></td><td><code>tensor.sqrt()</code></td></tr>
+<tr><td><code>tensor.recip()</code></td><td><code>tensor.reciprocal()</code></td></tr>
 <tr><td><code>tensor.cos()</code></td><td><code>tensor.cos()</code></td></tr>
 <tr><td><code>tensor.sin()</code></td><td><code>tensor.sin()</code></td></tr>
 <tr><td><code>tensor.tanh()</code></td><td><code>tensor.tanh()</code></td></tr>
@@ -898,15 +904,15 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="autodiff"><a class="header" href="#autodiff">Autodiff</a></h1>
 <p>Burn's tensor also supports autodifferentiation, which is an essential part of any deep learning
 framework. We introduced the <code>Backend</code> trait in the <a href="building-blocks/./backend.html">previous section</a>, but Burn also
-has another trait for autodiff: <code>ADBackend</code>.</p>
+has another trait for autodiff: <code>AutodiffBackend</code>.</p>
 <p>However, not all tensors support auto-differentiation; you need a backend that implements both the
-<code>Backend</code> and <code>ADBackend</code> traits. Fortunately, you can add autodifferentiation capabilities to any
-backend using a backend decorator: <code>type MyAutodiffBackend = ADBackendDecorator&lt;MyBackend&gt;</code>. This
-decorator implements both the <code>ADBackend</code> and <code>Backend</code> traits by maintaining a dynamic
+<code>Backend</code> and <code>AutodiffBackend</code> traits. Fortunately, you can add autodifferentiation capabilities to any
+backend using a backend decorator: <code>type MyAutodiffBackend = Autodiff&lt;MyBackend&gt;</code>. This
+decorator implements both the <code>AutodiffBackend</code> and <code>Backend</code> traits by maintaining a dynamic
 computational graph and utilizing the inner backend to execute tensor operations.</p>
-<p>The <code>ADBackend</code> trait adds new operations on float tensors that can't be called otherwise. It also
+<p>The <code>AutodiffBackend</code> trait adds new operations on float tensors that can't be called otherwise. It also
 provides a new associated type, <code>B::Gradients</code>, where each calculated gradient resides.</p>
-<pre><code class="language-rust  ignore">fn calculate_gradients&lt;B: ADBackend&gt;(tensor: Tensor&lt;B, 2&gt;) -&gt; B::Gradients {
+<pre><code class="language-rust  ignore">fn calculate_gradients&lt;B: AutodiffBackend&gt;(tensor: Tensor&lt;B, 2&gt;) -&gt; B::Gradients {
     let mut gradients = tensor.clone().backward();
 
     let tensor_grad = tensor.grad(&amp;gradients);        // get
@@ -915,7 +921,7 @@ provides a new associated type, <code>B::Gradients</code>, where each calculated
     gradients
 }</code></pre>
 <p>Note that some functions will always be available even if the backend doesn't implement the
-<code>ADBackend</code> trait. In such cases, those functions will do nothing.</p>
+<code>AutodiffBackend</code> trait. In such cases, those functions will do nothing.</p>
 <div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
 <tr><td><code>tensor.detach()</code></td><td><code>tensor.detach()</code></td></tr>
 <tr><td><code>tensor.require_grad()</code></td><td><code>tensor.requires_grad()</code></td></tr>
@@ -924,7 +930,7 @@ provides a new associated type, <code>B::Gradients</code>, where each calculated
 </tbody></table>
 </div>
 <p>However, you're unlikely to make any mistakes since you can't call <code>backward</code> on a tensor that is on
-a backend that doesn't implement <code>ADBackend</code>. Additionally, you can't retrieve the gradient of a
+a backend that doesn't implement <code>AutodiffBackend</code>. Additionally, you can't retrieve the gradient of a
 tensor without an autodiff backend.</p>
 <h2 id="difference-with-pytorch"><a class="header" href="#difference-with-pytorch">Difference with PyTorch</a></h2>
 <p>The way Burn handles gradients is different from PyTorch. First, when calling <code>backward</code>, each
@@ -946,10 +952,10 @@ torch.no_grad():
    # your code
    ...
 </code></pre>
-<p>With Burn, you don't need to wrap the backend with the <code>ADBackendDecorator</code> for inference, and you
-can call <code>inner()</code> to obtain the inner tensor, which is useful for validation.ß</p>
-<pre><code class="language-rust  ignore">/// Use `B: ADBackend`
-fn example_validation&lt;B: ADBackend&gt;(tensor: Tensor&lt;B, 2&gt;) {
+<p>With Burn, you don't need to wrap the backend with the <code>Autodiff</code> for inference, and you
+can call <code>inner()</code> to obtain the inner tensor, which is useful for validation.</p>
+<pre><code class="language-rust  ignore">/// Use `B: AutodiffBackend`
+fn example_validation&lt;B: AutodiffBackend&gt;(tensor: Tensor&lt;B, 2&gt;) {
     let inner_tensor: Tensor&lt;B::InnerBackend, 2&gt; = tensor.inner();
     let _ = inner_tensor + 5;
 }
@@ -1028,8 +1034,8 @@ instantiating a module. This can be useful when generating sinusoidal embeddings
 <tr><td><code>module.load_file(file_path, recorder)</code></td><td>N/A</td></tr>
 </tbody></table>
 </div>
-<p>Similar to the backend trait, there is also the <code>ADModule</code> trait to signify a module with autodiff
-support.</p>
+<p>Similar to the backend trait, there is also the <code>AutodiffModule</code> trait to signify a module with
+autodiff support.</p>
 <div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
 <tr><td><code>module.valid()</code></td><td><code>module.eval()</code></td></tr>
 </tbody></table>
@@ -1061,6 +1067,7 @@ pub trait ModuleMapper&lt;B: Backend&gt; {
 <div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
 <tr><td><code>BatchNorm</code></td><td><code>nn.BatchNorm1d</code>, <code>nn.BatchNorm2d</code> etc.</td></tr>
 <tr><td><code>LayerNorm</code></td><td><code>nn.LayerNorm</code></td></tr>
+<tr><td><code>GroupNorm</code></td><td><code>nn.GroupNorm</code></td></tr>
 <tr><td><code>Dropout</code></td><td><code>nn.Dropout</code></td></tr>
 <tr><td><code>GELU</code></td><td><code>nn.GELU</code></td></tr>
 <tr><td><code>Linear</code></td><td><code>nn.Linear</code></td></tr>
@@ -1457,7 +1464,7 @@ pub struct MnistTrainingConfig {
     pub optimizer: AdamConfig,
 }
 
-pub fn run&lt;B: ADBackend&gt;(device: B::Device) {
+pub fn run&lt;B: AutodiffBackend&gt;(device: B::Device) {
     // Create the configuration.
     let config_model = ModelConfig::new(10, 1024);
     let config_optimizer = AdamConfig::new();
@@ -1490,7 +1497,7 @@ pub fn run&lt;B: ADBackend&gt;(device: B::Device) {
 }</code></pre>
 <p>As seen with the previous example, setting up the configurations and the dataloader hasn't changed.
 Now, let's move forward and write our own training loop:</p>
-<pre><code class="language-rust  ignore">pub fn run&lt;B: ADBackend&gt;(device: B::Device) {
+<pre><code class="language-rust  ignore">pub fn run&lt;B: AutodiffBackend&gt;(device: B::Device) {
     ...
 
     // Iterate over our training and validation loop for X epochs.
@@ -1567,13 +1574,13 @@ error.</p>
 beneficial to organize your program using intermediary types. There are various ways to do this, but
 it requires getting comfortable with generics.</p>
 <p>If you wish to group the optimizer and the model into the same structure, you have several options.
-It's important to note that the optimizer trait depends on both the <code>ADModule</code> trait and the
-<code>ADBackend</code> trait, while the module only depends on the <code>ADBackend</code> trait.</p>
+It's important to note that the optimizer trait depends on both the <code>AutodiffModule</code> trait and the
+<code>AutodiffBackend</code> trait, while the module only depends on the <code>AutodiffBackend</code> trait.</p>
 <p>Here's a closer look at how you can create your types:</p>
 <p><strong>Create a struct that is generic over the backend and the optimizer, with a predefined model.</strong></p>
 <pre><code class="language-rust  ignore">struct Learner&lt;B, O&gt;
 where
-    B: ADBackend,
+    B: AutodiffBackend,
 {
     model: Model&lt;B&gt;,
     optim: O,
@@ -1591,8 +1598,8 @@ function. However, with this struct, you may encounter some issues when trying t
 blocks to your struct.</p>
 <pre><code class="language-rust  ignore">impl&lt;B, M, O&gt; Learner&lt;M, O&gt;
 where
-    B: ADBackend,
-    M: ADModule&lt;B&gt;,
+    B: AutodiffBackend,
+    M: AutodiffModule&lt;B&gt;,
     O: Optimizer&lt;M, B&gt;,
 {
     pub fn step(&amp;mut self, _batch: MNISTBatch&lt;B&gt;) {
@@ -1607,10 +1614,10 @@ where
 the backend and add your trait constraint within its definition:</p>
 <pre><code class="language-rust  ignore">#[allow(dead_code)]
 impl&lt;M, O&gt; Learner2&lt;M, O&gt; {
-    pub fn step&lt;B: ADBackend&gt;(&amp;mut self, _batch: MNISTBatch&lt;B&gt;)
+    pub fn step&lt;B: AutodiffBackend&gt;(&amp;mut self, _batch: MNISTBatch&lt;B&gt;)
     where
-        B: ADBackend,
-        M: ADModule&lt;B&gt;,
+        B: AutodiffBackend,
+        M: AutodiffModule&lt;B&gt;,
         O: Optimizer&lt;M, B&gt;,
     {
         //
@@ -1710,15 +1717,15 @@ fn main() {
 <pre><code class="language-rust  ignore">mod model;
 
 use burn::tensor;
-use burn_ndarray::NdArrayBackend;
+use burn_ndarray::NdArray;
 use model::mnist::Model;
 
 fn main() {
     // Initialize a new model instance
-    let model: Model&lt;NdArrayBackend&lt;f32&gt;&gt; = Model::new();
+    let model: Model&lt;NdArray&lt;f32&gt;&gt; = Model::new();
 
     // Create a sample input tensor (zeros for demonstration)
-    let input = tensor::Tensor::&lt;NdArrayBackend&lt;f32&gt;, 4&gt;::zeros([1, 1, 28, 28]);
+    let input = tensor::Tensor::&lt;NdArray&lt;f32&gt;, 4&gt;::zeros([1, 1, 28, 28]);
 
     // Perform inference
     let output = model.forward(input);
@@ -1763,7 +1770,7 @@ impression that Burn operates at a high level over the backend layer. However, m
 explicit instead of being chosen via a compilation flag was a thoughtful design decision. This
 explicitness does not imply that all backends must be identical; rather, it offers a great deal of
 flexibility when composing backends. The autodifferentiation backend trait (see
-<a href="advanced/backend-extension/../building-blocks/autodiff.html">autodiff section</a>) is an example of how the backend trait has been
+<a href="advanced/backend-extension/../building-blocks/autodiff">autodiff section</a>) is an example of how the backend trait has been
 extended to enable gradient computation with backpropagation. Furthermore, this design allows you to
 create your own backend extension. To achieve this, you need to design your own backend trait
 specifying which functions should be supported.</p>
@@ -1776,24 +1783,24 @@ specifying which functions should be supported.</p>
     }
 }</code></pre>
 <p>You can then implement your new custom backend trait for any backend that you want to support:</p>
-<pre><code class="language-rust  ignore">impl&lt;E: TchElement&gt; Backend for burn_tch::TchBackend&lt;E&gt; {
+<pre><code class="language-rust  ignore">impl&lt;E: TchElement&gt; Backend for burn_tch::LibTorch&lt;E&gt; {
    fn my_new_function(tensor: TchTensor&lt;E, 2&gt;) -&gt; TchTensor&lt;E, 2&gt; {
       // My Tch implementation
    }
 }
 
-impl&lt;E: NdArrayElement&gt; Backend for burn_ndarray::NdArrayBackend&lt;E&gt; {
+impl&lt;E: NdArrayElement&gt; Backend for burn_ndarray::NdArray&lt;E&gt; {
     // No specific implementation, but the backend can still be used.
 }</code></pre>
 <p>You can support the backward pass using the same pattern.</p>
-<pre><code class="language-rust  ignore">impl&lt;B: Backend&gt; Backend for burn_autodiff::ADBackendDecorator&lt;B&gt; {
+<pre><code class="language-rust  ignore">impl&lt;B: Backend&gt; Backend for burn_autodiff::Autodiff&lt;B&gt; {
     // No specific implementation; autodiff will work with the default
     // implementation. Useful if you still want to train your model, but
     // observe performance gains mostly during inference.
 }
 
-impl&lt;B: Backend&gt; Backend for burn_autodiff::ADBackendDecorator&lt;B&gt; {
-   fn my_new_function(tensor: ADTensor&lt;E, 2&gt;) -&gt; ADTensor&lt;E, 2&gt; {
+impl&lt;B: Backend&gt; Backend for burn_autodiff::Autodiff&lt;B&gt; {
+   fn my_new_function(tensor: AutodiffTensor&lt;E, 2&gt;) -&gt; AutodiffTensor&lt;E, 2&gt; {
       // My own backward implementation, generic over my custom Backend trait.
       //
       // You can add a new method `my_new_function_backward` to your custom backend
@@ -1801,8 +1808,8 @@ impl&lt;B: Backend&gt; Backend for burn_autodiff::ADBackendDecorator&lt;B&gt; {
    }
 }
 
-impl&lt;E: TchElement&gt; Backend for burn_autodiff::ADBackendDecorator&lt;burn_tch::TchBackend&lt;E&gt;&gt; {
-   fn my_new_function(tensor: ADTensor&lt;E, 2&gt;) -&gt; ADTensor&lt;E, 2&gt; {
+impl&lt;E: TchElement&gt; Backend for burn_autodiff::Autodiff&lt;burn_tch::LibTorch&lt;E&gt;&gt; {
+   fn my_new_function(tensor: AutodiffTensor&lt;E, 2&gt;) -&gt; AutodiffTensor&lt;E, 2&gt; {
       // My own backward implementation, generic over a backend implementation.
       //
       // This is another way to call a custom kernel for the backward pass that
@@ -1838,9 +1845,9 @@ pub trait Backend: burn::tensor::backend::Backend {
     ) -&gt; FloatTensor&lt;Self, D&gt;;
 }
 
-/// We create our own ADBackend trait that extends the Burn autodiff backend trait.
-pub trait ADBackend: Backend + burn::tensor::backend::ADBackend {}</code></pre>
-<p>In our project, we can use these traits instead of the <code>burn::tensor::backend::{Backend, ADBackend}</code>
+/// We create our own AutodiffBackend trait that extends the Burn autodiff backend trait.
+pub trait AutodiffBackend: Backend + burn::tensor::backend::AutodiffBackend {}</code></pre>
+<p>In our project, we can use these traits instead of the <code>burn::tensor::backend::{Backend, AutodiffBackend}</code>
 traits provided by Burn. Burn's user APIs typically make use of the <code>Tensor</code> struct rather than
 dealing directly with primitive tensor types. Therefore, we can encapsulate our newly defined
 backend traits with functions that expose new operations while maintaining a consistent API.</p>
@@ -1990,8 +1997,8 @@ impl&lt;E: FloatElement&gt; DynamicKernel for FusedMatmulAddRelu&lt;E&gt; {
     }
 }</code></pre>
 <p>Subsequently, we'll go into implementing our custom backend trait for the WGPU backend.</p>
-<pre><code class="language-rust  ignore">/// Implement our custom backend trait for the existing backend `WgpuBackend`.
-impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; Backend for WgpuBackend&lt;G, F, I&gt; {
+<pre><code class="language-rust  ignore">/// Implement our custom backend trait for the existing backend `Wgpu`.
+impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; Backend for Wgpu&lt;G, F, I&gt; {
     fn fused_matmul_add_relu&lt;const D: usize&gt;(
         lhs: FloatTensor&lt;Self, D&gt;,
         rhs: FloatTensor&lt;Self, D&gt;,
@@ -2081,7 +2088,7 @@ operations.</p>
 // Note that we could implement the backend trait only for the Wgpu backend instead of any backend that
 // also implements our own API. This would allow us to call any function only implemented for Wgpu
 // and potentially call a custom kernel crafted only for this task.
-impl&lt;B: Backend&gt; Backend for ADBackendDecorator&lt;B&gt; {
+impl&lt;B: Backend&gt; Backend for Autodiff&lt;B&gt; {
     fn fused_matmul_add_relu&lt;const D: usize&gt;(
         lhs: FloatTensor&lt;Self, D&gt;,
         rhs: FloatTensor&lt;Self, D&gt;,
@@ -2186,22 +2193,20 @@ impl&lt;B: Backend&gt; Backend for ADBackendDecorator&lt;B&gt; {
     }
 }</code></pre>
 <p>The previous code is self-documented to make it clearer, but here is what it does in summary.</p>
-<p>We define <code>fused_matmul_add_relu</code> within <code>ADBackendDecorator&lt;B&gt;</code>, allowing any autodiff-decorated
-backend to benefit from our implementation. In an autodiff-decorated backend, the forward pass must
-still be implemented. This is achieved using a comprehensive match statement block where computation
-is delegated to the inner backend, while keeping track of a state. The state comprises any
-information relevant to the backward pass, such as input and output tensors, along with the bias
-shape. When an operation isn't tracked (meaning there won't be a backward pass for this specific
-operation in the graph), storing a state becomes unnecessary, and we simply perform the forward
-computation.</p>
+<p>We define <code>fused_matmul_add_relu</code> within <code>Autodiff&lt;B&gt;</code>, allowing any autodiff-decorated backend to
+benefit from our implementation. In an autodiff-decorated backend, the forward pass must still be
+implemented. This is achieved using a comprehensive match statement block where computation is
+delegated to the inner backend, while keeping track of a state. The state comprises any information
+relevant to the backward pass, such as input and output tensors, along with the bias shape. When an
+operation isn't tracked (meaning there won't be a backward pass for this specific operation in the
+graph), storing a state becomes unnecessary, and we simply perform the forward computation.</p>
 <p>The backward pass uses the gradient obtained from the preceding node in the computation graph. It
 calculates the derivatives for <code>relu</code> (<code>relu_backward</code>), add (no operation is required here, as the
 derivative is one), and <code>matmul</code> (another <code>matmul</code> with transposed inputs). This results in
 gradients for both input tensors and the bias, which are registered for consumption by subsequent
 operation nodes.</p>
-<p>The only remaining part is to implement our autodiff-decorated backend trait for our WGPUBackend.</p>
-<pre><code class="language-rust  ignore">impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; ADBackend
-    for ADBackendDecorator&lt;WgpuBackend&lt;G, F, I&gt;&gt;
+<p>The only remaining part is to implement our autodiff-decorated backend trait for our WGPU Backend.</p>
+<pre><code class="language-rust  ignore">impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; AutodiffBackend for Autodiff&lt;Wgpu&lt;G, F, I&gt;&gt;
 {
 }</code></pre>
 <h2 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h2>

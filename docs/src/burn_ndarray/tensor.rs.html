@@ -179,13 +179,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#177" id="177">177</a>
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>burn_tensor::{Data, Shape};
 
 <span class="kw">use </span>ndarray::{ArcArray, Array, Dim, IxDyn};
 
-<span class="attr">#[derive(new, Debug, Clone)]
+<span class="doccomment">/// Tensor primitive used by the [ndarray backend](crate::NdArray).
+</span><span class="attr">#[derive(new, Debug, Clone)]
 </span><span class="kw">pub struct </span>NdArrayTensor&lt;E, <span class="kw">const </span>D: usize&gt; {
-    <span class="kw">pub </span>array: ArcArray&lt;E, IxDyn&gt;,
+    <span class="doccomment">/// Dynamic array that contains the data of type E.
+    </span><span class="kw">pub </span>array: ArcArray&lt;E, IxDyn&gt;,
 }
 
 <span class="kw">impl</span>&lt;E, <span class="kw">const </span>D: usize&gt; NdArrayTensor&lt;E, D&gt; {
@@ -282,7 +287,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="kw">where
     </span>E: Default + Clone,
 {
-    <span class="kw">pub fn </span>from_data(data: Data&lt;E, D&gt;) -&gt; NdArrayTensor&lt;E, D&gt; {
+    <span class="doccomment">/// Create a new [ndarray tensor](NdArrayTensor) from [data](Data).
+    </span><span class="kw">pub fn </span>from_data(data: Data&lt;E, D&gt;) -&gt; NdArrayTensor&lt;E, D&gt; {
         <span class="kw">let </span>shape = data.shape.clone();
         <span class="kw">let </span>to_array = |data: Data&lt;E, D&gt;| Array::from_iter(data.value).into_shared();
         <span class="kw">let </span>array = to_array(data);

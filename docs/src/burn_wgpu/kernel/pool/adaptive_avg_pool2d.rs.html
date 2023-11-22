@@ -95,11 +95,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#93" id="93">93</a>
 <a href="#94" id="94">94</a>
 <a href="#95" id="95">95</a>
-<a href="#96" id="96">96</a>
-<a href="#97" id="97">97</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::{StaticKernel, WgpuHandle},
     element::WgpuElement,
     kernel::{elemwise_workgroup, KernelSettings, WORKGROUP_DEFAULT},
@@ -136,7 +132,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">let </span>info_handle = build_info(<span class="kw-2">&amp;</span>x, <span class="kw-2">&amp;</span>output);
     x.client
-        .execute(Arc::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>x.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle]);
+        .execute(Box::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>x.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle]);
 
     output
 }
@@ -165,7 +161,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>info_handle = build_info(<span class="kw-2">&amp;</span>x, <span class="kw-2">&amp;</span>out_grad);
 
     x.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>out_grad.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle],
     );
 

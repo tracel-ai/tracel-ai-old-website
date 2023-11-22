@@ -234,8 +234,8 @@ instantiating a module. This can be useful when generating sinusoidal embeddings
 <tr><td><code>module.load_file(file_path, recorder)</code></td><td>N/A</td></tr>
 </tbody></table>
 </div>
-<p>Similar to the backend trait, there is also the <code>ADModule</code> trait to signify a module with autodiff
-support.</p>
+<p>Similar to the backend trait, there is also the <code>AutodiffModule</code> trait to signify a module with
+autodiff support.</p>
 <div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
 <tr><td><code>module.valid()</code></td><td><code>module.eval()</code></td></tr>
 </tbody></table>
@@ -267,6 +267,7 @@ pub trait ModuleMapper&lt;B: Backend&gt; {
 <div class="table-wrapper"><table><thead><tr><th>Burn API</th><th>PyTorch Equivalent</th></tr></thead><tbody>
 <tr><td><code>BatchNorm</code></td><td><code>nn.BatchNorm1d</code>, <code>nn.BatchNorm2d</code> etc.</td></tr>
 <tr><td><code>LayerNorm</code></td><td><code>nn.LayerNorm</code></td></tr>
+<tr><td><code>GroupNorm</code></td><td><code>nn.GroupNorm</code></td></tr>
 <tr><td><code>Dropout</code></td><td><code>nn.Dropout</code></td></tr>
 <tr><td><code>GELU</code></td><td><code>nn.GELU</code></td></tr>
 <tr><td><code>Linear</code></td><td><code>nn.Linear</code></td></tr>

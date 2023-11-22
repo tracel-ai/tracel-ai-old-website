@@ -297,13 +297,24 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#295" id="295">295</a>
 <a href="#296" id="296">296</a>
 <a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::ops::Range;
 
 <span class="kw">use </span>burn_tensor::{Element, Shape};
 
 <span class="kw">use crate</span>::{
     element::WgpuElement,
-    kernel::{slice, slice_assign},
+    kernel::{slice_assign, slice_on_output},
     ops::numeric::zeros_device,
     tensor::WgpuTensor,
 };
@@ -382,20 +393,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="doccomment">/// Crops tensor by deleting values when cropped dim is smaller than tensor dim
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>crop&lt;E: WgpuElement, <span class="kw">const </span>D: usize&gt;(
     tensor: WgpuTensor&lt;E, D&gt;,
-    cropped_shape: Shape&lt;D&gt;,
+    output: WgpuTensor&lt;E, D&gt;,
 ) -&gt; WgpuTensor&lt;E, D&gt; {
-    <span class="kw">let </span>ranges = cropped_shape
+    <span class="kw">let </span>ranges = output
+        .shape
         .dims
         .iter()
         .map(|dim| <span class="number">0</span>..<span class="kw-2">*</span>dim)
         .collect::&lt;Vec&lt;Range&lt;usize&gt;&gt;&gt;()
         .try_into()
         .unwrap();
-    slice::&lt;E, D, D&gt;(tensor, ranges)
+    slice_on_output::&lt;E, D, D&gt;(tensor, output, ranges)
 }
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
+
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::tests::TestTensor;
 
@@ -535,7 +548,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>tensor = TestTensor::random([row, col], burn_tensor::Distribution::Default);
         <span class="kw">let </span>expected_shape = [row, col].into();
 
-        <span class="kw">let </span>unpadded = crop(tensor.into_primitive(), [row, col].into());
+        <span class="kw">let </span>unpadded = crop(
+            tensor.clone().into_primitive(),
+            TestTensor::empty([row, col]).into_primitive(),
+        );
 
         <span class="macro">assert!</span>(unpadded.shape == expected_shape);
     }
@@ -546,7 +562,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>col = <span class="number">12</span>;
         <span class="kw">let </span>tensor = TestTensor::random([row, col], burn_tensor::Distribution::Default);
 
-        <span class="kw">let </span>unpadded = crop(tensor.clone().into_primitive(), [row, col].into());
+        <span class="kw">let </span>unpadded = crop(
+            tensor.clone().into_primitive(),
+            TestTensor::empty([row, col]).into_primitive(),
+        );
 
         <span class="kw">let </span>unpadded = TestTensor::from_primitive(unpadded).to_data();
         <span class="kw">let </span>tensor = tensor.into_data();
@@ -566,7 +585,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>tensor = TestTensor::random([row, col], burn_tensor::Distribution::Default);
         <span class="kw">let </span>expected_shape = [keep_rows, keep_cols].into();
 
-        <span class="kw">let </span>unpadded = crop(tensor.into_primitive(), [keep_rows, keep_cols].into());
+        <span class="kw">let </span>unpadded = crop(
+            tensor.clone().into_primitive(),
+            TestTensor::empty([keep_rows, keep_cols]).into_primitive(),
+        );
 
         <span class="macro">assert!</span>(unpadded.shape == expected_shape);
     }
@@ -581,7 +603,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>unpadded = crop(
             tensor.clone().into_primitive(),
-            [keep_rows, keep_cols].into(),
+            TestTensor::empty([keep_rows, keep_cols]).into_primitive(),
         );
 
         <span class="kw">let </span>unpadded = TestTensor::from_primitive(unpadded).to_data();

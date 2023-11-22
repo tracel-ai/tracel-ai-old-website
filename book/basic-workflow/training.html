@@ -203,7 +203,7 @@ employed in multiple instances, implying that certain operations won't be perfor
 summary, our API has been designed with owned tensors to optimize performance.</p>
 <p>Moving forward, we will proceed with the implementation of both the training and validation steps
 for our model.</p>
-<pre><code class="language-rust   ignore">impl&lt;B: ADBackend&gt; TrainStep&lt;MNISTBatch&lt;B&gt;, ClassificationOutput&lt;B&gt;&gt; for Model&lt;B&gt; {
+<pre><code class="language-rust   ignore">impl&lt;B: AutodiffBackend&gt; TrainStep&lt;MNISTBatch&lt;B&gt;, ClassificationOutput&lt;B&gt;&gt; for Model&lt;B&gt; {
     fn step(&amp;self, batch: MNISTBatch&lt;B&gt;) -&gt; TrainOutput&lt;ClassificationOutput&lt;B&gt;&gt; {
         let item = self.forward_classification(batch.images, batch.targets);
 
@@ -219,12 +219,12 @@ impl&lt;B: Backend&gt; ValidStep&lt;MNISTBatch&lt;B&gt;, ClassificationOutput&lt
 <p>Here we define the input and output types as generic arguments in the <code>TrainStep</code> and <code>ValidStep</code>.
 We will call them <code>MNISTBatch</code> and <code>ClassificationOutput</code>. In the training step, the computation of
 gradients is straightforward, necessitating a simple invocation of <code>backward()</code> on the loss. Note
-that contrary to PyTorch, gradients are not store alongside each tensor parameter, but are rather
+that contrary to PyTorch, gradients are not stored alongside each tensor parameter, but are rather
 returned by the backward pass, as such: <code>let gradients = loss.backward();</code>. The gradient of a
 parameter can be obtained with the grad function: <code>let grad = tensor.grad(&amp;gradients);</code>. Although it
 is not necessary when using the learner struct and the optimizers, it can prove to be quite useful
 when debugging or writing custom training loops. One of the differences between the training and the
-validation steps is that the former requires the backend to implement <code>ADBackend</code> and not just
+validation steps is that the former requires the backend to implement <code>AutodiffBackend</code> and not just
 <code>Backend</code>. Otherwise, the <code>backward</code> function is not available, as the backend does not support
 autodiff. We will see later how to create a backend with autodiff support.</p>
 <p>Let us move on to establishing the practical training configuration.</p>
@@ -244,7 +244,7 @@ pub struct TrainingConfig {
     pub learning_rate: f64,
 }
 
-pub fn train&lt;B: ADBackend&gt;(artifact_dir: &amp;str, config: TrainingConfig, device: B::Device) {
+pub fn train&lt;B: AutodiffBackend&gt;(artifact_dir: &amp;str, config: TrainingConfig, device: B::Device) {
     std::fs::create_dir_all(artifact_dir).ok();
     config
         .save(format!(&quot;{artifact_dir}/config.json&quot;))
@@ -272,7 +272,7 @@ pub fn train&lt;B: ADBackend&gt;(artifact_dir: &amp;str, config: TrainingConfig,
         .metric_valid_numeric(AccuracyMetric::new())
         .metric_train_numeric(LossMetric::new())
         .metric_valid_numeric(LossMetric::new())
-        .with_file_checkpointer(1, CompactRecorder::new())
+        .with_file_checkpointer(CompactRecorder::new())
         .devices(vec![device])
         .num_epochs(config.num_epochs)
         .build(

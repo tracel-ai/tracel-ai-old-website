@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cross_entropy_with_logits"]};

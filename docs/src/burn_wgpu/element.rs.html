@@ -56,10 +56,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#54" id="54">54</a>
 <a href="#55" id="55">55</a>
 <a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>burn_tensor::Element;
 
 <span class="doccomment">/// The base element trait for the wgou backend.
-</span><span class="kw">pub trait </span>WgpuElement: core::fmt::Debug + Send + Sync + <span class="lifetime">&#39;static </span>+ Clone + bytemuck::Pod
+</span><span class="kw">pub trait </span>WgpuElement:
+    burn_tensor::Element + core::fmt::Debug + Send + Sync + <span class="lifetime">&#39;static </span>+ Clone + bytemuck::Pod
 <span class="kw">where
     </span><span class="self">Self</span>: Sized,
 {

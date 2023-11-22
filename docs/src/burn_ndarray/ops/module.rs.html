@@ -108,10 +108,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     conv::{conv2d, conv_transpose2d},
     maxpool::{max_pool2d, max_pool2d_backward, max_pool2d_with_indices},
 };
-<span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArrayBackend};
+<span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArray};
 <span class="kw">use </span>burn_tensor::ops::<span class="kw-2">*</span>;
 
-<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; ModuleOps&lt;NdArrayBackend&lt;E&gt;&gt; <span class="kw">for </span>NdArrayBackend&lt;E&gt; {
+<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; ModuleOps&lt;<span class="self">Self</span>&gt; <span class="kw">for </span>NdArray&lt;E&gt; {
     <span class="kw">fn </span>conv2d(
         x: NdArrayTensor&lt;E, <span class="number">4</span>&gt;,
         weight: NdArrayTensor&lt;E, <span class="number">4</span>&gt;,
@@ -167,7 +167,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         dilation: [usize; <span class="number">2</span>],
-    ) -&gt; MaxPool2dWithIndices&lt;NdArrayBackend&lt;E&gt;&gt; {
+    ) -&gt; MaxPool2dWithIndices&lt;NdArray&lt;E&gt;&gt; {
         <span class="kw">let </span>(output, indices) = max_pool2d_with_indices(x, kernel_size, stride, padding, dilation);
 
         MaxPool2dWithIndices::new(output, indices)
@@ -181,7 +181,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         dilation: [usize; <span class="number">2</span>],
         output_grad: NdArrayTensor&lt;E, <span class="number">4</span>&gt;,
         indices: NdArrayTensor&lt;i64, <span class="number">4</span>&gt;,
-    ) -&gt; MaxPool2dBackward&lt;NdArrayBackend&lt;E&gt;&gt; {
+    ) -&gt; MaxPool2dBackward&lt;NdArray&lt;E&gt;&gt; {
         MaxPool2dBackward::new(max_pool2d_backward(
             x,
             kernel_size,

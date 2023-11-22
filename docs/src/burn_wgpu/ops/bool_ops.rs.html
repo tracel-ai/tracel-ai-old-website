@@ -126,18 +126,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#124" id="124">124</a>
 <a href="#125" id="125">125</a>
 <a href="#126" id="126">126</a>
-</pre></div><pre class="rust"><code><span class="kw">use super</span>::{BoolTensor, Device, FloatTensor, IntTensor};
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     element::{FloatElement, IntElement},
     kernel,
     tensor::WgpuTensor,
-    GraphicsApi, WgpuBackend,
+    GraphicsApi, Wgpu,
 };
+<span class="kw">use </span>burn_tensor::ops::{BoolTensor, Device, FloatTensor, IntTensor};
 <span class="kw">use </span>burn_tensor::{ops::BoolTensorOps, Data, Shape};
 <span class="kw">use </span>burn_tensor::{ops::IntTensorOps, Reader};
 <span class="kw">use </span>std::ops::Range;
 
-<span class="kw">impl</span>&lt;G, F, I&gt; BoolTensorOps&lt;WgpuBackend&lt;G, F, I&gt;&gt; <span class="kw">for </span>WgpuBackend&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; BoolTensorOps&lt;Wgpu&lt;G, F, I&gt;&gt; <span class="kw">for </span>Wgpu&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi + <span class="lifetime">&#39;static</span>,
     F: FloatElement,
@@ -245,7 +245,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw-2">mut </span>tensor: BoolTensor&lt;<span class="self">Self</span>, D&gt;,
         dim1: usize,
         dim2: usize,
-    ) -&gt; &lt;WgpuBackend&lt;G, F, I&gt; <span class="kw">as </span>burn_tensor::backend::Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
+    ) -&gt; &lt;Wgpu&lt;G, F, I&gt; <span class="kw">as </span>burn_tensor::backend::Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
         tensor.strides.swap(dim1, dim2);
         tensor.shape.dims.swap(dim1, dim2);
 

@@ -103,8 +103,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#101" id="101">101</a>
 <a href="#102" id="102">102</a>
 <a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{backend::Backend, ElementConversion};
 <span class="kw">use </span>core::f64::consts::SQRT_2;
+
+<span class="kw">use </span><span class="kw">super</span>::FloatTensor;
 
 <span class="doccomment">/// Activation function operations.
 ///
@@ -119,7 +123,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The output tensor.
-    </span><span class="kw">fn </span>relu&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>relu&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span>mask = B::lower_equal_elem(tensor.clone(), <span class="number">0</span>.elem());
 
         B::mask_fill(tensor, mask, <span class="number">0</span>.elem())
@@ -135,9 +139,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The gradient.
     </span><span class="kw">fn </span>relu_backward&lt;<span class="kw">const </span>D: usize&gt;(
-        output: B::TensorPrimitive&lt;D&gt;,
-        grad: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+        output: FloatTensor&lt;B, D&gt;,
+        grad: FloatTensor&lt;B, D&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span>mask = B::lower_equal_elem(output, <span class="number">0</span>.elem());
 
         B::mask_fill(grad, mask, <span class="number">0</span>.elem())
@@ -152,7 +156,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The output tensor.
-    </span><span class="kw">fn </span>gelu&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>gelu&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span>x = B::div_scalar(tensor.clone(), SQRT_2.elem());
         <span class="kw">let </span>x = B::erf(x);
         <span class="kw">let </span>x = B::add_scalar(x, <span class="number">1i32</span>.elem());
@@ -172,9 +176,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The output tensor.
     </span><span class="kw">fn </span>gelu_backward&lt;<span class="kw">const </span>D: usize&gt;(
-        x: B::TensorPrimitive&lt;D&gt;,
-        grad: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+        x: FloatTensor&lt;B, D&gt;,
+        grad: FloatTensor&lt;B, D&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="comment">// Derivative of the approximate gelu implementation based on tanh.
 
         </span><span class="kw">let </span>constant_1 = <span class="number">0.0356774</span>;

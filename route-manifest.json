@@ -31,62 +31,6 @@
       "href": "/assets/page-d9d29565.js"
     }
   ],
-  "/blog/": [
-    {
-      "type": "script",
-      "href": "/assets/index-28fea3c9.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-f451e400.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3e7d4bd4.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-88288498.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-a75ac475.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-d9d29565.js"
-    }
-  ],
-  "/blog/cross-platform-gpu-backend": [
-    {
-      "type": "script",
-      "href": "/assets/cross-platform-gpu-backend-d07de71a.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-f451e400.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3e7d4bd4.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-a994c9d3.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-88288498.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-a75ac475.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-d9d29565.js"
-    }
-  ],
   "/blog/creating-high-performance-asynchronous-backends-with-burn-compute": [
     {
       "type": "script",
@@ -121,10 +65,66 @@
       "href": "/assets/page-d9d29565.js"
     }
   ],
+  "/blog/": [
+    {
+      "type": "script",
+      "href": "/assets/index-28fea3c9.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-f451e400.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-88288498.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-a75ac475.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-d9d29565.js"
+    }
+  ],
   "/blog/a-case-for-rust-in-deep-learning": [
     {
       "type": "script",
       "href": "/assets/a-case-for-rust-in-deep-learning-e09ce5a8.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-f451e400.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-a994c9d3.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-88288498.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-a75ac475.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-d9d29565.js"
+    }
+  ],
+  "/blog/cross-platform-gpu-backend": [
+    {
+      "type": "script",
+      "href": "/assets/cross-platform-gpu-backend-d07de71a.js"
     },
     {
       "type": "script",

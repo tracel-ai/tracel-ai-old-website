@@ -141,14 +141,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="comment">// Current crate
 </span><span class="kw">use </span><span class="kw">crate</span>::element::FloatNdArrayElement;
 <span class="kw">use </span><span class="kw">crate</span>::NdArrayDevice;
-<span class="kw">use crate</span>::{tensor::NdArrayTensor, NdArrayBackend};
+<span class="kw">use crate</span>::{tensor::NdArrayTensor, NdArray};
 
 <span class="comment">// Workspace crates
 </span><span class="kw">use </span>burn_tensor::{backend::Backend, Data, Shape};
 
 <span class="kw">use </span><span class="kw">super</span>::NdArrayOps;
 
-<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; BoolTensorOps&lt;NdArrayBackend&lt;E&gt;&gt; <span class="kw">for </span>NdArrayBackend&lt;E&gt; {
+<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; BoolTensorOps&lt;<span class="self">Self</span>&gt; <span class="kw">for </span>NdArray&lt;E&gt; {
     <span class="kw">fn </span>bool_from_data&lt;<span class="kw">const </span>D: usize&gt;(
         data: Data&lt;bool, D&gt;,
         _device: <span class="kw-2">&amp;</span>NdArrayDevice,
@@ -157,13 +157,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>bool_shape&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: <span class="kw-2">&amp;</span>&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+        tensor: <span class="kw-2">&amp;</span>&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
     ) -&gt; Shape&lt;D&gt; {
         tensor.shape()
     }
 
     <span class="kw">fn </span>bool_into_data&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
     ) -&gt; Reader&lt;Data&lt;bool, D&gt;&gt; {
         <span class="kw">let </span>shape = tensor.shape();
         <span class="kw">let </span>values = tensor.array.into_iter().collect();
@@ -193,47 +193,47 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>bool_into_int&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
     ) -&gt; NdArrayTensor&lt;i64, D&gt; {
         <span class="kw">let </span>data = <span class="self">Self</span>::bool_into_data(tensor)
             .read_sync()
             .expect(<span class="string">&quot;Always sync with ndarray&quot;</span>);
-        NdArrayBackend::&lt;E&gt;::int_from_data(data.convert(), <span class="kw-2">&amp;</span>NdArrayDevice::Cpu)
+        NdArray::&lt;E&gt;::int_from_data(data.convert(), <span class="kw-2">&amp;</span>NdArrayDevice::Cpu)
     }
 
     <span class="kw">fn </span>bool_device&lt;<span class="kw">const </span>D: usize&gt;(
-        _tensor: <span class="kw-2">&amp;</span>&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device {
+        _tensor: <span class="kw-2">&amp;</span>&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device {
         NdArrayDevice::Cpu
     }
 
     <span class="kw">fn </span>bool_empty&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
-        _device: <span class="kw-2">&amp;</span>&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
+        _device: <span class="kw-2">&amp;</span>&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
         <span class="kw">let </span>values = <span class="macro">vec!</span>[<span class="bool-val">false</span>; shape.num_elements()];
         NdArrayTensor::from_data(Data::new(values, shape))
     }
 
     <span class="kw">fn </span>bool_slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D1&gt;,
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
-        value: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D1&gt;,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D1&gt; {
+        value: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D1&gt;,
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D1&gt; {
         NdArrayOps::slice_assign(tensor, ranges, value)
     }
 
     <span class="kw">fn </span>bool_cat&lt;<span class="kw">const </span>D: usize&gt;(
-        tensors: Vec&lt;&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;&gt;,
+        tensors: Vec&lt;&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;&gt;,
         dim: usize,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
         NdArrayOps::cat(tensors, dim)
     }
 
     <span class="kw">fn </span>bool_equal&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
-        rhs: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
+        lhs: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+        rhs: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>array = lhs.array;
         array.zip_mut_with(<span class="kw-2">&amp;</span>rhs.array, |a, b| <span class="kw-2">*</span>a = <span class="kw-2">*</span>a == <span class="kw-2">*</span>b);
 
@@ -241,24 +241,24 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>bool_not&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
         <span class="kw">let </span>array = tensor.array.mapv(|a| !a).into_shared();
         NdArrayTensor { array }
     }
 
     <span class="kw">fn </span>bool_into_float&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;D&gt; {
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;D&gt; {
         <span class="kw">let </span>array = tensor.array.mapv(|a| (a <span class="kw">as </span>i32).elem()).into_shared();
         NdArrayTensor { array }
     }
 
     <span class="kw">fn </span>bool_swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt;,
         dim1: usize,
         dim2: usize,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::BoolTensorPrimitive&lt;D&gt; {
         NdArrayOps::swap_dims(tensor, dim1, dim2)
     }
 }

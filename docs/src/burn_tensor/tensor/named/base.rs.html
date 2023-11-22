@@ -132,7 +132,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="doccomment">/// Create a random named tensor of the given shape where each element is sampled from
     /// the given distribution.
-    </span><span class="kw">pub fn </span>random&lt;S: Into&lt;Shape&lt;D&gt;&gt;&gt;(shape: S, distribution: Distribution&lt;B::FloatElem&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>random&lt;S: Into&lt;Shape&lt;D&gt;&gt;&gt;(shape: S, distribution: Distribution) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::from_tensor(Tensor::random(shape, distribution))
     }
 

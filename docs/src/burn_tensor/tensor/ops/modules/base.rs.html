@@ -441,73 +441,75 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#439" id="439">439</a>
 <a href="#440" id="440">440</a>
 <a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{conv, pool, unfold::unfold4d_using_conv2d};
-<span class="kw">use crate</span>::{backend::Backend, Shape};
+<span class="kw">use crate</span>::{
+    backend::Backend,
+    ops::{FloatTensor, IntTensor},
+    Shape,
+};
 
 <span class="doccomment">/// Gradient computed during the backward pass for each tensor used by [conv2d](ModuleOps::conv2d).
 </span><span class="attr">#[derive(new)]
 </span><span class="kw">pub struct </span>Conv2dBackward&lt;B: Backend&gt; {
     <span class="doccomment">/// Gradient.
-    </span><span class="kw">pub </span>x_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    </span><span class="kw">pub </span>x_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
 
     <span class="doccomment">/// Weights gradient.
-    </span><span class="kw">pub </span>weights_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    </span><span class="kw">pub </span>weights_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
 
     <span class="doccomment">/// Bias gradient.
-    </span><span class="kw">pub </span>bias_grad: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+    </span><span class="kw">pub </span>bias_grad: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
 }
 
 <span class="doccomment">/// Gradient computed during the backward pass for each tensor used by [max_pool1d](ModuleOps::max_pool1d).
 </span><span class="attr">#[derive(new)]
 </span><span class="kw">pub struct </span>MaxPool1dBackward&lt;B: Backend&gt; {
     <span class="doccomment">/// Gradient.
-    </span><span class="kw">pub </span>x_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    </span><span class="kw">pub </span>x_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
 }
 
 <span class="doccomment">/// Results from [max_pool1d](ModuleOps::max_pool1d_with_indices).
 </span><span class="attr">#[derive(new)]
 </span><span class="kw">pub struct </span>MaxPool1dWithIndices&lt;B: Backend&gt; {
     <span class="doccomment">/// The output tensor.
-    </span><span class="kw">pub </span>output: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    </span><span class="kw">pub </span>output: FloatTensor&lt;B, <span class="number">3</span>&gt;,
 
     <span class="doccomment">/// The indices tensor.
-    </span><span class="kw">pub </span>indices: B::IntTensorPrimitive&lt;<span class="number">3</span>&gt;,
+    </span><span class="kw">pub </span>indices: IntTensor&lt;B, <span class="number">3</span>&gt;,
 }
 
 <span class="doccomment">/// Gradient computed during the backward pass for each tensor used by [max_pool2d](ModuleOps::max_pool2d).
 </span><span class="attr">#[derive(new)]
 </span><span class="kw">pub struct </span>MaxPool2dBackward&lt;B: Backend&gt; {
     <span class="doccomment">/// Gradient.
-    </span><span class="kw">pub </span>x_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    </span><span class="kw">pub </span>x_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
 }
 
 <span class="doccomment">/// Results from [max_pool2d](ModuleOps::max_pool2d_with_indices).
 </span><span class="attr">#[derive(new)]
 </span><span class="kw">pub struct </span>MaxPool2dWithIndices&lt;B: Backend&gt; {
     <span class="doccomment">/// The output tensor.
-    </span><span class="kw">pub </span>output: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    </span><span class="kw">pub </span>output: FloatTensor&lt;B, <span class="number">4</span>&gt;,
 
     <span class="doccomment">/// The indices tensor.
-    </span><span class="kw">pub </span>indices: B::IntTensorPrimitive&lt;<span class="number">4</span>&gt;,
+    </span><span class="kw">pub </span>indices: IntTensor&lt;B, <span class="number">4</span>&gt;,
 }
 
 <span class="doccomment">/// Gradient computed during the backward pass for each tensor used by [conv1d](ModuleOps::conv1d).
 </span><span class="attr">#[derive(new)]
 </span><span class="kw">pub struct </span>Conv1dBackward&lt;B: Backend&gt; {
     <span class="doccomment">/// Gradient.
-    </span><span class="kw">pub </span>x_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    </span><span class="kw">pub </span>x_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
 
     <span class="doccomment">/// Weights gradient.
-    </span><span class="kw">pub </span>weights_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    </span><span class="kw">pub </span>weights_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
 
     <span class="doccomment">/// Bias gradient.
-    </span><span class="kw">pub </span>bias_grad: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+    </span><span class="kw">pub </span>bias_grad: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
 }
 
 <span class="doccomment">/// Convolution options.
-</span><span class="attr">#[derive(new, Debug, Clone)]
+</span><span class="attr">#[derive(new, Debug, Clone, Hash)]
 </span><span class="kw">pub struct </span>ConvOptions&lt;<span class="kw">const </span>N: usize&gt; {
     <span class="doccomment">/// Stride.
     </span><span class="kw">pub </span>stride: [usize; N],
@@ -523,7 +525,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Transposed convolution options.
-</span><span class="attr">#[derive(new, Debug, Clone)]
+</span><span class="attr">#[derive(new, Debug, Clone, Hash)]
 </span><span class="kw">pub struct </span>ConvTransposeOptions&lt;<span class="kw">const </span>N: usize&gt; {
     <span class="doccomment">/// Stride.
     </span><span class="kw">pub </span>stride: [usize; N],
@@ -567,10 +569,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The output tensor.
-    </span><span class="kw">fn </span>embedding(
-        weights: B::TensorPrimitive&lt;<span class="number">2</span>&gt;,
-        indices: B::IntTensorPrimitive&lt;<span class="number">2</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    </span><span class="kw">fn </span>embedding(weights: FloatTensor&lt;B, <span class="number">2</span>&gt;, indices: IntTensor&lt;B, <span class="number">2</span>&gt;) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         <span class="kw">let </span>[batch_size, seq_length] = B::int_shape(<span class="kw-2">&amp;</span>indices).dims;
         <span class="kw">let </span>[<span class="kw">_</span>, d_model] = B::shape(<span class="kw-2">&amp;</span>weights).dims;
 
@@ -592,10 +591,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The gradient.
     </span><span class="kw">fn </span>embedding_backward(
-        weights: B::TensorPrimitive&lt;<span class="number">2</span>&gt;,
-        output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        indices: B::IntTensorPrimitive&lt;<span class="number">2</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">2</span>&gt; {
+        weights: FloatTensor&lt;B, <span class="number">2</span>&gt;,
+        output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        indices: IntTensor&lt;B, <span class="number">2</span>&gt;,
+    ) -&gt; FloatTensor&lt;B, <span class="number">2</span>&gt; {
         <span class="kw">let </span>[batch_size, seq_length] = B::int_shape(<span class="kw-2">&amp;</span>indices).dims;
         <span class="kw">let </span>[n_embeddings, d_model] = B::shape(<span class="kw-2">&amp;</span>weights).dims;
         <span class="kw">let </span>device = B::device(<span class="kw-2">&amp;</span>weights);
@@ -614,19 +613,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// weight: `[channels_out, channels_in, kernel_size]`,
     /// bias:   `[channels_out]`,
     </span><span class="kw">fn </span>conv1d(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvOptions&lt;<span class="number">1</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         conv::conv1d_from_conv2d::&lt;B&gt;(x, weight, bias, options)
     }
     <span class="doccomment">/// Backward pass for the [conv1d](ModuleOps::conv1d) operation.
     </span><span class="kw">fn </span>conv1d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-        output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
         options: ConvOptions&lt;<span class="number">1</span>&gt;,
     ) -&gt; Conv1dBackward&lt;B&gt; {
         conv::conv1d_backward(x, weight, bias, output_grad, options)
@@ -639,17 +638,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// weight: `[channels_out, channels_in, kernel_size_1, kernel_size_2]`,
     /// bias:   `[channels_out]`,
     </span><span class="kw">fn </span>conv2d(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvOptions&lt;<span class="number">2</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt;;
+    ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt;;
     <span class="doccomment">/// Backward pass for the [conv2d](ModuleOps::conv2d) operation.
     </span><span class="kw">fn </span>conv2d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-        output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         options: ConvOptions&lt;<span class="number">2</span>&gt;,
     ) -&gt; Conv2dBackward&lt;B&gt; {
         conv::conv2d_backward(x, weight, bias, output_grad, options)
@@ -662,19 +661,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// weight: `[channels_in, channels_out, length]`,
     /// bias:   `[channels_out]`,
     </span><span class="kw">fn </span>conv_transpose1d(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         conv::conv_transpose1d_from_conv_transpose2d::&lt;B&gt;(x, weight, bias, options)
     }
     <span class="doccomment">/// Backward pass for the [conv transpose 1d](ModuleOps::conv_transpose1d) operation.
     </span><span class="kw">fn </span>conv_transpose1d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-        output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
         options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
     ) -&gt; Conv1dBackward&lt;B&gt; {
         conv::conv_transpose1d_backward(x, weight, bias, output_grad, options)
@@ -687,18 +686,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// weight: `[channels_in, channels_out, kernel_size_1, kernel_size_2]`,
     /// bias:   `[channels_out]`,
     </span><span class="kw">fn </span>conv_transpose2d(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt;;
+    ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt;;
 
     <span class="doccomment">/// Backward pass for the [conv transpose 2d](ModuleOps::conv_transpose2d) operation.
     </span><span class="kw">fn </span>conv_transpose2d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        weight: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-        output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        weight: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
     ) -&gt; Conv2dBackward&lt;B&gt; {
         conv::conv_transpose2d_backward(x, weight, bias, output_grad, options)
@@ -711,10 +710,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// x:      `[batch_size, channels_in, height, width]`,
     /// returns: `[batch_size, channels_in * kernel_size_1 * kernel_size_2, number of blocks]`,
     </span><span class="kw">fn </span>unfold4d(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         options: UnfoldOptions,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         unfold4d_using_conv2d::&lt;B&gt;(x, kernel_size, options)
     }
 
@@ -724,23 +723,23 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// x: [batch_size, channels, length],
     </span><span class="kw">fn </span>avg_pool1d(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         count_include_pad: bool,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         pool::avg_pool1d_from_2d::&lt;B&gt;(x, kernel_size, stride, padding, count_include_pad)
     }
     <span class="doccomment">/// Backward pass for the [avg pooling 1d](ModuleOps::avg_pool1d) operation.
     </span><span class="kw">fn </span>avg_pool1d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         count_include_pad: bool,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         pool::avg_pool1d_backward_from_2d::&lt;B&gt;(
             x,
             grad,
@@ -756,48 +755,45 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// x: [batch_size, channels, height, width],
     </span><span class="kw">fn </span>avg_pool2d(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         count_include_pad: bool,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt;;
+    ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt;;
     <span class="doccomment">/// Backward pass for the [avg pooling 2d](ModuleOps::avg_pool2d) operation.
     </span><span class="kw">fn </span>avg_pool2d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         count_include_pad: bool,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt;;
+    ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt;;
     <span class="doccomment">/// Two dimensional adaptive avg pooling.
     ///
     /// # Shapes
     ///
     /// x: [batch_size, channels, height, width],
-    </span><span class="kw">fn </span>adaptive_avg_pool2d(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        output_size: [usize; <span class="number">2</span>],
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt;;
+    </span><span class="kw">fn </span>adaptive_avg_pool2d(x: FloatTensor&lt;B, <span class="number">4</span>&gt;, output_size: [usize; <span class="number">2</span>]) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt;;
     <span class="doccomment">/// Backward pass for the [adaptive avg pooling 2d](ModuleOps::adaptive_avg_pool2d) operation.
     </span><span class="kw">fn </span>adaptive_avg_pool2d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt;;
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt;;
     <span class="doccomment">/// One dimensional adaptive avg pooling.
     ///
     /// # Shapes
     ///
     /// x: [batch_size, channels, length],
-    </span><span class="kw">fn </span>adaptive_avg_pool1d(x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;, output_size: usize) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    </span><span class="kw">fn </span>adaptive_avg_pool1d(x: FloatTensor&lt;B, <span class="number">3</span>&gt;, output_size: usize) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         pool::adaptive_avg_pool1d_from_2d::&lt;B&gt;(x, output_size)
     }
     <span class="doccomment">/// Backward pass for the [adaptive avg pooling 1d](ModuleOps::adaptive_avg_pool1d) operation.
     </span><span class="kw">fn </span>adaptive_avg_pool1d_backward(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         pool::adaptive_avg_pool1d_backward_from_2d::&lt;B&gt;(x, grad)
     }
     <span class="doccomment">/// One dimensional max pooling.
@@ -806,12 +802,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// x: [batch_size, channels, length],
     </span><span class="kw">fn </span>max_pool1d(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         dilation: usize,
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
         pool::max_pool1d_from_2d::&lt;B&gt;(x, kernel_size, stride, padding, dilation)
     }
 
@@ -821,7 +817,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// x: [batch_size, channels, height, width],
     </span><span class="kw">fn </span>max_pool1d_with_indices(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
@@ -831,13 +827,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
     <span class="doccomment">/// Backward pass for the [max pooling 1d](ModuleOps::max_pool1d_with_indices) operation.
     </span><span class="kw">fn </span>max_pool1d_with_indices_backward(
-        x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         dilation: usize,
-        output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-        indices: B::IntTensorPrimitive&lt;<span class="number">3</span>&gt;,
+        output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+        indices: IntTensor&lt;B, <span class="number">3</span>&gt;,
     ) -&gt; MaxPool1dBackward&lt;B&gt; {
         pool::max_pool1d_with_indices_backward_from_2d::&lt;B&gt;(
             x,
@@ -856,12 +852,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// x: [batch_size, channels, height, width],
     </span><span class="kw">fn </span>max_pool2d(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         dilation: [usize; <span class="number">2</span>],
-    ) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt;;
+    ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt;;
 
     <span class="doccomment">/// Two dimensional max pooling with indices.
     ///
@@ -869,7 +865,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// x: [batch_size, channels, height, width],
     </span><span class="kw">fn </span>max_pool2d_with_indices(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
@@ -877,13 +873,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; MaxPool2dWithIndices&lt;B&gt;;
     <span class="doccomment">/// Backward pass for the [max pooling 2d](ModuleOps::max_pool2d_with_indices) operation.
     </span><span class="kw">fn </span>max_pool2d_with_indices_backward(
-        x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+        x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         dilation: [usize; <span class="number">2</span>],
-        output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-        indices: B::IntTensorPrimitive&lt;<span class="number">4</span>&gt;,
+        output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+        indices: IntTensor&lt;B, <span class="number">4</span>&gt;,
     ) -&gt; MaxPool2dBackward&lt;B&gt;;
 }
 </code></pre></div></section></main></body></html>

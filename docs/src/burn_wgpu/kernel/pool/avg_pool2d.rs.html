@@ -169,11 +169,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#167" id="167">167</a>
 <a href="#168" id="168">168</a>
 <a href="#169" id="169">169</a>
-<a href="#170" id="170">170</a>
-<a href="#171" id="171">171</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::{Kernel, StaticKernel},
     element::WgpuElement,
     kernel::{
@@ -218,11 +214,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         build_output_and_info_pool2d(<span class="kw-2">&amp;</span>x, kernel_size, stride, padding, [<span class="number">1</span>, <span class="number">1</span>]);
 
     <span class="kw">let </span>workgroup = elemwise_workgroup(output.shape.num_elements(), WORKGROUP_DEFAULT);
-    <span class="kw">let </span>kernel: Arc&lt;<span class="kw">dyn </span>Kernel&gt; = <span class="kw">match </span>count_include_pad {
-        <span class="bool-val">true </span>=&gt; Arc::new(StaticKernel::&lt;
+    <span class="kw">let </span>kernel: Box&lt;<span class="kw">dyn </span>Kernel&gt; = <span class="kw">match </span>count_include_pad {
+        <span class="bool-val">true </span>=&gt; Box::new(StaticKernel::&lt;
             KernelSettings&lt;AvgPool2d&lt;<span class="bool-val">true</span>&gt;, E, i32, WORKGROUP_DEFAULT, WORKGROUP_DEFAULT, <span class="number">1</span>&gt;,
         &gt;::new(workgroup)),
-        <span class="bool-val">false </span>=&gt; Arc::new(StaticKernel::&lt;
+        <span class="bool-val">false </span>=&gt; Box::new(StaticKernel::&lt;
             KernelSettings&lt;AvgPool2d&lt;<span class="bool-val">false</span>&gt;, E, i32, WORKGROUP_DEFAULT, WORKGROUP_DEFAULT, <span class="number">1</span>&gt;,
         &gt;::new(workgroup)),
     };
@@ -246,8 +242,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>info_handle = build_pool2d_info(<span class="kw-2">&amp;</span>x, <span class="kw-2">&amp;</span>grad, kernel_size, stride, padding, [<span class="number">1</span>, <span class="number">1</span>]);
     <span class="kw">let </span>workgroup = elemwise_workgroup(output.shape.num_elements(), WORKGROUP_DEFAULT);
 
-    <span class="kw">let </span>kernel: Arc&lt;<span class="kw">dyn </span>Kernel&gt; = <span class="kw">match </span>count_include_pad {
-        <span class="bool-val">true </span>=&gt; Arc::new(StaticKernel::&lt;
+    <span class="kw">let </span>kernel: Box&lt;<span class="kw">dyn </span>Kernel&gt; = <span class="kw">match </span>count_include_pad {
+        <span class="bool-val">true </span>=&gt; Box::new(StaticKernel::&lt;
             KernelSettings&lt;
                 AvgPool2dBackward&lt;<span class="bool-val">true</span>&gt;,
                 E,
@@ -257,7 +253,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 <span class="number">1</span>,
             &gt;,
         &gt;::new(workgroup)),
-        <span class="bool-val">false </span>=&gt; Arc::new(StaticKernel::&lt;
+        <span class="bool-val">false </span>=&gt; Box::new(StaticKernel::&lt;
             KernelSettings&lt;
                 AvgPool2dBackward&lt;<span class="bool-val">false</span>&gt;,
                 E,

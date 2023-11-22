@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Conv1d","Conv1dConfig","Conv1dRecord","Conv1dRecordItem","Conv2d","Conv2dConfig","Conv2dRecord","Conv2dRecordItem","ConvTranspose1d","ConvTranspose1dConfig","ConvTranspose1dRecord","ConvTranspose1dRecordItem","ConvTranspose2d","ConvTranspose2dConfig","ConvTranspose2dRecord","ConvTranspose2dRecordItem"]};

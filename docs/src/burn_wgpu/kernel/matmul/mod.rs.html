@@ -9,13 +9,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#7" id="7">7</a>
 <a href="#8" id="8">8</a>
 <a href="#9" id="9">9</a>
-</pre></div><pre class="rust"><code><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>utils;
-
-<span class="kw">mod </span>mem_coalescing;
+<a href="#10" id="10">10</a>
+<a href="#11" id="11">11</a>
+<a href="#12" id="12">12</a>
+<a href="#13" id="13">13</a>
+</pre></div><pre class="rust"><code><span class="kw">mod </span>mem_coalescing;
 <span class="kw">mod </span>naive;
 <span class="kw">mod </span>tiling2d;
+<span class="kw">mod </span>tune;
+
+<span class="doccomment">/// Contains utilitary for matmul operation
+</span><span class="kw">pub mod </span>utils;
 
 <span class="kw">pub use </span>mem_coalescing::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>naive::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>tiling2d::<span class="kw-2">*</span>;
+<span class="kw">pub use </span>tune::<span class="kw-2">*</span>;
+<span class="kw">pub use </span>utils::<span class="kw-2">*</span>;
 </code></pre></div></section></main></body></html>

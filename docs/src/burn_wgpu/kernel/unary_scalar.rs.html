@@ -220,11 +220,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#218" id="218">218</a>
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use super</span>::{elemwise_workgroup, KernelSettings, StaticKernelSource, WORKGROUP_DEFAULT};
+</pre></div><pre class="rust"><code><span class="kw">use super</span>::{elemwise_workgroup, KernelSettings, StaticKernelSource, WORKGROUP_DEFAULT};
 <span class="kw">use crate</span>::{compute::StaticKernel, element::WgpuElement, kernel_wgsl, tensor::WgpuTensor};
 
 <span class="macro">kernel_wgsl!</span>(UnaryScalarRaw, <span class="string">&quot;../template/unary_scalar.wgsl&quot;</span>);
@@ -369,7 +365,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>rhs_handle = lhs.client.create(E::as_bytes(<span class="kw-2">&amp;</span>[scalar]));
 
     lhs.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs.handle, <span class="kw-2">&amp;</span>rhs_handle, <span class="kw-2">&amp;</span>output.handle],
     );
 
@@ -401,7 +397,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>rhs_handle = lhs.client.create(E::as_bytes(<span class="kw-2">&amp;</span>[scalar]));
 
     lhs.client
-        .execute(Arc::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs.handle, <span class="kw-2">&amp;</span>rhs_handle]);
+        .execute(Box::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs.handle, <span class="kw-2">&amp;</span>rhs_handle]);
 
     lhs
 }

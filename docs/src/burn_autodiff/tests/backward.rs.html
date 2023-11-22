@@ -27,6 +27,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#25" id="25">25</a>
 <a href="#26" id="26">26</a>
 <a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
 </pre></div><pre class="rust"><code><span class="attr">#[burn_tensor_testgen::testgen(module_backward)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -40,17 +42,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             [[<span class="number">1.0</span>, <span class="number">2.0</span>], [<span class="number">4.0</span>, <span class="number">5.0</span>], [<span class="number">3.0</span>, <span class="number">4.0</span>]],
             [[<span class="number">4.0</span>, <span class="number">5.0</span>], [<span class="number">8.0</span>, <span class="number">5.0</span>], [<span class="number">1.0</span>, <span class="number">9.0</span>]],
         ]);
-        <span class="kw">let </span>weights = Tensor::&lt;TestADBackend, <span class="number">2</span>&gt;::from_data(weights).require_grad();
-        <span class="kw">let </span>indices = Tensor::&lt;TestADBackend, <span class="number">2</span>, Int&gt;::from_data(indices);
-        <span class="kw">let </span>x = Tensor::&lt;TestADBackend, <span class="number">3</span>&gt;::from_data(x).require_grad();
+        <span class="kw">let </span>weights = Tensor::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;::from_data(weights).require_grad();
+        <span class="kw">let </span>indices = Tensor::&lt;TestAutodiffBackend, <span class="number">2</span>, Int&gt;::from_data(indices);
+        <span class="kw">let </span>x = Tensor::&lt;TestAutodiffBackend, <span class="number">3</span>&gt;::from_data(x).require_grad();
 
         <span class="kw">let </span>output = embedding(weights.clone(), indices);
         <span class="kw">let </span>output = output.matmul(x);
         <span class="kw">let </span>grads = output.backward();
 
         <span class="kw">let </span>grad = weights.grad(<span class="kw-2">&amp;</span>grads).unwrap();
-        <span class="kw">let </span>expected =
-            Data::&lt;&lt;TestADBackend <span class="kw">as </span>Backend&gt;::FloatElem, <span class="number">2</span>&gt;::from([[<span class="number">3.</span>, <span class="number">9.</span>, <span class="number">7.</span>], [<span class="number">21.</span>, <span class="number">35.</span>, <span class="number">27.</span>]]);
+        <span class="kw">let </span>expected = Data::&lt;&lt;TestAutodiffBackend <span class="kw">as </span>Backend&gt;::FloatElem, <span class="number">2</span>&gt;::from([
+            [<span class="number">3.</span>, <span class="number">9.</span>, <span class="number">7.</span>],
+            [<span class="number">21.</span>, <span class="number">35.</span>, <span class="number">27.</span>],
+        ]);
         <span class="macro">assert_eq!</span>(grad.to_data(), expected);
     }
 }

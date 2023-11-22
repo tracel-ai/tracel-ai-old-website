@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["AutotuneKey","Operation","TuneBenchmark","TuneCache"],"trait":["AutotuneOperation"]};
+window.SIDEBAR_ITEMS = {"enum":["TuneCacheResult"],"struct":["TuneBenchmark","Tuner"],"trait":["AutotuneKey","AutotuneOperation","AutotuneOperationSet"]};

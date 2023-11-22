@@ -36,40 +36,48 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#34" id="34">34</a>
 <a href="#35" id="35">35</a>
 <a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>burn_common::benchmark::Benchmark;
 
-<span class="kw">use </span><span class="kw">crate</span>::server::{ComputeServer, Handle};
+<span class="kw">use </span><span class="kw">crate</span>::channel::ComputeChannel;
+<span class="kw">use </span><span class="kw">crate</span>::client::ComputeClient;
+<span class="kw">use </span><span class="kw">crate</span>::server::ComputeServer;
 
-<span class="kw">use </span><span class="kw">super</span>::Operation;
+<span class="kw">use </span><span class="kw">super</span>::AutotuneOperation;
+<span class="kw">use </span>alloc::boxed::Box;
 <span class="kw">use </span>alloc::string::{String, ToString};
-<span class="kw">use </span>alloc::vec::Vec;
 
 <span class="doccomment">/// A benchmark that runs on server handles
 </span><span class="attr">#[derive(new)]
-</span><span class="kw">pub struct </span>TuneBenchmark&lt;<span class="lifetime">&#39;a</span>, S: ComputeServer&gt; {
-    operation: Operation&lt;S&gt;,
-    handles: Vec&lt;Handle&lt;S&gt;&gt;,
-    server: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>S,
+</span><span class="kw">pub struct </span>TuneBenchmark&lt;S: ComputeServer, C&gt; {
+    operation: Box&lt;<span class="kw">dyn </span>AutotuneOperation&gt;,
+    client: ComputeClient&lt;S, C&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S: ComputeServer&gt; Benchmark <span class="kw">for </span>TuneBenchmark&lt;<span class="lifetime">&#39;a</span>, S&gt; {
-    <span class="kw">type </span>Args = ();
+<span class="kw">impl</span>&lt;S: ComputeServer, C: ComputeChannel&lt;S&gt;&gt; Benchmark <span class="kw">for </span>TuneBenchmark&lt;S, C&gt; {
+    <span class="kw">type </span>Args = Box&lt;<span class="kw">dyn </span>AutotuneOperation&gt;;
 
-    <span class="kw">fn </span>prepare(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Args {}
+    <span class="kw">fn </span>prepare(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Args {
+        <span class="self">self</span>.operation.clone()
+    }
 
-    <span class="kw">fn </span>execute(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw">_</span>: <span class="self">Self</span>::Args) {
-        <span class="self">self</span>.operation.execute(
-            <span class="kw-2">&amp;</span><span class="self">self</span>.handles.iter().collect::&lt;Vec&lt;<span class="kw-2">&amp;</span>Handle&lt;S&gt;&gt;&gt;(),
-            <span class="self">self</span>.server,
-        )
+    <span class="kw">fn </span>num_samples(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
+        <span class="number">10
+    </span>}
+
+    <span class="kw">fn </span>execute(<span class="kw-2">&amp;</span><span class="self">self</span>, operation: <span class="self">Self</span>::Args) {
+        AutotuneOperation::execute(operation);
     }
 
     <span class="kw">fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="string">&quot;Autotune&quot;</span>.to_string()
     }
 
-    <span class="kw">fn </span>sync(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.server.sync();
+    <span class="kw">fn </span>sync(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.client.sync();
     }
 }
 </code></pre></div></section></main></body></html>

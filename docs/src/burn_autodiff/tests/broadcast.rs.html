@@ -93,10 +93,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">fn </span>test_ops_broadcast_backward&lt;F&gt;(func: F)
     <span class="kw">where
-        </span>F: Fn(Tensor&lt;TestADBackend, <span class="number">3</span>&gt;, Tensor&lt;TestADBackend, <span class="number">3</span>&gt;) -&gt; Tensor&lt;TestADBackend, <span class="number">3</span>&gt;,
+        </span>F: Fn(TestAutodiffTensor&lt;<span class="number">3</span>&gt;, TestAutodiffTensor&lt;<span class="number">3</span>&gt;) -&gt; TestAutodiffTensor&lt;<span class="number">3</span>&gt;,
     {
-        <span class="kw">let </span>w = TestADTensor::zeros([<span class="number">16</span>, <span class="number">5</span>, <span class="number">5</span>]).require_grad();
-        <span class="kw">let </span>x = TestADTensor::zeros([<span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>]).require_grad();
+        <span class="kw">let </span>w = TestAutodiffTensor::zeros([<span class="number">16</span>, <span class="number">5</span>, <span class="number">5</span>]).require_grad();
+        <span class="kw">let </span>x = TestAutodiffTensor::zeros([<span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>]).require_grad();
 
         <span class="comment">// Slice isn&#39;t a broadcastable operation, so it will fail when the previous backward pass
         // of an operation that support broadcast doesn&#39;t support it during the backward pass.

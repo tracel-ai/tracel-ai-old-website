@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MnistConfig","Model","ModelRecord","ModelRecordItem"]};

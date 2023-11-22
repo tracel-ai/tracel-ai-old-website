@@ -75,8 +75,28 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#73" id="73">73</a>
 <a href="#74" id="74">74</a>
 <a href="#75" id="75">75</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::WgpuElement, tensor::WgpuTensor};
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::WgpuElement, ops::numeric::empty_device, tensor::WgpuTensor};
 <span class="kw">use </span>burn_tensor::Shape;
+
+<span class="doccomment">/// Creates an empty output tensor with matmul output shape
+</span><span class="kw">pub fn </span>init_matmul_output&lt;E: WgpuElement, <span class="kw">const </span>D: usize&gt;(
+    lhs: <span class="kw-2">&amp;</span>WgpuTensor&lt;E, D&gt;,
+    rhs: <span class="kw-2">&amp;</span>WgpuTensor&lt;E, D&gt;,
+) -&gt; WgpuTensor&lt;E, D&gt; {
+    empty_device(lhs.client.clone(), lhs.device.clone(), shape_out(lhs, rhs))
+}
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>shape_out&lt;E: WgpuElement, <span class="kw">const </span>D: usize&gt;(
     lhs: <span class="kw-2">&amp;</span>WgpuTensor&lt;E, D&gt;,
@@ -102,20 +122,23 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">use </span><span class="kw">crate</span>::tests::{ReferenceTensor, TestTensor};
     <span class="kw">use </span>burn_tensor::Shape;
 
+    <span class="kw">use </span><span class="kw">super</span>::init_matmul_output;
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>same_as_reference&lt;F, <span class="kw">const </span>D: usize, S&gt;(func: F, shape_lhs: S, shape_rhs: S)
     <span class="kw">where
-        </span>F: Fn(WgpuTensor&lt;f32, D&gt;, WgpuTensor&lt;f32, D&gt;) -&gt; WgpuTensor&lt;f32, D&gt;,
+        </span>F: Fn(WgpuTensor&lt;f32, D&gt;, WgpuTensor&lt;f32, D&gt;, WgpuTensor&lt;f32, D&gt;) -&gt; WgpuTensor&lt;f32, D&gt;,
         S: Into&lt;Shape&lt;D&gt;&gt;,
     {
         <span class="kw">let </span>x = ReferenceTensor::random(shape_lhs, burn_tensor::Distribution::Uniform(-<span class="number">1.0</span>, <span class="number">1.0</span>));
         <span class="kw">let </span>y = ReferenceTensor::random(shape_rhs, burn_tensor::Distribution::Uniform(-<span class="number">1.0</span>, <span class="number">1.0</span>));
 
-        <span class="kw">let </span>x_wgpu = TestTensor::from_data(x.to_data());
-        <span class="kw">let </span>y_wgpu = TestTensor::from_data(y.to_data());
+        <span class="kw">let </span>x_wgpu = TestTensor::from_data(x.to_data()).into_primitive();
+        <span class="kw">let </span>y_wgpu = TestTensor::from_data(y.to_data()).into_primitive();
 
         <span class="kw">let </span>z_reference = x.matmul(y);
 
-        <span class="kw">let </span>z = func(x_wgpu.into_primitive(), y_wgpu.into_primitive());
+        <span class="kw">let </span>out = init_matmul_output(<span class="kw-2">&amp;</span>x_wgpu, <span class="kw-2">&amp;</span>y_wgpu);
+        <span class="kw">let </span>z = func(x_wgpu, y_wgpu, out);
         <span class="kw">let </span>z = TestTensor::from_primitive(z);
 
         z_reference.into_data().assert_approx_eq(<span class="kw-2">&amp;</span>z.into_data(), <span class="number">3</span>);
@@ -128,23 +151,24 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         shape_lhs: S,
         shape_rhs: S,
     ) <span class="kw">where
-        </span>F: Fn(WgpuTensor&lt;f32, D&gt;, WgpuTensor&lt;f32, D&gt;) -&gt; WgpuTensor&lt;f32, D&gt;,
+        </span>F: Fn(WgpuTensor&lt;f32, D&gt;, WgpuTensor&lt;f32, D&gt;, WgpuTensor&lt;f32, D&gt;) -&gt; WgpuTensor&lt;f32, D&gt;,
         S: Into&lt;Shape&lt;D&gt;&gt;,
     {
         <span class="kw">let </span>x = ReferenceTensor::random(shape_lhs, burn_tensor::Distribution::Uniform(-<span class="number">1.0</span>, <span class="number">1.0</span>));
         <span class="kw">let </span>y = ReferenceTensor::random(shape_rhs, burn_tensor::Distribution::Uniform(-<span class="number">1.0</span>, <span class="number">1.0</span>));
 
-        <span class="kw">let </span>x_wgpu = TestTensor::from_data(x.to_data());
-        <span class="kw">let </span>y_wgpu = TestTensor::from_data(y.to_data());
+        <span class="kw">let </span>x_wgpu = TestTensor::from_data(x.to_data()).swap_dims(swap_lhs[<span class="number">0</span>], swap_lhs[<span class="number">1</span>]);
+        <span class="kw">let </span>y_wgpu = TestTensor::from_data(y.to_data()).swap_dims(swap_rhs[<span class="number">0</span>], swap_rhs[<span class="number">1</span>]);
 
         <span class="kw">let </span>z_reference = x
             .swap_dims(swap_lhs[<span class="number">0</span>], swap_lhs[<span class="number">1</span>])
             .matmul(y.swap_dims(swap_rhs[<span class="number">0</span>], swap_rhs[<span class="number">1</span>]));
 
-        <span class="kw">let </span>z = func(
-            x_wgpu.swap_dims(swap_lhs[<span class="number">0</span>], swap_lhs[<span class="number">1</span>]).into_primitive(),
-            y_wgpu.swap_dims(swap_rhs[<span class="number">0</span>], swap_rhs[<span class="number">1</span>]).into_primitive(),
+        <span class="kw">let </span>out = init_matmul_output(
+            <span class="kw-2">&amp;</span>x_wgpu.clone().into_primitive(),
+            <span class="kw-2">&amp;</span>y_wgpu.clone().into_primitive(),
         );
+        <span class="kw">let </span>z = func(x_wgpu.into_primitive(), y_wgpu.into_primitive(), out);
         <span class="kw">let </span>z = TestTensor::from_primitive(z);
 
         z_reference.into_data().assert_approx_eq(<span class="kw-2">&amp;</span>z.into_data(), <span class="number">3</span>);

@@ -146,12 +146,34 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#144" id="144">144</a>
 <a href="#145" id="145">145</a>
 <a href="#146" id="146">146</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use </span>burn_tensor::Shape;
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>burn_tensor::Shape;
 
 <span class="kw">use crate</span>::{
-    compute::{compute_client, StaticKernel},
+    compute::{compute_client, StaticKernel, WgpuComputeClient},
     element::WgpuElement,
     kernel::{
         prng::base::{make_args_buffer, make_info_buffer},
@@ -182,9 +204,35 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     low: E,
     high: E,
 ) -&gt; WgpuTensor&lt;E, D&gt; {
+    <span class="kw">let </span>client = compute_client::&lt;G&gt;(device);
+    uniform_kernel(client, device, <span class="kw-2">&amp;</span>shape, low, high)
+}
+
+<span class="doccomment">/// Pseudo-random generator for uniform distribution, based on
+/// another tensor&#39;s client, device and shape
+</span><span class="kw">pub fn </span>random_like_uniform&lt;E: WgpuElement, <span class="kw">const </span>D: usize&gt;(
+    tensor: <span class="kw-2">&amp;</span>WgpuTensor&lt;E, D&gt;,
+    low: E,
+    high: E,
+) -&gt; WgpuTensor&lt;E, D&gt; {
+    uniform_kernel(
+        tensor.client.clone(),
+        <span class="kw-2">&amp;</span>tensor.device,
+        <span class="kw-2">&amp;</span>tensor.shape,
+        low,
+        high,
+    )
+}
+
+<span class="kw">fn </span>uniform_kernel&lt;E: WgpuElement, <span class="kw">const </span>D: usize&gt;(
+    client: WgpuComputeClient,
+    device: <span class="kw-2">&amp;</span>WgpuDevice,
+    shape: <span class="kw-2">&amp;</span>Shape&lt;D&gt;,
+    low: E,
+    high: E,
+) -&gt; WgpuTensor&lt;E, D&gt; {
     <span class="kw">const </span>N_VALUES_PER_THREAD: usize = <span class="number">128</span>;
 
-    <span class="kw">let </span>client = compute_client::&lt;G&gt;(device);
     <span class="kw">let </span>output = empty_device(client.clone(), device.clone(), shape.clone());
     <span class="kw">let </span>info_handle = make_info_buffer(client.clone(), N_VALUES_PER_THREAD);
     <span class="kw">let </span>args_handle = make_args_buffer(client.clone(), <span class="kw-2">&amp;</span>[low, high]);
@@ -194,7 +242,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     &gt;::new(workgroup);
 
     client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle, <span class="kw-2">&amp;</span>args_handle],
     );
 

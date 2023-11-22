@@ -94,7 +94,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">use crate</span>::{
     graph::{NodeRef, Requirement},
-    tensor::ADTensor,
+    tensor::AutodiffTensor,
 };
 
 <span class="doccomment">/// Gradient identifier.
@@ -146,7 +146,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Removes a grad tensor from the container.
     </span><span class="kw">pub fn </span>remove&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        tensor: <span class="kw-2">&amp;</span>ADTensor&lt;B, D&gt;,
+        tensor: <span class="kw-2">&amp;</span>AutodiffTensor&lt;B, D&gt;,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;TensorPrimitive&lt;B, D&gt;&gt; {
         <span class="self">self</span>.container
             .remove::&lt;B, D&gt;(<span class="kw-2">&amp;</span>tensor.node.id.value)
@@ -156,7 +156,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Gets a grad tensor from the container.
     </span><span class="kw">pub fn </span>get&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        tensor: <span class="kw-2">&amp;</span>ADTensor&lt;B, D&gt;,
+        tensor: <span class="kw-2">&amp;</span>AutodiffTensor&lt;B, D&gt;,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;TensorPrimitive&lt;B, D&gt;&gt; {
         <span class="self">self</span>.container
             .get::&lt;B, D&gt;(<span class="kw-2">&amp;</span>tensor.node.id.value)

@@ -195,7 +195,7 @@ pub struct MnistTrainingConfig {
     pub optimizer: AdamConfig,
 }
 
-pub fn run&lt;B: ADBackend&gt;(device: B::Device) {
+pub fn run&lt;B: AutodiffBackend&gt;(device: B::Device) {
     // Create the configuration.
     let config_model = ModelConfig::new(10, 1024);
     let config_optimizer = AdamConfig::new();
@@ -228,7 +228,7 @@ pub fn run&lt;B: ADBackend&gt;(device: B::Device) {
 }</code></pre>
 <p>As seen with the previous example, setting up the configurations and the dataloader hasn't changed.
 Now, let's move forward and write our own training loop:</p>
-<pre><code class="language-rust  ignore">pub fn run&lt;B: ADBackend&gt;(device: B::Device) {
+<pre><code class="language-rust  ignore">pub fn run&lt;B: AutodiffBackend&gt;(device: B::Device) {
     ...
 
     // Iterate over our training and validation loop for X epochs.
@@ -305,13 +305,13 @@ error.</p>
 beneficial to organize your program using intermediary types. There are various ways to do this, but
 it requires getting comfortable with generics.</p>
 <p>If you wish to group the optimizer and the model into the same structure, you have several options.
-It's important to note that the optimizer trait depends on both the <code>ADModule</code> trait and the
-<code>ADBackend</code> trait, while the module only depends on the <code>ADBackend</code> trait.</p>
+It's important to note that the optimizer trait depends on both the <code>AutodiffModule</code> trait and the
+<code>AutodiffBackend</code> trait, while the module only depends on the <code>AutodiffBackend</code> trait.</p>
 <p>Here's a closer look at how you can create your types:</p>
 <p><strong>Create a struct that is generic over the backend and the optimizer, with a predefined model.</strong></p>
 <pre><code class="language-rust  ignore">struct Learner&lt;B, O&gt;
 where
-    B: ADBackend,
+    B: AutodiffBackend,
 {
     model: Model&lt;B&gt;,
     optim: O,
@@ -329,8 +329,8 @@ function. However, with this struct, you may encounter some issues when trying t
 blocks to your struct.</p>
 <pre><code class="language-rust  ignore">impl&lt;B, M, O&gt; Learner&lt;M, O&gt;
 where
-    B: ADBackend,
-    M: ADModule&lt;B&gt;,
+    B: AutodiffBackend,
+    M: AutodiffModule&lt;B&gt;,
     O: Optimizer&lt;M, B&gt;,
 {
     pub fn step(&amp;mut self, _batch: MNISTBatch&lt;B&gt;) {
@@ -345,10 +345,10 @@ where
 the backend and add your trait constraint within its definition:</p>
 <pre><code class="language-rust  ignore">#[allow(dead_code)]
 impl&lt;M, O&gt; Learner2&lt;M, O&gt; {
-    pub fn step&lt;B: ADBackend&gt;(&amp;mut self, _batch: MNISTBatch&lt;B&gt;)
+    pub fn step&lt;B: AutodiffBackend&gt;(&amp;mut self, _batch: MNISTBatch&lt;B&gt;)
     where
-        B: ADBackend,
-        M: ADModule&lt;B&gt;,
+        B: AutodiffBackend,
+        M: AutodiffModule&lt;B&gt;,
         O: Optimizer&lt;M, B&gt;,
     {
         //

@@ -510,11 +510,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#508" id="508">508</a>
 <a href="#509" id="509">509</a>
 <a href="#510" id="510">510</a>
-<a href="#511" id="511">511</a>
-<a href="#512" id="512">512</a>
-<a href="#513" id="513">513</a>
-<a href="#514" id="514">514</a>
-<a href="#515" id="515">515</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>alloc::format;
 <span class="kw">use </span>alloc::string::String;
 <span class="kw">use </span>alloc::vec::Vec;
@@ -543,8 +538,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Distribution for random value of a tensor.
-</span><span class="attr">#[derive(Clone, Copy)]
-</span><span class="kw">pub enum </span>Distribution&lt;E&gt; {
+</span><span class="attr">#[derive(Debug, Clone, Copy)]
+</span><span class="kw">pub enum </span>Distribution {
     <span class="doccomment">/// Uniform distribution from 0 (inclusive) to 1 (exclusive).
     </span>Default,
 
@@ -552,7 +547,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span>Bernoulli(f64),
 
     <span class="doccomment">/// Uniform distribution. The range is inclusive.
-    </span>Uniform(E, E),
+    </span>Uniform(f64, f64),
 
     <span class="doccomment">/// Normal distribution with the given mean and standard deviation.
     </span>Normal(f64, f64),
@@ -613,11 +608,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="kw">impl</span>&lt;E&gt; Distribution&lt;E&gt;
-<span class="kw">where
-    </span>Standard: rand::distributions::Distribution&lt;E&gt;,
-    E: rand::distributions::uniform::SampleUniform,
-{
+<span class="kw">impl </span>Distribution {
     <span class="doccomment">/// Creates a new distribution sampler.
     ///
     /// # Arguments
@@ -627,14 +618,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The distribution sampler.
-    </span><span class="kw">pub fn </span>sampler&lt;R: RngCore&gt;(<span class="self">self</span>, rng: <span class="kw-2">&amp;</span><span class="lifetime">&#39;_ </span><span class="kw-2">mut </span>R) -&gt; DistributionSampler&lt;<span class="lifetime">&#39;_</span>, E, R&gt; {
+    </span><span class="kw">pub fn </span>sampler&lt;R: RngCore, E: Element&gt;(<span class="self">self</span>, rng: <span class="kw-2">&amp;</span><span class="lifetime">&#39;_ </span><span class="kw-2">mut </span>R) -&gt; DistributionSampler&lt;<span class="lifetime">&#39;_</span>, E, R&gt;
+    <span class="kw">where
+        </span>E: rand::distributions::uniform::SampleUniform,
+        Standard: rand::distributions::Distribution&lt;E&gt;,
+    {
         <span class="kw">let </span>kind = <span class="kw">match </span><span class="self">self </span>{
             Distribution::Default =&gt; {
                 DistributionSamplerKind::Standard(rand::distributions::Standard {})
             }
-            Distribution::Uniform(low, high) =&gt; {
-                DistributionSamplerKind::Uniform(rand::distributions::Uniform::new(low, high))
-            }
+            Distribution::Uniform(low, high) =&gt; DistributionSamplerKind::Uniform(
+                rand::distributions::Uniform::new(low.elem::&lt;E&gt;(), high.elem::&lt;E&gt;()),
+            ),
             Distribution::Bernoulli(prob) =&gt; DistributionSamplerKind::Bernoulli(
                 rand::distributions::Bernoulli::new(prob).unwrap(),
             ),
@@ -644,27 +639,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         };
 
         DistributionSampler::new(kind, rng)
-    }
-}
-
-<span class="kw">impl</span>&lt;E&gt; Distribution&lt;E&gt;
-<span class="kw">where
-    </span>E: Element,
-{
-    <span class="doccomment">/// Converts the distribution to a different element type.
-    ///
-    /// # Returns
-    ///
-    /// The converted distribution.
-    </span><span class="kw">pub fn </span>convert&lt;EOther: Element&gt;(<span class="self">self</span>) -&gt; Distribution&lt;EOther&gt; {
-        <span class="kw">match </span><span class="self">self </span>{
-            Distribution::Default =&gt; Distribution::Default,
-            Distribution::Uniform(a, b) =&gt; {
-                Distribution::Uniform(EOther::from_elem(a), EOther::from_elem(b))
-            }
-            Distribution::Bernoulli(prob) =&gt; Distribution::Bernoulli(prob),
-            Distribution::Normal(mean, std) =&gt; Distribution::Normal(mean, std),
-        }
     }
 }
 
@@ -728,7 +702,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">impl</span>&lt;E: Element, <span class="kw">const </span>D: usize&gt; Data&lt;E, D&gt; {
     <span class="doccomment">/// Populates the data with random values.
-    </span><span class="kw">pub fn </span>random&lt;R: RngCore&gt;(shape: Shape&lt;D&gt;, distribution: Distribution&lt;E&gt;, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>random&lt;R: RngCore&gt;(shape: Shape&lt;D&gt;, distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>num_elements = shape.num_elements();
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::with_capacity(num_elements);
 
@@ -818,6 +792,23 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// Panics if the data is not approximately equal.
     </span><span class="attr">#[track_caller]
     </span><span class="kw">pub fn </span>assert_approx_eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>, precision: usize) {
+        <span class="kw">let </span>tolerance = libm::pow(<span class="number">0.1</span>, precision <span class="kw">as </span>f64);
+
+        <span class="self">self</span>.assert_approx_eq_diff(other, tolerance)
+    }
+
+    <span class="doccomment">/// Asserts the data is approximately equal to another data.
+    ///
+    /// # Arguments
+    ///
+    /// * `other` - The other data.
+    /// * `tolerance` - The tolerance of the comparison.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the data is not approximately equal.
+    </span><span class="attr">#[track_caller]
+    </span><span class="kw">pub fn </span>assert_approx_eq_diff(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>, tolerance: f64) {
         <span class="kw">let </span><span class="kw-2">mut </span>message = String::new();
         <span class="kw">if </span><span class="self">self</span>.shape != other.shape {
             message += <span class="macro">format!</span>(
@@ -837,7 +828,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="kw">let </span>b: f64 = b.into();
 
             <span class="kw">let </span>err = libm::sqrt(libm::pow(a - b, <span class="number">2.0</span>));
-            <span class="kw">let </span>tolerance = libm::pow(<span class="number">0.1</span>, precision <span class="kw">as </span>f64);
 
             <span class="kw">if </span>err &gt; tolerance {
                 <span class="comment">// Only print the first 5 different values.

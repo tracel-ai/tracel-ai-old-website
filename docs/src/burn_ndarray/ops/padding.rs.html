@@ -33,7 +33,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#31" id="31">31</a>
 <a href="#32" id="32">32</a>
 <a href="#33" id="33">33</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArrayBackend};
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArray};
 <span class="kw">use </span>burn_tensor::ops::TensorOps;
 <span class="kw">use </span>ndarray::Array4;
 
@@ -53,7 +53,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     );
     <span class="kw">let </span><span class="kw-2">mut </span>x_new = NdArrayTensor::new(x_new.into_shared().into_dyn());
 
-    x_new = NdArrayBackend::slice_assign(
+    x_new = NdArray::slice_assign(
         x_new,
         [
             <span class="number">0</span>..batch_size,

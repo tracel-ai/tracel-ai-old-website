@@ -217,7 +217,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">impl </span>AvgPool2dTestCase {
         <span class="kw">fn </span>assert_output(<span class="self">self</span>, x_grad: TestTensor&lt;<span class="number">4</span>&gt;) {
             <span class="kw">let </span>shape_x = Shape::new([<span class="self">self</span>.batch_size, <span class="self">self</span>.channels, <span class="self">self</span>.height, <span class="self">self</span>.width]);
-            <span class="kw">let </span>x = TestADTensor::from_data(
+            <span class="kw">let </span>x = TestAutodiffTensor::from_data(
                 TestTensorInt::arange(<span class="number">0</span>..shape_x.num_elements())
                     .reshape(shape_x)
                     .into_data()

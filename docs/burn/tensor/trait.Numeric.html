@@ -1,0 +1,945 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait that list all operations that can be applied on all numerical tensors."><title>Numeric in burn::tensor - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+data-theme="burn"
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="burn" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../burn/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../../burn/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Numeric</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.abs">abs</a></li><li><a href="#tymethod.add">add</a></li><li><a href="#tymethod.add_scalar">add_scalar</a></li><li><a href="#tymethod.argmax">argmax</a></li><li><a href="#tymethod.argmin">argmin</a></li><li><a href="#tymethod.clamp">clamp</a></li><li><a href="#tymethod.clamp_max">clamp_max</a></li><li><a href="#tymethod.clamp_min">clamp_min</a></li><li><a href="#tymethod.div">div</a></li><li><a href="#tymethod.div_scalar">div_scalar</a></li><li><a href="#tymethod.equal_elem">equal_elem</a></li><li><a href="#tymethod.full">full</a></li><li><a href="#tymethod.gather">gather</a></li><li><a href="#tymethod.greater">greater</a></li><li><a href="#tymethod.greater_elem">greater_elem</a></li><li><a href="#tymethod.greater_equal">greater_equal</a></li><li><a href="#tymethod.greater_equal_elem">greater_equal_elem</a></li><li><a href="#tymethod.lower">lower</a></li><li><a href="#tymethod.lower_elem">lower_elem</a></li><li><a href="#tymethod.lower_equal">lower_equal</a></li><li><a href="#tymethod.lower_equal_elem">lower_equal_elem</a></li><li><a href="#tymethod.mask_fill">mask_fill</a></li><li><a href="#tymethod.mask_where">mask_where</a></li><li><a href="#tymethod.max">max</a></li><li><a href="#tymethod.max_dim">max_dim</a></li><li><a href="#tymethod.max_dim_with_indices">max_dim_with_indices</a></li><li><a href="#tymethod.mean">mean</a></li><li><a href="#tymethod.mean_dim">mean_dim</a></li><li><a href="#tymethod.min">min</a></li><li><a href="#tymethod.min_dim">min_dim</a></li><li><a href="#tymethod.min_dim_with_indices">min_dim_with_indices</a></li><li><a href="#tymethod.mul">mul</a></li><li><a href="#tymethod.mul_scalar">mul_scalar</a></li><li><a href="#tymethod.neg">neg</a></li><li><a href="#tymethod.ones">ones</a></li><li><a href="#tymethod.scatter">scatter</a></li><li><a href="#tymethod.select">select</a></li><li><a href="#tymethod.select_assign">select_assign</a></li><li><a href="#tymethod.sub">sub</a></li><li><a href="#tymethod.sub_scalar">sub_scalar</a></li><li><a href="#tymethod.sum">sum</a></li><li><a href="#tymethod.sum_dim">sum_dim</a></li><li><a href="#tymethod.zeros">zeros</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In burn::tensor</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../index.html">burn</a>::<wbr><a href="index.html">tensor</a>::<wbr><a class="trait" href="#">Numeric</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/burn_tensor/tensor/api/numeric.rs.html#491">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait Numeric&lt;B&gt;: <a class="trait" href="trait.BasicOps.html" title="trait burn::tensor::BasicOps">BasicOps</a>&lt;B&gt;<span class="where fmt-newline">where
+    B: <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>,
+    Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>: <a class="trait" href="trait.Element.html" title="trait burn::tensor::Element">Element</a>,</span>{
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 43 methods</span></summary>    // Required methods
+    fn <a href="#tymethod.add" class="fn">add</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.add_scalar" class="fn">add_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: E
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+       <span class="where">where E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a></span>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.sub" class="fn">sub</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.sub_scalar" class="fn">sub_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: E
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+       <span class="where">where E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a></span>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.div" class="fn">div</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.div_scalar" class="fn">div_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: E
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+       <span class="where">where E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a></span>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.mul" class="fn">mul</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.mul_scalar" class="fn">mul_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: E
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+       <span class="where">where E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a></span>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.neg" class="fn">neg</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.zeros" class="fn">zeros</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        shape: <a class="struct" href="struct.Shape.html" title="struct burn::tensor::Shape">Shape</a>&lt;D&gt;,
+        device: &amp;&lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.Device" title="type burn::tensor::backend::Backend::Device">Device</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.ones" class="fn">ones</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        shape: <a class="struct" href="struct.Shape.html" title="struct burn::tensor::Shape">Shape</a>&lt;D&gt;,
+        device: &amp;&lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.Device" title="type burn::tensor::backend::Backend::Device">Device</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.full" class="fn">full</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+        shape: <a class="struct" href="struct.Shape.html" title="struct burn::tensor::Shape">Shape</a>&lt;D&gt;,
+        fill_value: E,
+        device: &amp;&lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.Device" title="type burn::tensor::backend::Backend::Device">Device</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+       <span class="where">where E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a></span>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.sum" class="fn">sum</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.sum_dim" class="fn">sum_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.mean" class="fn">mean</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.mean_dim" class="fn">mean_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.equal_elem" class="fn">equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.greater" class="fn">greater</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.greater_elem" class="fn">greater_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.greater_equal" class="fn">greater_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.greater_equal_elem" class="fn">greater_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.lower" class="fn">lower</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.lower_elem" class="fn">lower_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.lower_equal" class="fn">lower_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.lower_equal_elem" class="fn">lower_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.mask_where" class="fn">mask_where</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        mask: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;,
+        source: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.mask_fill" class="fn">mask_fill</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        mask: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;,
+        value: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.gather" class="fn">gather</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.scatter" class="fn">scatter</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;,
+        values: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.select" class="fn">select</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+        indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, 1, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.select_assign" class="fn">select_assign</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+        indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, 1, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;,
+        values: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.argmax" class="fn">argmax</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.argmin" class="fn">argmin</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.max" class="fn">max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.max_dim" class="fn">max_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.max_dim_with_indices" class="fn">max_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; (Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;, &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;);
+<span class="item-spacer"></span>    fn <a href="#tymethod.min" class="fn">min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.min_dim" class="fn">min_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.min_dim_with_indices" class="fn">min_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    ) -&gt; (Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;, &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;);
+<span class="item-spacer"></span>    fn <a href="#tymethod.clamp" class="fn">clamp</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        min: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>,
+        max: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.clamp_min" class="fn">clamp_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        min: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.clamp_max" class="fn">clamp_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+        tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+        max: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+    ) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.abs" class="fn">abs</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;;
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait that list all operations that can be applied on all numerical tensors.</p>
+<h2 id="warnings"><a href="#warnings">Warnings</a></h2>
+<p>This is an internal trait, use the public API provided by <a href="struct.Tensor.html" title="struct burn::tensor::Tensor">tensor struct</a>.</p>
+</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.add" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#514">source</a><h4 class="code-header">fn <a href="#tymethod.add" class="fn">add</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Adds two tensors together.</p>
+<h5 id="arguments"><a href="#arguments">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns"><a href="#returns">Returns</a></h5>
+<p>The sum of the two tensors.</p>
+<h5 id="remarks"><a href="#remarks">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For adding tensors, users should prefer the <a href="struct.Tensor.html#method.add" title="method burn::tensor::Tensor::add">Tensor::add</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.add_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#535-538">source</a><h4 class="code-header">fn <a href="#tymethod.add_scalar" class="fn">add_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: E
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;<span class="where fmt-newline">where
+    E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a>,</span></h4></section></summary><div class="docblock"><p>Adds a scalar to a tensor element-wise.</p>
+<h5 id="arguments-1"><a href="#arguments-1">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-1"><a href="#returns-1">Returns</a></h5>
+<p>The sum of the tensor and the scalar.</p>
+<h5 id="remarks-1"><a href="#remarks-1">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For adding a scalar to a tensor, users should prefer the <a href="struct.Tensor.html#method.add_scalar" title="method burn::tensor::Tensor::add_scalar">Tensor::add_scalar</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.sub" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#559">source</a><h4 class="code-header">fn <a href="#tymethod.sub" class="fn">sub</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Subtracts two tensors.</p>
+<h5 id="arguments-2"><a href="#arguments-2">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-2"><a href="#returns-2">Returns</a></h5>
+<p>The difference of the two tensors.</p>
+<h5 id="remarks-2"><a href="#remarks-2">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For subtracting tensors, users should prefer the <a href="struct.Tensor.html#method.sub" title="method burn::tensor::Tensor::sub">Tensor::sub</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.sub_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#580-583">source</a><h4 class="code-header">fn <a href="#tymethod.sub_scalar" class="fn">sub_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: E
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;<span class="where fmt-newline">where
+    E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a>,</span></h4></section></summary><div class="docblock"><p>Subtracts a scalar from a tensor element-wise.</p>
+<h5 id="arguments-3"><a href="#arguments-3">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-3"><a href="#returns-3">Returns</a></h5>
+<p>The difference of the tensor and the scalar.</p>
+<h5 id="remarks-3"><a href="#remarks-3">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For subtracting a scalar from a tensor, users should prefer the <a href="struct.Tensor.html#method.sub_scalar" title="method burn::tensor::Tensor::sub_scalar">Tensor::sub_scalar</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.div" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#604">source</a><h4 class="code-header">fn <a href="#tymethod.div" class="fn">div</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Divides two tensors.</p>
+<h5 id="arguments-4"><a href="#arguments-4">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-4"><a href="#returns-4">Returns</a></h5>
+<p>The quotient of the two tensors.</p>
+<h5 id="remarks-4"><a href="#remarks-4">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For dividing tensors, users should prefer the <a href="struct.Tensor.html#method.div" title="method burn::tensor::Tensor::div">Tensor::div</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.div_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#625-628">source</a><h4 class="code-header">fn <a href="#tymethod.div_scalar" class="fn">div_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: E
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;<span class="where fmt-newline">where
+    E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a>,</span></h4></section></summary><div class="docblock"><p>Divides a tensor by a scalar element-wise.</p>
+<h5 id="arguments-5"><a href="#arguments-5">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-5"><a href="#returns-5">Returns</a></h5>
+<p>The quotient of the tensor and the scalar.</p>
+<h5 id="remarks-5"><a href="#remarks-5">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For dividing a tensor by a scalar, users should prefer the <a href="struct.Tensor.html#method.div_scalar" title="method burn::tensor::Tensor::div_scalar">Tensor::div_scalar</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.mul" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#649">source</a><h4 class="code-header">fn <a href="#tymethod.mul" class="fn">mul</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Multiplies two tensors.</p>
+<h5 id="arguments-6"><a href="#arguments-6">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-6"><a href="#returns-6">Returns</a></h5>
+<p>The product of the two tensors.</p>
+<h5 id="remarks-6"><a href="#remarks-6">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For multiplying tensors, users should prefer the <a href="struct.Tensor.html#method.mul" title="method burn::tensor::Tensor::mul">Tensor::mul</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.mul_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#670-673">source</a><h4 class="code-header">fn <a href="#tymethod.mul_scalar" class="fn">mul_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: E
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;<span class="where fmt-newline">where
+    E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a>,</span></h4></section></summary><div class="docblock"><p>Multiplies a tensor by a scalar element-wise.</p>
+<h5 id="arguments-7"><a href="#arguments-7">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-7"><a href="#returns-7">Returns</a></h5>
+<p>The product of the tensor and the scalar.</p>
+<h5 id="remarks-7"><a href="#remarks-7">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For multiplying a tensor by a scalar, users should prefer the <a href="struct.Tensor.html#method.mul_scalar" title="method burn::tensor::Tensor::mul_scalar">Tensor::mul_scalar</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.neg" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#693">source</a><h4 class="code-header">fn <a href="#tymethod.neg" class="fn">neg</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Negates a tensor.</p>
+<h5 id="arguments-8"><a href="#arguments-8">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to negate.</li>
+</ul>
+<h5 id="returns-8"><a href="#returns-8">Returns</a></h5>
+<p>The negated tensor.</p>
+<h5 id="remarks-8"><a href="#remarks-8">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For negating a tensor, users should prefer the <a href="struct.Tensor.html#method.neg" title="method burn::tensor::Tensor::neg">Tensor::neg</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.zeros" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#714">source</a><h4 class="code-header">fn <a href="#tymethod.zeros" class="fn">zeros</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    shape: <a class="struct" href="struct.Shape.html" title="struct burn::tensor::Shape">Shape</a>&lt;D&gt;,
+    device: &amp;&lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.Device" title="type burn::tensor::backend::Backend::Device">Device</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Creates a tensor filled with zeros.</p>
+<h5 id="arguments-9"><a href="#arguments-9">Arguments</a></h5>
+<ul>
+<li><code>shape</code> - The shape of the tensor.</li>
+<li><code>device</code> - The device on which the tensor will be allocated.</li>
+</ul>
+<h5 id="returns-9"><a href="#returns-9">Returns</a></h5>
+<p>The tensor filled with zeros.</p>
+<h5 id="remarks-9"><a href="#remarks-9">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For creating a tensor filled with zeros, users should prefer the <a href="struct.Tensor.html#method.zeros" title="associated function burn::tensor::Tensor::zeros">Tensor::zeros</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.ones" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#735">source</a><h4 class="code-header">fn <a href="#tymethod.ones" class="fn">ones</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    shape: <a class="struct" href="struct.Shape.html" title="struct burn::tensor::Shape">Shape</a>&lt;D&gt;,
+    device: &amp;&lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.Device" title="type burn::tensor::backend::Backend::Device">Device</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Creates a tensor filled with ones.</p>
+<h5 id="arguments-10"><a href="#arguments-10">Arguments</a></h5>
+<ul>
+<li><code>shape</code> - The shape of the tensor.</li>
+<li><code>device</code> - The device on which the tensor will be allocated.</li>
+</ul>
+<h5 id="returns-10"><a href="#returns-10">Returns</a></h5>
+<p>The tensor filled with ones.</p>
+<h5 id="remarks-10"><a href="#remarks-10">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For creating a tensor filled with ones, users should prefer the <a href="struct.Tensor.html#method.ones" title="associated function burn::tensor::Tensor::ones">Tensor::ones</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.full" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#757-761">source</a><h4 class="code-header">fn <a href="#tymethod.full" class="fn">full</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, E&gt;(
+    shape: <a class="struct" href="struct.Shape.html" title="struct burn::tensor::Shape">Shape</a>&lt;D&gt;,
+    fill_value: E,
+    device: &amp;&lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.Device" title="type burn::tensor::backend::Backend::Device">Device</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;<span class="where fmt-newline">where
+    E: <a class="trait" href="trait.ElementConversion.html" title="trait burn::tensor::ElementConversion">ElementConversion</a>,</span></h4></section></summary><div class="docblock"><p>Creates a tensor filled with elements equal to the given value.</p>
+<h5 id="arguments-11"><a href="#arguments-11">Arguments</a></h5>
+<ul>
+<li><code>shape</code> - The shape of the tensor.</li>
+<li><code>fill_value</code> - The value with which to fill the tensor</li>
+<li><code>device</code> - The device on which the tensor will be allocated.</li>
+</ul>
+<h5 id="returns-11"><a href="#returns-11">Returns</a></h5>
+<p>The tensor filled with elements equal to the given value</p>
+<h5 id="remarks-11"><a href="#remarks-11">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For creating a tensor filled with a specific value, users should prefer the <a href="struct.Tensor.html#method.full" title="associated function burn::tensor::Tensor::full">Tensor::full</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.sum" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#781">source</a><h4 class="code-header">fn <a href="#tymethod.sum" class="fn">sum</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;</h4></section></summary><div class="docblock"><p>Sums all the elements of the tensor.</p>
+<h5 id="arguments-12"><a href="#arguments-12">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to sum.</li>
+</ul>
+<h5 id="returns-12"><a href="#returns-12">Returns</a></h5>
+<p>The sum of all the elements of the tensor.</p>
+<h5 id="remarks-12"><a href="#remarks-12">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For summing all the elements of a tensor, users should prefer the <a href="struct.Tensor.html#method.sum" title="method burn::tensor::Tensor::sum">Tensor::sum</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.sum_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#802">source</a><h4 class="code-header">fn <a href="#tymethod.sum_dim" class="fn">sum_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Sums all the elements of the tensor along a dimension.</p>
+<h5 id="arguments-13"><a href="#arguments-13">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to sum.</li>
+<li><code>dim</code> - The dimension along which to sum.</li>
+</ul>
+<h5 id="returns-13"><a href="#returns-13">Returns</a></h5>
+<p>The sum of all the elements of the tensor along the specified dimension.</p>
+<h5 id="remarks-13"><a href="#remarks-13">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For summing all the elements of a tensor along a dimension, users should prefer the <a href="struct.Tensor.html#method.sum_dim" title="method burn::tensor::Tensor::sum_dim">Tensor::sum_dim</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.mean" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#822">source</a><h4 class="code-header">fn <a href="#tymethod.mean" class="fn">mean</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;</h4></section></summary><div class="docblock"><p>Computes the mean of all the elements of the tensor.</p>
+<h5 id="arguments-14"><a href="#arguments-14">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to compute the mean of.</li>
+</ul>
+<h5 id="returns-14"><a href="#returns-14">Returns</a></h5>
+<p>The mean of all the elements of the tensor.</p>
+<h5 id="remarks-14"><a href="#remarks-14">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For computing the mean of all the elements of a tensor, users should prefer the <a href="struct.Tensor.html#method.mean" title="method burn::tensor::Tensor::mean">Tensor::mean</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.mean_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#843">source</a><h4 class="code-header">fn <a href="#tymethod.mean_dim" class="fn">mean_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Computes the mean of all the elements of the tensor along a dimension.</p>
+<h5 id="arguments-15"><a href="#arguments-15">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to compute the mean of.</li>
+<li><code>dim</code> - The dimension along which to compute the mean.</li>
+</ul>
+<h5 id="returns-15"><a href="#returns-15">Returns</a></h5>
+<p>The mean of all the elements of the tensor along the specified dimension.</p>
+<h5 id="remarks-15"><a href="#remarks-15">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For computing the mean of all the elements of a tensor along a dimension, users should prefer
+the <a href="struct.Tensor.html#method.mean_dim" title="method burn::tensor::Tensor::mean_dim">Tensor::mean_dim</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#864">source</a><h4 class="code-header">fn <a href="#tymethod.equal_elem" class="fn">equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise equality between two tensors.</p>
+<h5 id="arguments-16"><a href="#arguments-16">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-16"><a href="#returns-16">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensors, where each element is true if the
+corresponding elements of the input tensors are equal, and false otherwise.</p>
+<h5 id="remarks-16"><a href="#remarks-16">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise equality between two tensors, users should prefer the <a href="struct.Tensor.html#method.equal_elem" title="method burn::tensor::Tensor::equal_elem">Tensor::equal_elem</a> function,</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.greater" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#887-890">source</a><h4 class="code-header">fn <a href="#tymethod.greater" class="fn">greater</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise greater than comparison between two tensors.</p>
+<h5 id="arguments-17"><a href="#arguments-17">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-17"><a href="#returns-17">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensors, where each element is true if the
+corresponding element of the left hand side tensor is greater than the corresponding element
+of the right hand side tensor, and false otherwise.</p>
+<h5 id="remarks-17"><a href="#remarks-17">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise greater than comparison between two tensors, users should prefer the <a href="struct.Tensor.html#method.greater" title="method burn::tensor::Tensor::greater">Tensor::greater</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.greater_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#913-914">source</a><h4 class="code-header">fn <a href="#tymethod.greater_elem" class="fn">greater_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise greater than comparison between a tensor and a scalar.</p>
+<h5 id="arguments-18"><a href="#arguments-18">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-18"><a href="#returns-18">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensor, where each element is true if the
+corresponding element of the left hand side tensor is greater than the right hand side
+scalar, and false otherwise.</p>
+<h5 id="remarks-18"><a href="#remarks-18">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise greater than comparison between a tensor and a scalar, users should prefer
+the <a href="struct.Tensor.html#method.greater_elem" title="method burn::tensor::Tensor::greater_elem">Tensor::greater_elem</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.greater_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#937-940">source</a><h4 class="code-header">fn <a href="#tymethod.greater_equal" class="fn">greater_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise greater than or equal comparison between two tensors.</p>
+<h5 id="arguments-19"><a href="#arguments-19">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-19"><a href="#returns-19">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensors, where each element is true if the
+corresponding element of the left hand side tensor is greater than or equal to the
+corresponding element of the right hand side tensor, and false otherwise.</p>
+<h5 id="remarks-19"><a href="#remarks-19">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise greater than or equal comparison between two tensors, users should prefer
+the <a href="struct.Tensor.html#method.greater_equal" title="method burn::tensor::Tensor::greater_equal">Tensor::greater_equal</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.greater_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#963-966">source</a><h4 class="code-header">fn <a href="#tymethod.greater_equal_elem" class="fn">greater_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise greater than or equal comparison between a tensor and a scalar.</p>
+<h5 id="arguments-20"><a href="#arguments-20">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-20"><a href="#returns-20">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensor, where each element is true if the
+corresponding element of the left hand side tensor is greater than or equal to the right
+hand side scalar, and false otherwise.</p>
+<h5 id="remarks-20"><a href="#remarks-20">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise greater than or equal comparison between a tensor and a scalar, users should prefer
+the <a href="struct.Tensor.html#method.greater_equal_elem" title="method burn::tensor::Tensor::greater_equal_elem">Tensor::greater_equal_elem</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.lower" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#989-992">source</a><h4 class="code-header">fn <a href="#tymethod.lower" class="fn">lower</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise less than comparison between two tensors.</p>
+<h5 id="arguments-21"><a href="#arguments-21">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-21"><a href="#returns-21">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensors, where each element is true if the
+corresponding element of the left hand side tensor is less than the corresponding element of
+the right hand side tensor, and false otherwise.</p>
+<h5 id="remarks-21"><a href="#remarks-21">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise less than comparison between two tensors, users should prefer the <a href="struct.Tensor.html#method.lower" title="method burn::tensor::Tensor::lower">Tensor::lower</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.lower_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1015">source</a><h4 class="code-header">fn <a href="#tymethod.lower_elem" class="fn">lower_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise less than comparison between a tensor and a scalar.</p>
+<h5 id="arguments-22"><a href="#arguments-22">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-22"><a href="#returns-22">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensor, where each element is true if the
+corresponding element of the left hand side tensor is less than the right hand side scalar,
+and false otherwise.</p>
+<h5 id="remarks-22"><a href="#remarks-22">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise less than comparison between a tensor and a scalar, users should prefer
+the <a href="struct.Tensor.html#method.lower_elem" title="method burn::tensor::Tensor::lower_elem">Tensor::lower_elem</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.lower_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1038-1041">source</a><h4 class="code-header">fn <a href="#tymethod.lower_equal" class="fn">lower_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise less than or equal comparison between two tensors.</p>
+<h5 id="arguments-23"><a href="#arguments-23">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side tensor.</li>
+</ul>
+<h5 id="returns-23"><a href="#returns-23">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensors, where each element is true if the
+corresponding element of the left hand side tensor is less than or equal to the corresponding
+element of the right hand side tensor, and false otherwise.</p>
+<h5 id="remarks-23"><a href="#remarks-23">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise less than or equal comparison between two tensors, users should prefer
+the <a href="struct.Tensor.html#method.lower_equal" title="method burn::tensor::Tensor::lower_equal">Tensor::lower_equal</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.lower_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1064-1067">source</a><h4 class="code-header">fn <a href="#tymethod.lower_equal_elem" class="fn">lower_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    lhs: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    rhs: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;</h4></section></summary><div class="docblock"><p>Element-wise less than or equal comparison between a tensor and a scalar.</p>
+<h5 id="arguments-24"><a href="#arguments-24">Arguments</a></h5>
+<ul>
+<li><code>lhs</code> - The left hand side tensor.</li>
+<li><code>rhs</code> - The right hand side scalar.</li>
+</ul>
+<h5 id="returns-24"><a href="#returns-24">Returns</a></h5>
+<p>A boolean tensor with the same shape as the input tensor, where each element is true if the
+corresponding element of the left hand side tensor is less than or equal to the right hand
+side scalar, and false otherwise.</p>
+<h5 id="remarks-24"><a href="#remarks-24">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For element-wise less than or equal comparison between a tensor and a scalar, users should prefer
+the <a href="struct.Tensor.html#method.lower_equal_elem" title="method burn::tensor::Tensor::lower_equal_elem">Tensor::lower_equal_elem</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.mask_where" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1091-1095">source</a><h4 class="code-header">fn <a href="#tymethod.mask_where" class="fn">mask_where</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    mask: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;,
+    source: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Selects elements from a tensor based on a boolean mask.</p>
+<h5 id="arguments-25"><a href="#arguments-25">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to select elements from if the corresponding element of the mask is true.</li>
+<li><code>mask</code> - The boolean mask to use for selecting elements.</li>
+<li><code>source</code> - The tensor to select elements from when the corresponding element of the mask is false.</li>
+</ul>
+<h5 id="returns-25"><a href="#returns-25">Returns</a></h5>
+<p>A tensor with the same shape as the input tensors, where each element is taken from the
+corresponding element of the left hand side tensor if the corresponding element of the mask
+is true, and from the corresponding element of the right hand side tensor otherwise.</p>
+<h5 id="remarks-25"><a href="#remarks-25">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For selecting elements from a tensor based on a boolean mask, users should prefer the
+<a href="struct.Tensor.html#method.mask_where" title="method burn::tensor::Tensor::mask_where">Tensor::mask_where</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.mask_fill" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1120-1124">source</a><h4 class="code-header">fn <a href="#tymethod.mask_fill" class="fn">mask_fill</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    mask: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Bool.html" title="struct burn::tensor::Bool">Bool</a>&gt;,
+    value: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Fills elements of a tensor based on a boolean mask.</p>
+<h5 id="arguments-26"><a href="#arguments-26">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor where will be overwritten with the value
+when the corresponding element of the mask is true.</li>
+<li><code>mask</code> - The boolean mask to use for filling elements.</li>
+<li><code>value</code> - The value to fill elements with when the corresponding element of the mask is true.</li>
+</ul>
+<h5 id="returns-26"><a href="#returns-26">Returns</a></h5>
+<p>A tensor with the same shape as the input tensors, where each element is taken from the
+corresponding element unmodified if the corresponding element of the mask is false, and
+filled with the value otherwise.</p>
+<h5 id="remarks-26"><a href="#remarks-26">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For filling elements of a tensor based on a boolean mask, users should prefer the
+<a href="struct.Tensor.html#method.mask_fill" title="method burn::tensor::Tensor::mask_fill">Tensor::mask_fill</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.gather" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1147-1151">source</a><h4 class="code-header">fn <a href="#tymethod.gather" class="fn">gather</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Gathers elements from a tensor along an axis.</p>
+<h5 id="arguments-27"><a href="#arguments-27">Arguments</a></h5>
+<ul>
+<li><code>dim</code> - The axis along which to gather elements.</li>
+<li><code>tensor</code> - The tensor to gather elements from.</li>
+<li><code>indices</code> - The indices of the elements to gather.</li>
+</ul>
+<h5 id="returns-27"><a href="#returns-27">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is taken from the
+corresponding element of the input tensor at the corresponding index along the specified axis.</p>
+<h5 id="remarks-27"><a href="#remarks-27">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For gathering elements from a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.gather" title="method burn::tensor::Tensor::gather">Tensor::gather</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.scatter" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1177-1182">source</a><h4 class="code-header">fn <a href="#tymethod.scatter" class="fn">scatter</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, D, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;,
+    values: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Scatters elements into a tensor along an axis.</p>
+<h5 id="arguments-28"><a href="#arguments-28">Arguments</a></h5>
+<ul>
+<li><code>dim</code> - The axis along which to scatter elements.</li>
+<li><code>tensor</code> - The tensor to scatter elements into.</li>
+<li><code>indices</code> - The indices of the elements to scatter.</li>
+<li><code>values</code> - The values to scatter into the tensor.</li>
+</ul>
+<h5 id="returns-28"><a href="#returns-28">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is taken from the
+corresponding element of the input tensor at the corresponding index along the specified axis,
+except for the elements at the specified indices, which are taken from the corresponding
+element of the values tensor.</p>
+<h5 id="remarks-28"><a href="#remarks-28">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For scattering elements into a tensor along an axis, users should prefer the <a href="struct.Tensor.html#method.scatter" title="method burn::tensor::Tensor::scatter">Tensor::scatter</a> function,
+which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.select" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1205-1209">source</a><h4 class="code-header">fn <a href="#tymethod.select" class="fn">select</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+    indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, 1, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Select tensor elements along the given dimension corresponding for the given indices.</p>
+<h5 id="arguments-29"><a href="#arguments-29">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to select elements from.</li>
+<li><code>dim</code> - The axis along which to select elements.</li>
+<li><code>indices</code> - The indices of the elements to select.</li>
+</ul>
+<h5 id="returns-29"><a href="#returns-29">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is taken from the
+corresponding element of the input tensor at the corresponding index along the specified axis.</p>
+<h5 id="remarks-29"><a href="#remarks-29">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For selecting elements from a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.select" title="method burn::tensor::Tensor::select">Tensor::select</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.select_assign" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1236-1241">source</a><h4 class="code-header">fn <a href="#tymethod.select_assign" class="fn">select_assign</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+    indices: <a class="struct" href="struct.Tensor.html" title="struct burn::tensor::Tensor">Tensor</a>&lt;B, 1, <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a>&gt;,
+    values: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Assign the selected elements along the given dimension corresponding to the given indices
+from the value tensor.</p>
+<h5 id="arguments-30"><a href="#arguments-30">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to assign elements to.</li>
+<li><code>dim</code> - The axis along which to assign elements.</li>
+<li><code>indices</code> - The indices of the elements to assign.</li>
+<li><code>values</code> - The values to assign to the tensor.</li>
+</ul>
+<h5 id="returns-30"><a href="#returns-30">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is taken from the
+corresponding element of the input tensor at the corresponding index along the specified axis,
+except for the elements at the specified indices, which are taken from the corresponding
+element of the values tensor.</p>
+<h5 id="remarks-30"><a href="#remarks-30">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For assigning elements to a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.select_assign" title="method burn::tensor::Tensor::select_assign">Tensor::select_assign</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.argmax" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1263">source</a><h4 class="code-header">fn <a href="#tymethod.argmax" class="fn">argmax</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Gets the indices of the maximum elements of a tensor along an axis.</p>
+<h5 id="arguments-31"><a href="#arguments-31">Arguments</a></h5>
+<ul>
+<li><code>dim</code> - The axis along which to get the indices of the maximum elements.</li>
+<li><code>tensor</code> - The tensor to get the indices of the maximum elements from.</li>
+</ul>
+<h5 id="returns-31"><a href="#returns-31">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is the index of the
+maximum element of the input tensor at the corresponding index along the specified axis.</p>
+<h5 id="remarks-31"><a href="#remarks-31">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the indices of the maximum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.argmax" title="method burn::tensor::Tensor::argmax">Tensor::argmax</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.argmin" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1285">source</a><h4 class="code-header">fn <a href="#tymethod.argmin" class="fn">argmin</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Gets the indices of the minimum elements of a tensor along an axis.</p>
+<h5 id="arguments-32"><a href="#arguments-32">Arguments</a></h5>
+<ul>
+<li><code>dim</code> - The axis along which to get the indices of the minimum elements.</li>
+<li><code>tensor</code> - The tensor to get the indices of the minimum elements from.</li>
+</ul>
+<h5 id="returns-32"><a href="#returns-32">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is the index of the
+minimum element of the input tensor at the corresponding index along the specified axis.</p>
+<h5 id="remarks-32"><a href="#remarks-32">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the indices of the minimum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.argmin" title="method burn::tensor::Tensor::argmin">Tensor::argmin</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.max" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1305">source</a><h4 class="code-header">fn <a href="#tymethod.max" class="fn">max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;</h4></section></summary><div class="docblock"><p>Gets the maximum elements of a tensor along an axis.</p>
+<h5 id="arguments-33"><a href="#arguments-33">Arguments</a></h5>
+<ul>
+<li><code>dim</code> - The axis along which to get the maximum elements.</li>
+</ul>
+<h5 id="returns-33"><a href="#returns-33">Returns</a></h5>
+<p>A single-element tensor containing the maximum element of the input tensor.</p>
+<h5 id="remarks-33"><a href="#remarks-33">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the maximum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.max" title="method burn::tensor::Tensor::max">Tensor::max</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.max_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1326">source</a><h4 class="code-header">fn <a href="#tymethod.max_dim" class="fn">max_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Gets the maximum elements of a tensor along an axis.</p>
+<h5 id="arguments-34"><a href="#arguments-34">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to get the maximum elements from.</li>
+<li><code>dim</code> - The axis along which to get the maximum elements.</li>
+</ul>
+<h5 id="returns-34"><a href="#returns-34">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is the maximum element</p>
+<h5 id="remarks-34"><a href="#remarks-34">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the maximum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.max_dim" title="method burn::tensor::Tensor::max_dim">Tensor::max_dim</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.max_dim_with_indices" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1349-1352">source</a><h4 class="code-header">fn <a href="#tymethod.max_dim_with_indices" class="fn">max_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; (Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;, &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;)</h4></section></summary><div class="docblock"><p>Gets the maximum elements of a tensor along an axis.</p>
+<h5 id="arguments-35"><a href="#arguments-35">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to get the maximum elements from.</li>
+<li><code>dim</code> - The axis along which to get the maximum elements.</li>
+</ul>
+<h5 id="returns-35"><a href="#returns-35">Returns</a></h5>
+<p>A tuple containing the maximum element of the input tensor, and a tensor with the same shape
+as the input tensor, where each element is the index of the maximum element of the input tensor
+at the corresponding index along the specified axis.</p>
+<h5 id="remarks-35"><a href="#remarks-35">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the maximum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.max_dim_with_indices" title="method burn::tensor::Tensor::max_dim_with_indices">Tensor::max_dim_with_indices</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.min" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1372">source</a><h4 class="code-header">fn <a href="#tymethod.min" class="fn">min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;1&gt;</h4></section></summary><div class="docblock"><p>Gets the minimum elements of a tensor along an axis.</p>
+<h5 id="arguments-36"><a href="#arguments-36">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to get the minimum elements from.</li>
+</ul>
+<h5 id="returns-36"><a href="#returns-36">Returns</a></h5>
+<p>A single-element tensor containing the minimum element of the input tensor.</p>
+<h5 id="remarks-36"><a href="#remarks-36">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the minimum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.min" title="method burn::tensor::Tensor::min">Tensor::min</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.min_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1394">source</a><h4 class="code-header">fn <a href="#tymethod.min_dim" class="fn">min_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Gets the minimum elements of a tensor along an axis.</p>
+<h5 id="arguments-37"><a href="#arguments-37">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to get the minimum elements from.</li>
+<li><code>dim</code> - The axis along which to get the minimum elements.</li>
+</ul>
+<h5 id="returns-37"><a href="#returns-37">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor, where each element is the minimum element
+of the input tensor at the corresponding index along the specified axis.</p>
+<h5 id="remarks-37"><a href="#remarks-37">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the minimum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.min_dim" title="method burn::tensor::Tensor::min_dim">Tensor::min_dim</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.min_dim_with_indices" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1416-1419">source</a><h4 class="code-header">fn <a href="#tymethod.min_dim_with_indices" class="fn">min_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+) -&gt; (Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;, &lt;B as <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>&gt;::<a class="associatedtype" href="backend/trait.Backend.html#associatedtype.IntTensorPrimitive" title="type burn::tensor::backend::Backend::IntTensorPrimitive">IntTensorPrimitive</a>&lt;D&gt;)</h4></section></summary><div class="docblock"><p>Gets the minimum elements and indices of a tensor along an axis.</p>
+<h5 id="arguments-38"><a href="#arguments-38">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to get the minimum elements from.</li>
+</ul>
+<h5 id="returns-38"><a href="#returns-38">Returns</a></h5>
+<p>A tensor with the same shape as the input tensor and corresponding indices, where
+each element is the minimum element of the input tensor at the corresponding index
+along the specified axis.</p>
+<h5 id="remarks-38"><a href="#remarks-38">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For getting the minimum elements of a tensor along an axis, users should prefer the
+<a href="struct.Tensor.html#method.min_dim_with_indices" title="method burn::tensor::Tensor::min_dim_with_indices">Tensor::min_dim_with_indices</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.clamp" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1439-1443">source</a><h4 class="code-header">fn <a href="#tymethod.clamp" class="fn">clamp</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    min: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>,
+    max: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Clamp the tensor between the given min and max values.</p>
+<h5 id="arguments-39"><a href="#arguments-39">Arguments</a></h5>
+<ul>
+<li><code>min</code> - The minimum value.</li>
+<li><code>max</code> - The maximum value.</li>
+</ul>
+<h5 id="returns-39"><a href="#returns-39">Returns</a></h5>
+<p>A new tensor with the values clamped between the given min and max values.</p>
+<h5 id="remarks-39"><a href="#remarks-39">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users.</p>
+<p>For clamping a tensor between the given min and max values, users should prefer the
+<a href="struct.Tensor.html#method.clamp" title="method burn::tensor::Tensor::clamp">Tensor::clamp</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.clamp_min" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1463-1464">source</a><h4 class="code-header">fn <a href="#tymethod.clamp_min" class="fn">clamp_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    min: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Clamps a tensor under a minimum value.</p>
+<h5 id="arguments-40"><a href="#arguments-40">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to clamp.</li>
+<li><code>min</code> - The minimum value.</li>
+</ul>
+<h5 id="returns-40"><a href="#returns-40">Returns</a></h5>
+<p>A new tensor with the values clamped under the given min value.</p>
+<h5 id="remarks-40"><a href="#remarks-40">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users.</p>
+<p>For clamping a tensor under a minimum value, users should prefer the
+<a href="struct.Tensor.html#method.clamp_min" title="method burn::tensor::Tensor::clamp_min">Tensor::clamp_min</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.clamp_max" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1484-1485">source</a><h4 class="code-header">fn <a href="#tymethod.clamp_max" class="fn">clamp_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;,
+    max: Self::<a class="associatedtype" href="trait.BasicOps.html#associatedtype.Elem" title="type burn::tensor::BasicOps::Elem">Elem</a>
+) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Clamps a tensor over a maximum value.</p>
+<h5 id="arguments-41"><a href="#arguments-41">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to clamp.</li>
+<li><code>max</code> - The maximum value.</li>
+</ul>
+<h5 id="returns-41"><a href="#returns-41">Returns</a></h5>
+<p>A new tensor with the values clamped over the given max value.</p>
+<h5 id="remarks-41"><a href="#remarks-41">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users.</p>
+<p>For clamping a tensor over a maximum value, users should prefer the
+<a href="struct.Tensor.html#method.clamp_max" title="method burn::tensor::Tensor::clamp_max">Tensor::clamp_max</a> function, which is more high-level and designed for public use.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.abs" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1505">source</a><h4 class="code-header">fn <a href="#tymethod.abs" class="fn">abs</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;) -&gt; Self::<a class="associatedtype" href="trait.TensorKind.html#associatedtype.Primitive" title="type burn::tensor::TensorKind::Primitive">Primitive</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Calculate absolute value on all elements of a tensor</p>
+<h5 id="arguments-42"><a href="#arguments-42">Arguments</a></h5>
+<ul>
+<li><code>tensor</code> - The tensor to apply abs to.</li>
+</ul>
+<h5 id="returns-42"><a href="#returns-42">Returns</a></h5>
+<p>A tensor with absolute values.</p>
+<h5 id="remarks-42"><a href="#remarks-42">Remarks</a></h5>
+<p>This is a low-level function used internally by the library to call different backend functions
+with static dispatch. It is not designed for direct usage by users, and not recommended to import
+or use this function directly.</p>
+<p>For calculating abs of the elements of a tensor, users should prefer the <a href="struct.Tensor.html#method.abs" title="method burn::tensor::Tensor::abs">Tensor::abs</a> function,
+which is more high-level and designed for public use.</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-Numeric%3CB%3E-for-Float" class="impl"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1762">source</a><a href="#impl-Numeric%3CB%3E-for-Float" class="anchor">§</a><h3 class="code-header">impl&lt;B&gt; <a class="trait" href="trait.Numeric.html" title="trait burn::tensor::Numeric">Numeric</a>&lt;B&gt; for <a class="struct" href="struct.Float.html" title="struct burn::tensor::Float">Float</a><span class="where fmt-newline">where
+    B: <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>,</span></h3></section><section id="impl-Numeric%3CB%3E-for-Int" class="impl"><a class="src rightside" href="../../src/burn_tensor/tensor/api/numeric.rs.html#1508">source</a><a href="#impl-Numeric%3CB%3E-for-Int" class="anchor">§</a><h3 class="code-header">impl&lt;B&gt; <a class="trait" href="trait.Numeric.html" title="trait burn::tensor::Numeric">Numeric</a>&lt;B&gt; for <a class="struct" href="struct.Int.html" title="struct burn::tensor::Int">Int</a><span class="where fmt-newline">where
+    B: <a class="trait" href="backend/trait.Backend.html" title="trait burn::tensor::backend::Backend">Backend</a>,</span></h3></section></div><script src="../../implementors/burn_tensor/tensor/api/numeric/trait.Numeric.js" data-ignore-extern-crates="burn_tensor" async></script></section></div></main></body></html>

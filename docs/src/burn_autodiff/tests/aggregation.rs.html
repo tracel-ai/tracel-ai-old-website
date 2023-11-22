@@ -131,8 +131,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_1 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]);
         <span class="kw">let </span>data_2 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = tensor_1.clone().mul(tensor_3.mean().unsqueeze());
@@ -154,8 +154,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_1 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]);
         <span class="kw">let </span>data_2 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = tensor_1.clone().mul(tensor_3.sum().unsqueeze());
@@ -177,8 +177,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_1 = Data::from([[<span class="number">0.0</span>, <span class="number">1.0</span>], [<span class="number">3.0</span>, <span class="number">4.0</span>]]);
         <span class="kw">let </span>data_2 = Data::from([[<span class="number">6.0</span>, <span class="number">7.0</span>], [<span class="number">9.0</span>, <span class="number">10.0</span>]]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = tensor_3.clone().sum_dim(<span class="number">1</span>);
@@ -201,8 +201,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_1 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]);
         <span class="kw">let </span>data_2 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = tensor_1.clone().mul(tensor_3.mean_dim(<span class="number">1</span>).unsqueeze());
@@ -224,8 +224,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_1 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">1.0</span>, <span class="number">7.0</span>], [-<span class="number">2.0</span>, -<span class="number">3.0</span>]]);
         <span class="kw">let </span>data_2 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">4.0</span>, -<span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = tensor_1.clone().mul(tensor_3.sum_dim(<span class="number">1</span>).unsqueeze());

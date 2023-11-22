@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ModelType"],"struct":["ImageClassifier","InferenceResult","Model"]};

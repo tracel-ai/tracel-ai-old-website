@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AsyncLogger","FileLogger","FileMetricLogger","InMemoryLogger","InMemoryMetricLogger"],"trait":["Logger","LoggerBackend","MetricLogger"]};

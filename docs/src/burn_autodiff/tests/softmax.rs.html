@@ -58,8 +58,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">fn </span>test_softmax_grad() {
         <span class="kw">let </span>data_1 = Data::from([[<span class="number">0.0</span>, <span class="number">1.0</span>], [<span class="number">3.0</span>, <span class="number">4.0</span>]]);
         <span class="kw">let </span>data_2 = Data::from([[<span class="number">6.0</span>, <span class="number">7.0</span>], [<span class="number">9.0</span>, <span class="number">10.0</span>]]);
-        <span class="kw">let </span>tensor_1 = Tensor::&lt;TestADBackend, <span class="number">2</span>&gt;::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = Tensor::&lt;TestADBackend, <span class="number">2</span>&gt;::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = Tensor::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = Tensor::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = activation::softmax(tensor_3, <span class="number">1</span>).matmul(tensor_2.clone());
@@ -80,8 +80,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">fn </span>test_log_softmax_grad() {
         <span class="kw">let </span>data_1 = Data::from([[<span class="number">0.0</span>, <span class="number">1.0</span>], [<span class="number">3.0</span>, <span class="number">4.0</span>]]);
         <span class="kw">let </span>data_2 = Data::from([[<span class="number">6.0</span>, <span class="number">7.0</span>], [<span class="number">9.0</span>, <span class="number">10.0</span>]]);
-        <span class="kw">let </span>tensor_1 = Tensor::&lt;TestADBackend, <span class="number">2</span>&gt;::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = Tensor::&lt;TestADBackend, <span class="number">2</span>&gt;::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = Tensor::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = Tensor::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone());
         <span class="kw">let </span>tensor_4 = activation::log_softmax(tensor_3, <span class="number">1</span>).matmul(tensor_2.clone());

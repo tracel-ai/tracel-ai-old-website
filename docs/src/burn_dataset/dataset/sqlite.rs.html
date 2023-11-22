@@ -848,6 +848,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#846" id="846">846</a>
 <a href="#847" id="847">847</a>
 <a href="#848" id="848">848</a>
+<a href="#849" id="849">849</a>
+<a href="#850" id="850">850</a>
+<a href="#851" id="851">851</a>
+<a href="#852" id="852">852</a>
+<a href="#853" id="853">853</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::HashSet,
     fs, io,
@@ -1124,9 +1129,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         OpenFlags::SQLITE_OPEN_READ_ONLY
     };
 
-    <span class="comment">// Create a connection pool and make sure the connections are read only
-    </span><span class="kw">let </span>manager = SqliteConnectionManager::file(db_file).with_flags(sqlite_flags);
-
+    <span class="kw">let </span>manager = SqliteConnectionManager::file(db_file).with_flags(sqlite_flags);
     Pool::new(manager).map_err(SqliteDatasetError::ConnectionPool)
 }
 
@@ -1409,6 +1412,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Marks the dataset as completed and persists the temporary database file.
     </span><span class="kw">pub fn </span>set_completed(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>is_completed = <span class="self">self</span>.is_completed.write().unwrap();
+
+        <span class="comment">// Force close the connection pool
+        // This is required on Windows platform where the connection pool prevents
+        // from persisting the db by renaming the temp file.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(pool) = <span class="self">self</span>.conn_pool.take() {
+            std::mem::drop(pool);
+        }
 
         <span class="comment">// Rename the database file from tmp to db
         </span><span class="kw">let </span>_file_result = <span class="self">self

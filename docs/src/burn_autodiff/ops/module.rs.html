@@ -953,18 +953,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#951" id="951">951</a>
 <a href="#952" id="952">952</a>
 <a href="#953" id="953">953</a>
+<a href="#954" id="954">954</a>
+<a href="#955" id="955">955</a>
+<a href="#956" id="956">956</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::grads::Gradients;
 <span class="kw">use </span><span class="kw">crate</span>::ops::{unary, Backward, Ops};
-<span class="kw">use </span><span class="kw">crate</span>::tensor::{ADTensor, IntTensor};
-<span class="kw">use </span><span class="kw">crate</span>::ADBackendDecorator;
+<span class="kw">use </span><span class="kw">crate</span>::tensor::AutodiffTensor;
+<span class="kw">use </span><span class="kw">crate</span>::Autodiff;
 
 <span class="kw">use </span>burn_tensor::backend::Backend;
 <span class="kw">use </span>burn_tensor::ops::<span class="kw-2">*</span>;
 
 <span class="kw">use </span><span class="kw">super</span>::OpsKind;
 
-<span class="kw">impl</span>&lt;B: Backend&gt; ModuleOps&lt;ADBackendDecorator&lt;B&gt;&gt; <span class="kw">for </span>ADBackendDecorator&lt;B&gt; {
-    <span class="kw">fn </span>embedding(weights: ADTensor&lt;B, <span class="number">2</span>&gt;, indices: IntTensor&lt;B, <span class="number">2</span>&gt;) -&gt; ADTensor&lt;B, <span class="number">3</span>&gt; {
+<span class="kw">impl</span>&lt;B: Backend&gt; ModuleOps&lt;Autodiff&lt;B&gt;&gt; <span class="kw">for </span>Autodiff&lt;B&gt; {
+    <span class="kw">fn </span>embedding(weights: AutodiffTensor&lt;B, <span class="number">2</span>&gt;, indices: IntTensor&lt;B, <span class="number">2</span>&gt;) -&gt; AutodiffTensor&lt;B, <span class="number">3</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Embedding;
 
@@ -993,19 +996,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>embedding_backward(
-        _weights: ADTensor&lt;B, <span class="number">2</span>&gt;,
-        _output: ADTensor&lt;B, <span class="number">3</span>&gt;,
+        _weights: AutodiffTensor&lt;B, <span class="number">2</span>&gt;,
+        _output: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
         _indices: IntTensor&lt;B, <span class="number">2</span>&gt;,
-    ) -&gt; ADTensor&lt;B, <span class="number">2</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">2</span>&gt; {
         <span class="macro">panic!</span>(<span class="string">&quot;Can&#39;t differentiate embedding backward.&quot;</span>);
     }
 
     <span class="kw">fn </span>conv2d(
-        x: ADTensor&lt;B, <span class="number">4</span>&gt;,
-        weight: ADTensor&lt;B, <span class="number">4</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;ADTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+        weight: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;AutodiffTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvOptions&lt;<span class="number">2</span>&gt;,
-    ) -&gt; ADTensor&lt;B, <span class="number">4</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">4</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Conv2DWithBias;
         <span class="attr">#[derive(Debug)]
@@ -1105,11 +1108,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>conv_transpose2d(
-        x: ADTensor&lt;B, <span class="number">4</span>&gt;,
-        weight: ADTensor&lt;B, <span class="number">4</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;ADTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+        weight: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;AutodiffTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
-    ) -&gt; ADTensor&lt;B, <span class="number">4</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">4</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>ConvTranspose2DWithBias;
         <span class="attr">#[derive(Debug)]
@@ -1221,11 +1224,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>conv1d(
-        x: ADTensor&lt;B, <span class="number">3</span>&gt;,
-        weight: ADTensor&lt;B, <span class="number">3</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;ADTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
+        weight: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;AutodiffTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvOptions&lt;<span class="number">1</span>&gt;,
-    ) -&gt; ADTensor&lt;B, <span class="number">3</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">3</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>Conv1DWithBias;
         <span class="attr">#[derive(Debug)]
@@ -1324,11 +1327,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>conv_transpose1d(
-        x: ADTensor&lt;B, <span class="number">3</span>&gt;,
-        weight: ADTensor&lt;B, <span class="number">3</span>&gt;,
-        bias: <span class="prelude-ty">Option</span>&lt;ADTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
+        weight: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
+        bias: <span class="prelude-ty">Option</span>&lt;AutodiffTensor&lt;B, <span class="number">1</span>&gt;&gt;,
         options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
-    ) -&gt; ADTensor&lt;B, <span class="number">3</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">3</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>ConvTranspose1DWithBias;
         <span class="attr">#[derive(Debug)]
@@ -1447,20 +1450,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     // Therefore, the conv2d backward pass will be used for the unfold4d backward pass.
     //
     // fn unfold4d(
-    //     x: ADTensor&lt;B, 4&gt;,
+    //     x: AutodiffTensor&lt;B, 4&gt;,
     //     kernel_size: [usize; 2],
     //     options: UnfoldOptions,
-    // ) -&gt; ADTensor&lt;B, 3&gt; {
+    // ) -&gt; AutodiffTensor&lt;B, 3&gt; {
     //     todo!()
     // }
 
     </span><span class="kw">fn </span>avg_pool1d(
-        x: ADTensor&lt;B, <span class="number">3</span>&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         count_include_pad: bool,
-    ) -&gt; ADTensor&lt;B, <span class="number">3</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">3</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>AvgPool1D;
 
@@ -1511,12 +1514,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>avg_pool2d(
-        x: ADTensor&lt;B, <span class="number">4</span>&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         count_include_pad: bool,
-    ) -&gt; ADTensor&lt;B, <span class="number">4</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">4</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>AvgPool2D;
 
@@ -1573,23 +1576,23 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>avg_pool2d_backward(
-        _x: ADTensor&lt;B, <span class="number">4</span>&gt;,
-        _grad: ADTensor&lt;B, <span class="number">4</span>&gt;,
+        _x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+        _grad: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
         _kernel_size: [usize; <span class="number">2</span>],
         _stride: [usize; <span class="number">2</span>],
         _padding: [usize; <span class="number">2</span>],
         _count_include_pad: bool,
-    ) -&gt; ADTensor&lt;B, <span class="number">4</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">4</span>&gt; {
         <span class="macro">panic!</span>(<span class="string">&quot;Can&#39;t differentiate avg pool 2d backward.&quot;</span>);
     }
 
     <span class="kw">fn </span>max_pool1d(
-        x: ADTensor&lt;B, <span class="number">3</span>&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         dilation: usize,
-    ) -&gt; ADTensor&lt;B, <span class="number">3</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">3</span>&gt; {
         <span class="kw">match </span>MaxPool1D.prepare([x.node], [x.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>output = B::max_pool1d_with_indices(
@@ -1622,12 +1625,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>max_pool1d_with_indices(
-        x: ADTensor&lt;B, <span class="number">3</span>&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         dilation: usize,
-    ) -&gt; MaxPool1dWithIndices&lt;ADBackendDecorator&lt;B&gt;&gt; {
+    ) -&gt; MaxPool1dWithIndices&lt;Autodiff&lt;B&gt;&gt; {
         <span class="kw">match </span>MaxPool1D.prepare([x.node], [x.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>output = B::max_pool1d_with_indices(
@@ -1663,14 +1666,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>max_pool1d_with_indices_backward(
-        x: ADTensor&lt;B, <span class="number">3</span>&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
         kernel_size: usize,
         stride: usize,
         padding: usize,
         dilation: usize,
-        output_grad: ADTensor&lt;B, <span class="number">3</span>&gt;,
+        output_grad: AutodiffTensor&lt;B, <span class="number">3</span>&gt;,
         indices: IntTensor&lt;B, <span class="number">3</span>&gt;,
-    ) -&gt; MaxPool1dBackward&lt;ADBackendDecorator&lt;B&gt;&gt; {
+    ) -&gt; MaxPool1dBackward&lt;Autodiff&lt;B&gt;&gt; {
         <span class="kw">let </span>output = B::max_pool1d_with_indices_backward(
             x.primitive,
             kernel_size,
@@ -1680,16 +1683,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             output_grad.primitive,
             indices,
         );
-        MaxPool1dBackward::new(ADTensor::new(output.x_grad))
+        MaxPool1dBackward::new(AutodiffTensor::new(output.x_grad))
     }
 
     <span class="kw">fn </span>max_pool2d(
-        x: ADTensor&lt;B, <span class="number">4</span>&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         dilation: [usize; <span class="number">2</span>],
-    ) -&gt; ADTensor&lt;B, <span class="number">4</span>&gt; {
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">4</span>&gt; {
         <span class="kw">match </span>MaxPool2D.prepare([x.node], [x.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>output = B::max_pool2d_with_indices(
@@ -1722,12 +1725,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>max_pool2d_with_indices(
-        x: ADTensor&lt;B, <span class="number">4</span>&gt;,
+        x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
         kernel_size: [usize; <span class="number">2</span>],
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         dilation: [usize; <span class="number">2</span>],
-    ) -&gt; MaxPool2dWithIndices&lt;ADBackendDecorator&lt;B&gt;&gt; {
+    ) -&gt; MaxPool2dWithIndices&lt;Autodiff&lt;B&gt;&gt; {
         <span class="kw">match </span>MaxPool2D.prepare([x.node], [x.graph]).stateful() {
             OpsKind::Tracked(prep) =&gt; {
                 <span class="kw">let </span>output = B::max_pool2d_with_indices(
@@ -1763,17 +1766,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>max_pool2d_with_indices_backward(
-        _x: ADTensor&lt;B, <span class="number">4</span>&gt;,
+        _x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
         _kernel_size: [usize; <span class="number">2</span>],
         _stride: [usize; <span class="number">2</span>],
         _padding: [usize; <span class="number">2</span>],
         _dilation: [usize; <span class="number">2</span>],
-        _output_grad: ADTensor&lt;B, <span class="number">4</span>&gt;,
+        _output_grad: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
         _indices: IntTensor&lt;B, <span class="number">4</span>&gt;,
-    ) -&gt; MaxPool2dBackward&lt;ADBackendDecorator&lt;B&gt;&gt; {
+    ) -&gt; MaxPool2dBackward&lt;Autodiff&lt;B&gt;&gt; {
         <span class="macro">panic!</span>(<span class="string">&quot;Can&#39;t differentiate max pool2d with indices backward.&quot;</span>);
     }
-    <span class="kw">fn </span>adaptive_avg_pool1d(x: ADTensor&lt;B, <span class="number">3</span>&gt;, output_size: usize) -&gt; ADTensor&lt;B, <span class="number">3</span>&gt; {
+    <span class="kw">fn </span>adaptive_avg_pool1d(x: AutodiffTensor&lt;B, <span class="number">3</span>&gt;, output_size: usize) -&gt; AutodiffTensor&lt;B, <span class="number">3</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>AdaptiveAvgPool1D;
 
@@ -1802,7 +1805,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>adaptive_avg_pool2d(x: ADTensor&lt;B, <span class="number">4</span>&gt;, output_size: [usize; <span class="number">2</span>]) -&gt; ADTensor&lt;B, <span class="number">4</span>&gt; {
+    <span class="kw">fn </span>adaptive_avg_pool2d(
+        x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+        output_size: [usize; <span class="number">2</span>],
+    ) -&gt; AutodiffTensor&lt;B, <span class="number">4</span>&gt; {
         <span class="attr">#[derive(Debug)]
         </span><span class="kw">struct </span>AdaptiveAvgPool2D;
 
@@ -1832,9 +1838,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>adaptive_avg_pool2d_backward(
-        _x: ADTensor&lt;B, <span class="number">4</span>&gt;,
-        _grad: ADTensor&lt;B, <span class="number">4</span>&gt;,
-    ) -&gt; &lt;ADBackendDecorator&lt;B&gt; <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;<span class="number">4</span>&gt; {
+        _x: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+        _grad: AutodiffTensor&lt;B, <span class="number">4</span>&gt;,
+    ) -&gt; &lt;Autodiff&lt;B&gt; <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;<span class="number">4</span>&gt; {
         <span class="macro">panic!</span>(<span class="string">&quot;Can&#39;t differentiate adaptive avg pool2d backward.&quot;</span>);
     }
 }

@@ -452,20 +452,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 <span class="self">self</span>.channels[<span class="number">1</span>] / <span class="self">self</span>.groups,
                 <span class="self">self</span>.kernel_size,
             ]);
-            <span class="kw">let </span>weight = TestADTensor::from_data(
+            <span class="kw">let </span>weight = TestAutodiffTensor::from_data(
                 TestTensorInt::arange(<span class="number">0</span>..shape_weight.num_elements())
                     .reshape(shape_weight)
                     .into_data()
                     .convert(),
             )
             .require_grad();
-            <span class="kw">let </span>bias = TestADTensor::from_data(
+            <span class="kw">let </span>bias = TestAutodiffTensor::from_data(
                 TestTensorInt::arange(<span class="number">0</span>..<span class="self">self</span>.channels[<span class="number">1</span>])
                     .into_data()
                     .convert(),
             )
             .require_grad();
-            <span class="kw">let </span>x = TestADTensor::from_data(
+            <span class="kw">let </span>x = TestAutodiffTensor::from_data(
                 TestTensorInt::arange(<span class="number">0</span>..shape_x.num_elements())
                     .reshape(shape_x)
                     .into_data()

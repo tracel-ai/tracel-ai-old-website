@@ -206,6 +206,7 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 <tr><td><code>tensor.flatten(start_dim, end_dim)</code></td><td><code>tensor.flatten(start_dim, end_dim)</code></td></tr>
 <tr><td><code>tensor.squeeze(dim)</code></td><td><code>tensor.squeeze(dim)</code></td></tr>
 <tr><td><code>tensor.unsqueeze()</code></td><td><code>tensor.unsqueeze(0)</code></td></tr>
+<tr><td><code>tensor.unsqueeze_dim(dim)</code></td><td><code>tensor.unsqueeze(dim)</code></td></tr>
 <tr><td><code>tensor.slice(ranges)</code></td><td><code>tensor[(*ranges,)]</code></td></tr>
 <tr><td><code>tensor.slice_assign(ranges, values)</code></td><td><code>tensor[(*ranges,)] = values</code></td></tr>
 <tr><td><code>tensor.device()</code></td><td><code>tensor.device</code></td></tr>
@@ -282,6 +283,7 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 <tr><td><code>tensor.erf()</code></td><td><code>tensor.erf()</code></td></tr>
 <tr><td><code>tensor.powf(value)</code></td><td><code>tensor.pow(value)</code></td></tr>
 <tr><td><code>tensor.sqrt()</code></td><td><code>tensor.sqrt()</code></td></tr>
+<tr><td><code>tensor.recip()</code></td><td><code>tensor.reciprocal()</code></td></tr>
 <tr><td><code>tensor.cos()</code></td><td><code>tensor.cos()</code></td></tr>
 <tr><td><code>tensor.sin()</code></td><td><code>tensor.sin()</code></td></tr>
 <tr><td><code>tensor.tanh()</code></td><td><code>tensor.tanh()</code></td></tr>

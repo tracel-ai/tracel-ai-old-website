@@ -195,9 +195,9 @@ pub trait Backend: burn::tensor::backend::Backend {
     ) -&gt; FloatTensor&lt;Self, D&gt;;
 }
 
-/// We create our own ADBackend trait that extends the Burn autodiff backend trait.
-pub trait ADBackend: Backend + burn::tensor::backend::ADBackend {}</code></pre>
-<p>In our project, we can use these traits instead of the <code>burn::tensor::backend::{Backend, ADBackend}</code>
+/// We create our own AutodiffBackend trait that extends the Burn autodiff backend trait.
+pub trait AutodiffBackend: Backend + burn::tensor::backend::AutodiffBackend {}</code></pre>
+<p>In our project, we can use these traits instead of the <code>burn::tensor::backend::{Backend, AutodiffBackend}</code>
 traits provided by Burn. Burn's user APIs typically make use of the <code>Tensor</code> struct rather than
 dealing directly with primitive tensor types. Therefore, we can encapsulate our newly defined
 backend traits with functions that expose new operations while maintaining a consistent API.</p>
@@ -347,8 +347,8 @@ impl&lt;E: FloatElement&gt; DynamicKernel for FusedMatmulAddRelu&lt;E&gt; {
     }
 }</code></pre>
 <p>Subsequently, we'll go into implementing our custom backend trait for the WGPU backend.</p>
-<pre><code class="language-rust  ignore">/// Implement our custom backend trait for the existing backend `WgpuBackend`.
-impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; Backend for WgpuBackend&lt;G, F, I&gt; {
+<pre><code class="language-rust  ignore">/// Implement our custom backend trait for the existing backend `Wgpu`.
+impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; Backend for Wgpu&lt;G, F, I&gt; {
     fn fused_matmul_add_relu&lt;const D: usize&gt;(
         lhs: FloatTensor&lt;Self, D&gt;,
         rhs: FloatTensor&lt;Self, D&gt;,
@@ -438,7 +438,7 @@ operations.</p>
 // Note that we could implement the backend trait only for the Wgpu backend instead of any backend that
 // also implements our own API. This would allow us to call any function only implemented for Wgpu
 // and potentially call a custom kernel crafted only for this task.
-impl&lt;B: Backend&gt; Backend for ADBackendDecorator&lt;B&gt; {
+impl&lt;B: Backend&gt; Backend for Autodiff&lt;B&gt; {
     fn fused_matmul_add_relu&lt;const D: usize&gt;(
         lhs: FloatTensor&lt;Self, D&gt;,
         rhs: FloatTensor&lt;Self, D&gt;,
@@ -543,22 +543,20 @@ impl&lt;B: Backend&gt; Backend for ADBackendDecorator&lt;B&gt; {
     }
 }</code></pre>
 <p>The previous code is self-documented to make it clearer, but here is what it does in summary.</p>
-<p>We define <code>fused_matmul_add_relu</code> within <code>ADBackendDecorator&lt;B&gt;</code>, allowing any autodiff-decorated
-backend to benefit from our implementation. In an autodiff-decorated backend, the forward pass must
-still be implemented. This is achieved using a comprehensive match statement block where computation
-is delegated to the inner backend, while keeping track of a state. The state comprises any
-information relevant to the backward pass, such as input and output tensors, along with the bias
-shape. When an operation isn't tracked (meaning there won't be a backward pass for this specific
-operation in the graph), storing a state becomes unnecessary, and we simply perform the forward
-computation.</p>
+<p>We define <code>fused_matmul_add_relu</code> within <code>Autodiff&lt;B&gt;</code>, allowing any autodiff-decorated backend to
+benefit from our implementation. In an autodiff-decorated backend, the forward pass must still be
+implemented. This is achieved using a comprehensive match statement block where computation is
+delegated to the inner backend, while keeping track of a state. The state comprises any information
+relevant to the backward pass, such as input and output tensors, along with the bias shape. When an
+operation isn't tracked (meaning there won't be a backward pass for this specific operation in the
+graph), storing a state becomes unnecessary, and we simply perform the forward computation.</p>
 <p>The backward pass uses the gradient obtained from the preceding node in the computation graph. It
 calculates the derivatives for <code>relu</code> (<code>relu_backward</code>), add (no operation is required here, as the
 derivative is one), and <code>matmul</code> (another <code>matmul</code> with transposed inputs). This results in
 gradients for both input tensors and the bias, which are registered for consumption by subsequent
 operation nodes.</p>
-<p>The only remaining part is to implement our autodiff-decorated backend trait for our WGPUBackend.</p>
-<pre><code class="language-rust  ignore">impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; ADBackend
-    for ADBackendDecorator&lt;WgpuBackend&lt;G, F, I&gt;&gt;
+<p>The only remaining part is to implement our autodiff-decorated backend trait for our WGPU Backend.</p>
+<pre><code class="language-rust  ignore">impl&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; AutodiffBackend for Autodiff&lt;Wgpu&lt;G, F, I&gt;&gt;
 {
 }</code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>

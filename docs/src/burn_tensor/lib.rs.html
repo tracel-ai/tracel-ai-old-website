@@ -21,15 +21,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#19" id="19">19</a>
 <a href="#20" id="20">20</a>
 <a href="#21" id="21">21</a>
-<a href="#22" id="22">22</a>
-<a href="#23" id="23">23</a>
-<a href="#24" id="24">24</a>
-<a href="#25" id="25">25</a>
-<a href="#26" id="26">26</a>
-<a href="#27" id="27">27</a>
-<a href="#28" id="28">28</a>
-<a href="#29" id="29">29</a>
-<a href="#30" id="30">30</a>
 </pre></div><pre class="rust"><code><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
 #![warn(missing_docs)]
 
@@ -51,13 +42,4 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="kw">pub use </span>tensor::<span class="kw-2">*</span>;
 
 <span class="kw">pub use </span>burn_common::reader::Reader; <span class="comment">// Useful so that backends don&#39;t have to add `burn_common` as
-                                     // a dependency so that they can implement the traits.
-
-</span><span class="attr">#[cfg(feature = <span class="string">&quot;benchmark&quot;</span>)]
-</span><span class="doccomment">/// This module provides benchmark utilities for easily and reliably run
-/// benches on any function that is generic over a backend.
-///
-/// This can be useful to compare backends on  inference or training speed
-/// for your models.
-</span><span class="kw">pub mod </span>benchmark;
-</code></pre></div></section></main></body></html>
+</span></code></pre></div></section></main></body></html>

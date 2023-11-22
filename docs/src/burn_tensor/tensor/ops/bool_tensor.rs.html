@@ -261,18 +261,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
 <a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{backend::Backend, tensor::Shape, Data};
+</pre></div><pre class="rust"><code><span class="kw">use super</span>::{BoolTensor, Device, FloatTensor, IntTensor};
+<span class="kw">use crate</span>::{backend::Backend, tensor::Shape, Data};
 <span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>burn_common::reader::Reader;
 <span class="kw">use </span>core::ops::Range;
@@ -290,8 +280,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The boolean tensor with the given shape.
-    </span><span class="kw">fn </span>bool_empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>B::Device)
-        -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;B&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns the shape of the tensor.
     ///
@@ -302,7 +291,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The shape of the tensor.
-    </span><span class="kw">fn </span>bool_shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>B::BoolTensorPrimitive&lt;D&gt;) -&gt; Shape&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>BoolTensor&lt;B, D&gt;) -&gt; Shape&lt;D&gt;;
 
     <span class="doccomment">/// Converts the tensor to a data structure.
     ///
@@ -313,7 +302,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The data structure with the tensor&#39;s data.
-    </span><span class="kw">fn </span>bool_into_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::BoolTensorPrimitive&lt;D&gt;) -&gt; Reader&lt;Data&lt;bool, D&gt;&gt;;
+    </span><span class="kw">fn </span>bool_into_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: BoolTensor&lt;B, D&gt;) -&gt; Reader&lt;Data&lt;bool, D&gt;&gt;;
 
     <span class="doccomment">/// Gets the data from the tensor.
     ///
@@ -325,7 +314,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The data cloned from the data structure.
-    </span><span class="kw">fn </span>bool_to_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>B::BoolTensorPrimitive&lt;D&gt;) -&gt; Reader&lt;Data&lt;bool, D&gt;&gt; {
+    </span><span class="kw">fn </span>bool_to_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>BoolTensor&lt;B, D&gt;) -&gt; Reader&lt;Data&lt;bool, D&gt;&gt; {
         <span class="self">Self</span>::bool_into_data(tensor.clone())
     }
 
@@ -339,10 +328,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The tensor with the data.
-    </span><span class="kw">fn </span>bool_from_data&lt;<span class="kw">const </span>D: usize&gt;(
-        data: Data&lt;bool, D&gt;,
-        device: <span class="kw-2">&amp;</span>B::Device,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_from_data&lt;<span class="kw">const </span>D: usize&gt;(data: Data&lt;bool, D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;B&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Converts bool tensor to int tensor.
     ///
@@ -353,8 +339,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The int tensor with the same data as the bool tensor.
-    </span><span class="kw">fn </span>bool_into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::BoolTensorPrimitive&lt;D&gt;)
-        -&gt; B::IntTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: BoolTensor&lt;B, D&gt;) -&gt; IntTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Converts bool tensor to float tensor.
     ///
@@ -365,7 +350,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The float tensor with the same data as the bool tensor.
-    </span><span class="kw">fn </span>bool_into_float&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::BoolTensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_into_float&lt;<span class="kw">const </span>D: usize&gt;(tensor: BoolTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Gets the device of the tensor.
     ///
@@ -376,13 +361,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The device of the tensor.
-    </span><span class="kw">fn </span>bool_device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>B::BoolTensorPrimitive&lt;D&gt;) -&gt; B::Device;
+    </span><span class="kw">fn </span>bool_device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>BoolTensor&lt;B, D&gt;) -&gt; Device&lt;B&gt;;
 
     <span class="doccomment">/// Moves the tensor to the device.
     </span><span class="kw">fn </span>bool_to_device&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::BoolTensorPrimitive&lt;D&gt;,
-        device: <span class="kw-2">&amp;</span>B::Device,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+        tensor: BoolTensor&lt;B, D&gt;,
+        device: <span class="kw-2">&amp;</span>Device&lt;B&gt;,
+    ) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Reshapes the tensor.
     ///
@@ -395,9 +380,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the new shape.
     </span><span class="kw">fn </span>bool_reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
-        tensor: B::BoolTensorPrimitive&lt;D1&gt;,
+        tensor: BoolTensor&lt;B, D1&gt;,
         shape: Shape&lt;D2&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D2&gt;;
+    ) -&gt; BoolTensor&lt;B, D2&gt;;
 
     <span class="doccomment">/// Gets the values from the tensor for the given ranges.
     ///
@@ -410,9 +395,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the values for the given ranges.
     </span><span class="kw">fn </span>bool_slice&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
-        tensor: B::BoolTensorPrimitive&lt;D1&gt;,
+        tensor: BoolTensor&lt;B, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
-    ) -&gt; B::BoolTensorPrimitive&lt;D1&gt;;
+    ) -&gt; BoolTensor&lt;B, D1&gt;;
 
     <span class="doccomment">/// Sets the values in the tensor for the given ranges.
     ///
@@ -426,10 +411,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the values set for the given ranges.
     </span><span class="kw">fn </span>bool_slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
-        tensor: B::BoolTensorPrimitive&lt;D1&gt;,
+        tensor: BoolTensor&lt;B, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
-        value: B::BoolTensorPrimitive&lt;D1&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D1&gt;;
+        value: BoolTensor&lt;B, D1&gt;,
+    ) -&gt; BoolTensor&lt;B, D1&gt;;
 
     <span class="doccomment">/// Repeats one dimension of the tensor a given number of times along that dimension.
     ///
@@ -443,10 +428,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the dimension repeated.
     </span><span class="kw">fn </span>bool_repeat&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::BoolTensorPrimitive&lt;D&gt;,
+        tensor: BoolTensor&lt;B, D&gt;,
         dim: usize,
         times: usize,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt; {
+    ) -&gt; BoolTensor&lt;B, D&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>shape = <span class="self">Self</span>::bool_shape(<span class="kw-2">&amp;</span>tensor);
         <span class="kw">if </span>shape.dims[dim] != <span class="number">1 </span>{
             <span class="macro">panic!</span>(<span class="string">&quot;Can only repeat dimension with dim=1&quot;</span>);
@@ -481,10 +466,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The tensor with the tensors concatenated along the given dimension.
-    </span><span class="kw">fn </span>bool_cat&lt;<span class="kw">const </span>D: usize&gt;(
-        tensors: Vec&lt;B::BoolTensorPrimitive&lt;D&gt;&gt;,
-        dim: usize,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_cat&lt;<span class="kw">const </span>D: usize&gt;(tensors: Vec&lt;BoolTensor&lt;B, D&gt;&gt;, dim: usize) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Equates the two tensors.
     ///
@@ -496,10 +478,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The tensor with the result of the equate.
-    </span><span class="kw">fn </span>bool_equal&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::BoolTensorPrimitive&lt;D&gt;,
-        rhs: B::BoolTensorPrimitive&lt;D&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_equal&lt;<span class="kw">const </span>D: usize&gt;(lhs: BoolTensor&lt;B, D&gt;, rhs: BoolTensor&lt;B, D&gt;)
+        -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Inverses boolean values.
     ///
@@ -510,7 +490,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The tensor with the result of the negation.
-    </span><span class="kw">fn </span>bool_not&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::BoolTensorPrimitive&lt;D&gt;) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>bool_not&lt;<span class="kw">const </span>D: usize&gt;(tensor: BoolTensor&lt;B, D&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Transposes a bool tensor.
     ///
@@ -521,9 +501,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The transposed tensor.
-    </span><span class="kw">fn </span>bool_transpose&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::BoolTensorPrimitive&lt;D&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>bool_transpose&lt;<span class="kw">const </span>D: usize&gt;(tensor: BoolTensor&lt;B, D&gt;) -&gt; BoolTensor&lt;B, D&gt; {
         <span class="self">Self</span>::bool_swap_dims(tensor, D - <span class="number">2</span>, D - <span class="number">1</span>)
     }
 
@@ -539,9 +517,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the dimensions swapped.
     </span><span class="kw">fn </span>bool_swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::BoolTensorPrimitive&lt;D&gt;,
+        tensor: BoolTensor&lt;B, D&gt;,
         dim1: usize,
         dim2: usize,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    ) -&gt; BoolTensor&lt;B, D&gt;;
 }
 </code></pre></div></section></main></body></html>

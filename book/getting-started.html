@@ -185,7 +185,7 @@ do in order to run Burn.</p>
 Cargo, which was installed with Rust. In the directory of your choice, run</p>
 <pre><code class="language-console">cargo new my_burn_app
 </code></pre>
-<p>This will create the <code>my_burn_app</code> project directory. Head inside with </p>
+<p>This will create the <code>my_burn_app</code> project directory. Head inside with</p>
 <pre><code class="language-console">cd my_burn_app
 </code></pre>
 <p>then add the dependency with</p>
@@ -199,10 +199,10 @@ operations on every platform, using the GPU.</p>
 <h2 id="writing-a-code-snippet"><a class="header" href="#writing-a-code-snippet">Writing a code snippet</a></h2>
 <p>Now open <code>src/main.rs</code> and replace its content with</p>
 <pre><code class="language-rust  ignore">use burn::tensor::Tensor;
-use burn::backend::WgpuBackend;
+use burn::backend::Wgpu;
 
 // Type alias for the backend to use.
-type Backend = WgpuBackend;
+type Backend = Wgpu;
 
 fn main() {
     // Creation of two tensors, the first with explicit values and the second one with ones, with the same shape as the first
@@ -225,6 +225,11 @@ fn main() {
 <p>While the previous example is somewhat trivial, the upcoming
 <a href="./basic-workflow/README.html">basic workflow section</a> will walk you through a much more relevant
 example for deep learning applications.</p>
+<h2 id="running-examples"><a class="header" href="#running-examples">Running examples</a></h2>
+<p>Burn uses HuggingFace's <a href="https://huggingface.co/docs/datasets/index">datasets</a> library to load
+datasets. <code>datasets</code> is a Python library, and therefore, in order to run examples, you will need to
+install Python. Follow the instructions on the <a href="https://www.python.org/downloads/">official website</a>
+to install Python on your computer.</p>
 
                     </main>
 

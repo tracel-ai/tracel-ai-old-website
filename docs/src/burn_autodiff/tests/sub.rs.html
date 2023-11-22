@@ -70,8 +70,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_1 = Data::from([<span class="number">2.0</span>, <span class="number">5.0</span>]);
         <span class="kw">let </span>data_2 = Data::from([<span class="number">4.0</span>, <span class="number">1.0</span>]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().sub(tensor_2.clone());
         <span class="kw">let </span>grads = tensor_3.backward();
@@ -87,7 +87,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="attr">#[test]
     </span><span class="kw">fn </span>should_diff_sub_scalar() {
         <span class="kw">let </span>data = Data::from([<span class="number">2.0</span>, <span class="number">10.0</span>]);
-        <span class="kw">let </span>tensor = TestADTensor::from_data(data).require_grad();
+        <span class="kw">let </span>tensor = TestAutodiffTensor::from_data(data).require_grad();
         <span class="kw">let </span>tensor_out = tensor.clone().sub_scalar(<span class="number">5.0</span>);
         <span class="kw">let </span>grads = tensor_out.backward();
 
@@ -103,9 +103,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_2: Data&lt;f32, <span class="number">2</span>&gt; = Data::from([[<span class="number">4.0</span>, <span class="number">7.0</span>], [<span class="number">2.0</span>, <span class="number">3.0</span>]]);
         <span class="kw">let </span>data_3: Data&lt;f32, <span class="number">2</span>&gt; = Data::from([[<span class="number">2.0</span>, <span class="number">2.0</span>], [<span class="number">2.0</span>, <span class="number">2.0</span>]]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
-        <span class="kw">let </span>tensor_3 = TestADTensor::from_data(data_3).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_3 = TestAutodiffTensor::from_data(data_3).require_grad();
 
         <span class="kw">let </span>tensor_4 = tensor_1.clone().sub(tensor_2.clone());
         <span class="kw">let </span>tensor_5 = tensor_4.sub(tensor_3).sub_scalar(<span class="number">5.0</span>);

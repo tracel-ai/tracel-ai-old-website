@@ -24,6 +24,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#22" id="22">22</a>
 <a href="#23" id="23">23</a>
 <a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
 </pre></div><pre class="rust"><code><span class="attr">#[burn_tensor_testgen::testgen(gradients)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -31,15 +32,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>should_update_tensor_when_grad_replace() {
-        <span class="kw">let </span>tensor_1 = TestADTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default);
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default);
 
         <span class="kw">let </span>x = tensor_1.clone().matmul(activation::gelu(tensor_2));
         <span class="kw">let </span><span class="kw-2">mut </span>grads = x.backward();
 
         <span class="kw">let </span>grad_1 = tensor_1.grad(<span class="kw-2">&amp;</span>grads).unwrap();
 
-        <span class="kw">let </span>grad_1_updated = TestADTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default).require_grad();
+        <span class="kw">let </span>grad_1_updated =
+            TestAutodiffTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default).require_grad();
         tensor_1.grad_replace(<span class="kw-2">&amp;mut </span>grads, grad_1_updated.clone().inner());
 
         <span class="kw">let </span>grad_1_new = tensor_1.grad(<span class="kw-2">&amp;</span>grads).unwrap();

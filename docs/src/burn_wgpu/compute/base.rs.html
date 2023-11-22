@@ -229,6 +229,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::WgpuServer;
 <span class="kw">use crate</span>::{compute::WgpuStorage, GraphicsApi, WgpuDevice};
 <span class="kw">use </span>alloc::sync::Arc;
@@ -236,12 +239,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     channel::MutexComputeChannel,
     client::ComputeClient,
     memory_management::{DeallocStrategy, SimpleMemoryManagement, SliceStrategy},
+    tune::Tuner,
     Compute,
 };
+<span class="kw">use </span>spin::Mutex;
 <span class="kw">use </span>wgpu::DeviceDescriptor;
 
 <span class="kw">type </span>MemoryManagement = SimpleMemoryManagement&lt;WgpuStorage&gt;;
-<span class="kw">type </span>Server = WgpuServer&lt;MemoryManagement&gt;;
+<span class="doccomment">/// Wgpu [compute server](WgpuServer)
+</span><span class="kw">pub type </span>Server = WgpuServer&lt;MemoryManagement&gt;;
 <span class="kw">type </span>Channel = MutexComputeChannel&lt;Server&gt;;
 
 <span class="doccomment">/// Wgpu [compute client](ComputeClient) to communicate with the [compute server](WgpuServer).
@@ -290,13 +296,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>storage = WgpuStorage::new(device.clone());
     <span class="kw">let </span>memory_management = SimpleMemoryManagement::new(
         storage,
-        DeallocStrategy::new_period_tick(<span class="number">1000</span>),
-        SliceStrategy::Ratio(<span class="number">0.9</span>),
+        DeallocStrategy::new_period_tick(max_tasks * <span class="number">2</span>),
+        SliceStrategy::Ratio(<span class="number">0.8</span>),
     );
     <span class="kw">let </span>server = WgpuServer::new(memory_management, device, queue, max_tasks);
     <span class="kw">let </span>channel = Channel::new(server);
 
-    ComputeClient::new(channel)
+    ComputeClient::new(channel, Arc::new(Mutex::new(Tuner::new())))
 }
 
 <span class="doccomment">/// Select the wgpu device and queue based on the provided [device](WgpuDevice).

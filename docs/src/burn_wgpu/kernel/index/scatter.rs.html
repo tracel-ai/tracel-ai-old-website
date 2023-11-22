@@ -141,11 +141,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#139" id="139">139</a>
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::StaticKernel,
     element::WgpuElement,
     kernel::{<span class="self">self</span>, build_info, elemwise_workgroup, KernelSettings, WORKGROUP_DEFAULT},
@@ -204,7 +200,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ));
 
     tensor.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor.handle, <span class="kw-2">&amp;</span>indices.handle, <span class="kw-2">&amp;</span>value.handle, <span class="kw-2">&amp;</span>info_handle],
     );
 
@@ -258,7 +254,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>indices = Tensor::&lt;TestBackend, <span class="number">1</span>, Int&gt;::from_data(
             Tensor::&lt;TestBackend, <span class="number">1</span>&gt;::random(
                 [shape2.iter().product()],
-                Distribution::Uniform(<span class="number">0.</span>, shape2[dim] <span class="kw">as </span>f32),
+                Distribution::Uniform(<span class="number">0.</span>, shape2[dim] <span class="kw">as </span>f64),
             )
             .into_data()
             .convert(),

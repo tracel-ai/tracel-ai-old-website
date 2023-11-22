@@ -89,7 +89,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// The compute type has the responsibility to retrieve the correct compute client based on the
 /// given device.
-</span><span class="kw">pub struct </span>Compute&lt;Device, Server, Channel&gt; {
+</span><span class="kw">pub struct </span>Compute&lt;Device, Server: ComputeServer, Channel&gt; {
     clients: spin::Mutex&lt;<span class="prelude-ty">Option</span>&lt;HashMap&lt;Device, ComputeClient&lt;Server, Channel&gt;&gt;&gt;&gt;,
 }
 

@@ -52,30 +52,54 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#50" id="50">50</a>
 <a href="#51" id="51">51</a>
 <a href="#52" id="52">52</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>burn_tensor::backend::Backend;
-<span class="kw">use </span>rand::{rngs::StdRng, SeedableRng};
-
-<span class="kw">use crate</span>::{
+<a href="#53" id="53">53</a>
+<a href="#54" id="54">54</a>
+<a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::compute_client,
     element::{FloatElement, IntElement},
     tensor::WgpuTensor,
-    GraphicsApi, WgpuDevice,
+    AutoGraphicsApi, GraphicsApi, WgpuDevice,
 };
+<span class="kw">use </span>burn_tensor::backend::Backend;
+<span class="kw">use </span>rand::{rngs::StdRng, SeedableRng};
 <span class="kw">use </span>std::{marker::PhantomData, sync::Mutex};
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">static </span>SEED: Mutex&lt;<span class="prelude-ty">Option</span>&lt;StdRng&gt;&gt; = Mutex::new(<span class="prelude-val">None</span>);
 
-<span class="doccomment">/// Wgpu backend.
+<span class="doccomment">/// Tensor backend that uses the [wgpu] crate for executing GPU compute shaders.
+///
+/// This backend can target multiple graphics APIs, including:
+///   - [Vulkan](crate::Vulkan) on Linux, Windows, and Android.
+///   - [OpenGL](crate::OpenGl) on Linux, Windows, and Android.
+///   - [DirectX 11](crate::Dx11) on Windows.
+///   - [DirectX 12](crate::Dx12) on Windows.
+///   - [Metal](crate::Metal) on Apple hardware.
+///   - [WebGPU](crate::WebGpu) on supported browsers and `wasm` runtimes.
 </span><span class="attr">#[derive(Debug, Default, Clone)]
-</span><span class="kw">pub struct </span>WgpuBackend&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; {
+</span><span class="kw">pub struct </span>Wgpu&lt;G = AutoGraphicsApi, F = f32, I = i32&gt;
+<span class="kw">where
+    </span>G: GraphicsApi,
+    F: FloatElement,
+    I: IntElement,
+{
     _g: PhantomData&lt;G&gt;,
     _f: PhantomData&lt;F&gt;,
     _i: PhantomData&lt;I&gt;,
 }
 
-<span class="kw">impl</span>&lt;G: GraphicsApi + <span class="lifetime">&#39;static</span>, F: FloatElement, I: IntElement&gt; Backend <span class="kw">for </span>WgpuBackend&lt;G, F, I&gt; {
+<span class="kw">impl</span>&lt;G: GraphicsApi + <span class="lifetime">&#39;static</span>, F: FloatElement, I: IntElement&gt; Backend <span class="kw">for </span>Wgpu&lt;G, F, I&gt; {
     <span class="kw">type </span>Device = WgpuDevice;
-    <span class="kw">type </span>FullPrecisionBackend = WgpuBackend&lt;G, f32, i32&gt;;
+    <span class="kw">type </span>FullPrecisionBackend = Wgpu&lt;G, f32, i32&gt;;
 
     <span class="kw">type </span>FullPrecisionElem = f32;
     <span class="kw">type </span>FloatElem = F;

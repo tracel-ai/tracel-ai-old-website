@@ -67,13 +67,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="kw">pub use </span>backend::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>element::FloatNdArrayElement;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>sharing::<span class="kw-2">*</span>;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>tensor::<span class="kw-2">*</span>;
+<span class="kw">pub use </span>tensor::<span class="kw-2">*</span>;
 
 <span class="kw">extern crate </span>alloc;
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="kw">type </span>TestBackend = <span class="kw">crate</span>::NdArrayBackend&lt;f32&gt;;
+    <span class="kw">type </span>TestBackend = <span class="kw">crate</span>::NdArray&lt;f32&gt;;
     <span class="kw">type </span>TestTensor&lt;<span class="kw">const </span>D: usize&gt; = burn_tensor::Tensor&lt;TestBackend, D&gt;;
     <span class="kw">type </span>TestTensorInt&lt;<span class="kw">const </span>D: usize&gt; = burn_tensor::Tensor&lt;TestBackend, D, burn_tensor::Int&gt;;
     <span class="kw">use </span>alloc::format;

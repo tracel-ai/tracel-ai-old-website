@@ -85,7 +85,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#83" id="83">83</a>
 <a href="#84" id="84">84</a>
 <a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::backend::Backend;
+<span class="kw">use </span><span class="kw">crate</span>::ops::FloatTensor;
 <span class="kw">use crate</span>::{Data, ElementConversion, Shape};
 <span class="kw">use </span>alloc::vec;
 <span class="kw">use </span>alloc::vec::Vec;
@@ -104,7 +106,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     in_channels: usize,
     kernel_size: [usize; <span class="number">2</span>],
     device: <span class="kw-2">&amp;</span>B::Device,
-) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
     <span class="kw">let </span>shape = Shape::new([
         in_channels * kernel_size[<span class="number">0</span>] * kernel_size[<span class="number">1</span>],
         in_channels,
@@ -145,10 +147,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Compute the unfold4d operation using the conv2d operations.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>unfold4d_using_conv2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     kernel_size: [usize; <span class="number">2</span>],
     options: UnfoldOptions,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[_batch_size, in_channels, _in_height, _in_width] = B::shape(<span class="kw-2">&amp;</span>x).dims;
     <span class="kw">let </span>weight = create_unfolding_weight::&lt;B&gt;(in_channels, kernel_size, <span class="kw-2">&amp;</span>B::device(<span class="kw-2">&amp;</span>x));
     <span class="kw">let </span>unfolded = B::conv2d(

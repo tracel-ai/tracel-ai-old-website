@@ -32,8 +32,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>should_diff_gelu() {
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_floats([[<span class="number">0.0</span>, <span class="number">1.0</span>], [-<span class="number">3.0</span>, <span class="number">4.0</span>]]).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_floats([[<span class="number">6.0</span>, -<span class="number">0.5</span>], [<span class="number">9.0</span>, <span class="number">10.0</span>]]).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_floats([[<span class="number">0.0</span>, <span class="number">1.0</span>], [-<span class="number">3.0</span>, <span class="number">4.0</span>]]).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_floats([[<span class="number">6.0</span>, -<span class="number">0.5</span>], [<span class="number">9.0</span>, <span class="number">10.0</span>]]).require_grad();
 
         <span class="kw">let </span>x = tensor_1.clone().matmul(activation::gelu(tensor_2.clone()));
         <span class="kw">let </span>x = tensor_1.clone().matmul(x);

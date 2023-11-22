@@ -483,6 +483,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#481" id="481">481</a>
 <a href="#482" id="482">482</a>
 <a href="#483" id="483">483</a>
+<a href="#484" id="484">484</a>
+<a href="#485" id="485">485</a>
+<a href="#486" id="486">486</a>
+<a href="#487" id="487">487</a>
+<a href="#488" id="488">488</a>
+<a href="#489" id="489">489</a>
+<a href="#490" id="490">490</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>burn_tensor::Data;
 <span class="kw">use </span>burn_tensor::ElementConversion;
@@ -661,6 +668,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">pub fn </span>div_scalar&lt;<span class="kw">const </span>D: usize&gt;(lhs: NdArrayTensor&lt;E, D&gt;, rhs: E) -&gt; NdArrayTensor&lt;E, D&gt; {
         <span class="kw">let </span>array = lhs.array / rhs;
+        <span class="kw">let </span>array = array.into_shared();
+
+        NdArrayTensor { array }
+    }
+
+    <span class="kw">pub fn </span>recip&lt;<span class="kw">const </span>D: usize&gt;(tensor: NdArrayTensor&lt;E, D&gt;) -&gt; NdArrayTensor&lt;E, D&gt; {
+        <span class="kw">let </span>array = tensor.array.map(|x| <span class="number">1</span>.elem::&lt;E&gt;() / <span class="kw-2">*</span>x);
         <span class="kw">let </span>array = array.into_shared();
 
         NdArrayTensor { array }

@@ -119,12 +119,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">use crate</span>::{
     element::{FloatElement, IntElement},
-    kernel, GraphicsApi, WgpuBackend,
+    kernel, GraphicsApi, Wgpu,
 };
 
-<span class="kw">use super</span>::{FloatTensor, IntTensor};
+<span class="kw">use </span>burn_tensor::ops::{FloatTensor, IntTensor};
 
-<span class="kw">impl</span>&lt;G, F, I&gt; ModuleOps&lt;WgpuBackend&lt;G, F, I&gt;&gt; <span class="kw">for </span>WgpuBackend&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; ModuleOps&lt;<span class="self">Self</span>&gt; <span class="kw">for </span>Wgpu&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi + <span class="lifetime">&#39;static</span>,
     F: FloatElement,
@@ -185,7 +185,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         stride: [usize; <span class="number">2</span>],
         padding: [usize; <span class="number">2</span>],
         dilation: [usize; <span class="number">2</span>],
-    ) -&gt; MaxPool2dWithIndices&lt;WgpuBackend&lt;G, F, I&gt;&gt; {
+    ) -&gt; MaxPool2dWithIndices&lt;Wgpu&lt;G, F, I&gt;&gt; {
         <span class="kw">let </span>(output, indices) =
             kernel::pool::max_pool2d_with_indices(x, kernel_size, stride, padding, dilation);
 
@@ -200,7 +200,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         dilation: [usize; <span class="number">2</span>],
         output_grad: FloatTensor&lt;<span class="self">Self</span>, <span class="number">4</span>&gt;,
         indices: IntTensor&lt;<span class="self">Self</span>, <span class="number">4</span>&gt;,
-    ) -&gt; MaxPool2dBackward&lt;WgpuBackend&lt;G, F, I&gt;&gt; {
+    ) -&gt; MaxPool2dBackward&lt;Wgpu&lt;G, F, I&gt;&gt; {
         MaxPool2dBackward::new(kernel::pool::max_pool2d_with_indices_backward(
             x,
             output_grad,

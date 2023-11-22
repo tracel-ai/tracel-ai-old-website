@@ -744,9 +744,32 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#742" id="742">742</a>
 <a href="#743" id="743">743</a>
 <a href="#744" id="744">744</a>
+<a href="#745" id="745">745</a>
+<a href="#746" id="746">746</a>
+<a href="#747" id="747">747</a>
+<a href="#748" id="748">748</a>
+<a href="#749" id="749">749</a>
+<a href="#750" id="750">750</a>
+<a href="#751" id="751">751</a>
+<a href="#752" id="752">752</a>
+<a href="#753" id="753">753</a>
+<a href="#754" id="754">754</a>
+<a href="#755" id="755">755</a>
+<a href="#756" id="756">756</a>
+<a href="#757" id="757">757</a>
+<a href="#758" id="758">758</a>
+<a href="#759" id="759">759</a>
+<a href="#760" id="760">760</a>
+<a href="#761" id="761">761</a>
+<a href="#762" id="762">762</a>
+<a href="#763" id="763">763</a>
+<a href="#764" id="764">764</a>
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
 </pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::single_range_in_vec_init)]
 </span><span class="kw">use super</span>::{Conv1dBackward, Conv2dBackward, ConvOptions, ConvTransposeOptions};
-<span class="kw">use crate</span>::{backend::Backend, Shape};
+<span class="kw">use crate</span>::{backend::Backend, ops::FloatTensor, Shape};
 <span class="kw">use </span>libm::ceilf;
 
 <span class="doccomment">/// Calculate the expected padding size required when applying a convolution.
@@ -778,12 +801,35 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     (size_in + <span class="number">2 </span>* padding - dilation * (kernel_size - <span class="number">1</span>) - <span class="number">1</span>) / stride + <span class="number">1
 </span>}
 
+<span class="doccomment">/// Calculate the expected output size when doing a transposed convolution operation.
+</span><span class="kw">pub fn </span>calculate_conv_transpose_output_size(
+    kernel_size: usize,
+    stride: usize,
+    padding: usize,
+    padding_out: usize,
+    dilation: usize,
+    size_in: usize,
+) -&gt; usize {
+    (size_in - <span class="number">1</span>) * stride + dilation * (kernel_size - <span class="number">1</span>) + padding_out - <span class="number">2 </span>* padding + <span class="number">1
+</span>}
+
+<span class="doccomment">/// Calculate the expected output size when doing a pooling operation.
+</span><span class="kw">pub fn </span>calculate_pool_output_size(
+    kernel_size: usize,
+    stride: usize,
+    padding: usize,
+    dilation: usize,
+    size_in: usize,
+) -&gt; usize {
+    ((size_in + <span class="number">2 </span>* padding - dilation * (kernel_size - <span class="number">1</span>) - <span class="number">1</span>) / stride) + <span class="number">1
+</span>}
+
 <span class="doccomment">/// Calculate the [1D convolution](crate::ops::ModuleOps::conv1d) backward pass using convolutions.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>conv1d_backward&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; Conv1dBackward&lt;B&gt; {
     <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
@@ -840,10 +886,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Calculate the [2D convolution](crate::ops::ModuleOps::conv2d) backward pass using convolutions.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>conv2d_backward&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    weight: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    weight: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; Conv2dBackward&lt;B&gt; {
     <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
@@ -911,10 +957,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Calculate the [2D convolution transpose](crate::ops::ModuleOps::conv_transpose2d) backward pass using convolutions.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>conv_transpose2d_backward&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    weight: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    weight: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; Conv2dBackward&lt;B&gt; {
     <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
@@ -968,10 +1014,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Calculate the [1D convolution transpose](crate::ops::ModuleOps::conv_transpose1d) backward pass using convolutions.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>conv_transpose1d_backward&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; Conv1dBackward&lt;B&gt; {
     <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
@@ -1022,11 +1068,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Execute a 1D convolution using a 2D convolution.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>conv1d_from_conv2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[channels_out, _channels_in, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight).dims;
     <span class="kw">let </span>[batch_size, channels_in, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
 
@@ -1053,11 +1099,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Execute a 1D transposed convolution using a 2D transposed convolution.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>conv_transpose1d_from_conv_transpose2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    weight: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    bias: <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;<span class="number">1</span>&gt;&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    weight: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[channels_in, channels_out, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight).dims;
     <span class="kw">let </span>[batch_size, _channels_in, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
 
@@ -1084,11 +1130,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv1d_weight_grad_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    <span class="kw-2">mut </span>weight_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    <span class="kw-2">mut </span>weight_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[channels_out, increment_ci, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_co = channels_out / options.groups;
 
@@ -1121,11 +1167,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv2d_weight_grad_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    <span class="kw-2">mut </span>weight_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    <span class="kw-2">mut </span>weight_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvOptions&lt;<span class="number">2</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
     <span class="kw">let </span>[channels_out, increment_ci, kernel_size_1, kernel_size_2] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_co = channels_out / options.groups;
 
@@ -1163,11 +1209,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv_transpose2d_weight_grad_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    <span class="kw-2">mut </span>weight_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    <span class="kw-2">mut </span>weight_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
     <span class="kw">let </span>[channels_in, increment_co, kernel_size_1, kernel_size_2] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_ci = channels_in / options.groups;
 
@@ -1219,11 +1265,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv1d_weight_grad_no_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     weight_shape: Shape&lt;<span class="number">3</span>&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv1d(
@@ -1248,11 +1294,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv_transpose1d_weight_grad_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    <span class="kw-2">mut </span>weight_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    <span class="kw-2">mut </span>weight_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[channels_in, increment_co, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_ci = channels_in / options.groups;
 
@@ -1294,11 +1340,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv2d_weight_grad_no_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     weight_shape: Shape&lt;<span class="number">4</span>&gt;,
     options: ConvOptions&lt;<span class="number">2</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
     <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv2d(
@@ -1324,11 +1370,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv_transpose1d_weight_grad_no_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     weight_shape: Shape&lt;<span class="number">3</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv1d(
@@ -1355,11 +1401,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>conv_transpose2d_weight_grad_no_groups&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
-    output_grad: B::TensorPrimitive&lt;<span class="number">4</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">4</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     weight_shape: Shape&lt;<span class="number">4</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">4</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
     <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv2d(

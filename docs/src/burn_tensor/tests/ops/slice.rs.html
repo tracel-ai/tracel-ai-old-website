@@ -149,6 +149,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#147" id="147">147</a>
 <a href="#148" id="148">148</a>
 <a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
 </pre></div><pre class="rust"><code><span class="attr">#[burn_tensor_testgen::testgen(slice)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -282,7 +283,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data = Data::from([<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>]);
         <span class="kw">let </span>tensor = Tensor::&lt;TestBackend, <span class="number">1</span>&gt;::from_data(data.clone());
 
-        <span class="kw">let </span>data_actual = tensor.slice([<span class="number">2</span>..<span class="number">1</span>]).into_data();
+        <span class="attr">#[allow(clippy::reversed_empty_ranges)]
+        </span><span class="kw">let </span>data_actual = tensor.slice([<span class="number">2</span>..<span class="number">1</span>]).into_data();
 
         <span class="macro">assert_eq!</span>(data, data_actual);
     }

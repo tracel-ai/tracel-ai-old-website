@@ -137,14 +137,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#135" id="135">135</a>
 <a href="#136" id="136">136</a>
 <a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use </span>burn_tensor::Shape;
-
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::{compute_client, StaticKernel},
     element::WgpuElement,
     kernel::{
@@ -155,6 +148,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     tensor::WgpuTensor,
     GraphicsApi, WgpuDevice,
 };
+<span class="kw">use </span>burn_tensor::Shape;
 
 <span class="kw">use </span><span class="kw">super</span>::base::Prng;
 
@@ -190,7 +184,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     &gt;::new(workgroup);
 
     client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle, <span class="kw-2">&amp;</span>args_handle],
     );
 

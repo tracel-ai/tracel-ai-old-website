@@ -174,21 +174,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#172" id="172">172</a>
 <a href="#173" id="173">173</a>
 <a href="#174" id="174">174</a>
-<a href="#175" id="175">175</a>
-<a href="#176" id="176">176</a>
-<a href="#177" id="177">177</a>
-<a href="#178" id="178">178</a>
-<a href="#179" id="179">179</a>
-<a href="#180" id="180">180</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use </span><span class="kw">super</span>::utils::shape_out;
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::{StaticKernel, WorkGroup},
     element::WgpuElement,
     kernel::{build_info, into_contiguous, KernelSettings, SourceTemplate, StaticKernelSource},
     kernel_wgsl,
-    ops::numeric::empty_device,
     tensor::WgpuTensor,
 };
 
@@ -210,8 +200,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 </span><span class="kw">pub fn </span>matmul_naive_default&lt;E: WgpuElement, <span class="kw">const </span>D: usize&gt;(
     lhs: WgpuTensor&lt;E, D&gt;,
     rhs: WgpuTensor&lt;E, D&gt;,
+    output: WgpuTensor&lt;E, D&gt;,
 ) -&gt; WgpuTensor&lt;E, D&gt; {
-    matmul_naive::&lt;E, D, <span class="number">16</span>, <span class="number">16</span>&gt;(lhs, rhs)
+    matmul_naive::&lt;E, D, <span class="number">16</span>, <span class="number">16</span>&gt;(lhs, rhs, output)
 }
 
 <span class="doccomment">/// Matrix multiplication using naive algorithm with custom workgroup sizes
@@ -223,18 +214,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 &gt;(
     lhs: WgpuTensor&lt;E, D&gt;,
     rhs: WgpuTensor&lt;E, D&gt;,
+    output: WgpuTensor&lt;E, D&gt;,
 ) -&gt; WgpuTensor&lt;E, D&gt; {
     lhs.assert_is_on_same_device(<span class="kw-2">&amp;</span>rhs);
 
     <span class="kw">let </span>lhs = into_contiguous(lhs);
     <span class="kw">let </span>rhs = into_contiguous(rhs);
 
-    <span class="kw">let </span>shape_out = shape_out(<span class="kw-2">&amp;</span>lhs, <span class="kw-2">&amp;</span>rhs);
-
     <span class="kw">let </span>num_rows = lhs.shape.dims[D - <span class="number">2</span>];
     <span class="kw">let </span>num_cols = rhs.shape.dims[D - <span class="number">1</span>];
-
-    <span class="kw">let </span>output = empty_device(lhs.client.clone(), lhs.device.clone(), shape_out);
 
     <span class="comment">// set number of workgroups
     </span><span class="kw">let </span>blocks_needed_in_x = f32::ceil(num_rows <span class="kw">as </span>f32 / WORKGROUP_SIZE_X <span class="kw">as </span>f32) <span class="kw">as </span>u32;
@@ -261,7 +249,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>info_handle = lhs.client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
 
     lhs.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs.handle, <span class="kw-2">&amp;</span>rhs.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle],
     );
 

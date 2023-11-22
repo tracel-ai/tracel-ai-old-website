@@ -78,22 +78,54 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#76" id="76">76</a>
 <a href="#77" id="77">77</a>
 <a href="#78" id="78">78</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{grads::Gradients, graph::backward::backward, tensor::ADTensor};
-<span class="kw">use </span>burn_tensor::backend::{ADBackend, Backend};
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{grads::Gradients, graph::backward::backward, tensor::AutodiffTensor};
+<span class="kw">use </span>burn_tensor::backend::{AutodiffBackend, Backend};
+<span class="kw">use </span>core::marker::PhantomData;
 
-<span class="doccomment">/// A decorator for a backend that enables automatic differentiation.
+<span class="doccomment">/// Enable auto-differentiation on a backend.
+///
+/// This works as a backend decorator, extending the functionality of any backend with
+/// backpropagation.
 </span><span class="attr">#[derive(Clone, Copy, Debug, Default)]
-</span><span class="kw">pub struct </span>ADBackendDecorator&lt;B&gt; {
-    _b: B,
+</span><span class="kw">pub struct </span>Autodiff&lt;B&gt; {
+    _b: PhantomData&lt;B&gt;,
 }
 
-<span class="kw">impl</span>&lt;B: Backend&gt; Backend <span class="kw">for </span>ADBackendDecorator&lt;B&gt; {
+<span class="kw">impl</span>&lt;B: Backend&gt; Backend <span class="kw">for </span>Autodiff&lt;B&gt; {
     <span class="kw">type </span>Device = B::Device;
 
     <span class="kw">type </span>FullPrecisionElem = B::FullPrecisionElem;
-    <span class="kw">type </span>FullPrecisionBackend = ADBackendDecorator&lt;B::FullPrecisionBackend&gt;;
+    <span class="kw">type </span>FullPrecisionBackend = Autodiff&lt;B::FullPrecisionBackend&gt;;
 
-    <span class="kw">type </span>TensorPrimitive&lt;<span class="kw">const </span>D: usize&gt; = ADTensor&lt;B, D&gt;;
+    <span class="kw">type </span>TensorPrimitive&lt;<span class="kw">const </span>D: usize&gt; = AutodiffTensor&lt;B, D&gt;;
     <span class="kw">type </span>FloatElem = B::FloatElem;
 
     <span class="kw">type </span>IntTensorPrimitive&lt;<span class="kw">const </span>D: usize&gt; = B::IntTensorPrimitive&lt;D&gt;;
@@ -118,42 +150,66 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="kw">impl</span>&lt;B: Backend&gt; ADBackend <span class="kw">for </span>ADBackendDecorator&lt;B&gt; {
+<span class="kw">impl</span>&lt;B: Backend&gt; AutodiffBackend <span class="kw">for </span>Autodiff&lt;B&gt; {
     <span class="kw">type </span>InnerBackend = B;
     <span class="kw">type </span>Gradients = Gradients;
 
-    <span class="kw">fn </span>backward&lt;<span class="kw">const </span>D: usize&gt;(tensor: ADTensor&lt;B, D&gt;) -&gt; Gradients {
+    <span class="kw">fn </span>backward&lt;<span class="kw">const </span>D: usize&gt;(tensor: AutodiffTensor&lt;B, D&gt;) -&gt; Gradients {
         backward(tensor)
     }
 
     <span class="kw">fn </span>grad&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: <span class="kw-2">&amp;</span>ADTensor&lt;B, D&gt;,
+        tensor: <span class="kw-2">&amp;</span>AutodiffTensor&lt;B, D&gt;,
         grads: <span class="kw-2">&amp;</span>Gradients,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;D&gt;&gt; {
         grads.get(tensor)
     }
 
     <span class="kw">fn </span>grad_remove&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: <span class="kw-2">&amp;</span>ADTensor&lt;B, D&gt;,
+        tensor: <span class="kw-2">&amp;</span>AutodiffTensor&lt;B, D&gt;,
         grads: <span class="kw-2">&amp;mut </span>Gradients,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;B::TensorPrimitive&lt;D&gt;&gt; {
         grads.remove(tensor)
     }
-    <span class="kw">fn </span>inner&lt;<span class="kw">const </span>D: usize&gt;(tensor: ADTensor&lt;B, D&gt;) -&gt; B::TensorPrimitive&lt;D&gt; {
+    <span class="kw">fn </span>inner&lt;<span class="kw">const </span>D: usize&gt;(tensor: AutodiffTensor&lt;B, D&gt;) -&gt; B::TensorPrimitive&lt;D&gt; {
         tensor.primitive
     }
 
-    <span class="kw">fn </span>from_inner&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; ADTensor&lt;B, D&gt; {
-        ADTensor::new(tensor)
+    <span class="kw">fn </span>from_inner&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; AutodiffTensor&lt;B, D&gt; {
+        AutodiffTensor::new(tensor)
     }
 
     <span class="kw">fn </span>grad_replace&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: <span class="kw-2">&amp;</span>ADTensor&lt;B, D&gt;,
+        tensor: <span class="kw-2">&amp;</span>AutodiffTensor&lt;B, D&gt;,
         grads: <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Gradients,
         grad: B::TensorPrimitive&lt;D&gt;,
     ) {
         grads.remove(tensor);
         grads.register::&lt;B, D&gt;(tensor.node.clone(), grad);
+    }
+
+    <span class="kw">fn </span>int_inner&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: burn_tensor::ops::IntTensor&lt;<span class="self">Self</span>, D&gt;,
+    ) -&gt; burn_tensor::ops::IntTensor&lt;<span class="self">Self</span>::InnerBackend, D&gt; {
+        tensor
+    }
+
+    <span class="kw">fn </span>bool_inner&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: burn_tensor::ops::BoolTensor&lt;<span class="self">Self</span>, D&gt;,
+    ) -&gt; burn_tensor::ops::BoolTensor&lt;<span class="self">Self</span>::InnerBackend, D&gt; {
+        tensor
+    }
+
+    <span class="kw">fn </span>int_from_inner&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: burn_tensor::ops::IntTensor&lt;<span class="self">Self</span>::InnerBackend, D&gt;,
+    ) -&gt; burn_tensor::ops::IntTensor&lt;<span class="self">Self</span>, D&gt; {
+        tensor
+    }
+
+    <span class="kw">fn </span>bool_from_inner&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: burn_tensor::ops::BoolTensor&lt;<span class="self">Self</span>::InnerBackend, D&gt;,
+    ) -&gt; burn_tensor::ops::BoolTensor&lt;<span class="self">Self</span>, D&gt; {
+        tensor
     }
 }
 </code></pre></div></section></main></body></html>

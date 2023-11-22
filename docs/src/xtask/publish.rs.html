@@ -128,19 +128,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#126" id="126">126</a>
 <a href="#127" id="127">127</a>
 <a href="#128" id="128">128</a>
-<a href="#129" id="129">129</a>
-<a href="#130" id="130">130</a>
-<a href="#131" id="131">131</a>
-<a href="#132" id="132">132</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! This script publishes a crate on `crates.io`.
-//!
-//! To build this script, run the following command:
-//!
-//! rustc scripts/publish.rs --crate-type bin --out-dir scripts
 //!
 //! To run the script:
 //!
-//! ./scripts/publish crate_name
+//! cargo xtask publish INPUT_CRATE
 
 </span><span class="kw">use </span>std::env;
 <span class="kw">use </span>std::process::{Command, Stdio};

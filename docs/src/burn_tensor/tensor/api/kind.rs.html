@@ -60,7 +60,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="doccomment">/// A type-level representation of the kind of a tensor.
 </span><span class="kw">pub trait </span>TensorKind&lt;B: Backend&gt;: Clone + core::fmt::Debug {
     <span class="doccomment">/// The primitive type of the tensor.
-    </span><span class="kw">type </span>Primitive&lt;<span class="kw">const </span>D: usize&gt;: Clone + core::fmt::Debug;
+    </span><span class="kw">type </span>Primitive&lt;<span class="kw">const </span>D: usize&gt;: Clone + core::fmt::Debug + Sync + Send;
 
     <span class="doccomment">/// The name of the tensor kind.
     </span><span class="kw">fn </span>name() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str;

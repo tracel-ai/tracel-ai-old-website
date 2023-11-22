@@ -325,18 +325,26 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#323" id="323">323</a>
 <a href="#324" id="324">324</a>
 <a href="#325" id="325">325</a>
-</pre></div><pre class="rust"><code><span class="kw">use super</span>::{numeric, BoolTensor, Device, FloatTensor, IntElem, IntTensor};
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::numeric;
+
+<span class="kw">use </span><span class="kw">crate</span>::kernel::reduce::{<span class="self">self</span>, init_reduce_output};
 <span class="kw">use </span><span class="kw">crate</span>::kernel::{unary_default, unary_inplace_default};
 <span class="kw">use crate</span>::{
     element::{FloatElement, IntElement},
-    kernel, unary, unary_inplace, GraphicsApi, WgpuBackend,
+    kernel, unary, unary_inplace, GraphicsApi, Wgpu,
 };
+<span class="kw">use </span>burn_tensor::ops::{BoolTensor, Device, FloatTensor, IntElem, IntTensor};
 
 <span class="kw">use </span>burn_tensor::Reader;
 <span class="kw">use </span>burn_tensor::{ops::IntTensorOps, Data, Shape};
 <span class="kw">use </span>std::ops::Range;
 
-<span class="kw">impl</span>&lt;G, F, I&gt; IntTensorOps&lt;WgpuBackend&lt;G, F, I&gt;&gt; <span class="kw">for </span>WgpuBackend&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; IntTensorOps&lt;Wgpu&lt;G, F, I&gt;&gt; <span class="kw">for </span>Wgpu&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi + <span class="lifetime">&#39;static</span>,
     F: FloatElement,
@@ -583,23 +591,25 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>int_sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
-        kernel::sum(tensor)
+        kernel::reduce::sum(tensor)
     }
 
     <span class="kw">fn </span>int_sum_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        kernel::sum_dim(tensor, dim)
+        <span class="kw">let </span>output = init_reduce_output(<span class="kw-2">&amp;</span>tensor, dim);
+        reduce::sum_dim(tensor, output, dim)
     }
 
     <span class="kw">fn </span>int_mean_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        kernel::mean_dim(tensor, dim)
+        <span class="kw">let </span>output = init_reduce_output(<span class="kw-2">&amp;</span>tensor, dim);
+        reduce::mean_dim(tensor, output, dim)
     }
 
     <span class="kw">fn </span>int_argmax&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        kernel::argmax(tensor, dim)
+        kernel::reduce::argmax(tensor, dim)
     }
 
     <span class="kw">fn </span>int_argmin&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        kernel::argmin(tensor, dim)
+        kernel::reduce::argmin(tensor, dim)
     }
 
     <span class="kw">fn </span>int_clamp_min&lt;<span class="kw">const </span>D: usize&gt;(

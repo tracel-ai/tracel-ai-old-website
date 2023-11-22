@@ -123,6 +123,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#121" id="121">121</a>
 <a href="#122" id="122">122</a>
 <a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::StaticKernel,
     element::WgpuElement,
@@ -132,7 +141,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     tensor::WgpuTensor,
 };
 <span class="kw">use </span>burn_tensor::Shape;
-<span class="kw">use </span>std::{ops::Range, sync::Arc};
+<span class="kw">use </span>std::ops::Range;
 
 <span class="macro">kernel_wgsl!</span>(IndexRaw, <span class="string">&quot;../../template/index/slice.wgsl&quot;</span>);
 <span class="macro">kernel_wgsl!</span>(
@@ -149,9 +158,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         dims[i] = indices[i].end - indices[i].start;
     }
     <span class="kw">let </span>shape_output = Shape::new(dims);
-    <span class="kw">let </span>num_elems = shape_output.num_elements();
-
     <span class="kw">let </span>output = empty_device(tensor.client.clone(), tensor.device.clone(), shape_output);
+    slice_on_output(tensor, output, indices)
+}
+
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>slice_on_output&lt;E: WgpuElement, <span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
+    tensor: WgpuTensor&lt;E, D1&gt;,
+    output: WgpuTensor&lt;E, D1&gt;,
+    indices: [Range&lt;usize&gt;; D2],
+) -&gt; WgpuTensor&lt;E, D1&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>info = build_info(<span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor, <span class="kw-2">&amp;</span>output]);
 
     <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..D1 {
@@ -163,10 +178,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">let </span>kernel = StaticKernel::&lt;
         KernelSettings&lt;IndexRaw, E, i32, WORKGROUP_DEFAULT, WORKGROUP_DEFAULT, <span class="number">1</span>&gt;,
-    &gt;::new(elemwise_workgroup(num_elems, WORKGROUP_DEFAULT));
+    &gt;::new(elemwise_workgroup(
+        output.shape.num_elements(),
+        WORKGROUP_DEFAULT,
+    ));
 
     tensor.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle],
     );
 
@@ -197,7 +215,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     &gt;::new(elemwise_workgroup(num_elems, WORKGROUP_DEFAULT));
 
     tensor.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor.handle, <span class="kw-2">&amp;</span>value.handle, <span class="kw-2">&amp;</span>info_handle],
     );
 

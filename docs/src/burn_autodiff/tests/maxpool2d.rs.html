@@ -187,14 +187,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>dilation_1 = <span class="number">1</span>;
         <span class="kw">let </span>dilation_2 = <span class="number">1</span>;
 
-        <span class="kw">let </span>x = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x = TestAutodiffTensor::from_floats([[[
             [<span class="number">0.2479</span>, <span class="number">0.6386</span>, <span class="number">0.3166</span>, <span class="number">0.5742</span>],
             [<span class="number">0.7065</span>, <span class="number">0.1940</span>, <span class="number">0.6305</span>, <span class="number">0.8959</span>],
             [<span class="number">0.5416</span>, <span class="number">0.8602</span>, <span class="number">0.8129</span>, <span class="number">0.1662</span>],
             [<span class="number">0.3358</span>, <span class="number">0.3059</span>, <span class="number">0.8293</span>, <span class="number">0.0990</span>],
         ]]])
         .require_grad();
-        <span class="kw">let </span>x_grad_expected = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x_grad_expected = TestAutodiffTensor::from_floats([[[
             [<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>],
             [<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">2.0</span>],
             [<span class="number">0.0</span>, <span class="number">2.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>],
@@ -228,14 +228,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>dilation_1 = <span class="number">1</span>;
         <span class="kw">let </span>dilation_2 = <span class="number">1</span>;
 
-        <span class="kw">let </span>x = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x = TestAutodiffTensor::from_floats([[[
             [<span class="number">0.2479</span>, <span class="number">0.6386</span>, <span class="number">0.3166</span>, <span class="number">0.5742</span>],
             [<span class="number">0.7065</span>, <span class="number">0.1940</span>, <span class="number">0.6305</span>, <span class="number">0.8959</span>],
             [<span class="number">0.5416</span>, <span class="number">0.8602</span>, <span class="number">0.8129</span>, <span class="number">0.1662</span>],
             [<span class="number">0.3358</span>, <span class="number">0.3059</span>, <span class="number">0.8293</span>, <span class="number">0.0990</span>],
         ]]])
         .require_grad();
-        <span class="kw">let </span>x_grad_expected = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x_grad_expected = TestAutodiffTensor::from_floats([[[
             [<span class="number">1.</span>, <span class="number">3.</span>, <span class="number">0.</span>, <span class="number">2.</span>],
             [<span class="number">3.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">4.</span>],
             [<span class="number">1.</span>, <span class="number">4.</span>, <span class="number">0.</span>, <span class="number">1.</span>],
@@ -269,14 +269,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>dilation_1 = <span class="number">2</span>;
         <span class="kw">let </span>dilation_2 = <span class="number">2</span>;
 
-        <span class="kw">let </span>x = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x = TestAutodiffTensor::from_floats([[[
             [<span class="number">0.2479</span>, <span class="number">0.6386</span>, <span class="number">0.3166</span>, <span class="number">0.5742</span>],
             [<span class="number">0.7065</span>, <span class="number">0.1940</span>, <span class="number">0.6305</span>, <span class="number">0.8959</span>],
             [<span class="number">0.5416</span>, <span class="number">0.8602</span>, <span class="number">0.8129</span>, <span class="number">0.1662</span>],
             [<span class="number">0.3358</span>, <span class="number">0.3059</span>, <span class="number">0.8293</span>, <span class="number">0.0990</span>],
         ]]])
         .require_grad();
-        <span class="kw">let </span>x_grad_expected = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x_grad_expected = TestAutodiffTensor::from_floats([[[
             [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],
             [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>, <span class="number">2.</span>],
             [<span class="number">0.</span>, <span class="number">4.</span>, <span class="number">4.</span>, <span class="number">0.</span>],
@@ -310,7 +310,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>dilation_1 = <span class="number">1</span>;
         <span class="kw">let </span>dilation_2 = <span class="number">1</span>;
 
-        <span class="kw">let </span>x = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x = TestAutodiffTensor::from_floats([[[
             [<span class="number">0.5388</span>, <span class="number">0.0676</span>, <span class="number">0.7122</span>, <span class="number">0.8316</span>, <span class="number">0.0653</span>],
             [<span class="number">0.9154</span>, <span class="number">0.1536</span>, <span class="number">0.9089</span>, <span class="number">0.8016</span>, <span class="number">0.7518</span>],
             [<span class="number">0.2073</span>, <span class="number">0.0501</span>, <span class="number">0.8811</span>, <span class="number">0.5604</span>, <span class="number">0.5075</span>],
@@ -318,7 +318,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             [<span class="number">0.3391</span>, <span class="number">0.2230</span>, <span class="number">0.4610</span>, <span class="number">0.5365</span>, <span class="number">0.6880</span>],
         ]]])
         .require_grad();
-        <span class="kw">let </span>x_grad_expected = TestADTensor::from_floats([[[
+        <span class="kw">let </span>x_grad_expected = TestAutodiffTensor::from_floats([[[
             [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">3.</span>, <span class="number">0.</span>],
             [<span class="number">4.</span>, <span class="number">0.</span>, <span class="number">2.</span>, <span class="number">1.</span>, <span class="number">0.</span>],
             [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],

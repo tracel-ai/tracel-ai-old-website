@@ -177,8 +177,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#175" id="175">175</a>
 <a href="#176" id="176">176</a>
 <a href="#177" id="177">177</a>
-<a href="#178" id="178">178</a>
-<a href="#179" id="179">179</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::Distribution;
 <span class="kw">use </span>half::{bf16, f16};
 <span class="kw">use </span>num_traits::ToPrimitive;
@@ -229,7 +227,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The random value.
-    </span><span class="kw">fn </span>random&lt;R: RngCore&gt;(distribution: Distribution&lt;<span class="self">Self</span>&gt;, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self
+    </span><span class="kw">fn </span>random&lt;R: RngCore&gt;(distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span><span class="self">Self</span>: Sized;
 }
@@ -284,7 +282,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
 
         <span class="kw">impl </span>ElementRandom <span class="kw">for </span><span class="macro-nonterminal">$</span><span class="kw">type </span>{
-            <span class="kw">fn </span><span class="macro-nonterminal">random</span>&lt;R: RngCore&gt;(distribution: Distribution&lt;<span class="self">Self</span>&gt;, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self </span>{
+            <span class="kw">fn </span><span class="macro-nonterminal">random</span>&lt;R: RngCore&gt;(distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R) -&gt; <span class="self">Self </span>{
                 <span class="attr">#[allow(clippy::redundant_closure_call)]
                 </span><span class="macro-nonterminal">$random</span>(distribution, rng)
             }
@@ -295,66 +293,64 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="macro">make_element!</span>(
     ty f64 Precision::Double,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_f64().unwrap(),
-    random |distribution: Distribution&lt;f64&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty f32 Precision::Full,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_f32().unwrap(),
-    random |distribution: Distribution&lt;f32&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty i64 Precision::Double,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_i64().unwrap(),
-    random |distribution: Distribution&lt;i64&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty i32 Precision::Full,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_i32().unwrap(),
-    random |distribution: Distribution&lt;i32&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty u32 Precision::Full,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_u32().unwrap(),
-    random |distribution: Distribution&lt;u32&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty i16 Precision::Half,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_i16().unwrap(),
-    random |distribution: Distribution&lt;i16&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty i8 Precision::Other,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_i8().unwrap(),
-    random |distribution: Distribution&lt;i8&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty u8 Precision::Other,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| elem.to_u8().unwrap(),
-    random |distribution: Distribution&lt;u8&gt;, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| distribution.sampler(rng).sample()
 );
 
 <span class="macro">make_element!</span>(
     ty f16 Precision::Half,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| f16::from_f32(elem.to_f32().unwrap()),
-    random |distribution: Distribution&lt;f16&gt;, rng: <span class="kw-2">&amp;mut </span>R| {
-        <span class="kw">let </span>distribution: Distribution&lt;f32&gt; = distribution.convert();
-        <span class="kw">let </span>sample = distribution.sampler(rng).sample();
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| {
+        <span class="kw">let </span>sample: f32 = distribution.sampler(rng).sample();
         f16::from_elem(sample)
     }
 );
 <span class="macro">make_element!</span>(
     ty bf16 Precision::Half,
     convert |elem: <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToPrimitive| bf16::from_f32(elem.to_f32().unwrap()),
-    random |distribution: Distribution&lt;bf16&gt;, rng: <span class="kw-2">&amp;mut </span>R| {
-        <span class="kw">let </span>distribution: Distribution&lt;f32&gt; = distribution.convert();
-        <span class="kw">let </span>sample = distribution.sampler(rng).sample();
+    random |distribution: Distribution, rng: <span class="kw-2">&amp;mut </span>R| {
+        <span class="kw">let </span>sample: f32 = distribution.sampler(rng).sample();
         bf16::from_elem(sample)
     }
 );

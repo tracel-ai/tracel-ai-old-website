@@ -17,10 +17,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#15" id="15">15</a>
 <a href="#16" id="16">16</a>
 <a href="#17" id="17">17</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArrayBackend};
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArray};
 <span class="kw">use </span>burn_tensor::{ops::ActivationOps, ElementConversion};
 
-<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; ActivationOps&lt;NdArrayBackend&lt;E&gt;&gt; <span class="kw">for </span>NdArrayBackend&lt;E&gt; {
+<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; ActivationOps&lt;<span class="self">Self</span>&gt; <span class="kw">for </span>NdArray&lt;E&gt; {
     <span class="kw">fn </span>relu&lt;<span class="kw">const </span>D: usize&gt;(tensor: NdArrayTensor&lt;E, D&gt;) -&gt; NdArrayTensor&lt;E, D&gt; {
         <span class="kw">let </span>zero = <span class="number">0</span>.elem();
         <span class="kw">let </span>array = tensor

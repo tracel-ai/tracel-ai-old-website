@@ -12,12 +12,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#10" id="10">10</a>
 <a href="#11" id="11">11</a>
 <a href="#12" id="12">12</a>
+<a href="#13" id="13">13</a>
+<a href="#14" id="14">14</a>
+<a href="#15" id="15">15</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>proc_macro2::TokenStream;
 
 <span class="doccomment">/// Basic trait to be implemented for Module generation.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>ModuleCodegen {
     <span class="kw">fn </span>gen_num_params(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;
     <span class="kw">fn </span>gen_visit(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;
+    <span class="kw">fn </span>gen_devices(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;
+    <span class="kw">fn </span>gen_to_device(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;
+    <span class="kw">fn </span>gen_fork(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;
     <span class="kw">fn </span>gen_map(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;
     <span class="kw">fn </span>gen_valid(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;
     <span class="kw">fn </span>gen_into_record(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream;

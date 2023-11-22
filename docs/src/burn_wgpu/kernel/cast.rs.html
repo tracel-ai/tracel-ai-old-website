@@ -89,7 +89,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     compute::StaticKernel, element::WgpuElement, kernel::elemwise_workgroup, kernel_wgsl,
     tensor::WgpuTensor,
 };
-<span class="kw">use </span>std::{any::TypeId, marker::PhantomData, sync::Arc};
+<span class="kw">use </span>std::{any::TypeId, marker::PhantomData};
 
 <span class="macro">kernel_wgsl!</span>(CastRaw, <span class="string">&quot;../template/cast.wgsl&quot;</span>);
 
@@ -140,7 +140,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     tensor
         .client
-        .execute(Arc::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor.handle, <span class="kw-2">&amp;</span>output.handle]);
+        .execute(Box::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor.handle, <span class="kw-2">&amp;</span>output.handle]);
 
     output
 }

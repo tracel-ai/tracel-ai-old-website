@@ -111,7 +111,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#109" id="109">109</a>
 <a href="#110" id="110">110</a>
 <a href="#111" id="111">111</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArrayBackend};
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::FloatNdArrayElement, tensor::NdArrayTensor, NdArray};
 <span class="kw">use crate</span>::{iter_range_par, run_par, UnsafeSharedRef};
 <span class="kw">use </span>burn_tensor::ElementConversion;
 <span class="kw">use </span>burn_tensor::{ops::TensorOps, Shape};
@@ -142,7 +142,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">let </span>out = general_matmul(lhs, rhs);
 
-    NdArrayBackend::&lt;E&gt;::reshape(out, shape_out)
+    NdArray::&lt;E&gt;::reshape(out, shape_out)
 }
 
 <span class="kw">fn </span>general_matmul&lt;E: FloatNdArrayElement&gt;(
@@ -204,13 +204,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>shape = tensor.shape();
 
     <span class="kw">if </span>D &lt; <span class="number">2 </span>{
-        NdArrayBackend::&lt;E&gt;::reshape(tensor, Shape::new([<span class="number">1</span>, <span class="number">1</span>, shape.dims[<span class="number">0</span>]]))
+        NdArray::&lt;E&gt;::reshape(tensor, Shape::new([<span class="number">1</span>, <span class="number">1</span>, shape.dims[<span class="number">0</span>]]))
     } <span class="kw">else </span>{
         <span class="kw">let </span>batch_size = batch_size(<span class="kw-2">&amp;</span>shape);
         <span class="kw">let </span>size0 = shape.dims[D - <span class="number">2</span>];
         <span class="kw">let </span>size1 = shape.dims[D - <span class="number">1</span>];
 
-        NdArrayBackend::&lt;E&gt;::reshape(tensor, Shape::new([batch_size, size0, size1]))
+        NdArray::&lt;E&gt;::reshape(tensor, Shape::new([batch_size, size0, size1]))
     }
 }
 

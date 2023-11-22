@@ -59,26 +59,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#57" id="57">57</a>
 <a href="#58" id="58">58</a>
 <a href="#59" id="59">59</a>
-<a href="#60" id="60">60</a>
-<a href="#61" id="61">61</a>
-<a href="#62" id="62">62</a>
-<a href="#63" id="63">63</a>
-<a href="#64" id="64">64</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>alloc::string::String;
-<span class="kw">use </span>core::marker::PhantomData;
-
-<span class="kw">use </span><span class="kw">crate</span>::element::FloatNdArrayElement;
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::element::FloatNdArrayElement;
 <span class="kw">use </span><span class="kw">crate</span>::NdArrayTensor;
-
+<span class="kw">use </span>alloc::string::String;
+<span class="kw">use </span>burn_common::stub::Mutex;
 <span class="kw">use </span>burn_tensor::backend::Backend;
-
+<span class="kw">use </span>core::marker::PhantomData;
 <span class="kw">use </span>rand::{rngs::StdRng, SeedableRng};
-
-<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
-</span><span class="kw">use </span>std::sync::Mutex;
-
-<span class="attr">#[cfg(not(feature = <span class="string">&quot;std&quot;</span>))]
-</span><span class="kw">use </span>burn_common::stub::Mutex;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">static </span>SEED: Mutex&lt;<span class="prelude-ty">Option</span>&lt;StdRng&gt;&gt; = Mutex::new(<span class="prelude-val">None</span>);
 
@@ -95,16 +82,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="doccomment">/// The ndarray backend.
+<span class="doccomment">/// Tensor backend that uses the [ndarray](ndarray) crate for executing tensor operations.
+///
+/// This backend is compatible with CPUs and can be compiled for almost any platform, including
+/// `wasm`, `arm`, and `x86`.
 </span><span class="attr">#[derive(Clone, Copy, Default, Debug)]
-</span><span class="kw">pub struct </span>NdArrayBackend&lt;E&gt; {
+</span><span class="kw">pub struct </span>NdArray&lt;E = f32&gt; {
     phantom: PhantomData&lt;E&gt;,
 }
 
-<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; Backend <span class="kw">for </span>NdArrayBackend&lt;E&gt; {
+<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; Backend <span class="kw">for </span>NdArray&lt;E&gt; {
     <span class="kw">type </span>Device = NdArrayDevice;
     <span class="kw">type </span>FullPrecisionElem = f32;
-    <span class="kw">type </span>FullPrecisionBackend = NdArrayBackend&lt;f32&gt;;
+    <span class="kw">type </span>FullPrecisionBackend = NdArray&lt;f32&gt;;
 
     <span class="kw">type </span>TensorPrimitive&lt;<span class="kw">const </span>D: usize&gt; = NdArrayTensor&lt;E, D&gt;;
     <span class="kw">type </span>FloatElem = E;

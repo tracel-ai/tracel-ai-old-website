@@ -1078,62 +1078,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1076" id="1076">1076</a>
 <a href="#1077" id="1077">1077</a>
 <a href="#1078" id="1078">1078</a>
-<a href="#1079" id="1079">1079</a>
-<a href="#1080" id="1080">1080</a>
-<a href="#1081" id="1081">1081</a>
-<a href="#1082" id="1082">1082</a>
-<a href="#1083" id="1083">1083</a>
-<a href="#1084" id="1084">1084</a>
-<a href="#1085" id="1085">1085</a>
-<a href="#1086" id="1086">1086</a>
-<a href="#1087" id="1087">1087</a>
-<a href="#1088" id="1088">1088</a>
-<a href="#1089" id="1089">1089</a>
-<a href="#1090" id="1090">1090</a>
-<a href="#1091" id="1091">1091</a>
-<a href="#1092" id="1092">1092</a>
-<a href="#1093" id="1093">1093</a>
-<a href="#1094" id="1094">1094</a>
-<a href="#1095" id="1095">1095</a>
-<a href="#1096" id="1096">1096</a>
-<a href="#1097" id="1097">1097</a>
-<a href="#1098" id="1098">1098</a>
-<a href="#1099" id="1099">1099</a>
-<a href="#1100" id="1100">1100</a>
-<a href="#1101" id="1101">1101</a>
-<a href="#1102" id="1102">1102</a>
-<a href="#1103" id="1103">1103</a>
-<a href="#1104" id="1104">1104</a>
-<a href="#1105" id="1105">1105</a>
-<a href="#1106" id="1106">1106</a>
-<a href="#1107" id="1107">1107</a>
-<a href="#1108" id="1108">1108</a>
-<a href="#1109" id="1109">1109</a>
-<a href="#1110" id="1110">1110</a>
-<a href="#1111" id="1111">1111</a>
-<a href="#1112" id="1112">1112</a>
-<a href="#1113" id="1113">1113</a>
-<a href="#1114" id="1114">1114</a>
-<a href="#1115" id="1115">1115</a>
-<a href="#1116" id="1116">1116</a>
-<a href="#1117" id="1117">1117</a>
-<a href="#1118" id="1118">1118</a>
-<a href="#1119" id="1119">1119</a>
-<a href="#1120" id="1120">1120</a>
-<a href="#1121" id="1121">1121</a>
-<a href="#1122" id="1122">1122</a>
-<a href="#1123" id="1123">1123</a>
-<a href="#1124" id="1124">1124</a>
-<a href="#1125" id="1125">1125</a>
-<a href="#1126" id="1126">1126</a>
-<a href="#1127" id="1127">1127</a>
-<a href="#1128" id="1128">1128</a>
-<a href="#1129" id="1129">1129</a>
-<a href="#1130" id="1130">1130</a>
-<a href="#1131" id="1131">1131</a>
-<a href="#1132" id="1132">1132</a>
-<a href="#1133" id="1133">1133</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{backend::Backend, tensor::Shape, Data, Distribution, ElementConversion};
+</pre></div><pre class="rust"><code><span class="kw">use super</span>::{BoolTensor, Device, FloatElem, FloatTensor, FullPrecisionBackend, IntElem, IntTensor};
+<span class="kw">use crate</span>::{backend::Backend, tensor::Shape, Data, Distribution, ElementConversion};
 <span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>burn_common::reader::Reader;
 <span class="kw">use </span>core::ops::Range;
@@ -1151,9 +1097,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the given data.
     </span><span class="kw">fn </span>from_data&lt;<span class="kw">const </span>D: usize&gt;(
-        data: Data&lt;B::FloatElem, D&gt;,
-        device: <span class="kw-2">&amp;</span>B::Device,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        data: Data&lt;FloatElem&lt;B&gt;, D&gt;,
+        device: <span class="kw-2">&amp;</span>Device&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Creates a new tensor with random values.
     ///
@@ -1168,9 +1114,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// The tensor with the given shape and random values.
     </span><span class="kw">fn </span>random&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
-        distribution: Distribution&lt;B::FloatElem&gt;,
-        device: <span class="kw-2">&amp;</span>B::Device,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        distribution: Distribution,
+        device: <span class="kw-2">&amp;</span>Device&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Creates a new tensor with zeros.
     ///
@@ -1182,7 +1128,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The tensor with the given shape and zeros.
-    </span><span class="kw">fn </span>zeros&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>B::Device) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>zeros&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;B&gt;) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="self">Self</span>::from_data(Data::zeros(shape), device)
     }
 
@@ -1196,7 +1142,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The tensor with the given shape and ones.
-    </span><span class="kw">fn </span>ones&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>B::Device) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>ones&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;B&gt;) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="self">Self</span>::from_data(Data::ones(shape), device)
     }
 
@@ -1213,9 +1159,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// The tensor filled with given value
     </span><span class="kw">fn </span>full&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
-        fill_value: B::FloatElem,
-        device: <span class="kw-2">&amp;</span>B::Device,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+        fill_value: FloatElem&lt;B&gt;,
+        device: <span class="kw-2">&amp;</span>Device&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="self">Self</span>::add_scalar(<span class="self">Self</span>::zeros(shape, device), fill_value)
     }
 
@@ -1228,7 +1174,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The shape of the tensor.
-    </span><span class="kw">fn </span>shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>B::TensorPrimitive&lt;D&gt;) -&gt; Shape&lt;D&gt;;
+    </span><span class="kw">fn </span>shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;B, D&gt;) -&gt; Shape&lt;D&gt;;
 
     <span class="doccomment">/// Converts the tensor to a data structure.
     ///
@@ -1239,7 +1185,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The data structure with the tensor&#39;s data.
-    </span><span class="kw">fn </span>to_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>B::TensorPrimitive&lt;D&gt;) -&gt; Reader&lt;Data&lt;B::FloatElem, D&gt;&gt; {
+    </span><span class="kw">fn </span>to_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;B, D&gt;) -&gt; Reader&lt;Data&lt;FloatElem&lt;B&gt;, D&gt;&gt; {
         <span class="self">Self</span>::into_data(tensor.clone())
     }
 
@@ -1252,7 +1198,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The data structure with the tensor&#39;s data.
-    </span><span class="kw">fn </span>into_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; Reader&lt;Data&lt;B::FloatElem, D&gt;&gt;;
+    </span><span class="kw">fn </span>into_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; Reader&lt;Data&lt;FloatElem&lt;B&gt;, D&gt;&gt;;
 
     <span class="doccomment">/// Gets the device of the tensor.
     ///
@@ -1263,7 +1209,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The device of the tensor.
-    </span><span class="kw">fn </span>device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>B::TensorPrimitive&lt;D&gt;) -&gt; B::Device;
+    </span><span class="kw">fn </span>device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;B, D&gt;) -&gt; Device&lt;B&gt;;
 
     <span class="doccomment">/// Moves the tensor to the given device.
     ///
@@ -1276,9 +1222,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor on the given device.
     </span><span class="kw">fn </span>to_device&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        device: <span class="kw-2">&amp;</span>B::Device,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        tensor: FloatTensor&lt;B, D&gt;,
+        device: <span class="kw-2">&amp;</span>Device&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Creates a new tensor with values from the given range.
     ///
@@ -1294,7 +1240,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Remarks
     ///
     /// Uses `arange_step` with a step size of 1 under the hood.
-    </span><span class="kw">fn </span>arange(range: Range&lt;usize&gt;, device: <span class="kw-2">&amp;</span>B::Device) -&gt; B::IntTensorPrimitive&lt;<span class="number">1</span>&gt; {
+    </span><span class="kw">fn </span>arange(range: Range&lt;usize&gt;, device: <span class="kw-2">&amp;</span>Device&lt;B&gt;) -&gt; IntTensor&lt;B, <span class="number">1</span>&gt; {
         <span class="self">Self</span>::arange_step(range, <span class="number">1</span>, device)
     }
 
@@ -1307,7 +1253,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The int tensor with the same data as the float tensor.
-    </span><span class="kw">fn </span>into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::IntTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; IntTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Creates a new tensor with values from the given range with the given step size.
     ///
@@ -1320,15 +1266,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The tensor with the given values.
-    </span><span class="kw">fn </span>arange_step(
-        range: Range&lt;usize&gt;,
-        step: usize,
-        device: <span class="kw-2">&amp;</span>B::Device,
-    ) -&gt; B::IntTensorPrimitive&lt;<span class="number">1</span>&gt; {
+    </span><span class="kw">fn </span>arange_step(range: Range&lt;usize&gt;, step: usize, device: <span class="kw-2">&amp;</span>Device&lt;B&gt;) -&gt; IntTensor&lt;B, <span class="number">1</span>&gt; {
         <span class="kw">let </span>value = range
             .step_by(step)
             .map(|i| (i <span class="kw">as </span>i64).elem())
-            .collect::&lt;Vec&lt;B::IntElem&gt;&gt;();
+            .collect::&lt;Vec&lt;IntElem&lt;B&gt;&gt;&gt;();
         <span class="kw">let </span>shape = Shape::new([value.len()]);
         <span class="kw">let </span>data = Data::new(value, shape);
         B::int_from_data(data, device)
@@ -1344,7 +1286,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The empty tensor with the given shape.
-    </span><span class="kw">fn </span>empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>B::Device) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;B&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Repeat the tensor along the given dimension.
     ///
@@ -1358,10 +1300,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the given dimension repeated.
     </span><span class="kw">fn </span>repeat&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
+        tensor: FloatTensor&lt;B, D&gt;,
         dim: usize,
         times: usize,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor);
         <span class="kw">if </span>shape.dims[dim] != <span class="number">1 </span>{
             <span class="macro">panic!</span>(<span class="string">&quot;Can only repeat dimension with dim=1&quot;</span>);
@@ -1396,10 +1338,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of adding the two tensors together.
-    </span><span class="kw">fn </span>add&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>add&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Adds a scalar to a tensor.
     ///
@@ -1411,10 +1350,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of adding the scalar to the tensor.
-    </span><span class="kw">fn </span>add_scalar&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>add_scalar&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatElem&lt;B&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Clamps a tensor under a minimum value.
     ///
@@ -1427,9 +1363,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The clamped tensor.
     </span><span class="kw">fn </span>clamp_min&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        min: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+        tensor: FloatTensor&lt;B, D&gt;,
+        min: FloatElem&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="comment">// Default implementation
         </span><span class="kw">let </span>mask = <span class="self">Self</span>::lower_elem(tensor.clone(), min);
         B::mask_fill(tensor, mask, min)
@@ -1446,9 +1382,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The clamped tensor.
     </span><span class="kw">fn </span>clamp_max&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        max: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+        tensor: FloatTensor&lt;B, D&gt;,
+        max: FloatElem&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="comment">// Default implementation
         </span><span class="kw">let </span>mask = <span class="self">Self</span>::greater_elem(tensor.clone(), max);
         B::mask_fill(tensor, mask, max)
@@ -1466,10 +1402,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The clamped tensor.
     </span><span class="kw">fn </span>clamp&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        min: B::FloatElem,
-        max: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+        tensor: FloatTensor&lt;B, D&gt;,
+        min: FloatElem&lt;B&gt;,
+        max: FloatElem&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="comment">// Default implementation
         </span><span class="self">Self</span>::clamp_min(<span class="self">Self</span>::clamp_max(tensor, max), min)
     }
@@ -1484,10 +1420,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of subtracting the two tensors.
-    </span><span class="kw">fn </span>sub&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>sub&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Subtracts a scalar from a tensor.
     ///
@@ -1499,16 +1432,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of subtracting the scalar from the tensor.
-    </span><span class="kw">fn </span>sub_scalar&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>sub_scalar&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatElem&lt;B&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Multiplies two tensors together element-wise.
-    </span><span class="kw">fn </span>mul&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>mul&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Multiplies a tensor by a scalar.
     ///
@@ -1520,10 +1447,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of multiplying the tensor by the scalar.
-    </span><span class="kw">fn </span>mul_scalar&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>mul_scalar&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatElem&lt;B&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Divides two tensors element-wise.
     ///
@@ -1535,10 +1459,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of dividing the two tensors.
-    </span><span class="kw">fn </span>div&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>div&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Divides a tensor by a scalar.
     ///
@@ -1550,10 +1471,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of dividing the tensor by the scalar.
-    </span><span class="kw">fn </span>div_scalar&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>div_scalar&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatElem&lt;B&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Multiplies two tensors together using matrix multiplication.
     ///
@@ -1565,15 +1483,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The result of multiplying the two tensors together using matrix multiplication.
-    </span><span class="kw">fn </span>matmul&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>matmul&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Negates a tensor element-wise.
-    </span><span class="kw">fn </span>neg&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt; {
-        <span class="self">Self</span>::mul_scalar(tensor, (-<span class="number">1.0_f32</span>).elem::&lt;B::FloatElem&gt;())
+    </span><span class="kw">fn </span>neg&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt; {
+        <span class="self">Self</span>::mul_scalar(tensor, (-<span class="number">1.0_f32</span>).elem::&lt;FloatElem&lt;B&gt;&gt;())
     }
+
+    <span class="doccomment">/// Calculates the reciprocals elementwise
+    </span><span class="kw">fn </span>recip&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Transposes a tensor.
     ///
@@ -1584,7 +1502,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// The transposed tensor.
-    </span><span class="kw">fn </span>transpose&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>transpose&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="self">Self</span>::swap_dims(tensor, D - <span class="number">2</span>, D - <span class="number">1</span>)
     }
 
@@ -1600,10 +1518,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the dimensions swapped.
     </span><span class="kw">fn </span>swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
+        tensor: FloatTensor&lt;B, D&gt;,
         dim1: usize,
         dim2: usize,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Reshapes a tensor.
     ///
@@ -1616,9 +1534,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the new shape.
     </span><span class="kw">fn </span>reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D1&gt;,
+        tensor: FloatTensor&lt;B, D1&gt;,
         shape: Shape&lt;D2&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D2&gt;;
+    ) -&gt; FloatTensor&lt;B, D2&gt;;
 
     <span class="doccomment">/// Gather elements from a tensor.
     ///
@@ -1633,9 +1551,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// The gathered elements.
     </span><span class="kw">fn </span>gather&lt;<span class="kw">const </span>D: usize&gt;(
         dim: usize,
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        indices: B::IntTensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        tensor: FloatTensor&lt;B, D&gt;,
+        indices: IntTensor&lt;B, D&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Scatter elements into a tensor.
     ///
@@ -1651,10 +1569,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// The tensor with the scattered elements.
     </span><span class="kw">fn </span>scatter&lt;<span class="kw">const </span>D: usize&gt;(
         dim: usize,
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        indices: B::IntTensorPrimitive&lt;D&gt;,
-        value: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        tensor: FloatTensor&lt;B, D&gt;,
+        indices: IntTensor&lt;B, D&gt;,
+        value: FloatTensor&lt;B, D&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Select tensor elements along the given dimension corresponding for the given indices.
     ///
@@ -1668,10 +1586,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The selected elements.
     </span><span class="kw">fn </span>select&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
+        tensor: FloatTensor&lt;B, D&gt;,
         dim: usize,
-        indices: B::IntTensorPrimitive&lt;<span class="number">1</span>&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        indices: IntTensor&lt;B, <span class="number">1</span>&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Assign the selected elements along the given dimension corresponding for the given indices
     /// to the given value.
@@ -1687,11 +1605,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the selected elements assigned to the given value.
     </span><span class="kw">fn </span>select_assign&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
+        tensor: FloatTensor&lt;B, D&gt;,
         dim: usize,
-        indices: B::IntTensorPrimitive&lt;<span class="number">1</span>&gt;,
-        value: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        indices: IntTensor&lt;B, <span class="number">1</span>&gt;,
+        value: FloatTensor&lt;B, D&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Select tensor elements corresponding for the given ranges.
     ///
@@ -1704,9 +1622,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The selected elements in a new tensor.
     </span><span class="kw">fn </span>slice&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D1&gt;,
+        tensor: FloatTensor&lt;B, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
-    ) -&gt; B::TensorPrimitive&lt;D1&gt;;
+    ) -&gt; FloatTensor&lt;B, D1&gt;;
 
     <span class="doccomment">/// Assign the selected elements corresponding for the given ranges to the given value.
     ///
@@ -1720,10 +1638,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the selected elements assigned to the given value.
     </span><span class="kw">fn </span>slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D1&gt;,
+        tensor: FloatTensor&lt;B, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
-        value: B::TensorPrimitive&lt;D1&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D1&gt;;
+        value: FloatTensor&lt;B, D1&gt;,
+    ) -&gt; FloatTensor&lt;B, D1&gt;;
 
     <span class="doccomment">/// Update the given tensor with the value tensor where the mask is true.
     ///
@@ -1737,10 +1655,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the selected elements assigned to the given value.
     </span><span class="kw">fn </span>mask_where&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        mask: B::BoolTensorPrimitive&lt;D&gt;,
-        value: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        tensor: FloatTensor&lt;B, D&gt;,
+        mask: BoolTensor&lt;B, D&gt;,
+        value: FloatTensor&lt;B, D&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Update the given tensor with the value where the mask is true.
     ///
@@ -1754,10 +1672,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// The tensor with the selected elements assigned to the given value.
     </span><span class="kw">fn </span>mask_fill&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        mask: B::BoolTensorPrimitive&lt;D&gt;,
-        value: B::FloatElem,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        tensor: FloatTensor&lt;B, D&gt;,
+        mask: BoolTensor&lt;B, D&gt;,
+        value: FloatElem&lt;B&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Equal comparison of two tensors.
     ///
@@ -1769,10 +1687,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A boolean tensor with the result of the comparison.
-    </span><span class="kw">fn </span>equal&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>equal&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Equal comparison of a tensor and a scalar.
     ///
@@ -1784,10 +1699,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A boolean tensor with the result of the comparison.
-    </span><span class="kw">fn </span>equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>equal_elem&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatElem&lt;B&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Greater than comparison of two tensors.
     ///
@@ -1799,10 +1711,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A boolean tensor with the result of the comparison.
-    </span><span class="kw">fn </span>greater&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>greater&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Greater than comparison of a tensor and a scalar.
     ///
@@ -1814,10 +1723,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A boolean tensor with the result of the comparison.
-    </span><span class="kw">fn </span>greater_elem&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>greater_elem&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatElem&lt;B&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Greater than or equal comparison of two tensors.
     ///
@@ -1830,9 +1736,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A boolean tensor with the result of the comparison.
     </span><span class="kw">fn </span>greater_equal&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+        lhs: FloatTensor&lt;B, D&gt;,
+        rhs: FloatTensor&lt;B, D&gt;,
+    ) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Greater than or equal comparison of a tensor and a scalar.
     ///
@@ -1845,9 +1751,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A boolean tensor with the result of the comparison.
     </span><span class="kw">fn </span>greater_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+        lhs: FloatTensor&lt;B, D&gt;,
+        rhs: FloatElem&lt;B&gt;,
+    ) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Less than comparison of two tensors.
     ///
@@ -1859,10 +1765,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A boolean tensor with the result of the comparison.
-    </span><span class="kw">fn </span>lower&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>lower&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatTensor&lt;B, D&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Less than comparison of a tensor and a scalar.
     ///
@@ -1874,10 +1777,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A boolean tensor with the result of the comparison.
-    </span><span class="kw">fn </span>lower_elem&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>lower_elem&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;B, D&gt;, rhs: FloatElem&lt;B&gt;) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Less than or equal comparison of two tensors.
     ///
@@ -1890,9 +1790,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A boolean tensor with the result of the comparison.
     </span><span class="kw">fn </span>lower_equal&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+        lhs: FloatTensor&lt;B, D&gt;,
+        rhs: FloatTensor&lt;B, D&gt;,
+    ) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Less than or equal comparison of a tensor and a scalar.
     ///
@@ -1905,27 +1805,27 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A boolean tensor with the result of the comparison.
     </span><span class="kw">fn </span>lower_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
-        lhs: B::TensorPrimitive&lt;D&gt;,
-        rhs: B::FloatElem,
-    ) -&gt; B::BoolTensorPrimitive&lt;D&gt;;
+        lhs: FloatTensor&lt;B, D&gt;,
+        rhs: FloatElem&lt;B&gt;,
+    ) -&gt; BoolTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Detaches a tensor from the computation graph.
-    </span><span class="kw">fn </span>detach&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>detach&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="comment">// Should only be overridden by autodiff backends.
         </span>tensor
     }
 
     <span class="doccomment">/// Sets the `require_grad` flag of a tensor.
     </span><span class="kw">fn </span>set_require_grad&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
+        tensor: FloatTensor&lt;B, D&gt;,
         _require_grad: bool,
-    ) -&gt; B::TensorPrimitive&lt;D&gt; {
+    ) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="comment">// Should only be overridden by autodiff backends.
         </span>tensor
     }
 
     <span class="doccomment">/// Returns the `require_grad` flag of a tensor.
-    </span><span class="kw">fn </span>is_require_grad&lt;<span class="kw">const </span>D: usize&gt;(_tensor: <span class="kw-2">&amp;</span>B::TensorPrimitive&lt;D&gt;) -&gt; bool {
+    </span><span class="kw">fn </span>is_require_grad&lt;<span class="kw">const </span>D: usize&gt;(_tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;B, D&gt;) -&gt; bool {
         <span class="comment">// Should only be overridden by autodiff backends.
         </span><span class="bool-val">false
     </span>}
@@ -1939,7 +1839,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A scalar tensor with the sum of all elements in `tensor`.
-    </span><span class="kw">fn </span>sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;<span class="number">1</span>&gt;;
+    </span><span class="kw">fn </span>sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, <span class="number">1</span>&gt;;
 
     <span class="doccomment">/// Sum of all elements in a tensor along a dimension.
     ///
@@ -1951,7 +1851,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the sum of all elements in `tensor` along `dim`.
-    </span><span class="kw">fn </span>sum_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;, dim: usize) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>sum_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Mean of all elements in a tensor.
     ///
@@ -1962,7 +1862,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A scalar tensor with the mean of all elements in `tensor`.
-    </span><span class="kw">fn </span>mean&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;<span class="number">1</span>&gt; {
+    </span><span class="kw">fn </span>mean&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, <span class="number">1</span>&gt; {
         <span class="kw">let </span>num_elems = B::shape(<span class="kw-2">&amp;</span>tensor).num_elements();
         B::div_scalar(B::sum(tensor), (num_elems <span class="kw">as </span>i64).elem())
     }
@@ -1977,8 +1877,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the mean of all elements in `tensor` along `dim`.
-    </span><span class="kw">fn </span>mean_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;, dim: usize)
-        -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>mean_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Converts a tensor to full precision.
     ///
@@ -1990,8 +1889,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A tensor with the same values as `tensor` but with full precision.
     </span><span class="kw">fn </span>to_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: <span class="kw-2">&amp;</span>B::TensorPrimitive&lt;D&gt;,
-    ) -&gt; &lt;B::FullPrecisionBackend <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;D&gt;;
+        tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;B, D&gt;,
+    ) -&gt; FloatTensor&lt;FullPrecisionBackend&lt;B&gt;, D&gt;;
 
     <span class="doccomment">/// Converts a tensor from full precision.
     ///
@@ -2003,8 +1902,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A tensor with the same values as `tensor` but with the precision of the backend.
     </span><span class="kw">fn </span>from_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;B::FullPrecisionBackend <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;D&gt;,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+        tensor: FloatTensor&lt;FullPrecisionBackend&lt;B&gt;, D&gt;,
+    ) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with exponential values.
     ///
@@ -2015,7 +1914,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with exponential values.
-    </span><span class="kw">fn </span>exp&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>exp&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with natural logarithm values.
     ///
@@ -2026,7 +1925,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with natural logarithm values.
-    </span><span class="kw">fn </span>log&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>log&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with logarithm values of (1 + Xi).
     ///
@@ -2037,7 +1936,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with logarithm values of (1 + Xi).
-    </span><span class="kw">fn </span>log1p&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>log1p&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with values raised to the power of `value`.
     ///
@@ -2049,7 +1948,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with values raised to the power of `value`.
-    </span><span class="kw">fn </span>powf&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;, value: f32) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>powf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, value: f32) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with square root values.
     ///
@@ -2060,7 +1959,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with square root values.
-    </span><span class="kw">fn </span>sqrt&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>sqrt&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with absolute values.
     ///
@@ -2071,7 +1970,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with absolute values.
-    </span><span class="kw">fn </span>abs&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>abs&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with cosine values.
     ///
@@ -2082,7 +1981,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with cosine values.
-    </span><span class="kw">fn </span>cos&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>cos&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with sine values.
     ///
@@ -2093,7 +1992,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with sine values.
-    </span><span class="kw">fn </span>sin&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>sin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with tangent values.
     ///
@@ -2104,7 +2003,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with tangent values.
-    </span><span class="kw">fn </span>tanh&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>tanh&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Returns a new tensor with the error function values.
     ///
@@ -2115,7 +2014,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the same shape as `tensor` with error function values.
-    </span><span class="kw">fn </span>erf&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>erf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Catcatenates tensors along a dimension.
     ///
@@ -2127,10 +2026,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the catcatenated tensors along `dim`.
-    </span><span class="kw">fn </span>cat&lt;<span class="kw">const </span>D: usize&gt;(
-        tensors: Vec&lt;B::TensorPrimitive&lt;D&gt;&gt;,
-        dim: usize,
-    ) -&gt; B::TensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>cat&lt;<span class="kw">const </span>D: usize&gt;(tensors: Vec&lt;FloatTensor&lt;B, D&gt;&gt;, dim: usize) -&gt; FloatTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Gets the indices of the maximum elements of a tensor along an axis.
     ///
@@ -2142,10 +2038,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the indices of the maximum elements of `tensor` along `dim`.
-    </span><span class="kw">fn </span>argmax&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        dim: usize,
-    ) -&gt; B::IntTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>argmax&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; IntTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Gets the indices of the minimum elements of a tensor along an axis.
     ///
@@ -2157,10 +2050,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the indices of the minimum elements of `tensor` along `dim`.
-    </span><span class="kw">fn </span>argmin&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
-        dim: usize,
-    ) -&gt; B::IntTensorPrimitive&lt;D&gt;;
+    </span><span class="kw">fn </span>argmin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; IntTensor&lt;B, D&gt;;
 
     <span class="doccomment">/// Gets the maximum element of a tensor.
     ///
@@ -2171,7 +2061,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the maximum element of `tensor`.
-    </span><span class="kw">fn </span>max&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;<span class="number">1</span>&gt; {
+    </span><span class="kw">fn </span>max&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, <span class="number">1</span>&gt; {
         <span class="kw">let </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor);
         <span class="kw">let </span>tensor = B::reshape(tensor, Shape::new([shape.num_elements()]));
 
@@ -2188,7 +2078,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the maximum elements of `tensor` along `dim`.
-    </span><span class="kw">fn </span>max_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;, dim: usize) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>max_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span>index = B::argmax(tensor.clone(), dim);
 
         B::gather(D - <span class="number">1</span>, tensor, index)
@@ -2205,9 +2095,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A tuple with the maximum elements of `tensor` along `dim` and their indices.
     </span><span class="kw">fn </span>max_dim_with_indices&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
+        tensor: FloatTensor&lt;B, D&gt;,
         dim: usize,
-    ) -&gt; (B::TensorPrimitive&lt;D&gt;, B::IntTensorPrimitive&lt;D&gt;) {
+    ) -&gt; (FloatTensor&lt;B, D&gt;, IntTensor&lt;B, D&gt;) {
         <span class="kw">let </span>index = B::argmax(tensor.clone(), dim);
         <span class="kw">let </span>values = B::gather(D - <span class="number">1</span>, tensor, index.clone());
 
@@ -2223,7 +2113,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the minimum element of `tensor`.
-    </span><span class="kw">fn </span>min&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;) -&gt; B::TensorPrimitive&lt;<span class="number">1</span>&gt; {
+    </span><span class="kw">fn </span>min&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;) -&gt; FloatTensor&lt;B, <span class="number">1</span>&gt; {
         <span class="kw">let </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor);
         <span class="kw">let </span>tensor = B::reshape(tensor, Shape::new([shape.num_elements()]));
 
@@ -2240,7 +2130,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Returns
     ///
     /// A tensor with the minimum elements of `tensor` along `dim`.
-    </span><span class="kw">fn </span>min_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: B::TensorPrimitive&lt;D&gt;, dim: usize) -&gt; B::TensorPrimitive&lt;D&gt; {
+    </span><span class="kw">fn </span>min_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span>index = B::argmin(tensor.clone(), dim);
 
         B::gather(D - <span class="number">1</span>, tensor, index)
@@ -2257,9 +2147,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ///
     /// A tuple with the minimum elements of `tensor` along `dim` and their indices.
     </span><span class="kw">fn </span>min_dim_with_indices&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: B::TensorPrimitive&lt;D&gt;,
+        tensor: FloatTensor&lt;B, D&gt;,
         dim: usize,
-    ) -&gt; (B::TensorPrimitive&lt;D&gt;, B::IntTensorPrimitive&lt;D&gt;) {
+    ) -&gt; (FloatTensor&lt;B, D&gt;, IntTensor&lt;B, D&gt;) {
         <span class="kw">let </span>index = B::argmin(tensor.clone(), dim);
         <span class="kw">let </span>values = B::gather(D - <span class="number">1</span>, tensor, index.clone());
 

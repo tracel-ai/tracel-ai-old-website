@@ -393,14 +393,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 </span><span class="kw">use </span><span class="kw">crate</span>::element::ExpElement;
 <span class="kw">use </span><span class="kw">crate</span>::element::FloatNdArrayElement;
 <span class="kw">use </span><span class="kw">crate</span>::NdArrayDevice;
-<span class="kw">use crate</span>::{tensor::NdArrayTensor, NdArrayBackend};
+<span class="kw">use crate</span>::{tensor::NdArrayTensor, NdArray};
 
 <span class="comment">// Workspace crates
 </span><span class="kw">use </span>burn_tensor::{backend::Backend, Data, Shape};
 
 <span class="kw">use super</span>::{NdArrayMathOps, NdArrayOps};
 
-<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; IntTensorOps&lt;NdArrayBackend&lt;E&gt;&gt; <span class="kw">for </span>NdArrayBackend&lt;E&gt; {
+<span class="kw">impl</span>&lt;E: FloatNdArrayElement&gt; IntTensorOps&lt;<span class="self">Self</span>&gt; <span class="kw">for </span>NdArray&lt;E&gt; {
     <span class="kw">fn </span>int_from_data&lt;<span class="kw">const </span>D: usize&gt;(
         data: Data&lt;i64, D&gt;,
         _device: <span class="kw-2">&amp;</span>NdArrayDevice,
@@ -442,13 +442,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">fn </span>int_device&lt;<span class="kw">const </span>D: usize&gt;(
         _tensor: <span class="kw-2">&amp;</span>NdArrayTensor&lt;i64, D&gt;,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device {
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device {
         NdArrayDevice::Cpu
     }
 
     <span class="kw">fn </span>int_empty&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
-        _device: <span class="kw-2">&amp;</span>&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
+        _device: <span class="kw-2">&amp;</span>&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
     ) -&gt; NdArrayTensor&lt;i64, D&gt; {
         <span class="kw">let </span>values = <span class="macro">vec!</span>[<span class="number">0</span>; shape.num_elements()];
         NdArrayTensor::from_data(Data::new(values, shape))
@@ -628,14 +628,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">fn </span>int_zeros&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
-        device: <span class="kw-2">&amp;</span>&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
+        device: <span class="kw-2">&amp;</span>&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
     ) -&gt; NdArrayTensor&lt;i64, D&gt; {
         <span class="self">Self</span>::int_from_data(Data::zeros(shape), device)
     }
 
     <span class="kw">fn </span>int_ones&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
-        device: <span class="kw-2">&amp;</span>&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
+        device: <span class="kw-2">&amp;</span>&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
     ) -&gt; NdArrayTensor&lt;i64, D&gt; {
         <span class="self">Self</span>::int_from_data(Data::ones(shape), device)
     }
@@ -643,7 +643,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_full&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
         fill_value: i64,
-        device: <span class="kw-2">&amp;</span>&lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
+        device: <span class="kw-2">&amp;</span>&lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::Device,
     ) -&gt; NdArrayTensor&lt;i64, D&gt; {
         <span class="self">Self</span>::int_from_data(Data::full(shape, fill_value), device)
     }
@@ -746,17 +746,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>int_into_float&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::IntTensorPrimitive&lt;D&gt;,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;D&gt; {
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::IntTensorPrimitive&lt;D&gt;,
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::TensorPrimitive&lt;D&gt; {
         <span class="kw">let </span>array = tensor.array.mapv(|a| a.elem()).into_shared();
         NdArrayTensor { array }
     }
 
     <span class="kw">fn </span>int_swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::IntTensorPrimitive&lt;D&gt;,
+        tensor: &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::IntTensorPrimitive&lt;D&gt;,
         dim1: usize,
         dim2: usize,
-    ) -&gt; &lt;NdArrayBackend&lt;E&gt; <span class="kw">as </span>Backend&gt;::IntTensorPrimitive&lt;D&gt; {
+    ) -&gt; &lt;NdArray&lt;E&gt; <span class="kw">as </span>Backend&gt;::IntTensorPrimitive&lt;D&gt; {
         NdArrayOps::swap_dims(tensor, dim1, dim2)
     }
 }

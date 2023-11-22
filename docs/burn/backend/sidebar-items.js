@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["autodiff","libtorch","ndarray","wgpu"],"struct":["Autodiff","Fusion","LibTorch","NdArray","Wgpu"]};

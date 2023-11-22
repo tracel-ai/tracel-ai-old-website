@@ -29,6 +29,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#27" id="27">27</a>
 <a href="#28" id="28">28</a>
 <a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
 </pre></div><pre class="rust"><code><span class="attr">#[burn_tensor_testgen::testgen(ad_cos)]
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -39,8 +40,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>data_1 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">0.0</span>, <span class="number">1.0</span>], [<span class="number">3.0</span>, <span class="number">4.0</span>]]);
         <span class="kw">let </span>data_2 = Data::&lt;f32, <span class="number">2</span>&gt;::from([[<span class="number">6.0</span>, <span class="number">7.0</span>], [<span class="number">9.0</span>, <span class="number">10.0</span>]]);
 
-        <span class="kw">let </span>tensor_1 = TestADTensor::from_data(data_1).require_grad();
-        <span class="kw">let </span>tensor_2 = TestADTensor::from_data(data_2).require_grad();
+        <span class="kw">let </span>tensor_1 = TestAutodiffTensor::from_data(data_1).require_grad();
+        <span class="kw">let </span>tensor_2 = TestAutodiffTensor::from_data(data_2).require_grad();
 
         <span class="kw">let </span>tensor_3 = tensor_1.clone().matmul(tensor_2.clone().cos());
         <span class="kw">let </span>tensor_4 = tensor_3.matmul(tensor_2.clone());
@@ -49,12 +50,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>grad_1 = tensor_1.grad(<span class="kw-2">&amp;</span>grads).unwrap();
         <span class="kw">let </span>grad_2 = tensor_2.grad(<span class="kw-2">&amp;</span>grads).unwrap();
 
-        grad_1
-            .to_data()
-            .assert_approx_eq(<span class="kw-2">&amp;</span>Data::from([[<span class="number">26.8063</span>, -<span class="number">27.7870</span>], [<span class="number">26.8063</span>, -<span class="number">27.7870</span>]]), <span class="number">3</span>);
-        grad_2.to_data().assert_approx_eq(
+        grad_1.to_data().assert_approx_eq_diff(
+            <span class="kw-2">&amp;</span>Data::from([[<span class="number">26.8063</span>, -<span class="number">27.7870</span>], [<span class="number">26.8063</span>, -<span class="number">27.7870</span>]]),
+            <span class="number">2.0e-3</span>,
+        );
+        grad_2.to_data().assert_approx_eq_diff(
             <span class="kw-2">&amp;</span>Data::from([[<span class="number">9.222064</span>, -<span class="number">39.123375</span>], [-<span class="number">28.721354</span>, <span class="number">49.748356</span>]]),
-            <span class="number">3</span>,
+            <span class="number">2.0e-3</span>,
         );
     }
 }

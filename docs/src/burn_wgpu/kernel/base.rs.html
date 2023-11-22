@@ -228,13 +228,62 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#226" id="226">226</a>
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::SourceTemplate;
 <span class="kw">use crate</span>::{
-    compute::{StaticKernel, WorkGroup},
+    compute::{StaticKernel, WgpuComputeClient, WgpuHandle, WorkGroup},
     element::WgpuElement,
+    kernel,
     tensor::WgpuTensor,
 };
-<span class="kw">use </span>std::{marker::PhantomData, sync::Arc};
+<span class="kw">use </span>std::marker::PhantomData;
 
 <span class="attr">#[cfg(target_family = <span class="string">&quot;wasm&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>WORKGROUP_DEFAULT: usize = <span class="number">16</span>;
@@ -295,17 +344,42 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>info = build_info(<span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor, <span class="kw-2">&amp;</span>output]);
     <span class="kw">let </span>info_handle = tensor.client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
 
-    tensor.client.execute(
-        Arc::new(StaticKernel::&lt;
-            KernelSettings&lt;ContiguousRaw, E, i32, WORKGROUP_DEFAULT, WORKGROUP_DEFAULT, <span class="number">1</span>&gt;,
-        &gt;::new(elemwise_workgroup(
-            num_elems,
-            WORKGROUP_DEFAULT,
-        ))),
-        <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle],
-    );
+    <span class="kw">let </span>kernel = Box::new(StaticKernel::&lt;
+        KernelSettings&lt;ContiguousRaw, E, i32, WORKGROUP_DEFAULT, WORKGROUP_DEFAULT, <span class="number">1</span>&gt;,
+    &gt;::new(elemwise_workgroup(num_elems, WORKGROUP_DEFAULT)));
+
+    tensor
+        .client
+        .execute(kernel, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>tensor.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle]);
 
     output
+}
+
+<span class="doccomment">/// Similar to [into contiguous](into_contiguous) but with dynamic rank.
+</span><span class="kw">pub fn </span>into_contiguous_dyn&lt;E: WgpuElement&gt;(
+    client: WgpuComputeClient,
+    input: WgpuHandle,
+    input_shape: <span class="kw-2">&amp;</span>[usize],
+    input_strides: <span class="kw-2">&amp;</span>[usize],
+    output_shape: <span class="kw-2">&amp;</span>[usize],
+    output_strides: <span class="kw-2">&amp;</span>[usize],
+    num_elems: usize,
+) -&gt; WgpuHandle {
+    <span class="kw">let </span>handle = client.empty(num_elems * core::mem::size_of::&lt;E&gt;());
+    <span class="kw">let </span>info = kernel::build_info_dyn::&lt;E&gt;(
+        <span class="kw-2">&amp;</span>[input_shape, output_shape],
+        <span class="kw-2">&amp;</span>[input_strides, output_strides],
+    );
+
+    <span class="kw">let </span>info_handle = client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info));
+
+    <span class="kw">let </span>kernel = Box::new(StaticKernel::&lt;
+        KernelSettings&lt;ContiguousRaw, E, i32, WORKGROUP_DEFAULT, WORKGROUP_DEFAULT, <span class="number">1</span>&gt;,
+    &gt;::new(elemwise_workgroup(num_elems, WORKGROUP_DEFAULT)));
+
+    client.execute(kernel, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>input, <span class="kw-2">&amp;</span>handle, <span class="kw-2">&amp;</span>info_handle]);
+
+    handle
 }
 
 <span class="doccomment">/// Generates kernel source code by replacing some information using templating.
@@ -410,6 +484,28 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">for </span>tensor <span class="kw">in </span>tensors.iter() {
         <span class="kw">for </span>d <span class="kw">in </span><span class="number">0</span>..D {
             info[current] = tensor.shape.dims[d] <span class="kw">as </span>u32;
+            current += <span class="number">1</span>;
+        }
+    }
+    info
+}
+
+<span class="doccomment">/// Similar to [build info](build_info) but with dynamic rank.
+</span><span class="kw">pub fn </span>build_info_dyn&lt;E: WgpuElement&gt;(shapes: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[usize]], strides: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[usize]]) -&gt; Vec&lt;u32&gt; {
+    <span class="kw">let </span>rank = shapes.get(<span class="number">0</span>).unwrap().len();
+    <span class="kw">let </span><span class="kw-2">mut </span>info: Vec&lt;u32&gt; = <span class="macro">vec!</span>[<span class="number">0</span>; shapes.len() * <span class="number">2 </span>* rank + <span class="number">1</span>];
+    info[<span class="number">0</span>] = rank <span class="kw">as </span>u32;
+
+    <span class="kw">let </span><span class="kw-2">mut </span>current = <span class="number">1</span>;
+    <span class="kw">for </span>stride <span class="kw">in </span>strides.iter() {
+        <span class="kw">for </span>d <span class="kw">in </span><span class="number">0</span>..rank {
+            info[current] = stride[d] <span class="kw">as </span>u32;
+            current += <span class="number">1</span>;
+        }
+    }
+    <span class="kw">for </span>shape <span class="kw">in </span>shapes.iter() {
+        <span class="kw">for </span>d <span class="kw">in </span><span class="number">0</span>..rank {
+            info[current] = shape[d] <span class="kw">as </span>u32;
             current += <span class="number">1</span>;
         }
     }

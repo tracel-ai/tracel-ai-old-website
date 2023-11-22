@@ -163,17 +163,25 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#161" id="161">161</a>
 <a href="#162" id="162">162</a>
 <a href="#163" id="163">163</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{backend::Backend, Shape};
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
+    backend::Backend,
+    ops::{FloatTensor, IntTensor},
+    Shape,
+};
 
 <span class="kw">use super</span>::{MaxPool1dBackward, MaxPool1dWithIndices};
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>avg_pool1d_from_2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     kernel_size: usize,
     stride: usize,
     padding: usize,
     count_include_pad: bool,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[batch_size, channels, length] = B::shape(<span class="kw-2">&amp;</span>x).dims;
 
     <span class="kw">let </span>x = B::reshape(x, Shape::from([batch_size, channels, length, <span class="number">1</span>]));
@@ -191,13 +199,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>avg_pool1d_backward_from_2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     kernel_size: usize,
     stride: usize,
     padding: usize,
     count_include_pad: bool,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[batch_size, channels, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
     <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, length_out] = B::shape(<span class="kw-2">&amp;</span>grad).dims;
 
@@ -217,9 +225,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>adaptive_avg_pool1d_from_2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     output_size: usize,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[batch_size, channels, length] = B::shape(<span class="kw-2">&amp;</span>x).dims;
 
     <span class="kw">let </span>x = B::reshape(x, Shape::from([batch_size, channels, length, <span class="number">1</span>]));
@@ -231,9 +239,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>adaptive_avg_pool1d_backward_from_2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[batch_size, channels, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
     <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, length_out] = B::shape(<span class="kw-2">&amp;</span>grad).dims;
 
@@ -246,12 +254,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>max_pool1d_from_2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     kernel_size: usize,
     stride: usize,
     padding: usize,
     dilation: usize,
-) -&gt; B::TensorPrimitive&lt;<span class="number">3</span>&gt; {
+) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
     <span class="kw">let </span>[batch_size, channels, length] = B::shape(<span class="kw-2">&amp;</span>x).dims;
 
     <span class="kw">let </span>x = B::reshape(x, Shape::from([batch_size, channels, length, <span class="number">1</span>]));
@@ -269,7 +277,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>max_pool1d_with_indices_from_2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     kernel_size: usize,
     stride: usize,
     padding: usize,
@@ -292,13 +300,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>max_pool1d_with_indices_backward_from_2d&lt;B: Backend&gt;(
-    x: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
+    x: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     kernel_size: usize,
     stride: usize,
     padding: usize,
     dilation: usize,
-    output_grad: B::TensorPrimitive&lt;<span class="number">3</span>&gt;,
-    indices: B::IntTensorPrimitive&lt;<span class="number">3</span>&gt;,
+    output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
+    indices: IntTensor&lt;B, <span class="number">3</span>&gt;,
 ) -&gt; MaxPool1dBackward&lt;B&gt; {
     <span class="kw">let </span>[batch_size, channels, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
     <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, length_out] = B::shape(<span class="kw-2">&amp;</span>output_grad).dims;

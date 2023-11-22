@@ -252,15 +252,15 @@ fn main() {
 <pre><code class="language-rust  ignore">mod model;
 
 use burn::tensor;
-use burn_ndarray::NdArrayBackend;
+use burn_ndarray::NdArray;
 use model::mnist::Model;
 
 fn main() {
     // Initialize a new model instance
-    let model: Model&lt;NdArrayBackend&lt;f32&gt;&gt; = Model::new();
+    let model: Model&lt;NdArray&lt;f32&gt;&gt; = Model::new();
 
     // Create a sample input tensor (zeros for demonstration)
-    let input = tensor::Tensor::&lt;NdArrayBackend&lt;f32&gt;, 4&gt;::zeros([1, 1, 28, 28]);
+    let input = tensor::Tensor::&lt;NdArray&lt;f32&gt;, 4&gt;::zeros([1, 1, 28, 28]);
 
     // Perform inference
     let output = model.forward(input);

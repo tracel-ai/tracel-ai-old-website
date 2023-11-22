@@ -118,11 +118,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#116" id="116">116</a>
 <a href="#117" id="117">117</a>
 <a href="#118" id="118">118</a>
-<a href="#119" id="119">119</a>
-<a href="#120" id="120">120</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use crate</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     compute::StaticKernel,
     element::WgpuElement,
     kernel::{unary_scalar, unary_scalar_inplace_default, WORKGROUP_DEFAULT},
@@ -181,7 +177,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         input
             .client
-            .execute(Arc::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>input.handle, <span class="kw-2">&amp;</span>min_handle, <span class="kw-2">&amp;</span>max_handle]);
+            .execute(Box::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>input.handle, <span class="kw-2">&amp;</span>min_handle, <span class="kw-2">&amp;</span>max_handle]);
 
         <span class="kw">return </span>input;
     }
@@ -192,7 +188,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     &gt;::new(elemwise_workgroup(num_elems, WORKGROUP_DEFAULT));
 
     input.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>input.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>min_handle, <span class="kw-2">&amp;</span>max_handle],
     );
 

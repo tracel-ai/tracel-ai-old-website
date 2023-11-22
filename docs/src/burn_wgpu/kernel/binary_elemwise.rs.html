@@ -181,11 +181,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#179" id="179">179</a>
 <a href="#180" id="180">180</a>
 <a href="#181" id="181">181</a>
-<a href="#182" id="182">182</a>
-<a href="#183" id="183">183</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-
-<span class="kw">use super</span>::{
+</pre></div><pre class="rust"><code><span class="kw">use super</span>::{
     build_info, elemwise_workgroup, KernelSettings, StaticKernelSource, WORKGROUP_DEFAULT,
 };
 <span class="kw">use </span><span class="kw">crate</span>::compute::StaticKernel;
@@ -282,7 +278,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     );
 
     lhs.client.execute(
-        Arc::new(kernel),
+        Box::new(kernel),
         <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs.handle, <span class="kw-2">&amp;</span>rhs.handle, <span class="kw-2">&amp;</span>output.handle, <span class="kw-2">&amp;</span>info_handle],
     );
 
@@ -316,7 +312,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     );
 
     lhs.client
-        .execute(Arc::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs.handle, <span class="kw-2">&amp;</span>rhs.handle, <span class="kw-2">&amp;</span>info_handle]);
+        .execute(Box::new(kernel), <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>lhs.handle, <span class="kw-2">&amp;</span>rhs.handle, <span class="kw-2">&amp;</span>info_handle]);
 
     lhs
 }
