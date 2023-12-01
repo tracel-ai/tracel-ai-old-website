@@ -1,3 +1,3 @@
 (function() {var implementors = {
-"xtask":[["impl FromArgMatches for <a class=\"enum\" href=\"xtask/enum.Command.html\" title=\"enum xtask::Command\">Command</a>"],["impl FromArgMatches for <a class=\"struct\" href=\"xtask/struct.Args.html\" title=\"struct xtask::Args\">Args</a>"]]
+"xtask":[["impl FromArgMatches for <a class=\"struct\" href=\"xtask/struct.Args.html\" title=\"struct xtask::Args\">Args</a>"],["impl FromArgMatches for <a class=\"enum\" href=\"xtask/enum.Command.html\" title=\"enum xtask::Command\">Command</a>"]]
 };if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

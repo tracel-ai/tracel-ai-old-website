@@ -35,6 +35,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#33" id="33">33</a>
 <a href="#34" id="34">34</a>
 <a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::ir::{AttributeValue, Node, NodeType};
 
 <span class="doccomment">/// Remap node type using kernel shape
@@ -56,6 +61,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="number">1 </span>=&gt; NodeType::Conv1d,
             <span class="number">2 </span>=&gt; NodeType::Conv2d,
             <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">&quot;Only conv 1d and 2d are supported&quot;</span>),
+        }),
+        NodeType::ConvTranspose =&gt; remap_node_with_kernel_shape(node, |ints| <span class="kw">match </span>ints.len() {
+            <span class="number">1 </span>=&gt; NodeType::ConvTranspose1d,
+            <span class="number">2 </span>=&gt; NodeType::ConvTranspose2d,
+            <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">&quot;Only conv_transpose 1d and 2d are supported&quot;</span>),
         }),
         NodeType::MaxPool =&gt; remap_node_with_kernel_shape(node, |ints| <span class="kw">match </span>ints.len() {
             <span class="number">1 </span>=&gt; NodeType::MaxPool1d,

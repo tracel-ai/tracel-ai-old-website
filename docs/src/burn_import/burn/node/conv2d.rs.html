@@ -390,7 +390,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                         phantom: core::marker::PhantomData,
                     }
                 }
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, input: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
                     <span class="kw">let </span>output = <span class="self">self</span>.conv2d.forward(input);
 

@@ -682,6 +682,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#680" id="680">680</a>
 <a href="#681" id="681">681</a>
 <a href="#682" id="682">682</a>
+<a href="#683" id="683">683</a>
+<a href="#684" id="684">684</a>
+<a href="#685" id="685">685</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{BurnImports, Scope, Type};
 <span class="kw">use </span><span class="kw">crate</span>::burn::{
     node::{Node, NodeCodegen},
@@ -705,11 +708,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Pretty JSON format (useful for debugging).
     </span>PrettyJson,
 
-    <span class="attr">#[default]
-    </span><span class="doccomment">/// Compressed Named MessagePack.
+    <span class="doccomment">/// Compressed Named MessagePack.
+    ///
+    /// Note: This may cause infinite build.
+    ///       See [#952 bug](https://github.com/Tracel-AI/burn/issues/952).
     </span>NamedMpkGz,
 
     <span class="doccomment">/// Uncompressed Named MessagePack.
+    </span><span class="attr">#[default]
     </span>NamedMpk,
 
     <span class="doccomment">/// Bincode format (useful for embedding and for no-std support).
@@ -1226,7 +1232,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         // otherwise let_and_return error will be triggered by clippy.
         // For now, we just disable the warning.
         </span><span class="macro">quote! </span>{
-            <span class="attr">#[allow(clippy::let_and_return)]
+            <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
             </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, #input_def) -&gt; #output_type_def {
                 #body
 

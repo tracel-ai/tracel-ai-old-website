@@ -107,9 +107,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 <span class="doccomment">/// Field to be serialized.
                 </span><span class="kw">pub </span>#name: &lt;#ty <span class="kw">as </span>burn::record::Record&gt;::Item&lt;S&gt;,
             });
-            bounds.extend(<span class="macro">quote!</span>{
-                &lt;#ty <span class="kw">as </span>burn::record::Record&gt;::Item&lt;S&gt;: serde::Serialize + serde::de::DeserializeOwned,
-            });
+            bounds.extend(<span class="macro">quote! </span>{
+          &lt;#ty <span class="kw">as </span>burn::record::Record&gt;::Item&lt;S&gt;: serde::Serialize + serde::de::DeserializeOwned,
+      });
         }
         <span class="kw">let </span>bound = bounds.to_string();
 

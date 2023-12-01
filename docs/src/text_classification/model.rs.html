@@ -272,7 +272,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, item: TextClassificationTrainingBatch&lt;B&gt;) -&gt; ClassificationOutput&lt;B&gt; {
         <span class="comment">// Get batch and sequence length, and the device
         </span><span class="kw">let </span>[batch_size, seq_length] = item.tokens.dims();
-        <span class="kw">let </span>device = <span class="kw-2">&amp;</span><span class="self">self</span>.embedding_token.devices(Vec::new())[<span class="number">0</span>];
+        <span class="kw">let </span>device = <span class="kw-2">&amp;</span><span class="self">self</span>.embedding_token.devices()[<span class="number">0</span>];
 
         <span class="comment">// Move tensors to the correct device
         </span><span class="kw">let </span>tokens = item.tokens.to_device(device);
@@ -312,7 +312,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">pub fn </span>infer(<span class="kw-2">&amp;</span><span class="self">self</span>, item: TextClassificationInferenceBatch&lt;B&gt;) -&gt; Tensor&lt;B, <span class="number">2</span>&gt; {
         <span class="comment">// Get batch and sequence length, and the device
         </span><span class="kw">let </span>[batch_size, seq_length] = item.tokens.dims();
-        <span class="kw">let </span>device = <span class="kw-2">&amp;</span><span class="self">self</span>.embedding_token.devices(Vec::new())[<span class="number">0</span>];
+        <span class="kw">let </span>device = <span class="kw-2">&amp;</span><span class="self">self</span>.embedding_token.devices()[<span class="number">0</span>];
 
         <span class="comment">// Move tensors to the correct device
         </span><span class="kw">let </span>tokens = item.tokens.to_device(device);

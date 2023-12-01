@@ -251,11 +251,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>gen_serialize_fn(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream {
         <span class="kw">let </span>enum_name = <span class="self">self</span>.serde_enum_ident();
         <span class="kw">let </span>variants = <span class="self">self</span>.data.variants.iter().map(|variant| {
-            <span class="kw">let </span>variant_name = <span class="kw-2">&amp;</span>variant.ident;
-            <span class="kw">let </span>(variant_input, variant_output) = <span class="self">self</span>.gen_variant_field(variant);
+      <span class="kw">let </span>variant_name = <span class="kw-2">&amp;</span>variant.ident;
+      <span class="kw">let </span>(variant_input, variant_output) = <span class="self">self</span>.gen_variant_field(variant);
 
-            <span class="macro">quote! </span>{ <span class="self">Self</span>::#variant_name #variant_input =&gt; #enum_name::#variant_name #variant_output }
-        });
+      <span class="macro">quote! </span>{ <span class="self">Self</span>::#variant_name #variant_input =&gt; #enum_name::#variant_name #variant_output }
+    });
         <span class="kw">let </span>name = <span class="kw-2">&amp;</span><span class="self">self</span>.name;
 
         <span class="macro">quote! </span>{
@@ -276,11 +276,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>gen_deserialize_fn(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream {
         <span class="kw">let </span>enum_name = <span class="self">self</span>.serde_enum_ident();
         <span class="kw">let </span>variants = <span class="self">self</span>.data.variants.iter().map(|variant| {
-            <span class="kw">let </span>variant_name = <span class="kw-2">&amp;</span>variant.ident;
-            <span class="kw">let </span>(variant_input, variant_output) = <span class="self">self</span>.gen_variant_field(variant);
+      <span class="kw">let </span>variant_name = <span class="kw-2">&amp;</span>variant.ident;
+      <span class="kw">let </span>(variant_input, variant_output) = <span class="self">self</span>.gen_variant_field(variant);
 
-            <span class="macro">quote! </span>{ #enum_name::#variant_name #variant_input =&gt; <span class="self">Self</span>::#variant_name #variant_output }
-        });
+      <span class="macro">quote! </span>{ #enum_name::#variant_name #variant_input =&gt; <span class="self">Self</span>::#variant_name #variant_output }
+    });
         <span class="kw">let </span>name = <span class="kw-2">&amp;</span><span class="self">self</span>.name;
 
         <span class="macro">quote! </span>{

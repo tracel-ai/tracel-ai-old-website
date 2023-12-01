@@ -320,6 +320,41 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#318" id="318">318</a>
 <a href="#319" id="319">319</a>
 <a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::codegen::Body;
 <span class="kw">use </span><span class="kw">crate</span>::compute::{compute_client, DynamicKernel, WgpuComputeClient};
 <span class="kw">use </span><span class="kw">crate</span>::fusion::codegen::Function;
@@ -405,25 +440,43 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Register the inputs used by the kernel.
     </span><span class="kw">pub fn </span>inputs(
         <span class="kw-2">mut </span><span class="self">self</span>,
-        inputs_tensor: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+        inputs_tensor: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>(TensorDescription, Elem)],
         inputs_scalar_f32: <span class="kw-2">&amp;</span>[f32],
     ) -&gt; FusionKernel&lt;G, F, I, BodyPhase&gt; {
-        <span class="kw">for </span>(i, input) <span class="kw">in </span>inputs_tensor.iter().enumerate() {
-            <span class="self">self</span>.input_bindings.push((
-                Binding {
-                    elem: Elem::F32,
-                    visibility: Visibility::Read,
-                    location: Location::Storage,
-                    size: <span class="prelude-val">None</span>,
-                },
-                (<span class="kw-2">*</span>input).clone(),
-            ));
+        <span class="kw">for </span>(i, (input, elem)) <span class="kw">in </span>inputs_tensor.iter().enumerate() {
+            <span class="kw">if </span>elem != <span class="kw-2">&amp;</span>Elem::Bool {
+                <span class="self">self</span>.input_bindings.push((
+                    Binding {
+                        elem: <span class="kw-2">*</span>elem,
+                        visibility: Visibility::Read,
+                        location: Location::Storage,
+                        size: <span class="prelude-val">None</span>,
+                    },
+                    (<span class="kw-2">*</span>input).clone(),
+                ));
 
-            <span class="self">self</span>.operations.push(Operator::ReadGlobal {
-                variable: Variable::Input(i <span class="kw">as </span>u16),
-                position: i,
-                position_out: inputs_tensor.len(), <span class="comment">// First output
-            </span>});
+                <span class="self">self</span>.operations.push(Operator::ReadGlobal {
+                    variable: Variable::Input(i <span class="kw">as </span>u16, <span class="kw-2">*</span>elem),
+                    position: i,
+                    position_out: inputs_tensor.len(), <span class="comment">// First output
+                </span>});
+            } <span class="kw">else </span>{
+                <span class="self">self</span>.input_bindings.push((
+                    Binding {
+                        elem: Elem::I32,
+                        visibility: Visibility::Read,
+                        location: Location::Storage,
+                        size: <span class="prelude-val">None</span>,
+                    },
+                    (<span class="kw-2">*</span>input).clone(),
+                ));
+
+                <span class="self">self</span>.operations.push(Operator::ReadGlobal {
+                    variable: Variable::Input(i <span class="kw">as </span>u16, <span class="kw-2">*</span>elem),
+                    position: i,
+                    position_out: inputs_tensor.len(), <span class="comment">// First output
+                </span>});
+            }
         }
 
         <span class="kw">if </span>!inputs_scalar_f32.is_empty() {
@@ -502,31 +555,48 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// So the 4th operator registered creates the local variable 3 (N-1, since the 1th index is 0).
     </span><span class="kw">pub fn </span>outputs(
         <span class="kw-2">mut </span><span class="self">self</span>,
-        outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+        outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>(TensorDescription, Elem)],
         locals: <span class="kw-2">&amp;</span>[u16],
     ) -&gt; FusionKernel&lt;G, F, I, ExecutionPhase&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>num_elems_launch_option = <span class="number">0</span>;
 
-        <span class="kw">for </span>(i, (output, local)) <span class="kw">in </span>outputs.iter().zip(locals).enumerate() {
+        <span class="kw">for </span>(i, ((output, elem), local)) <span class="kw">in </span>outputs.iter().zip(locals).enumerate() {
             <span class="kw">let </span>num_elems_output = calculate_num_elems_dyn_rank(<span class="kw-2">&amp;</span>output.shape);
             <span class="kw">if </span>num_elems_output &gt; num_elems_launch_option {
                 num_elems_launch_option = num_elems_output;
             }
 
-            <span class="self">self</span>.output_bindings.push((
-                Binding {
-                    elem: Elem::F32,
-                    visibility: Visibility::ReadWrite,
-                    location: Location::Storage,
-                    size: <span class="prelude-val">None</span>,
-                },
-                (<span class="kw-2">*</span>output).clone(),
-            ));
+            <span class="kw">if </span>elem != <span class="kw-2">&amp;</span>Elem::Bool {
+                <span class="self">self</span>.output_bindings.push((
+                    Binding {
+                        elem: <span class="kw-2">*</span>elem,
+                        visibility: Visibility::ReadWrite,
+                        location: Location::Storage,
+                        size: <span class="prelude-val">None</span>,
+                    },
+                    (<span class="kw-2">*</span>output).clone(),
+                ));
 
-            <span class="self">self</span>.operations.push(Operator::AssignGlobal {
-                input: Variable::Local(<span class="kw-2">*</span>local),
-                out: Variable::Output(i <span class="kw">as </span>u16),
-            });
+                <span class="self">self</span>.operations.push(Operator::AssignGlobal {
+                    input: Variable::Local(<span class="kw-2">*</span>local, <span class="kw-2">*</span>elem),
+                    out: Variable::Output(i <span class="kw">as </span>u16, <span class="kw-2">*</span>elem),
+                });
+            } <span class="kw">else </span>{
+                <span class="self">self</span>.output_bindings.push((
+                    Binding {
+                        elem: Elem::I32, <span class="comment">// I32 are used for bool tensors
+                        </span>visibility: Visibility::ReadWrite,
+                        location: Location::Storage,
+                        size: <span class="prelude-val">None</span>,
+                    },
+                    (<span class="kw-2">*</span>output).clone(),
+                ));
+
+                <span class="self">self</span>.operations.push(Operator::AssignGlobal {
+                    input: Variable::Local(<span class="kw-2">*</span>local, <span class="kw-2">*</span>elem),
+                    out: Variable::Output(i <span class="kw">as </span>u16, Elem::I32),
+                });
+            }
         }
 
         <span class="self">self</span>.num_elems_output = num_elems_launch_option;

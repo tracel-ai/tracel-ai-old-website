@@ -201,6 +201,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#199" id="199">199</a>
 <a href="#200" id="200">200</a>
 <a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{Body, Function};
 <span class="kw">use </span><span class="kw">crate</span>::kernel::{DynamicKernelSource, SourceTemplate, WORKGROUP_DEFAULT};
 <span class="kw">use </span>std::{
@@ -222,12 +224,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ReadWrite,
 }
 
-<span class="attr">#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+<span class="attr">#[derive(Debug, Clone, Hash, PartialEq, Eq, Copy)]
 </span><span class="kw">pub enum </span>Elem {
     F32,
     <span class="attr">#[allow(dead_code)]
     </span>I32,
     U32,
+    Bool,
 }
 
 <span class="attr">#[derive(Hash, PartialEq, Eq)]
@@ -390,6 +393,7 @@ var&lt;{}, {}&gt; {}: {};
             Elem::F32 =&gt; f.write_str(<span class="string">&quot;f32&quot;</span>),
             Elem::I32 =&gt; f.write_str(<span class="string">&quot;i32&quot;</span>),
             Elem::U32 =&gt; f.write_str(<span class="string">&quot;u32&quot;</span>),
+            Elem::Bool =&gt; f.write_str(<span class="string">&quot;bool&quot;</span>),
         }
     }
 }

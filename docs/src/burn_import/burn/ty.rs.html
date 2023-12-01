@@ -174,7 +174,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     Bool,
 }
 
-<span class="attr">#[derive(Debug, Clone)]
+<span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>ScalarKind {
     Int32,
     Int64,
@@ -183,7 +183,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     Bool,
 }
 
-<span class="attr">#[derive(Debug, Clone)]
+<span class="attr">#[derive(Debug, Clone, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>ScalarType {
     <span class="kw">pub </span>name: Ident,
     <span class="kw">pub </span>kind: ScalarKind,

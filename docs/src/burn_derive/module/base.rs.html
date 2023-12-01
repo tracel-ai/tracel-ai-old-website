@@ -194,7 +194,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">let </span>num_params_fn = generator.gen_num_params();
     <span class="kw">let </span>visit = generator.gen_visit();
     <span class="kw">let </span>map_mut = generator.gen_map();
-    <span class="kw">let </span>devices = generator.gen_devices();
+    <span class="kw">let </span>collect_devices = generator.gen_collect_devices();
     <span class="kw">let </span>to_device = generator.gen_to_device();
     <span class="kw">let </span>fork = generator.gen_fork();
     <span class="kw">let </span>valid_fn = generator.gen_valid();
@@ -219,7 +219,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             #visit
             #map_mut
 
-            #devices
+            #collect_devices
             #to_device
             #fork
         }

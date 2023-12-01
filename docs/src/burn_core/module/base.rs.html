@@ -233,6 +233,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#231" id="231">231</a>
 <a href="#232" id="232">232</a>
 <a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::ParamId;
 <span class="kw">use crate</span>::{
     record::Record,
@@ -319,9 +324,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Type to save and load the module.
     </span><span class="kw">type </span>Record: Record;
 
-    <span class="doccomment">/// Collects devices in the given vector and returns it with the devices found in the module
-    /// structure without duplicates.
-    </span><span class="kw">fn </span>devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: Devices&lt;B&gt;) -&gt; Devices&lt;B&gt;;
+    <span class="doccomment">/// Return all the devices found in the underneath module tree added to the given vector
+    /// without duplicates.
+    </span><span class="kw">fn </span>collect_devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: Devices&lt;B&gt;) -&gt; Devices&lt;B&gt;;
+
+    <span class="doccomment">/// Return all the devices found in the underneath module tree without duplicates.
+    </span><span class="kw">fn </span>devices(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Devices&lt;B&gt; {
+        <span class="self">self</span>.collect_devices(Devices::&lt;B&gt;::new())
+    }
 
     <span class="doccomment">/// Fork the module and all of its sub-modules to the given device.
     ///

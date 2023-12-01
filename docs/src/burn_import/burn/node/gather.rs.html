@@ -200,7 +200,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     }
                 }
 
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">2</span>&gt;, tensor2: Tensor&lt;B, <span class="number">2</span>, Int&gt;) -&gt; Tensor&lt;B, <span class="number">2</span>&gt; {
                     <span class="kw">let </span>tensor3 = tensor1.gather(<span class="number">1</span>, tensor2);
 

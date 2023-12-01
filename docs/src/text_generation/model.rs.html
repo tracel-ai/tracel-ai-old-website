@@ -176,7 +176,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         item: TrainingTextGenerationBatch&lt;B&gt;,
     ) -&gt; ClassificationOutput&lt;B&gt; {
         <span class="kw">let </span>[batch_size, seq_length] = item.tokens_inputs.dims();
-        <span class="kw">let </span>device = <span class="kw-2">&amp;</span><span class="self">self</span>.devices(Vec::new())[<span class="number">0</span>];
+        <span class="kw">let </span>device = <span class="kw-2">&amp;</span><span class="self">self</span>.devices()[<span class="number">0</span>];
 
         <span class="kw">let </span>inputs = item.tokens_inputs.to_device(device);
         <span class="kw">let </span>targets = item.targets.to_device(device);

@@ -12,134 +12,134 @@
     "src": "src/entry-client.css"
   },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-ab0bc336.js",
+    "file": "assets/_...404_-6fd0071b.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "src/routes/demo.tsx": {
-    "file": "assets/demo-109cd000.js",
-    "src": "src/routes/demo.tsx",
+  "_page-3af1c2ce.js": {
+    "file": "assets/page-3af1c2ce.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "_index-c292cd01.js": {
+    "file": "assets/index-c292cd01.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "_index-1078b72d.js": {
+    "file": "assets/index-1078b72d.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "_index-359f05f9.js": {
+    "file": "assets/index-359f05f9.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
+    "file": "assets/burn-rusty-approach-to-tensor-handling-d31a3fcf.js",
+    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-d9d29565.js"
-    ]
-  },
-  "_index-a994c9d3.js": {
-    "file": "assets/index-a994c9d3.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "_index-94ae8409.js": {
-    "file": "assets/index-94ae8409.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "_index-88288498.js": {
-    "file": "assets/index-88288498.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": {
-    "file": "assets/creating-high-performance-asynchronous-backends-with-burn-compute-2594fb3d.js",
-    "src": "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-a994c9d3.js",
-      "_index-88288498.js",
-      "_index-94ae8409.js",
-      "_blogs-a75ac475.js",
-      "_page-d9d29565.js"
+      "_index-1078b72d.js",
+      "_page-3af1c2ce.js",
+      "_index-359f05f9.js",
+      "_index-bb9e1f3e.js",
+      "_index-c292cd01.js",
+      "_blogs-a75ac475.js"
     ]
   },
   "src/routes/blog/index.tsx": {
-    "file": "assets/index-28fea3c9.js",
+    "file": "assets/index-4a503afb.js",
     "src": "src/routes/blog/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-88288498.js",
+      "_index-359f05f9.js",
       "_blogs-a75ac475.js",
-      "_page-d9d29565.js"
+      "_page-3af1c2ce.js"
+    ]
+  },
+  "src/routes/demo.tsx": {
+    "file": "assets/demo-30ee8882.js",
+    "src": "src/routes/demo.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_page-3af1c2ce.js"
+    ]
+  },
+  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": {
+    "file": "assets/creating-high-performance-asynchronous-backends-with-burn-compute-ec83e915.js",
+    "src": "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-1078b72d.js",
+      "_index-359f05f9.js",
+      "_index-c292cd01.js",
+      "_blogs-a75ac475.js",
+      "_page-3af1c2ce.js"
     ]
   },
   "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-e09ce5a8.js",
+    "file": "assets/a-case-for-rust-in-deep-learning-74e63fb5.js",
     "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-a994c9d3.js",
-      "_index-88288498.js",
+      "_index-1078b72d.js",
+      "_index-359f05f9.js",
       "_blogs-a75ac475.js",
-      "_page-d9d29565.js"
+      "_page-3af1c2ce.js"
     ]
   },
   "src/routes/blog/cross-platform-gpu-backend.tsx": {
-    "file": "assets/cross-platform-gpu-backend-d07de71a.js",
+    "file": "assets/cross-platform-gpu-backend-f4bc6277.js",
     "src": "src/routes/blog/cross-platform-gpu-backend.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-a994c9d3.js",
-      "_index-88288498.js",
+      "_index-1078b72d.js",
+      "_index-359f05f9.js",
       "_blogs-a75ac475.js",
-      "_page-d9d29565.js"
-    ]
-  },
-  "_page-d9d29565.js": {
-    "file": "assets/page-d9d29565.js",
-    "imports": [
-      "src/entry-client.tsx"
+      "_page-3af1c2ce.js"
     ]
   },
   "_blogs-a75ac475.js": {
     "file": "assets/blogs-a75ac475.js"
   },
-  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
-    "file": "assets/burn-rusty-approach-to-tensor-handling-507b9932.js",
-    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-a994c9d3.js",
-      "_page-d9d29565.js",
-      "_index-88288498.js",
-      "_index-c940dcd0.js",
-      "_index-94ae8409.js",
-      "_blogs-a75ac475.js"
-    ]
-  },
-  "_index-c940dcd0.js": {
-    "file": "assets/index-c940dcd0.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
   "src/routes/index.tsx": {
-    "file": "assets/index-55786c53.js",
+    "file": "assets/index-9a2909cf.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-d9d29565.js",
-      "_index-88288498.js",
-      "_index-c940dcd0.js"
+      "_page-3af1c2ce.js",
+      "_index-359f05f9.js",
+      "_index-bb9e1f3e.js"
     ],
     "assets": [
       "assets/logo-d7813d0c.png",
       "assets/burn-33192fe7.png"
     ]
   },
+  "_index-bb9e1f3e.js": {
+    "file": "assets/index-bb9e1f3e.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-f451e400.js",
+    "file": "assets/entry-client-c2c9bbc9.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [

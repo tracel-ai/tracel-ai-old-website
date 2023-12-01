@@ -509,7 +509,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#507" id="507">507</a>
 <a href="#508" id="508">508</a>
 <a href="#509" id="509">509</a>
-<a href="#510" id="510">510</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>alloc::format;
 <span class="kw">use </span>alloc::string::String;
 <span class="kw">use </span>alloc::vec::Vec;
@@ -832,10 +831,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="kw">if </span>err &gt; tolerance {
                 <span class="comment">// Only print the first 5 different values.
                 </span><span class="kw">if </span>num_diff &lt; max_num_diff {
-                    message += <span class="macro">format!</span>(
-                        <span class="string">&quot;\n  =&gt; Position {i}: {a} != {b} | difference {err} &gt; tolerance {tolerance}&quot;
-                    </span>)
-                    .as_str();
+                    message +=
+            <span class="macro">format!</span>(<span class="string">&quot;\n  =&gt; Position {i}: {a} != {b} | difference {err} &gt; tolerance {tolerance}&quot;</span>)
+              .as_str();
                 }
                 num_diff += <span class="number">1</span>;
             }

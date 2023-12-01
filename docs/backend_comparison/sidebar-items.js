@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"macro":["bench_on_backend"]};
+window.SIDEBAR_ITEMS = {"macro":["bench_on_backend"],"mod":["persistence"]};

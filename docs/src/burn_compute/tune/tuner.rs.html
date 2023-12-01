@@ -106,7 +106,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="kw">use </span>alloc::boxed::Box;
 <span class="kw">use </span>alloc::string::ToString;
 <span class="kw">use </span>alloc::vec::Vec;
-<span class="kw">use </span>burn_common::benchmark::{Benchmark, BenchmarkResult};
+<span class="kw">use </span>burn_common::benchmark::{Benchmark, BenchmarkDurations};
 
 <span class="kw">use </span><span class="kw">crate</span>::channel::ComputeChannel;
 <span class="kw">use </span><span class="kw">crate</span>::client::ComputeClient;
@@ -152,7 +152,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span><span class="kw-2">mut </span>names = Vec::with_capacity(autotunables.len());
 
         <span class="comment">// Run all autotune benchmarks
-        </span><span class="kw">let </span>results: Vec&lt;BenchmarkResult&gt; = autotunables
+        </span><span class="kw">let </span>results: Vec&lt;BenchmarkDurations&gt; = autotunables
             .into_iter()
             .map(|op| {
                 names.push(op.name().to_string());
@@ -180,11 +180,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         operation: Box&lt;<span class="kw">dyn </span>AutotuneOperation&gt;,
         client: <span class="kw-2">&amp;</span>ComputeClient&lt;S, C&gt;,
-    ) -&gt; BenchmarkResult {
+    ) -&gt; BenchmarkDurations {
         TuneBenchmark::new(operation, client.clone()).run()
     }
 
-    <span class="kw">fn </span>find_fastest(<span class="kw-2">&amp;</span><span class="self">self</span>, results: Vec&lt;BenchmarkResult&gt;) -&gt; usize {
+    <span class="kw">fn </span>find_fastest(<span class="kw-2">&amp;</span><span class="self">self</span>, results: Vec&lt;BenchmarkDurations&gt;) -&gt; usize {
         <span class="kw">let </span><span class="kw-2">mut </span>smallest_duration = Duration::MAX;
         <span class="kw">let </span><span class="kw-2">mut </span>fastest_tunable = <span class="prelude-val">None</span>;
 

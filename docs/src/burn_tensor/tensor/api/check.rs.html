@@ -764,6 +764,108 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#762" id="762">762</a>
 <a href="#763" id="763">763</a>
 <a href="#764" id="764">764</a>
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a>
+<a href="#779" id="779">779</a>
+<a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a>
+<a href="#786" id="786">786</a>
+<a href="#787" id="787">787</a>
+<a href="#788" id="788">788</a>
+<a href="#789" id="789">789</a>
+<a href="#790" id="790">790</a>
+<a href="#791" id="791">791</a>
+<a href="#792" id="792">792</a>
+<a href="#793" id="793">793</a>
+<a href="#794" id="794">794</a>
+<a href="#795" id="795">795</a>
+<a href="#796" id="796">796</a>
+<a href="#797" id="797">797</a>
+<a href="#798" id="798">798</a>
+<a href="#799" id="799">799</a>
+<a href="#800" id="800">800</a>
+<a href="#801" id="801">801</a>
+<a href="#802" id="802">802</a>
+<a href="#803" id="803">803</a>
+<a href="#804" id="804">804</a>
+<a href="#805" id="805">805</a>
+<a href="#806" id="806">806</a>
+<a href="#807" id="807">807</a>
+<a href="#808" id="808">808</a>
+<a href="#809" id="809">809</a>
+<a href="#810" id="810">810</a>
+<a href="#811" id="811">811</a>
+<a href="#812" id="812">812</a>
+<a href="#813" id="813">813</a>
+<a href="#814" id="814">814</a>
+<a href="#815" id="815">815</a>
+<a href="#816" id="816">816</a>
+<a href="#817" id="817">817</a>
+<a href="#818" id="818">818</a>
+<a href="#819" id="819">819</a>
+<a href="#820" id="820">820</a>
+<a href="#821" id="821">821</a>
+<a href="#822" id="822">822</a>
+<a href="#823" id="823">823</a>
+<a href="#824" id="824">824</a>
+<a href="#825" id="825">825</a>
+<a href="#826" id="826">826</a>
+<a href="#827" id="827">827</a>
+<a href="#828" id="828">828</a>
+<a href="#829" id="829">829</a>
+<a href="#830" id="830">830</a>
+<a href="#831" id="831">831</a>
+<a href="#832" id="832">832</a>
+<a href="#833" id="833">833</a>
+<a href="#834" id="834">834</a>
+<a href="#835" id="835">835</a>
+<a href="#836" id="836">836</a>
+<a href="#837" id="837">837</a>
+<a href="#838" id="838">838</a>
+<a href="#839" id="839">839</a>
+<a href="#840" id="840">840</a>
+<a href="#841" id="841">841</a>
+<a href="#842" id="842">842</a>
+<a href="#843" id="843">843</a>
+<a href="#844" id="844">844</a>
+<a href="#845" id="845">845</a>
+<a href="#846" id="846">846</a>
+<a href="#847" id="847">847</a>
+<a href="#848" id="848">848</a>
+<a href="#849" id="849">849</a>
+<a href="#850" id="850">850</a>
+<a href="#851" id="851">851</a>
+<a href="#852" id="852">852</a>
+<a href="#853" id="853">853</a>
+<a href="#854" id="854">854</a>
+<a href="#855" id="855">855</a>
+<a href="#856" id="856">856</a>
+<a href="#857" id="857">857</a>
+<a href="#858" id="858">858</a>
+<a href="#859" id="859">859</a>
+<a href="#860" id="860">860</a>
+<a href="#861" id="861">861</a>
+<a href="#862" id="862">862</a>
+<a href="#863" id="863">863</a>
+<a href="#864" id="864">864</a>
+<a href="#865" id="865">865</a>
+<a href="#866" id="866">866</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{backend::Backend, BasicOps, Shape, Tensor};
 <span class="kw">use </span>alloc::format;
 <span class="kw">use </span>alloc::string::{String, ToString};
@@ -846,6 +948,47 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         check
     }
 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>narrow&lt;B: Backend, <span class="kw">const </span>D: usize, K: BasicOps&lt;B&gt;&gt;(
+        tensor: <span class="kw-2">&amp;</span>Tensor&lt;B, D, K&gt;,
+        dim: usize,
+        start: usize,
+        length: usize,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>check = <span class="self">Self</span>::Ok;
+
+        <span class="kw">if </span>length == <span class="number">0 </span>{
+            check = check.register(
+                <span class="string">&quot;Narrow&quot;</span>,
+                TensorError::new(<span class="macro">format!</span>(
+                    <span class="string">&quot;Can&#39;t narrow at dimension {}, length must be greater than 0&quot;</span>,
+                    dim
+                )),
+            );
+        }
+
+        <span class="kw">if </span>start &gt;= tensor.shape().dims[dim] {
+            check = check.register(
+                <span class="string">&quot;Narrow&quot;</span>,
+                TensorError::new(<span class="macro">format!</span>(
+                    <span class="string">&quot;Can&#39;t narrow at dimension {}, start exceeds the size of the tensor along this dimension (Size={})&quot;</span>,
+                    dim, tensor.shape().dims[dim]
+                )),
+            );
+        }
+
+        <span class="kw">if </span>start + length &gt; tensor.shape().dims[dim] {
+            check = check.register(
+                <span class="string">&quot;Narrow&quot;</span>,
+                TensorError::new(<span class="macro">format!</span>(
+                    <span class="string">&quot;Can&#39;t narrow at dimension {}, start + length exceeds the size of the tensor along this dimension (Size={})&quot;</span>,
+                    dim, tensor.shape().dims[dim]
+                )),
+            );
+        }
+
+        check
+    }
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>reshape_args_usize&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         original: <span class="kw-2">&amp;</span>Shape&lt;D1&gt;,
         target: <span class="kw-2">&amp;</span>Shape&lt;D2&gt;,
@@ -853,13 +996,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span><span class="kw-2">mut </span>check = <span class="self">Self</span>::Ok;
 
         <span class="kw">if </span>original.num_elements() != target.num_elements() {
-            check = check.register(<span class="string">&quot;Reshape&quot;</span>, TensorError::new(
-                <span class="string">&quot;The given shape doesn&#39;t have the same number of elements as the current tensor.&quot;</span>,
-            )
-            .details(<span class="macro">format!</span>(
-                <span class="string">&quot;Current shape: {:?}, target shape: {:?}.&quot;</span>,
-                original.dims, target.dims
-            )));
+            check = check.register(
+        <span class="string">&quot;Reshape&quot;</span>,
+        TensorError::new(
+          <span class="string">&quot;The given shape doesn&#39;t have the same number of elements as the current tensor.&quot;</span>,
+        )
+        .details(<span class="macro">format!</span>(
+          <span class="string">&quot;Current shape: {:?}, target shape: {:?}.&quot;</span>,
+          original.dims, target.dims
+        )),
+      );
         }
 
         check
@@ -926,6 +1072,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 TensorError::new(<span class="macro">format!</span>(
                     <span class="string">&quot;The destination dimension ({D2}) must be large enough to accommodate the flattening operation.&quot;
 
+                </span>)),
+            );
+        }
+
+        check
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>tri&lt;<span class="kw">const </span>D: usize&gt;() -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>check = <span class="self">Self</span>::Ok;
+
+        <span class="kw">if </span>D &lt; <span class="number">2 </span>{
+            check = check.register(
+                <span class="string">&quot;Tri&quot;</span>,
+                TensorError::new(<span class="macro">format!</span>(
+                    <span class="string">&quot;The input tensor must have at least 2 dimensions, got {D}&quot;
                 </span>)),
             );
         }
@@ -1017,13 +1178,58 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             check = check.register(
                 <span class="string">&quot;Matmul&quot;</span>,
                 TensorError::new(<span class="macro">format!</span>(
-                    <span class="string">&quot;The inner dimension of matmul should be the same, but got {dim_lhs} and {dim_rhs}.&quot;
-                </span>))
+          <span class="string">&quot;The inner dimension of matmul should be the same, but got {dim_lhs} and {dim_rhs}.&quot;
+        </span>))
                 .details(<span class="macro">format!</span>(
                     <span class="string">&quot;Lhs shape {:?}, rhs shape {:?}.&quot;</span>,
                     shape_lhs.dims, shape_rhs.dims
                 )),
             );
+        }
+
+        check
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>stack&lt;B: Backend, <span class="kw">const </span>D: usize, K: BasicOps&lt;B&gt;&gt;(
+        tensors: <span class="kw-2">&amp;</span>[Tensor&lt;B, D, K&gt;],
+        dim: usize,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>check = <span class="self">Self</span>::Ok;
+
+        <span class="kw">if </span>dim &gt; D {
+            check = check.register(
+                <span class="string">&quot;Stack&quot;</span>,
+                TensorError::new(
+                    <span class="string">&quot;Can&#39;t stack tensors on a dim that exceeds the tensors dimension (inclusive)&quot;</span>,
+                )
+                .details(<span class="macro">format!</span>(
+                    <span class="string">&quot;Trying to concatenate tensors with {D} dimensions on axis {dim}.&quot;
+                </span>)),
+            );
+        }
+
+        <span class="kw">if </span>tensors.is_empty() {
+            <span class="kw">return </span>check.register(
+                <span class="string">&quot;Stack&quot;</span>,
+                TensorError::new(<span class="string">&quot;Can&#39;t stack an empty list of tensors.&quot;</span>),
+            );
+        }
+
+        <span class="kw">let </span>shape_reference = tensors.get(<span class="number">0</span>).unwrap().shape();
+
+        <span class="kw">for </span>tensor <span class="kw">in </span>tensors {
+            <span class="kw">let </span>shape = tensor.shape();
+
+            <span class="kw">if </span>shape_reference != shape {
+                <span class="kw">return </span>check.register(
+                    <span class="string">&quot;Stack&quot;</span>,
+                    TensorError::new(<span class="string">&quot;Can&#39;t stack tensors with different shapes&quot;</span>).details(<span class="macro">format!</span>(
+                        <span class="string">&quot;Provided dimension ({}), tensors shapes: {:?}&quot;</span>,
+                        dim,
+                        tensors.iter().map(Tensor::shape).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+                    )),
+                );
+            }
         }
 
         check
@@ -1064,15 +1270,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
             </span><span class="kw">if </span>shape_reference != shape {
                 <span class="kw">return </span>check.register(
-                    <span class="string">&quot;Cat&quot;</span>,
-                    TensorError::new(<span class="string">&quot;Can&#39;t concatenate tensors with different shapes, except for the provided dimension&quot;</span>).details(
-                        <span class="macro">format!</span>(
-                            <span class="string">&quot;Provided dimension ({}), tensors shapes: {:?}&quot;</span>,
-                            dim,
-                            tensors.iter().map(Tensor::shape).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
-                        ),
-                    ),
-                );
+          <span class="string">&quot;Cat&quot;</span>,
+          TensorError::new(
+            <span class="string">&quot;Can&#39;t concatenate tensors with different shapes, except for the provided dimension&quot;</span>,
+          )
+          .details(<span class="macro">format!</span>(
+            <span class="string">&quot;Provided dimension ({}), tensors shapes: {:?}&quot;</span>,
+            dim,
+            tensors.iter().map(Tensor::shape).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+          )),
+        );
             }
         }
 
@@ -1103,18 +1310,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
             <span class="kw">if </span>range.end &gt; d_tensor {
                 check = check.register(
-                    <span class="string">&quot;Slice&quot;</span>,
-                    TensorError::new(<span class="string">&quot;The provided ranges array has a range that exceeds the current tensor size.&quot;</span>)
-                    .details(<span class="macro">format!</span>(
-                        <span class="string">&quot;The range ({}..{}) exceeds the size of the tensor ({}) at dimension {}. \
+          <span class="string">&quot;Slice&quot;</span>,
+          TensorError::new(
+            <span class="string">&quot;The provided ranges array has a range that exceeds the current tensor size.&quot;</span>,
+          )
+          .details(<span class="macro">format!</span>(
+            <span class="string">&quot;The range ({}..{}) exceeds the size of the tensor ({}) at dimension {}. \
                         Tensor shape {:?}, provided ranges {:?}.&quot;</span>,
-                        range.start,
-                        range.end,
-                        d_tensor,
-                        i,
-                        shape.dims,
-                        ranges,
-                    )));
+            range.start, range.end, d_tensor, i, shape.dims, ranges,
+          )),
+        );
             }
 
             <span class="kw">if </span>range.start &gt;= range.end {
@@ -1144,13 +1349,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span><span class="kw-2">mut </span>check = <span class="self">Self</span>::Ok;
 
         <span class="kw">if </span>D1 &lt; D2 {
-            check = check.register(<span class="string">&quot;Slice Assign&quot;</span>,
-                TensorError::new (<span class="string">&quot;The provided ranges array has a higher number of dimensions than the current tensor.&quot;</span>)
-                .details(
-                    <span class="macro">format!</span>(
-                    <span class="string">&quot;The ranges array must be smaller or equal to the tensor number of dimensions. \
+            check = check.register(
+        <span class="string">&quot;Slice Assign&quot;</span>,
+        TensorError::new(
+          <span class="string">&quot;The provided ranges array has a higher number of dimensions than the current tensor.&quot;</span>,
+        )
+        .details(<span class="macro">format!</span>(
+          <span class="string">&quot;The ranges array must be smaller or equal to the tensor number of dimensions. \
                     Tensor number of dimensions: {D1}, ranges array length {D2}.&quot;
-                </span>)));
+        </span>)),
+      );
         }
 
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..usize::min(D1, D2) {
@@ -1160,19 +1368,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
             <span class="kw">if </span>range.end &gt; d_tensor {
                 check = check.register(
-                    <span class="string">&quot;Range Assign&quot;</span>,
-                    TensorError::new(<span class="string">&quot;The provided ranges array has a range that exceeds the current tensor size.&quot;</span>)
-                    .details(<span class="macro">format!</span>(
-                        <span class="string">&quot;The range ({}..{}) exceeds the size of the tensor ({}) at dimension {}. \
+          <span class="string">&quot;Range Assign&quot;</span>,
+          TensorError::new(
+            <span class="string">&quot;The provided ranges array has a range that exceeds the current tensor size.&quot;</span>,
+          )
+          .details(<span class="macro">format!</span>(
+            <span class="string">&quot;The range ({}..{}) exceeds the size of the tensor ({}) at dimension {}. \
                         Current tensor shape {:?}, value tensor shape {:?}, provided ranges {:?}.&quot;</span>,
-                        range.start,
-                        range.end,
-                        d_tensor,
-                        i,
-                        shape.dims,
-                        shape_value.dims,
-                        ranges,
-                    )));
+            range.start, range.end, d_tensor, i, shape.dims, shape_value.dims, ranges,
+          )),
+        );
             }
 
             <span class="kw">if </span>range.end - range.start != d_tensor_value {
@@ -1362,17 +1567,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     <span class="kw">continue</span>;
                 }
 
-                check = check.register(ops,
-                    TensorError::new(<span class="string">&quot;The provided tensors have incompatible shapes.&quot;</span>)
-                    .details(<span class="macro">format!</span>(
-                    <span class="string">&quot;Incompatible size at dimension &#39;{}&#39; =&gt; &#39;{} != {}&#39;, which can&#39;t be broadcasted. \
+                check = check.register(
+                    ops,
+                    TensorError::new(<span class="string">&quot;The provided tensors have incompatible shapes.&quot;</span>).details(
+                        <span class="macro">format!</span>(
+            <span class="string">&quot;Incompatible size at dimension &#39;{}&#39; =&gt; &#39;{} != {}&#39;, which can&#39;t be broadcasted. \
                     Lhs tensor shape {:?}, Rhs tensor shape {:?}.&quot;</span>,
-                    i,
-                    d_lhs,
-                    d_rhs,
-                    lhs.dims,
-                    rhs.dims,
-                 )));
+            i, d_lhs, d_rhs, lhs.dims, rhs.dims,
+          ),
+                    ),
+                );
             }
         }
 

@@ -490,6 +490,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#488" id="488">488</a>
 <a href="#489" id="489">489</a>
 <a href="#490" id="490">490</a>
+<a href="#491" id="491">491</a>
+<a href="#492" id="492">492</a>
+<a href="#493" id="493">493</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>alloc::vec::Vec;
 <span class="kw">use </span>burn_tensor::Data;
 <span class="kw">use </span>burn_tensor::ElementConversion;
@@ -846,7 +849,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..D - <span class="number">1 </span>{
             <span class="kw">if </span>shape_tensor.dims[i] != shape_indices.dims[i] {
-                <span class="macro">panic!</span>(<span class="string">&quot;Unsupported dimension, only the last dimension can differ: Tensor {:?} Index {:?}&quot;</span>, shape_tensor.dims, shape_indices.dims);
+                <span class="macro">panic!</span>(
+          <span class="string">&quot;Unsupported dimension, only the last dimension can differ: Tensor {:?} Index {:?}&quot;</span>,
+          shape_tensor.dims, shape_indices.dims
+        );
             }
             batch_size <span class="kw-2">*</span>= shape_indices.dims[i];
         }

@@ -261,15 +261,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>gen_devices(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream {
+    <span class="kw">fn </span>gen_collect_devices(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TokenStream {
         <span class="kw">let </span>body = <span class="self">self</span>.gen_fields_fn(|name| {
             <span class="macro">quote! </span>{
-                <span class="kw">let </span>devices = burn::module::Module::&lt;B&gt;::devices(<span class="kw-2">&amp;</span><span class="self">self</span>.#name, devices);
+                <span class="kw">let </span>devices = burn::module::Module::&lt;B&gt;::collect_devices(<span class="kw-2">&amp;</span><span class="self">self</span>.#name, devices);
             }
         });
 
         <span class="macro">quote! </span>{
-            <span class="kw">fn </span>devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: burn::module::Devices&lt;B&gt;) -&gt; burn::module::Devices&lt;B&gt; {
+            <span class="kw">fn </span>collect_devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: burn::module::Devices&lt;B&gt;) -&gt; burn::module::Devices&lt;B&gt; {
                 #body
 
                 devices

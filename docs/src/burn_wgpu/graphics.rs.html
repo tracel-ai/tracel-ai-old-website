@@ -86,6 +86,24 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#84" id="84">84</a>
 <a href="#85" id="85">85</a>
 <a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
 </pre></div><pre class="rust"><code><span class="doccomment">/// The basic trait to specify which graphics API to use as Backend.
 ///
 /// Options are:
@@ -166,10 +184,28 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">impl </span>GraphicsApi <span class="kw">for </span>AutoGraphicsApi {
     <span class="kw">fn </span>backend() -&gt; wgpu::Backend {
-        <span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
+        <span class="comment">// Allow overriding AutoGraphicsApi backend with ENV var in std test environments
+        </span><span class="attr">#[cfg(not(no_std))]
+        #[cfg(test)]
+        </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(backend_str) = std::env::var(<span class="string">&quot;AUTO_GRAPHICS_BACKEND&quot;</span>) {
+            <span class="kw">match </span>backend_str.to_lowercase().as_str() {
+                <span class="string">&quot;metal&quot; </span>=&gt; <span class="kw">return </span>wgpu::Backend::Metal,
+                <span class="string">&quot;vulkan&quot; </span>=&gt; <span class="kw">return </span>wgpu::Backend::Vulkan,
+                <span class="string">&quot;dx12&quot; </span>=&gt; <span class="kw">return </span>wgpu::Backend::Dx12,
+                <span class="string">&quot;opengl&quot; </span>=&gt; <span class="kw">return </span>wgpu::Backend::Gl,
+                <span class="string">&quot;webgpu&quot; </span>=&gt; <span class="kw">return </span>wgpu::Backend::BrowserWebGpu,
+                <span class="kw">_ </span>=&gt; {
+                    <span class="macro">eprintln!</span>(<span class="string">&quot;Invalid graphics backend specified in GRAPHICS_BACKEND environment variable&quot;</span>);
+                    std::process::exit(<span class="number">1</span>);
+                }
+            }
+        }
+
+        <span class="comment">// In a no_std environment or if the environment variable is not set
+        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
         </span><span class="kw">return </span>wgpu::Backend::Metal;
         <span class="attr">#[cfg(not(target_os = <span class="string">&quot;macos&quot;</span>))]
-        </span>wgpu::Backend::Vulkan
+        </span><span class="kw">return </span>wgpu::Backend::Vulkan;
     }
 }
 </code></pre></div></section></main></body></html>

@@ -281,13 +281,28 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#279" id="279">279</a>
 <a href="#280" id="280">280</a>
 <a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{element::TchElement, LibTorch, LibTorchDevice};
 <span class="kw">use </span>burn_tensor::{ops::TensorOps, Data, Shape};
 <span class="kw">use </span>libc::c_void;
-<span class="kw">use </span>std::{marker::PhantomData, rc::Rc};
+<span class="kw">use </span>std::{marker::PhantomData, sync::Arc};
 
 <span class="doccomment">/// A reference to a tensor storage.
-</span><span class="kw">pub type </span>StorageRef = Rc&lt;<span class="kw-2">*mut </span>c_void&gt;;
+///
+/// We manually implement `Sync` and `Send` unsafely, so even if we could use `Rc`, it isn&#39;t safe.
+</span><span class="attr">#[allow(clippy::arc_with_non_send_sync)]
+</span><span class="kw">pub type </span>StorageRef = Arc&lt;<span class="kw-2">*mut </span>c_void&gt;;
 
 <span class="doccomment">/// A tensor that uses the tch backend.
 </span><span class="attr">#[derive(Debug, PartialEq)]
@@ -306,7 +321,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// storage as the parent, you should use [from_existing](TchTensor::from_existing)
     /// instead.
     </span><span class="kw">pub fn </span>new(tensor: tch::Tensor) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>data = Rc::new(tensor.data_ptr());
+        <span class="attr">#[allow(clippy::arc_with_non_send_sync)]
+        </span><span class="kw">let </span>data = Arc::new(tensor.data_ptr());
 
         <span class="self">Self </span>{
             tensor,
@@ -322,9 +338,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">pub fn </span>from_existing(tensor: tch::Tensor, storage_parent: StorageRef) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>storage_child = tensor.data_ptr();
 
-        <span class="kw">let </span>storage = <span class="kw">match </span>storage_child == <span class="kw-2">*</span>storage_parent {
+        <span class="attr">#[allow(clippy::arc_with_non_send_sync)]
+        </span><span class="kw">let </span>storage = <span class="kw">match </span>storage_child == <span class="kw-2">*</span>storage_parent {
             <span class="bool-val">true </span>=&gt; storage_parent.clone(),
-            <span class="bool-val">false </span>=&gt; Rc::new(storage_child),
+            <span class="bool-val">false </span>=&gt; Arc::new(storage_child),
         };
 
         <span class="self">Self </span>{
@@ -365,7 +382,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         func: F,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;TchTensor&lt;EOut, D_OUT&gt;&gt; {
-        <span class="kw">if </span>Rc::strong_count(<span class="kw-2">&amp;</span><span class="self">self</span>.storage) &gt; <span class="number">1 </span>{
+        <span class="kw">if </span>Arc::strong_count(<span class="kw-2">&amp;</span><span class="self">self</span>.storage) &gt; <span class="number">1 </span>{
             <span class="kw">return </span><span class="prelude-val">None</span>;
         }
 
@@ -382,7 +399,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         </span>FOwn: Fn(tch::Tensor) -&gt; tch::Tensor,
         FRef: Fn(<span class="kw-2">&amp;</span>tch::Tensor) -&gt; tch::Tensor,
     {
-        <span class="kw">if </span>Rc::strong_count(<span class="kw-2">&amp;</span><span class="self">self</span>.storage) &gt; <span class="number">1 </span>{
+        <span class="kw">if </span>Arc::strong_count(<span class="kw-2">&amp;</span><span class="self">self</span>.storage) &gt; <span class="number">1 </span>{
             <span class="kw">return </span>TchTensor::from_existing(fref(<span class="kw-2">&amp;</span><span class="self">self</span>.tensor), <span class="self">self</span>.storage);
         }
 
@@ -402,19 +419,25 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         FRMut: Fn(<span class="kw-2">&amp;</span>tch::Tensor, <span class="kw-2">&amp;mut </span>tch::Tensor) -&gt; tch::Tensor,
         FRef: Fn(<span class="kw-2">&amp;</span>tch::Tensor, <span class="kw-2">&amp;</span>tch::Tensor) -&gt; tch::Tensor,
     {
-        <span class="kw">let </span>lhs_num_elems = lhs.shape().num_elements();
-        <span class="kw">let </span>rhs_num_elems = rhs.shape().num_elements();
+        <span class="kw">let </span>lhs_shape = lhs.shape();
+        <span class="kw">let </span>rhs_shape = rhs.shape();
+        <span class="kw">let </span><span class="kw-2">mut </span>out_shape = Shape::new([<span class="number">1</span>; D_OUT]);
 
-        <span class="kw">let </span>safe_mut_lhs = lhs_num_elems &gt; rhs_num_elems;
-        <span class="kw">let </span>safe_mut_rhs = rhs_num_elems &gt; lhs_num_elems;
+        <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..D_OUT {
+            out_shape.dims[i] = usize::max(lhs_shape.dims[i], rhs_shape.dims[i]);
+        }
 
-        <span class="kw">if </span>safe_mut_lhs {
+        <span class="kw">let </span>num_elements_out = out_shape.num_elements();
+
+        <span class="comment">// Safe to mut lhs tensor.
+        </span><span class="kw">if </span>lhs_shape.num_elements() == num_elements_out {
             <span class="kw">if let </span><span class="prelude-val">Some</span>(output) = lhs.mut_ops(|lhs| flmut(lhs, <span class="kw-2">&amp;</span>rhs.tensor)) {
                 <span class="kw">return </span>output;
             }
         }
 
-        <span class="kw">if </span>safe_mut_rhs {
+        <span class="comment">// Safe to mut rhs tensor.
+        </span><span class="kw">if </span>rhs_shape.num_elements() == num_elements_out {
             <span class="kw">if let </span><span class="prelude-val">Some</span>(output) = rhs.mut_ops(|rhs| frmut(<span class="kw-2">&amp;</span>lhs.tensor, rhs)) {
                 <span class="kw">return </span>output;
             }
@@ -438,6 +461,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// A shape that can be used by LibTorch.
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>TchShape&lt;<span class="kw">const </span>D: usize&gt; {
     <span class="doccomment">/// The shape&#39;s dimensions.
     </span><span class="kw">pub </span>dims: [i64; D],

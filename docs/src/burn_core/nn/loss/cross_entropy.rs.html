@@ -445,10 +445,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>assertions(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(alpha) = <span class="self">self</span>.smoothing {
             <span class="macro">assert!</span>(
-                (<span class="number">0.0</span>..=<span class="number">1.</span>).contains(<span class="kw-2">&amp;</span>alpha),
-                <span class="string">&quot;Alpha of Cross-entropy loss with smoothed labels should be in interval [0, 1]. Got {}&quot;</span>,
-                alpha
-            );
+        (<span class="number">0.0</span>..=<span class="number">1.</span>).contains(<span class="kw-2">&amp;</span>alpha),
+        <span class="string">&quot;Alpha of Cross-entropy loss with smoothed labels should be in interval [0, 1]. Got {}&quot;</span>,
+        alpha
+      );
         };
         <span class="kw">if let </span><span class="prelude-val">Some</span>(weights) = <span class="self">self</span>.weights.as_ref() {
             <span class="macro">assert!</span>(

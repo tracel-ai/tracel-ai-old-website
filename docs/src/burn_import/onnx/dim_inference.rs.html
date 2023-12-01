@@ -398,6 +398,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#396" id="396">396</a>
 <a href="#397" id="397">397</a>
 <a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
 <span class="kw">use </span>protobuf::Enum;
@@ -462,38 +478,44 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         updater.update_tensor_inputs(node);
 
         <span class="kw">match </span>node.node_type {
+            NodeType::Add =&gt; same_as_input(node),
+            NodeType::AveragePool2d =&gt; same_as_input(node),
+            NodeType::BatchNormalization =&gt; same_as_input(node),
+            NodeType::Cast =&gt; cast_update_outputs(node),
+            NodeType::Clip =&gt; same_as_input(node),
+            NodeType::Concat =&gt; concat_update_outputs(node),
+            NodeType::Constant =&gt; constant_update_outputs(node),
             NodeType::Conv1d =&gt; conv1d_update_outputs(node),
             NodeType::Conv2d =&gt; conv2d_update_outputs(node),
-            NodeType::MaxPool2d =&gt; same_as_input(node),
-            NodeType::Linear =&gt; linear_update_outputs(node),
-            NodeType::Flatten =&gt; flatten_update_outputs(node),
-            NodeType::GatherElements =&gt; same_as_input(node),
-            NodeType::Relu =&gt; same_as_input(node),
-            NodeType::LogSoftmax =&gt; same_as_input(node),
-            NodeType::BatchNormalization =&gt; same_as_input(node),
-            NodeType::Add =&gt; same_as_input(node),
-            NodeType::Sub =&gt; same_as_input(node),
-            NodeType::Mul =&gt; same_as_input(node),
-            NodeType::Cast =&gt; cast_update_outputs(node),
+            NodeType::Cos =&gt; same_as_input(node),
             NodeType::Div =&gt; same_as_input(node),
-            NodeType::Erf =&gt; same_as_input(node),
-            NodeType::Sqrt =&gt; same_as_input(node),
-            NodeType::Tanh =&gt; same_as_input(node),
-            NodeType::Reciprocal =&gt; same_as_input(node),
-            NodeType::Softmax =&gt; same_as_input(node),
-            NodeType::ReduceMean =&gt; mean_update_outputs(node),
-            NodeType::Constant =&gt; constant_update_outputs(node),
-            NodeType::Equal =&gt; equal_update_outputs(node),
-            NodeType::Shape =&gt; shape_update_outputs(node),
-            NodeType::Unsqueeze =&gt; unsqueeze_update_outputs(node),
-            NodeType::Sigmoid =&gt; same_as_input(node),
-            NodeType::Transpose =&gt; same_as_input(node),
-            NodeType::Concat =&gt; concat_update_outputs(node),
-            NodeType::Reshape =&gt; reshape_update_outputs(node),
             NodeType::Dropout =&gt; same_as_input(node),
+            NodeType::Equal =&gt; equal_update_outputs(node),
+            NodeType::Erf =&gt; same_as_input(node),
+            NodeType::Exp =&gt; same_as_input(node),
+            NodeType::Flatten =&gt; flatten_update_outputs(node),
+            NodeType::Gelu =&gt; same_as_input(node),
+            NodeType::GatherElements =&gt; same_as_input(node),
             NodeType::GlobalAveragePool =&gt; same_as_input(node),
-            NodeType::AveragePool2d =&gt; same_as_input(node),
-            NodeType::Clip =&gt; same_as_input(node),
+            NodeType::ConvTranspose2d =&gt; conv_transpose2d_update_outputs(node),
+            NodeType::Linear =&gt; linear_update_outputs(node),
+            NodeType::Log =&gt; same_as_input(node),
+            NodeType::LogSoftmax =&gt; same_as_input(node),
+            NodeType::MaxPool2d =&gt; same_as_input(node),
+            NodeType::Mul =&gt; same_as_input(node),
+            NodeType::Neg =&gt; same_as_input(node),
+            NodeType::Reciprocal =&gt; same_as_input(node),
+            NodeType::ReduceMean =&gt; mean_update_outputs(node),
+            NodeType::Relu =&gt; same_as_input(node),
+            NodeType::Reshape =&gt; reshape_update_outputs(node),
+            NodeType::Shape =&gt; shape_update_outputs(node),
+            NodeType::Sigmoid =&gt; same_as_input(node),
+            NodeType::Softmax =&gt; same_as_input(node),
+            NodeType::Sqrt =&gt; same_as_input(node),
+            NodeType::Sub =&gt; same_as_input(node),
+            NodeType::Tanh =&gt; same_as_input(node),
+            NodeType::Transpose =&gt; same_as_input(node),
+            NodeType::Unsqueeze =&gt; unsqueeze_update_outputs(node),
             <span class="comment">// Intentionally letting outputs leave unchanged but issue a warning so IR file can be generated.
             </span><span class="kw">_ </span>=&gt; temporary_pass_through_stub(node),
         }
@@ -789,6 +811,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="doccomment">/// Infers the shape of a Conv2d node and replaces the shape of the output tensor.
 </span><span class="kw">fn </span>conv2d_update_outputs(node: <span class="kw-2">&amp;mut </span>Node) {
+    <span class="comment">// extract the channels from the weight tensor&#39;s shape [out_channels, in_channels, ...]
+    </span><span class="kw">if let </span>ArgType::Tensor(tensor) = node.inputs[<span class="number">0</span>].clone().ty {
+        node.outputs[<span class="number">0</span>].ty = ArgType::Tensor(tensor);
+    } <span class="kw">else </span>{
+        <span class="macro">panic!</span>(<span class="string">&quot;Only tensor input is valid&quot;</span>);
+    }
+}
+
+<span class="doccomment">/// Infers the shape of a ConvTranspose2d node and replaces the shape of the output tensor.
+</span><span class="kw">fn </span>conv_transpose2d_update_outputs(node: <span class="kw-2">&amp;mut </span>Node) {
     <span class="comment">// extract the channels from the weight tensor&#39;s shape [out_channels, in_channels, ...]
     </span><span class="kw">if let </span>ArgType::Tensor(tensor) = node.inputs[<span class="number">0</span>].clone().ty {
         node.outputs[<span class="number">0</span>].ty = ArgType::Tensor(tensor);

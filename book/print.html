@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="motivation.html"><strong aria-hidden="true">2.</strong> Why Burn?</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="basic-workflow/index.html"><strong aria-hidden="true">4.</strong> Basic Workflow: From Training to Inference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="basic-workflow/model.html"><strong aria-hidden="true">4.1.</strong> Model</a></li><li class="chapter-item expanded "><a href="basic-workflow/data.html"><strong aria-hidden="true">4.2.</strong> Data</a></li><li class="chapter-item expanded "><a href="basic-workflow/training.html"><strong aria-hidden="true">4.3.</strong> Training</a></li><li class="chapter-item expanded "><a href="basic-workflow/backend.html"><strong aria-hidden="true">4.4.</strong> Backend</a></li><li class="chapter-item expanded "><a href="basic-workflow/inference.html"><strong aria-hidden="true">4.5.</strong> Inference</a></li><li class="chapter-item expanded "><a href="basic-workflow/conclusion.html"><strong aria-hidden="true">4.6.</strong> Conclusion</a></li></ol></li><li class="chapter-item expanded "><a href="building-blocks/index.html"><strong aria-hidden="true">5.</strong> Building Blocks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="building-blocks/backend.html"><strong aria-hidden="true">5.1.</strong> Backend</a></li><li class="chapter-item expanded "><a href="building-blocks/tensor.html"><strong aria-hidden="true">5.2.</strong> Tensor</a></li><li class="chapter-item expanded "><a href="building-blocks/autodiff.html"><strong aria-hidden="true">5.3.</strong> Autodiff</a></li><li class="chapter-item expanded "><a href="building-blocks/module.html"><strong aria-hidden="true">5.4.</strong> Module</a></li><li class="chapter-item expanded "><a href="building-blocks/learner.html"><strong aria-hidden="true">5.5.</strong> Learner</a></li><li class="chapter-item expanded "><a href="building-blocks/metric.html"><strong aria-hidden="true">5.6.</strong> Metric</a></li><li class="chapter-item expanded "><a href="building-blocks/config.html"><strong aria-hidden="true">5.7.</strong> Config</a></li><li class="chapter-item expanded "><a href="building-blocks/record.html"><strong aria-hidden="true">5.8.</strong> Record</a></li><li class="chapter-item expanded "><a href="building-blocks/dataset.html"><strong aria-hidden="true">5.9.</strong> Dataset</a></li></ol></li><li class="chapter-item expanded "><a href="custom-training-loop.html"><strong aria-hidden="true">6.</strong> Custom Training Loop</a></li><li class="chapter-item expanded "><a href="import/onnx-model.html"><strong aria-hidden="true">7.</strong> Import ONNX Model</a></li><li class="chapter-item expanded "><a href="advanced/index.html"><strong aria-hidden="true">8.</strong> Advanced</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced/backend-extension/index.html"><strong aria-hidden="true">8.1.</strong> Backend Extension</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced/backend-extension/custom-wgpu-kernel.html"><strong aria-hidden="true">8.1.1.</strong> Custom WGPU Kernel</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> Custom Optimizer</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> WebAssembly</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> No-Std</div></li></ol></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -300,13 +302,13 @@ corresponding code in the <code>examples/guide</code> directory.</p>
 <li>Using a model for inference</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="model"><a class="header" href="#model">Model</a></h1>
-<p>The first step is to create a project and add the different Burn dependencies. In a <code>Cargo.toml</code>
-file, add the <code>burn</code>, <code>burn-wgpu</code>, <code>burn-dataset</code>, <code>burn-autodiff</code> and <code>burn-train</code>. Note that the
-<code>serde</code> dependency is necessary for serialization and is mandatory for the time being.</p>
+<p>The first step is to create a project and add the different Burn dependencies. In the <code>Cargo.toml</code> file,
+add the <code>burn</code> dependency with <code>train</code> and <code>wgpu</code> features. Note that the <code>serde</code> dependency is also mandatory
+for the time being, as it is needed for serialization.</p>
 <pre><code class="language-toml">[package]
-edition = &quot;2021&quot;
 name = &quot;my-first-burn-model&quot;
 version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
 
 [dependencies]
 burn = { version = &quot;0.10.0&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
@@ -318,8 +320,7 @@ serde = &quot;1&quot;
 will keep the model simple by using two convolution layers followed by two linear layers, some
 pooling and ReLU activations. We will also use dropout to improve training performance.</p>
 <p>Let us start by creating a model in a file <code>model.rs</code>.</p>
-<pre><code class="language-rust   ignore">// Import required for the model.rs file
-use burn::{
+<pre><code class="language-rust   ignore">use burn::{
     config::Config,
     module::Module,
     nn::{
@@ -624,7 +625,7 @@ pub fn train&lt;B: AutodiffBackend&gt;(artifact_dir: &amp;str, config: TrainingC
 <p>It is a good practice to use the <code>Config</code> derive to create the experiment configuration. In the
 <code>train</code> function, the first thing we are doing is making sure the <code>artifact_dir</code> exists, using the
 standard rust library for file manipulation. All checkpoints, logging and metrics will be stored
-under the this directory. We then initialize our dataloaders using our previously created batcher.
+under this directory. We then initialize our dataloaders using our previously created batcher.
 Since no automatic differentiation is needed during the validation phase, the backend used for the
 corresponding batcher is <code>B::InnerBackend</code> (see <a href="basic-workflow/./backend.html">Backend</a>). The autodiff capabilities
 are available through a type system, making it nearly impossible to forget to deactivate gradient
@@ -786,6 +787,8 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 <tr><td><code>tensor.unsqueeze_dim(dim)</code></td><td><code>tensor.unsqueeze(dim)</code></td></tr>
 <tr><td><code>tensor.slice(ranges)</code></td><td><code>tensor[(*ranges,)]</code></td></tr>
 <tr><td><code>tensor.slice_assign(ranges, values)</code></td><td><code>tensor[(*ranges,)] = values</code></td></tr>
+<tr><td><code>tensor.narrow(dim, start, length)</code></td><td><code>tensor.narrow(dim, start, length)</code></td></tr>
+<tr><td><code>tensor.chunk(num_chunks, dim)</code></td><td><code>tensor.chunk(num_chunks, dim)</code></td></tr>
 <tr><td><code>tensor.device()</code></td><td><code>tensor.device</code></td></tr>
 <tr><td><code>tensor.to_device(device)</code></td><td><code>tensor.to(device)</code></td></tr>
 <tr><td><code>tensor.repeat(2, 4)</code></td><td><code>tensor.repeat([1, 1, 4])</code></td></tr>
@@ -797,6 +800,7 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 <tr><td><code>Tensor::from_data_device(data, device)</code></td><td>N/A</td></tr>
 <tr><td><code>tensor.into_primitive()</code></td><td>N/A</td></tr>
 <tr><td><code>Tensor::from_primitive(primitive)</code></td><td>N/A</td></tr>
+<tr><td><code>Tensor::stack(tensors, dim)</code></td><td>torch.stack(tensors, dim)`</td></tr>
 </tbody></table>
 </div>
 <h3 id="numeric-operations"><a class="header" href="#numeric-operations">Numeric Operations</a></h3>
@@ -849,6 +853,8 @@ for the sake of simplicity, we ignore type signatures. For more details, refer t
 <tr><td><code>tensor.clamp_min(min)</code></td><td><code>torch.clamp(tensor, min=min)</code></td></tr>
 <tr><td><code>tensor.clamp_max(max)</code></td><td><code>torch.clamp(tensor, max=max)</code></td></tr>
 <tr><td><code>tensor.abs()</code></td><td><code>torch.abs(tensor)</code></td></tr>
+<tr><td>`tensor.triu(diagonal)</td><td><code>torch.triu(tensor, diagonal)</code></td></tr>
+<tr><td>`tensor.tril(diagonal)</td><td><code>torch.tril(tensor, diagonal)</code></td></tr>
 </tbody></table>
 </div>
 <h3 id="float-operations"><a class="header" href="#float-operations">Float Operations</a></h3>

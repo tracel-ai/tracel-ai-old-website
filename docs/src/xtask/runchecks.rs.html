@@ -435,6 +435,24 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#433" id="433">433</a>
 <a href="#434" id="434">434</a>
 <a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a>
+<a href="#452" id="452">452</a>
+<a href="#453" id="453">453</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! This script is run before a PR is created.
 //!
 //! It is used to check that the code compiles and passes all tests.
@@ -667,7 +685,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span>cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-core&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;test-tch&quot;</span>].into());
 
     <span class="comment">// Run cargo test --features test-wgpu
-    </span>cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-core&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;test-wgpu&quot;</span>].into());
+    </span><span class="kw">if </span>std::env::var(<span class="string">&quot;DISABLE_WGPU&quot;</span>).is_err() {
+        cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-core&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;test-wgpu&quot;</span>].into());
+    }
 }
 
 <span class="comment">// Test burn-dataset features
@@ -684,6 +704,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span>cargo_doc([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-dataset&quot;</span>, <span class="string">&quot;--all-features&quot;</span>].into());
 }
 
+<span class="comment">// Test burn-candle with accelerate (macOS only)
+// Leverages the macOS Accelerate framework: https://developer.apple.com/documentation/accelerate
+</span><span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
+</span><span class="kw">fn </span>burn_candle_accelerate() {
+    cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-candle&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;accelerate&quot;</span>].into());
+}
+
 <span class="kw">fn </span>std_checks() {
     <span class="comment">// Set RUSTDOCFLAGS environment variable to treat warnings as errors
     // for the documentation build
@@ -691,6 +718,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="comment">// Check if COVERAGE environment variable is set
     </span><span class="kw">let </span>is_coverage = std::env::var(<span class="string">&quot;COVERAGE&quot;</span>).is_ok();
+    <span class="kw">let </span>disable_wgpu = std::env::var(<span class="string">&quot;DISABLE_WGPU&quot;</span>).is_ok();
 
     <span class="macro">println!</span>(<span class="string">&quot;Running std checks&quot;</span>);
 
@@ -701,7 +729,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span>cargo_clippy();
 
     <span class="comment">// Build each workspace
-    </span>cargo_build([<span class="string">&quot;--workspace&quot;</span>, <span class="string">&quot;--exclude=xtask&quot;</span>].into());
+    </span><span class="kw">if </span>disable_wgpu {
+        cargo_build([<span class="string">&quot;--workspace&quot;</span>, <span class="string">&quot;--exclude=xtask&quot;</span>, <span class="string">&quot;--exclude=burn-wgpu&quot;</span>].into());
+    } <span class="kw">else </span>{
+        cargo_build([<span class="string">&quot;--workspace&quot;</span>, <span class="string">&quot;--exclude=xtask&quot;</span>].into());
+    }
 
     <span class="comment">// Produce documentation for each workspace
     </span>cargo_doc([<span class="string">&quot;--workspace&quot;</span>].into());
@@ -713,6 +745,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="comment">// Test each workspace
     </span>cargo_test([<span class="string">&quot;--workspace&quot;</span>].into());
+
+    <span class="comment">// Test burn-candle with accelerate (macOS only)
+    </span><span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
+    </span>burn_candle_accelerate();
 
     <span class="comment">// Test burn-dataset features
     </span>burn_dataset_features_std();

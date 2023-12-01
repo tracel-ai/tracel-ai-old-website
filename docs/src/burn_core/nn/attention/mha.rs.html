@@ -453,6 +453,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#451" id="451">451</a>
 <a href="#452" id="452">452</a>
 <a href="#453" id="453">453</a>
+<a href="#454" id="454">454</a>
+<a href="#455" id="455">455</a>
+<a href="#456" id="456">456</a>
+<a href="#457" id="457">457</a>
+<a href="#458" id="458">458</a>
+<a href="#459" id="459">459</a>
+<a href="#460" id="460">460</a>
+<a href="#461" id="461">461</a>
+<a href="#462" id="462">462</a>
+<a href="#463" id="463">463</a>
+<a href="#464" id="464">464</a>
+<a href="#465" id="465">465</a>
+<a href="#466" id="466">466</a>
+<a href="#467" id="467">467</a>
+<a href="#468" id="468">468</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate as </span>burn;
 
 <span class="kw">use </span><span class="kw">crate</span>::nn::cache::TensorCache;
@@ -480,6 +495,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// A value too low might result in NaN.
     </span><span class="attr">#[config(default = -<span class="number">1.0e4</span>)]
     </span>min_float: f64,
+    <span class="doccomment">/// Use &quot;quiet softmax&quot; instead of regular softmax.
+    ///
+    /// - Usage may improve performance by allowing attention heads to deposit no information (if the sequence contains no information relevant to that head).
+    /// - Usage may reduce the entropy of weights in the model, enhancing quantization and compression.
+    ///
+    /// Reference: &lt;https://www.evanmiller.org/attention-is-off-by-one.html&gt;
+    </span><span class="attr">#[config(default = <span class="bool-val">false</span>)]
+    </span>quiet_softmax: bool,
     <span class="doccomment">/// The type of function used to initialize neural network parameters
     </span><span class="attr">#[config(
         default = <span class="string">&quot;Initializer::KaimingUniform{gain:1.0/libm::sqrt(3.0), fan_out_only:false}&quot;
@@ -506,6 +529,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     n_heads: usize,
     d_k: usize,
     min_float: f64,
+    quiet_softmax: bool,
 }
 
 <span class="doccomment">/// [Multihead attention](MultiHeadAttention) forward pass input argument.
@@ -537,6 +561,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             n_heads: <span class="self">self</span>.n_heads,
             d_k: <span class="self">self</span>.d_model / <span class="self">self</span>.n_heads,
             min_float: <span class="self">self</span>.min_float,
+            quiet_softmax: <span class="self">self</span>.quiet_softmax,
         }
     }
 
@@ -560,6 +585,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             n_heads: <span class="self">self</span>.n_heads,
             d_k: <span class="self">self</span>.d_model / <span class="self">self</span>.n_heads,
             min_float: <span class="self">self</span>.min_float,
+            quiet_softmax: <span class="self">self</span>.quiet_softmax,
         }
     }
 }
@@ -704,7 +730,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             );
         }
 
-        activation::softmax(attn_scores, <span class="number">3</span>)
+        <span class="kw">if </span><span class="self">self</span>.quiet_softmax {
+            activation::quiet_softmax(attn_scores, <span class="number">3</span>)
+        } <span class="kw">else </span>{
+            activation::softmax(attn_scores, <span class="number">3</span>)
+        }
     }
 
     <span class="kw">fn </span>attention_linear(<span class="kw-2">&amp;</span><span class="self">self</span>, x: Tensor&lt;B, <span class="number">3</span>&gt;, linear: <span class="kw-2">&amp;</span>nn::Linear&lt;B&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {

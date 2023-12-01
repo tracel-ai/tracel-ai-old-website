@@ -70,7 +70,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#68" id="68">68</a>
 <a href="#69" id="69">69</a>
 <a href="#70" id="70">70</a>
-</pre></div><pre class="rust"><code><span class="attr">#[macro_export]
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+</pre></div><pre class="rust"><code><span class="kw">pub mod </span>persistence;
+
+<span class="attr">#[macro_export]
 </span><span class="macro">macro_rules! </span>bench_on_backend {
     () =&gt; {
         <span class="attr">#[cfg(feature = <span class="string">&quot;wgpu-fusion&quot;</span>)]

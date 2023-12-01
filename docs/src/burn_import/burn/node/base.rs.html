@@ -386,12 +386,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#384" id="384">384</a>
 <a href="#385" id="385">385</a>
 <a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{
     avg_pool2d::AvgPool2dNode, batch_norm::BatchNormNode, binary::BinaryNode, clip::ClipNode,
     concat::ConcatNode, constant::ConstantNode, conv1d::Conv1dNode, conv2d::Conv2dNode,
-    dropout::DropoutNode, gather::GatherNode, global_avg_pool::GlobalAvgPoolNode,
-    linear::LinearNode, matmul::MatmulNode, max_pool2d::MaxPool2dNode, reshape::ReshapeNode,
-    unary::UnaryNode,
+    conv_transpose_2d::ConvTranspose2dNode, dropout::DropoutNode, gather::GatherNode,
+    global_avg_pool::GlobalAvgPoolNode, linear::LinearNode, matmul::MatmulNode,
+    max_pool2d::MaxPool2dNode, reshape::ReshapeNode, unary::UnaryNode,
 };
 <span class="kw">use </span><span class="kw">crate</span>::burn::{BurnImports, Scope, Type};
 <span class="kw">use </span>burn::record::PrecisionSettings;
@@ -469,6 +474,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     Constant(ConstantNode&lt;PS&gt;),
     Conv1d(Conv1dNode&lt;PS&gt;),
     Conv2d(Conv2dNode&lt;PS&gt;),
+    ConvTranspose2d(ConvTranspose2dNode&lt;PS&gt;),
     Dropout(DropoutNode),
     Gather(GatherNode),
     GlobalAvgPool(GlobalAvgPoolNode),
@@ -491,6 +497,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             Node::Constant(node) =&gt; <span class="macro-nonterminal">$func</span>(node),
             Node::Conv1d(node) =&gt; <span class="macro-nonterminal">$func</span>(node),
             Node::Conv2d(node) =&gt; <span class="macro-nonterminal">$func</span>(node),
+            Node::ConvTranspose2d(node) =&gt; <span class="macro-nonterminal">$func</span>(node),
             Node::Dropout(node) =&gt; <span class="macro-nonterminal">$func</span>(node),
             Node::Gather(node) =&gt; <span class="macro-nonterminal">$func</span>(node),
             Node::GlobalAvgPool(node) =&gt; <span class="macro-nonterminal">$func</span>(node),
@@ -523,6 +530,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             Node::Constant(<span class="kw">_</span>) =&gt; <span class="string">&quot;constant&quot;</span>,
             Node::Conv1d(<span class="kw">_</span>) =&gt; <span class="string">&quot;conv1d&quot;</span>,
             Node::Conv2d(<span class="kw">_</span>) =&gt; <span class="string">&quot;conv2d&quot;</span>,
+            Node::ConvTranspose2d(<span class="kw">_</span>) =&gt; <span class="string">&quot;conv_transpose2d&quot;</span>,
             Node::Dropout(<span class="kw">_</span>) =&gt; <span class="string">&quot;dropout&quot;</span>,
             Node::Gather(<span class="kw">_</span>) =&gt; <span class="string">&quot;gather&quot;</span>,
             Node::GlobalAvgPool(<span class="kw">_</span>) =&gt; <span class="string">&quot;global_avg_pool&quot;</span>,
@@ -585,7 +593,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">use </span><span class="kw">crate</span>::burn::{
         graph::BurnGraph,
         node::{conv2d::Conv2dNode, matmul::MatmulNode, test::assert_tokens, NodeCodegen},
-        TensorType,
+        BurnImports, TensorType,
     };
     <span class="kw">use </span>burn::{
         nn::conv::Conv2dConfig, nn::PaddingConfig2d, record::FullPrecisionSettings, tensor::Data,
@@ -593,7 +601,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">use </span>proc_macro2::TokenStream;
     <span class="kw">use </span>quote::quote;
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>one_node_graph&lt;T: NodeCodegen&lt;FullPrecisionSettings&gt; + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[track_caller]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>one_node_graph&lt;T: NodeCodegen&lt;FullPrecisionSettings&gt; + Clone + <span class="lifetime">&#39;static</span>&gt;(
         node_gen: T,
         forward: TokenStream,
         input_names: Vec&lt;String&gt;,
@@ -601,15 +610,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) {
         <span class="kw">let </span><span class="kw-2">mut </span>graph = BurnGraph::&lt;FullPrecisionSettings&gt;::default();
 
-        graph.register(node_gen);
+        graph.register(node_gen.clone());
 
         graph.register_input_output(input_names, output_names);
 
+        <span class="kw">let </span><span class="kw-2">mut </span>imports = BurnImports::default();
+        node_gen.register_imports(<span class="kw-2">&amp;mut </span>imports);
+        <span class="kw">let </span>imports = imports.codegen();
+
         <span class="kw">let </span>expected = <span class="macro">quote! </span>{
-            <span class="kw">use </span>burn::{
-                module::Module,
-                tensor::{backend::Backend, Tensor},
-            };
+            #imports
 
             <span class="attr">#[derive(Module, Debug)]
             </span><span class="kw">pub struct </span>Model&lt;B: Backend&gt; {
@@ -624,7 +634,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     }
                 }
 
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span>#forward
             }
         };
@@ -686,7 +696,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                         phantom: core::marker::PhantomData,
                     }
                 }
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;, tensor2: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
                     <span class="kw">let </span>tensor3 = tensor1.matmul(tensor2);
                     <span class="kw">let </span>tensor4 = <span class="self">self</span>.conv2d.forward(tensor3);
@@ -758,7 +768,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                         phantom: core::marker::PhantomData,
                     }
                 }
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;, tensor2: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
                     <span class="kw">let </span>tensor3 = tensor1.matmul(tensor2.clone());
                     <span class="kw">let </span>tensor4 = <span class="self">self</span>.conv2d.forward(tensor2);

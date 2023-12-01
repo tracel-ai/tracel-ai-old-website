@@ -2081,7 +2081,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">fn </span>max_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span>index = B::argmax(tensor.clone(), dim);
 
-        B::gather(D - <span class="number">1</span>, tensor, index)
+        B::gather(dim, tensor, index)
     }
 
     <span class="doccomment">/// Gets the maximum elements of a tensor along an axis and their indices.
@@ -2099,7 +2099,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         dim: usize,
     ) -&gt; (FloatTensor&lt;B, D&gt;, IntTensor&lt;B, D&gt;) {
         <span class="kw">let </span>index = B::argmax(tensor.clone(), dim);
-        <span class="kw">let </span>values = B::gather(D - <span class="number">1</span>, tensor, index.clone());
+        <span class="kw">let </span>values = B::gather(dim, tensor, index.clone());
 
         (values, index)
     }
@@ -2133,7 +2133,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">fn </span>min_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;B, D&gt;, dim: usize) -&gt; FloatTensor&lt;B, D&gt; {
         <span class="kw">let </span>index = B::argmin(tensor.clone(), dim);
 
-        B::gather(D - <span class="number">1</span>, tensor, index)
+        B::gather(dim, tensor, index)
     }
 
     <span class="doccomment">/// Gets the minimum elements of a tensor along an axis and their indices.
@@ -2151,7 +2151,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         dim: usize,
     ) -&gt; (FloatTensor&lt;B, D&gt;, IntTensor&lt;B, D&gt;) {
         <span class="kw">let </span>index = B::argmin(tensor.clone(), dim);
-        <span class="kw">let </span>values = B::gather(D - <span class="number">1</span>, tensor, index.clone());
+        <span class="kw">let </span>values = B::gather(dim, tensor, index.clone());
 
         (values, index)
     }

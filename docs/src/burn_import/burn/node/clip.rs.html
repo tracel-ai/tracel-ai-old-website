@@ -276,7 +276,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                         phantom: core::marker::PhantomData,
                     }
                 }
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
                     <span class="kw">let </span>tensor2 = tensor1.clamp(<span class="number">0f64</span>, <span class="number">1f64</span>);
 
@@ -319,7 +319,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                         phantom: core::marker::PhantomData,
                     }
                 }
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
                     <span class="kw">let </span>tensor2 = tensor1.clamp_min(<span class="number">0f64</span>);
 
@@ -362,7 +362,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                         phantom: core::marker::PhantomData,
                     }
                 }
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
                     <span class="kw">let </span>tensor2 = tensor1.clamp_max(<span class="number">1f64</span>);
 

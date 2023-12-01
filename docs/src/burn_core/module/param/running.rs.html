@@ -215,6 +215,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#213" id="213">213</a>
 <a href="#214" id="214">214</a>
 <a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::ParamId;
 <span class="kw">use </span><span class="kw">crate</span>::module::{AutodiffModule, Module, ModuleMapper, ModuleVisitor, Param};
 <span class="kw">use </span>alloc::sync::Arc;
@@ -312,7 +315,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self</span>.to_device(device) <span class="comment">// Same thing here since no grad.
     </span>}
 
-    <span class="kw">fn </span>devices(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>devices: Vec&lt;&lt;B <span class="kw">as </span>Backend&gt;::Device&gt;) -&gt; Vec&lt;&lt;B <span class="kw">as </span>Backend&gt;::Device&gt; {
+    <span class="kw">fn </span>collect_devices(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="kw-2">mut </span>devices: Vec&lt;&lt;B <span class="kw">as </span>Backend&gt;::Device&gt;,
+    ) -&gt; Vec&lt;&lt;B <span class="kw">as </span>Backend&gt;::Device&gt; {
         <span class="kw">let </span>device = <span class="self">self</span>.value.read().unwrap().device();
 
         <span class="kw">if </span>!devices.contains(<span class="kw-2">&amp;</span>device) {

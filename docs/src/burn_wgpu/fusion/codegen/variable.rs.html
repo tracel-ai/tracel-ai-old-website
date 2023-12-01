@@ -21,23 +21,45 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#19" id="19">19</a>
 <a href="#20" id="20">20</a>
 <a href="#21" id="21">21</a>
+<a href="#22" id="22">22</a>
+<a href="#23" id="23">23</a>
+<a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Elem;
 <span class="kw">use </span>std::fmt::Display;
 
 <span class="attr">#[derive(Debug, Hash, Clone)]
 </span><span class="kw">pub enum </span>Variable {
-    Input(u16),
+    Input(u16, Elem),
     Scalar(u16, Elem),
-    Local(u16),
-    Output(u16),
+    Local(u16, Elem),
+    Output(u16, Elem),
+}
+
+<span class="kw">impl </span>Variable {
+    <span class="kw">pub fn </span>elem(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Elem {
+        <span class="kw">match </span><span class="self">self </span>{
+            Variable::Input(<span class="kw">_</span>, e) =&gt; e,
+            Variable::Scalar(<span class="kw">_</span>, e) =&gt; e,
+            Variable::Local(<span class="kw">_</span>, e) =&gt; e,
+            Variable::Output(<span class="kw">_</span>, e) =&gt; e,
+        }
+    }
 }
 
 <span class="kw">impl </span>Display <span class="kw">for </span>Variable {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
-            Variable::Input(number) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;input_{number}&quot;</span>)),
-            Variable::Local(number) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;local_{number}&quot;</span>)),
-            Variable::Output(number) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;output_{number}&quot;</span>)),
+            Variable::Input(number, <span class="kw">_</span>) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;input_{number}&quot;</span>)),
+            Variable::Local(number, <span class="kw">_</span>) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;local_{number}&quot;</span>)),
+            Variable::Output(number, <span class="kw">_</span>) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;output_{number}&quot;</span>)),
             Variable::Scalar(number, elem) =&gt; f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;scalars_{elem}[{number}]&quot;</span>)),
         }
     }

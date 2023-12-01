@@ -338,7 +338,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="self">self
         </span>}
 
-        <span class="kw">fn </span>devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: burn::module::Devices&lt;B&gt;) -&gt; burn::module::Devices&lt;B&gt; {
+        <span class="kw">fn </span>collect_devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: burn::module::Devices&lt;B&gt;) -&gt; burn::module::Devices&lt;B&gt; {
             devices
         }
     };
@@ -410,7 +410,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self</span>.to_device(device)
     }
 
-    <span class="kw">fn </span>devices(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>devices: Devices&lt;B&gt;) -&gt; Devices&lt;B&gt; {
+    <span class="kw">fn </span>collect_devices(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>devices: Devices&lt;B&gt;) -&gt; Devices&lt;B&gt; {
         <span class="kw">let </span>device = <span class="self">self</span>.device();
 
         <span class="kw">if </span>!devices.contains(<span class="kw-2">&amp;</span>device) {
@@ -458,7 +458,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self
     </span>}
 
-    <span class="kw">fn </span>devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: Devices&lt;B&gt;) -&gt; Devices&lt;B&gt; {
+    <span class="kw">fn </span>collect_devices(<span class="kw-2">&amp;</span><span class="self">self</span>, devices: Devices&lt;B&gt;) -&gt; Devices&lt;B&gt; {
         devices
     }
 }

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["run_benchmark"],"struct":["BenchmarkResult"],"trait":["Benchmark"]};
+window.SIDEBAR_ITEMS = {"fn":["run_benchmark"],"struct":["BenchmarkDurations","BenchmarkResult"],"trait":["Benchmark"]};

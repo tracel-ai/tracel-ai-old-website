@@ -513,25 +513,25 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">use </span><span class="kw">crate</span>::burn::{ScalarKind, ScalarType, TensorType};
 
     <span class="macro">macro_rules! </span>test_binary_operator_on_tensors {
-        (<span class="macro-nonterminal">$operator</span>:ident) =&gt; {{
-            one_node_graph(
-                BinaryNode::<span class="macro-nonterminal">$operator</span>(
-                    Type::Tensor(TensorType::new_float(<span class="string">&quot;tensor1&quot;</span>, <span class="number">4</span>)),
-                    Type::Tensor(TensorType::new_float(<span class="string">&quot;tensor2&quot;</span>, <span class="number">4</span>)),
-                    Type::Tensor(TensorType::new_float(<span class="string">&quot;tensor3&quot;</span>, <span class="number">4</span>)),
-                ),
-                <span class="macro">quote! </span>{
-                    <span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;, tensor2: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
-                        <span class="kw">let </span>tensor3 = tensor1.<span class="macro-nonterminal">$operator</span>(tensor2);
+    (<span class="macro-nonterminal">$operator</span>:ident) =&gt; {{
+      one_node_graph(
+        BinaryNode::<span class="macro-nonterminal">$operator</span>(
+          Type::Tensor(TensorType::new_float(<span class="string">&quot;tensor1&quot;</span>, <span class="number">4</span>)),
+          Type::Tensor(TensorType::new_float(<span class="string">&quot;tensor2&quot;</span>, <span class="number">4</span>)),
+          Type::Tensor(TensorType::new_float(<span class="string">&quot;tensor3&quot;</span>, <span class="number">4</span>)),
+        ),
+        <span class="macro">quote! </span>{
+            <span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;, tensor2: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
+                <span class="kw">let </span>tensor3 = tensor1.<span class="macro-nonterminal">$operator</span>(tensor2);
 
-                        tensor3
-                    }
-                },
-                <span class="macro">vec!</span>[<span class="string">&quot;tensor1&quot;</span>.to_string(), <span class="string">&quot;tensor2&quot;</span>.to_string()],
-                <span class="macro">vec!</span>[<span class="string">&quot;tensor3&quot;</span>.to_string()],
-            );
-        }};
-    }
+                tensor3
+            }
+        },
+        <span class="macro">vec!</span>[<span class="string">&quot;tensor1&quot;</span>.to_string(), <span class="string">&quot;tensor2&quot;</span>.to_string()],
+        <span class="macro">vec!</span>[<span class="string">&quot;tensor3&quot;</span>.to_string()],
+      );
+    }};
+  }
 
     <span class="macro">macro_rules! </span>test_binary_operator_on_tensor_and_scalar {
         (<span class="macro-nonterminal">$operator</span>:ident, <span class="macro-nonterminal">$burn_operator</span>:ident) =&gt; {{
@@ -671,7 +671,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     }
                 }
 
-                <span class="attr">#[allow(clippy::let_and_return)]
+                <span class="attr">#[allow(clippy::let_and_return, clippy::approx_constant)]
                 </span><span class="kw">pub fn </span>forward(<span class="kw-2">&amp;</span><span class="self">self</span>, tensor1: Tensor&lt;B, <span class="number">4</span>&gt;, tensor2: Tensor&lt;B, <span class="number">4</span>&gt;) -&gt; Tensor&lt;B, <span class="number">4</span>, Bool&gt; {
                     <span class="kw">let </span>tensor3 = tensor1.equal(tensor2);
 
