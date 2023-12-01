@@ -36,7 +36,7 @@ const Layout: FlowComponent<Props> = (props) => {
           </li>
           <li class="hidden sm:block">
             <iframe 
-              src="https://ghbtns.com/github-btn.html?user=Tracel-AI&repo=burn&type=star&count=true&size=large"
+              src="https://ghbtns.com/github-btn.html?user=tracel-ai&repo=burn&type=star&count=true&size=large"
               width="170"
               height="30"
               title="GitHub"

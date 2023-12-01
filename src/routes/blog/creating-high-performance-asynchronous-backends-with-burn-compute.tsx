@@ -30,7 +30,7 @@ const Content = () => {
   )
   const burnComputeCrate = biblio.addReference(
     'Burn-Compute Crate',
-    'https://github.com/Tracel-AI/burn/tree/main/burn-compute'
+    'https://github.com/tracel-ai/burn/tree/main/burn-compute'
   )
   const asynchronous = biblio.addReference(
     'Dive Into Deep Learning: Asynchronous Compution',

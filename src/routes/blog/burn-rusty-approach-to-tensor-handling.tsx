@@ -12,7 +12,7 @@ const Content = () => {
   const biblio = new Biblio();
   const burnReleaseV060 = biblio.addReference(
     'Burn v0.6.0 release notes',
-    'https://github.com/Tracel-AI/burn/releases/tag/v0.6.0',
+    'https://github.com/tracel-ai/burn/releases/tag/v0.6.0',
   );
   const copyOnWrite = biblio.addReference(
     'Wikipedia: Copy-on-write',
@@ -20,7 +20,7 @@ const Content = () => {
   );
   const tchBackend = biblio.addReference(
     'Burn - Tch Backend',
-    'https://github.com/Tracel-AI/burn/tree/main/burn-tch',
+    'https://github.com/tracel-ai/burn/tree/main/burn-tch',
   );
   const stdArc = biblio.addReference(
     'Atomic Reference Counting - std::sync::Arc',

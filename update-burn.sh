@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "Cloning Burn"
-git clone https://github.com/Tracel-AI/burn
+git clone https://github.com/tracel-ai/burn
 cd burn
 git pull
-git checkout 3d6c738776e851e9ad40e780b583253882cbb16e
+git checkout main
 
 echo "Updating Burn Book"
 cd burn-book

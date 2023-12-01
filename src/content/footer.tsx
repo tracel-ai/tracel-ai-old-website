@@ -13,16 +13,16 @@ export const footerSections: FooterSection[] = [
   {
     name: 'examples',
     items: [
-      { label: 'MNIST', href: 'https://github.com/Tracel-AI/burn/tree/main/examples/mnist' },
-      { label: 'Text Classification', href: 'https://github.com/Tracel-AI/burn/tree/main/examples/text-classification' },
-      { label: 'ONNX Inference', href: 'https://github.com/Tracel-AI/burn/tree/main/examples/onnx-inference' },
+      { label: 'MNIST', href: 'https://github.com/tracel-ai/burn/tree/main/examples/mnist' },
+      { label: 'Text Classification', href: 'https://github.com/tracel-ai/burn/tree/main/examples/text-classification' },
+      { label: 'ONNX Inference', href: 'https://github.com/tracel-ai/burn/tree/main/examples/onnx-inference' },
     ],
   },
 
   {
     name: 'community',
     items: [
-      { label: 'Github', href: 'https://github.com/Tracel-AI/burn', icon: 'i-mdi-github' },
+      { label: 'Github', href: 'https://github.com/tracel-ai/burn', icon: 'i-mdi-github' },
       { label: 'Discord', href: 'https://discord.gg/uPEBbYYDB6', icon: 'i-mdi-discord' },
     ],
   },
@@ -32,7 +32,7 @@ export const footerSections: FooterSection[] = [
       { label: 'Documentation', href: 'https://burn.dev/docs/burn' },
       { label: 'Book', href: '/book' },
       { label: 'Crates.io', href: 'https://crates.io/crates/burn' },
-      { label: 'License', href: 'https://github.com/Tracel-AI/burn#license' },
+      { label: 'License', href: 'https://github.com/tracel-ai/burn#license' },
     ],
   },
 ]
