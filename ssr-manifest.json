@@ -2,6 +2,27 @@
   "src/routes/[...404].tsx": [
     "/assets/_...404_-6fd0071b.js"
   ],
+  "src/components/card/index.tsx": [
+    "/assets/index-4a503afb.js"
+  ],
+  "src/routes/blog/index.tsx": [
+    "/assets/index-4a503afb.js"
+  ],
+  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": [
+    "/assets/creating-high-performance-asynchronous-backends-with-burn-compute-ec83e915.js"
+  ],
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
+    "/assets/a-case-for-rust-in-deep-learning-74e63fb5.js"
+  ],
+  "src/routes/demo.tsx": [
+    "/assets/demo-30ee8882.js"
+  ],
+  "src/content/blogs.ts": [
+    "/assets/blogs-a75ac475.js"
+  ],
+  "src/components/stars/index.tsx": [
+    "/assets/index-359f05f9.js"
+  ],
   "src/components/outterlink/index.tsx": [
     "/assets/page-3af1c2ce.js"
   ],
@@ -11,41 +32,41 @@
   "src/layout/page.tsx": [
     "/assets/page-3af1c2ce.js"
   ],
-  "src/components/blog/table/index.tsx": [
-    "/assets/index-c292cd01.js"
-  ],
   "src/components/blog/index.tsx": [
     "/assets/index-1078b72d.js"
   ],
   "src/components/blog/reference/index.tsx": [
     "/assets/index-1078b72d.js"
   ],
-  "src/components/stars/index.tsx": [
-    "/assets/index-359f05f9.js"
-  ],
   "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
     "/assets/burn-rusty-approach-to-tensor-handling-d31a3fcf.js"
   ],
-  "src/components/card/index.tsx": [
-    "/assets/index-4a503afb.js"
-  ],
-  "src/routes/blog/index.tsx": [
-    "/assets/index-4a503afb.js"
-  ],
-  "src/routes/demo.tsx": [
-    "/assets/demo-30ee8882.js"
-  ],
-  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": [
-    "/assets/creating-high-performance-asynchronous-backends-with-burn-compute-ec83e915.js"
-  ],
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
-    "/assets/a-case-for-rust-in-deep-learning-74e63fb5.js"
+  "src/components/blog/table/index.tsx": [
+    "/assets/index-c292cd01.js"
   ],
   "src/routes/blog/cross-platform-gpu-backend.tsx": [
     "/assets/cross-platform-gpu-backend-f4bc6277.js"
   ],
-  "src/content/blogs.ts": [
-    "/assets/blogs-a75ac475.js"
+  "\u0000commonjsHelpers.js": [
+    "/assets/index-bb9e1f3e.js"
+  ],
+  "\u0000/home/runner/work/tracel-ai.github.io/tracel-ai.github.io/node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js?commonjs-module": [
+    "/assets/index-bb9e1f3e.js"
+  ],
+  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js": [
+    "/assets/index-bb9e1f3e.js"
+  ],
+  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-rust.js": [
+    "/assets/index-bb9e1f3e.js"
+  ],
+  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-python.js": [
+    "/assets/index-bb9e1f3e.js"
+  ],
+  "node_modules/.pnpm/nanoid@4.0.1/node_modules/nanoid/index.browser.js": [
+    "/assets/index-bb9e1f3e.js"
+  ],
+  "src/components/code/index.tsx": [
+    "/assets/index-bb9e1f3e.js"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/array.es.js": [
     "/assets/index-9a2909cf.js",
@@ -336,27 +357,6 @@
     "/assets/index-9a2909cf.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
-  ],
-  "\u0000commonjsHelpers.js": [
-    "/assets/index-bb9e1f3e.js"
-  ],
-  "\u0000/home/runner/work/tracel-ai.github.io/tracel-ai.github.io/node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js?commonjs-module": [
-    "/assets/index-bb9e1f3e.js"
-  ],
-  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-core.js": [
-    "/assets/index-bb9e1f3e.js"
-  ],
-  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-rust.js": [
-    "/assets/index-bb9e1f3e.js"
-  ],
-  "node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/prism-python.js": [
-    "/assets/index-bb9e1f3e.js"
-  ],
-  "node_modules/.pnpm/nanoid@4.0.1/node_modules/nanoid/index.browser.js": [
-    "/assets/index-bb9e1f3e.js"
-  ],
-  "src/components/code/index.tsx": [
-    "/assets/index-bb9e1f3e.js"
   ],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/dist/dev.js": [],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/web/dist/dev.js": [],

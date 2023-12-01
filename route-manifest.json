@@ -13,44 +13,6 @@
       "href": "/assets/entry-client-3e7d4bd4.css"
     }
   ],
-  "/blog/burn-rusty-approach-to-tensor-handling": [
-    {
-      "type": "script",
-      "href": "/assets/burn-rusty-approach-to-tensor-handling-d31a3fcf.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-c2c9bbc9.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3e7d4bd4.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-1078b72d.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-3af1c2ce.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-359f05f9.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-bb9e1f3e.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-c292cd01.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-a75ac475.js"
-    }
-  ],
   "/blog/": [
     {
       "type": "script",
@@ -71,24 +33,6 @@
     {
       "type": "script",
       "href": "/assets/blogs-a75ac475.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-3af1c2ce.js"
-    }
-  ],
-  "/demo": [
-    {
-      "type": "script",
-      "href": "/assets/demo-30ee8882.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-c2c9bbc9.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3e7d4bd4.css"
     },
     {
       "type": "script",
@@ -157,6 +101,62 @@
     {
       "type": "script",
       "href": "/assets/page-3af1c2ce.js"
+    }
+  ],
+  "/demo": [
+    {
+      "type": "script",
+      "href": "/assets/demo-30ee8882.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-c2c9bbc9.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-3af1c2ce.js"
+    }
+  ],
+  "/blog/burn-rusty-approach-to-tensor-handling": [
+    {
+      "type": "script",
+      "href": "/assets/burn-rusty-approach-to-tensor-handling-d31a3fcf.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-c2c9bbc9.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-1078b72d.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-3af1c2ce.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-359f05f9.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-bb9e1f3e.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-c292cd01.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-a75ac475.js"
     }
   ],
   "/blog/cross-platform-gpu-backend": [

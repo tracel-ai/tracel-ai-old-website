@@ -1114,6 +1114,93 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1112" id="1112">1112</a>
 <a href="#1113" id="1113">1113</a>
 <a href="#1114" id="1114">1114</a>
+<a href="#1115" id="1115">1115</a>
+<a href="#1116" id="1116">1116</a>
+<a href="#1117" id="1117">1117</a>
+<a href="#1118" id="1118">1118</a>
+<a href="#1119" id="1119">1119</a>
+<a href="#1120" id="1120">1120</a>
+<a href="#1121" id="1121">1121</a>
+<a href="#1122" id="1122">1122</a>
+<a href="#1123" id="1123">1123</a>
+<a href="#1124" id="1124">1124</a>
+<a href="#1125" id="1125">1125</a>
+<a href="#1126" id="1126">1126</a>
+<a href="#1127" id="1127">1127</a>
+<a href="#1128" id="1128">1128</a>
+<a href="#1129" id="1129">1129</a>
+<a href="#1130" id="1130">1130</a>
+<a href="#1131" id="1131">1131</a>
+<a href="#1132" id="1132">1132</a>
+<a href="#1133" id="1133">1133</a>
+<a href="#1134" id="1134">1134</a>
+<a href="#1135" id="1135">1135</a>
+<a href="#1136" id="1136">1136</a>
+<a href="#1137" id="1137">1137</a>
+<a href="#1138" id="1138">1138</a>
+<a href="#1139" id="1139">1139</a>
+<a href="#1140" id="1140">1140</a>
+<a href="#1141" id="1141">1141</a>
+<a href="#1142" id="1142">1142</a>
+<a href="#1143" id="1143">1143</a>
+<a href="#1144" id="1144">1144</a>
+<a href="#1145" id="1145">1145</a>
+<a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
+<a href="#1151" id="1151">1151</a>
+<a href="#1152" id="1152">1152</a>
+<a href="#1153" id="1153">1153</a>
+<a href="#1154" id="1154">1154</a>
+<a href="#1155" id="1155">1155</a>
+<a href="#1156" id="1156">1156</a>
+<a href="#1157" id="1157">1157</a>
+<a href="#1158" id="1158">1158</a>
+<a href="#1159" id="1159">1159</a>
+<a href="#1160" id="1160">1160</a>
+<a href="#1161" id="1161">1161</a>
+<a href="#1162" id="1162">1162</a>
+<a href="#1163" id="1163">1163</a>
+<a href="#1164" id="1164">1164</a>
+<a href="#1165" id="1165">1165</a>
+<a href="#1166" id="1166">1166</a>
+<a href="#1167" id="1167">1167</a>
+<a href="#1168" id="1168">1168</a>
+<a href="#1169" id="1169">1169</a>
+<a href="#1170" id="1170">1170</a>
+<a href="#1171" id="1171">1171</a>
+<a href="#1172" id="1172">1172</a>
+<a href="#1173" id="1173">1173</a>
+<a href="#1174" id="1174">1174</a>
+<a href="#1175" id="1175">1175</a>
+<a href="#1176" id="1176">1176</a>
+<a href="#1177" id="1177">1177</a>
+<a href="#1178" id="1178">1178</a>
+<a href="#1179" id="1179">1179</a>
+<a href="#1180" id="1180">1180</a>
+<a href="#1181" id="1181">1181</a>
+<a href="#1182" id="1182">1182</a>
+<a href="#1183" id="1183">1183</a>
+<a href="#1184" id="1184">1184</a>
+<a href="#1185" id="1185">1185</a>
+<a href="#1186" id="1186">1186</a>
+<a href="#1187" id="1187">1187</a>
+<a href="#1188" id="1188">1188</a>
+<a href="#1189" id="1189">1189</a>
+<a href="#1190" id="1190">1190</a>
+<a href="#1191" id="1191">1191</a>
+<a href="#1192" id="1192">1192</a>
+<a href="#1193" id="1193">1193</a>
+<a href="#1194" id="1194">1194</a>
+<a href="#1195" id="1195">1195</a>
+<a href="#1196" id="1196">1196</a>
+<a href="#1197" id="1197">1197</a>
+<a href="#1198" id="1198">1198</a>
+<a href="#1199" id="1199">1199</a>
+<a href="#1200" id="1200">1200</a>
+<a href="#1201" id="1201">1201</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::FusionBackend;
 <span class="kw">use crate</span>::{HandleContainer, TensorDescription};
 <span class="kw">use </span>burn_tensor::{
@@ -1129,7 +1216,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Describe all tensor operations possible.
-</span><span class="attr">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="kw">pub enum </span>TensorOpsDescription {
     <span class="doccomment">/// Basic operation on a float tensor.
     </span>BaseOpsFloat(BaseOpsDescription),
@@ -1152,7 +1239,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Operation description specific to a float tensor.
-</span><span class="attr">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="kw">pub enum </span>FloatOpsDescription {
     <span class="doccomment">/// Operation corresponding to [exp](burn_tensor::ops::TensorOps::exp).
     </span>Exp(UnaryOpsDescription),
@@ -1177,13 +1264,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Operation corresponding to [matmul](burn_tensor::ops::TensorOps::matmul).
     </span>Matmul(BinaryOpsDescription),
     <span class="doccomment">/// Operation corresponding to [random](burn_tensor::ops::TensorOps::random).
-    </span>Random((TensorDescription, Distribution)),
+    </span>Random(RandomOpsDescription),
     <span class="doccomment">/// Operation corresponding to [recip](burn_tensor::ops::TensorOps::recip).
     </span>Recip(UnaryOpsDescription),
 }
 
 <span class="doccomment">/// Operation description specific to module.
-</span><span class="attr">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="kw">pub enum </span>ModuleOpsDescription {
     <span class="doccomment">/// Operation corresponding to [embedding](burn_tensor::ops::ModuleOps::embedding).
     </span>Embedding(EmbeddingDescription),
@@ -1240,7 +1327,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Basic operations that can be done on any tensor type.
-</span><span class="attr">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="kw">pub enum </span>BaseOpsDescription {
     <span class="doccomment">/// Operation corresponding to:
     ///
@@ -1293,8 +1380,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Numeric operations on int and float tensors.
-</span><span class="attr">#[derive(Clone, Debug)]
-</span><span class="kw">pub enum </span>NumericOpsDescription&lt;E: Element&gt; {
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
+</span><span class="kw">pub enum </span>NumericOpsDescription&lt;E&gt; {
     <span class="doccomment">/// Operation corresponding to:
     ///
     /// Float =&gt; [add](burn_tensor::ops::TensorOps::add).
@@ -1508,14 +1595,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Operation description specific to an int tensor.
-</span><span class="attr">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="kw">pub enum </span>IntOpsDescription {
     <span class="doccomment">/// Operation corresponding to [into float](burn_tensor::ops::IntTensorOps::int_into_float).
     </span>IntoFloat(UnaryOpsDescription),
 }
 
 <span class="doccomment">/// Operation description specific to a bool tensor.
-</span><span class="attr">#[derive(Clone, Debug)]
+</span><span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="kw">pub enum </span>BoolOpsDescription {
     <span class="doccomment">/// Operation corresponding to [into float](burn_tensor::ops::BoolTensorOps::bool_into_float).
     </span>IntoFloat(UnaryOpsDescription),
@@ -1525,7 +1612,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span>Not(UnaryOpsDescription),
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="doccomment">/// Swap dim operation description.
 </span><span class="kw">pub struct </span>SwapDimsDescription {
     <span class="doccomment">/// Input tensor description.
@@ -1538,15 +1625,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">pub </span>dim2: usize,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, PartialEq)]
+#[allow(missing_docs)]
+</span><span class="kw">pub struct </span>RandomOpsDescription {
+    <span class="kw">pub </span>out: TensorDescription,
+    <span class="kw">pub </span>distribution: Distribution,
+}
+
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>ReshapeDescription {
     <span class="kw">pub </span>input: TensorDescription,
     <span class="kw">pub </span>out: TensorDescription,
-    <span class="kw">pub </span>shape: Vec&lt;usize&gt;,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>BinaryOpsDescription {
     <span class="kw">pub </span>lhs: TensorDescription,
@@ -1554,14 +1647,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>UnaryOpsDescription {
     <span class="kw">pub </span>input: TensorDescription,
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>ScalarOpsDescription&lt;E&gt; {
     <span class="kw">pub </span>lhs: TensorDescription,
@@ -1569,7 +1662,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>GatherOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1578,7 +1671,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>ScatterOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1588,7 +1681,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>SelectOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1597,7 +1690,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>SelectAssignOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1607,7 +1700,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>SliceOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1615,7 +1708,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>SliceAssignOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1624,7 +1717,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>MaskWhereOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1633,7 +1726,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>MaskFillOpsDescription&lt;E&gt; {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1642,7 +1735,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>ClampOpsDescription&lt;E&gt; {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1651,17 +1744,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>RepeatOpsDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
     <span class="kw">pub </span>dim: usize,
     <span class="kw">pub </span>times: usize,
-    <span class="kw">pub </span>shape: Vec&lt;usize&gt;,
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>CatOpsDescription {
     <span class="kw">pub </span>tensors: Vec&lt;TensorDescription&gt;,
@@ -1669,7 +1761,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>ReduceDimWithIndicesDescription {
     <span class="kw">pub </span>tensor: TensorDescription,
@@ -1678,7 +1770,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out_indices: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>EmbeddingDescription {
     <span class="kw">pub </span>weights: TensorDescription,
@@ -1686,7 +1778,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>EmbeddingBackwardDescription {
     <span class="kw">pub </span>weights: TensorDescription,
@@ -1695,7 +1787,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>Conv1dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1705,7 +1797,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>Conv2dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1715,7 +1807,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>ConvTranspose1dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1725,7 +1817,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>ConvTranspose2dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1735,7 +1827,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AvgPool1dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1746,7 +1838,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AvgPool2dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1757,7 +1849,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AvgPool1dBackwardDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1769,7 +1861,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AvgPool2dBackwardDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1781,7 +1873,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AdaptiveAvgPool1dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1789,7 +1881,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AdaptiveAvgPool2dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1797,7 +1889,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AdaptiveAvgPool1dBackwardDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1805,7 +1897,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>AdaptiveAvgPool2dBackwardDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1813,7 +1905,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>MaxPool1dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1824,7 +1916,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>MaxPool1dWithIndicesDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1836,7 +1928,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out_indices: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>MaxPool1dWithIndicesBackwardDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1849,7 +1941,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>MaxPool2dDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -1860,8 +1952,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
-#[allow(missing_docs)]
+<span class="attr">#[allow(missing_docs)]
+#[derive(Clone, Debug, Hash, PartialEq)]
 </span><span class="kw">pub struct </span>MaxPool2dWithIndicesDescription {
     <span class="kw">pub </span>x: TensorDescription,
     <span class="kw">pub </span>kernel_size: [usize; <span class="number">2</span>],
@@ -1872,7 +1964,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub </span>out_indices: TensorDescription,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="attr">#[derive(Clone, Debug, Hash, PartialEq)]
 #[allow(missing_docs)]
 </span><span class="kw">pub struct </span>MaxPool2dWithIndicesBackwardDescription {
     <span class="kw">pub </span>x: TensorDescription,
@@ -2225,6 +2317,88 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 handles.cleanup(<span class="kw-2">&amp;</span>desc.grad);
                 handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
             }
+        }
+    }
+}
+<span class="kw">impl </span>core::hash::Hash <span class="kw">for </span>RandomOpsDescription {
+    <span class="kw">fn </span>hash&lt;H: std::hash::Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
+        <span class="self">self</span>.out.hash(state);
+
+        <span class="kw">match </span><span class="self">self</span>.distribution {
+            Distribution::Default =&gt; <span class="number">1u8</span>.hash(state),
+            Distribution::Bernoulli(<span class="kw">_</span>) =&gt; <span class="number">2u8</span>.hash(state),
+            Distribution::Uniform(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="number">3u8</span>.hash(state),
+            Distribution::Normal(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="number">4u8</span>.hash(state),
+        }
+    }
+}
+<span class="kw">impl</span>&lt;E&gt; core::hash::Hash <span class="kw">for </span>ScalarOpsDescription&lt;E&gt; {
+    <span class="kw">fn </span>hash&lt;H: std::hash::Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
+        <span class="self">self</span>.lhs.hash(state);
+        <span class="self">self</span>.out.hash(state);
+    }
+}
+
+<span class="kw">impl</span>&lt;E&gt; core::hash::Hash <span class="kw">for </span>MaskFillOpsDescription&lt;E&gt; {
+    <span class="kw">fn </span>hash&lt;H: std::hash::Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
+        <span class="self">self</span>.tensor.hash(state);
+        <span class="self">self</span>.mask.hash(state);
+        <span class="self">self</span>.out.hash(state);
+    }
+}
+
+<span class="kw">impl</span>&lt;E&gt; core::hash::Hash <span class="kw">for </span>ClampOpsDescription&lt;E&gt; {
+    <span class="kw">fn </span>hash&lt;H: std::hash::Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
+        <span class="self">self</span>.tensor.hash(state);
+        <span class="self">self</span>.out.hash(state);
+    }
+}
+
+<span class="kw">impl</span>&lt;E&gt; core::hash::Hash <span class="kw">for </span>NumericOpsDescription&lt;E&gt; {
+    <span class="kw">fn </span>hash&lt;H: std::hash::Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
+        <span class="kw">match </span><span class="self">self </span>{
+            NumericOpsDescription::Add(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::AddScalar(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Sub(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::SubScalar(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Div(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::DivScalar(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Mul(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MulScalar(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Abs(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Ones(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Zeros(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Full(desc) =&gt; desc.<span class="number">0</span>.hash(state),
+            NumericOpsDescription::Gather(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Scatter(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Select(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::SelectAssign(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MaskWhere(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MaskFill(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MeanDim(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Mean(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Sum(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::SumDim(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::EqualElem(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Greater(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::GreaterElem(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::GreaterEqual(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::GreaterEqualElem(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Lower(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::LowerElem(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::LowerEqual(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::LowerEqualElem(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::ArgMax(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::ArgMin(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Max(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MaxDimWithIndices(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MinDimWithIndices(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Min(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MaxDim(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::MinDim(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::Clamp(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::ClampMax(desc) =&gt; desc.hash(state),
+            NumericOpsDescription::ClampMin(desc) =&gt; desc.hash(state),
         }
     }
 }

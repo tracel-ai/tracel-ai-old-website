@@ -1631,6 +1631,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1629" id="1629">1629</a>
 <a href="#1630" id="1630">1630</a>
 <a href="#1631" id="1631">1631</a>
+<a href="#1632" id="1632">1632</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     binary_float_cmp_ops, binary_float_ops,
     client::FusionClient,
@@ -1638,10 +1639,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     graph::{
         BaseOpsDescription, BinaryOpsDescription, CatOpsDescription, ClampOpsDescription,
         FloatOpsDescription, GatherOpsDescription, MaskFillOpsDescription, MaskWhereOpsDescription,
-        NumericOpsDescription, Ops, ReduceDimWithIndicesDescription, ReshapeDescription,
-        ScalarOpsDescription, ScatterOpsDescription, SelectAssignOpsDescription,
-        SelectOpsDescription, SliceAssignOpsDescription, SliceOpsDescription, SwapDimsDescription,
-        TensorOpsDescription, UnaryOpsDescription,
+        NumericOpsDescription, Ops, RandomOpsDescription, ReduceDimWithIndicesDescription,
+        ReshapeDescription, ScalarOpsDescription, ScatterOpsDescription,
+        SelectAssignOpsDescription, SelectOpsDescription, SliceAssignOpsDescription,
+        SliceOpsDescription, SwapDimsDescription, TensorOpsDescription, UnaryOpsDescription,
     },
     ops::binary::binary_ops_shape,
     scalar_float2int_ops, scalar_float_cmp_ops, scalar_float_ops, unary_float_ops, Fusion,
@@ -1672,16 +1673,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>RandomOps&lt;<span class="kw">const </span>D: usize&gt; {
-            out: TensorDescription,
-            distribution: Distribution,
+            desc: RandomOpsDescription,
         }
 
         <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>RandomOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
-                <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.out.shape.clone());
+                <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.desc.out.shape.clone());
                 <span class="kw">let </span>output: B::TensorPrimitive&lt;D&gt; =
-                    B::random(shape, <span class="self">self</span>.distribution, <span class="kw-2">&amp;</span>handles.device);
-                handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.out.id, output);
+                    B::random(shape, <span class="self">self</span>.desc.distribution, <span class="kw-2">&amp;</span>handles.device);
+                handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
@@ -1689,10 +1689,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = (out.to_description_out(), distribution);
+        <span class="kw">let </span>desc = RandomOpsDescription {
+            out: out.to_description_out(),
+            distribution,
+        };
         client.register(
             TensorOpsDescription::FloatOps(FloatOpsDescription::Random(desc.clone())),
-            RandomOps::&lt;D&gt;::new(desc.<span class="number">0</span>, desc.<span class="number">1</span>),
+            RandomOps::&lt;D&gt;::new(desc),
         );
 
         out
@@ -2181,17 +2184,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ReshapeDimsOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_float_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
-                <span class="kw">let </span>output = B::reshape::&lt;D1, D2&gt;(input, Shape::from(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.shape));
+                <span class="kw">let </span>output = B::reshape::&lt;D1, D2&gt;(input, Shape::from(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.shape));
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
-        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape.clone());
+        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
         <span class="kw">let </span>desc = ReshapeDescription {
             input: tensor.into_description(),
-            shape,
             out: out.to_description_out(),
         };
         out.client.register(

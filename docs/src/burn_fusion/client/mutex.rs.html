@@ -156,36 +156,24 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#154" id="154">154</a>
 <a href="#155" id="155">155</a>
 <a href="#156" id="156">156</a>
-<a href="#157" id="157">157</a>
-<a href="#158" id="158">158</a>
-<a href="#159" id="159">159</a>
-<a href="#160" id="160">160</a>
-<a href="#161" id="161">161</a>
-<a href="#162" id="162">162</a>
-<a href="#163" id="163">163</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::FusionClient;
-<span class="kw">use crate</span>::{
-    graph::{GraphExecution, TensorOpsDescription},
-    FusionBackend, FusionServer, FusionTensor, Handle,
-};
+<span class="kw">use crate</span>::{graph::TensorOpsDescription, FusionBackend, FusionServer, FusionTensor, Handle};
 <span class="kw">use </span>burn_tensor::ops::FloatElem;
 <span class="kw">use </span>spin::Mutex;
 <span class="kw">use </span>std::sync::Arc;
 
 <span class="doccomment">/// Use a mutex to communicate with the fusion server.
-</span><span class="kw">pub struct </span>MutexFusionClient&lt;B, G&gt;
+</span><span class="kw">pub struct </span>MutexFusionClient&lt;B&gt;
 <span class="kw">where
     </span>B: FusionBackend,
-    G: GraphExecution&lt;B&gt;,
 {
-    server: Arc&lt;Mutex&lt;FusionServer&lt;B, G&gt;&gt;&gt;,
+    server: Arc&lt;Mutex&lt;FusionServer&lt;B&gt;&gt;&gt;,
     device: B::FusionDevice,
 }
 
-<span class="kw">impl</span>&lt;B, G&gt; Clone <span class="kw">for </span>MutexFusionClient&lt;B, G&gt;
+<span class="kw">impl</span>&lt;B&gt; Clone <span class="kw">for </span>MutexFusionClient&lt;B&gt;
 <span class="kw">where
     </span>B: FusionBackend,
-    G: GraphExecution&lt;B&gt;,
 {
     <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
@@ -195,13 +183,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="kw">impl</span>&lt;B, G&gt; FusionClient <span class="kw">for </span>MutexFusionClient&lt;B, G&gt;
+<span class="kw">impl</span>&lt;B&gt; FusionClient <span class="kw">for </span>MutexFusionClient&lt;B&gt;
 <span class="kw">where
     </span>B: FusionBackend,
-    G: GraphExecution&lt;B&gt;,
 {
     <span class="kw">type </span>FusionBackend = B;
-    <span class="kw">type </span>GraphExecution = G;
 
     <span class="kw">fn </span>new(device: B::FusionDevice) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{

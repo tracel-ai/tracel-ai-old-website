@@ -140,93 +140,51 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#138" id="138">138</a>
 <a href="#139" id="139">139</a>
 <a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
-<a href="#144" id="144">144</a>
-<a href="#145" id="145">145</a>
-<a href="#146" id="146">146</a>
-<a href="#147" id="147">147</a>
-<a href="#148" id="148">148</a>
-<a href="#149" id="149">149</a>
-<a href="#150" id="150">150</a>
-<a href="#151" id="151">151</a>
-<a href="#152" id="152">152</a>
-<a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a>
-<a href="#155" id="155">155</a>
-<a href="#156" id="156">156</a>
-<a href="#157" id="157">157</a>
-<a href="#158" id="158">158</a>
-<a href="#159" id="159">159</a>
-<a href="#160" id="160">160</a>
-<a href="#161" id="161">161</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
-    graph::{Graph, GraphExecution, Ops, Optimization, TensorOpsDescription},
-    FusionBackend, FusionProperties, FusionStatus, HandleContainer, TensorId,
+    graph::{
+        execution::{ExecutionMode, GraphExecution},
+        Graph, Ops, TensorOpsDescription,
+    },
+    FusionBackend, HandleContainer, TensorId,
 };
 <span class="kw">use </span>burn_tensor::ops::{FloatElem, IntElem};
 <span class="kw">use </span>std::sync::Arc;
 
-<span class="kw">pub struct </span>FusionServer&lt;B, G&gt;
+<span class="kw">pub struct </span>FusionServer&lt;B&gt;
 <span class="kw">where
     </span>B: FusionBackend,
-    G: GraphExecution&lt;B&gt;,
 {
-    optimizations: Vec&lt;Optimization&lt;B&gt;&gt;,
+    execution: GraphExecution&lt;B&gt;,
     graph: Graph&lt;B&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) handles: HandleContainer&lt;B&gt;,
-    execution: G,
     <span class="kw">pub </span>device: B::FusionDevice,
+    <span class="kw">pub </span>num_skipped: usize,
 }
 
-<span class="kw">impl</span>&lt;B, G&gt; FusionServer&lt;B, G&gt;
+<span class="kw">impl</span>&lt;B&gt; FusionServer&lt;B&gt;
 <span class="kw">where
     </span>B: FusionBackend,
-    G: GraphExecution&lt;B&gt;,
 {
     <span class="kw">pub fn </span>new(device: B::FusionDevice) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>optimizations = B::operations(<span class="kw-2">&amp;</span>device.clone().into())
-            .into_iter()
-            .map(|ops| Optimization::new(ops, FusionStatus::Open(FusionProperties::default())))
-            .collect();
-
         <span class="self">Self </span>{
-            optimizations,
+            execution: GraphExecution::new(B::optimizations(<span class="kw-2">&amp;</span>device.clone().into())),
             graph: Graph::new(),
             handles: HandleContainer::new(device.clone()),
-            execution: G::default(),
+            num_skipped: <span class="number">0</span>,
             device,
         }
     }
 
-    <span class="kw">pub fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, desc: TensorOpsDescription, op: Box&lt;<span class="kw">dyn </span>Ops&lt;B&gt;&gt;) {
-        <span class="kw">let </span>ops = Arc::new(desc);
-        <span class="self">self</span>.graph.add(ops.clone(), op);
-
-        <span class="self">self</span>.optimizations
-            .iter_mut()
-            .for_each(|optimization| optimization.register(<span class="kw-2">&amp;</span>ops));
-
-        <span class="self">self</span>.execution.maybe_execute(
-            <span class="kw-2">&amp;mut </span><span class="self">self</span>.graph,
-            <span class="kw-2">&amp;mut </span><span class="self">self</span>.handles,
-            <span class="kw-2">&amp;mut </span><span class="self">self</span>.optimizations,
-            <span class="bool-val">false</span>,
-        );
+    <span class="kw">pub fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops_desc: TensorOpsDescription, ops: Box&lt;<span class="kw">dyn </span>Ops&lt;B&gt;&gt;) {
+        <span class="self">self</span>.graph.add(ops_desc, ops);
+        <span class="self">self</span>.execution
+            .execute(<span class="kw-2">&amp;mut </span><span class="self">self</span>.graph, <span class="kw-2">&amp;mut </span><span class="self">self</span>.handles, ExecutionMode::NewOps);
     }
 
     <span class="kw">pub fn </span>drain_graph(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">if </span><span class="self">self</span>.graph.is_empty() {
-            <span class="kw">return</span>;
-        }
-
-        <span class="self">self</span>.execution.maybe_execute(
-            <span class="kw-2">&amp;mut </span><span class="self">self</span>.graph,
-            <span class="kw-2">&amp;mut </span><span class="self">self</span>.handles,
-            <span class="kw-2">&amp;mut </span><span class="self">self</span>.optimizations,
-            <span class="bool-val">true</span>,
-        );
+        <span class="comment">// Check if we can execute.
+        </span><span class="self">self</span>.execution
+            .execute(<span class="kw-2">&amp;mut </span><span class="self">self</span>.graph, <span class="kw-2">&amp;mut </span><span class="self">self</span>.handles, ExecutionMode::Sync);
     }
 
     <span class="kw">pub fn </span>create_empty_handle(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Arc&lt;TensorId&gt; {

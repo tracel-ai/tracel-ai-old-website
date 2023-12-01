@@ -155,12 +155,29 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#153" id="153">153</a>
 <a href="#154" id="154">154</a>
 <a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
-    client::FusionClient, graph::TensorOpsDescription, FusionClientLocator, FusionTensor,
-    HandleContainer,
+    client::FusionClient,
+    graph::{Context, OptimizationFactory, TensorOpsDescription},
+    FusionClientLocator, FusionTensor,
 };
 <span class="kw">use </span>burn_tensor::{backend::Backend, Device, Shape};
-<span class="kw">use </span>core::marker::PhantomData;
+<span class="kw">use </span>std::marker::PhantomData;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">static </span>CLIENTS: FusionClientLocator = FusionClientLocator::new();
 
@@ -206,17 +223,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="doccomment">/// The status of a [fusion ops](FusionOps).
-</span><span class="kw">pub enum </span>FusionStatus {
+<span class="doccomment">/// The status of a [builder](OptimizationBuilder).
+</span><span class="attr">#[derive(Clone, Debug, Copy)]
+</span><span class="kw">pub enum </span>OptimizationStatus {
     <span class="doccomment">/// No more operations can be fused.
-    </span>Closed(FusionProperties),
+    </span>Closed,
     <span class="doccomment">/// More operations can be fused.
-    </span>Open(FusionProperties),
+    </span>Open,
 }
 
-<span class="doccomment">/// The properties of a [fusion ops](FusionOps).
+<span class="doccomment">/// The properties of a [builder](OptimizationProperties).
 </span><span class="attr">#[derive(Debug, Clone, Copy, Default)]
-</span><span class="kw">pub struct </span>FusionProperties {
+</span><span class="kw">pub struct </span>OptimizationProperties {
     <span class="doccomment">/// The score of the optimization, higher is better.
     </span><span class="kw">pub </span>score: u64,
     <span class="doccomment">/// If the operation is ready to be executed.
@@ -235,26 +253,40 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 ///
 /// Also, it is important to return (FusionStatus::Closed) when no more registered operation can
 /// improve the performance.
-</span><span class="kw">pub trait </span>FusionOps&lt;B: FusionBackend&gt;: Send {
+</span><span class="kw">pub trait </span>OptimizationBuilder&lt;B: FusionBackend&gt;: Send {
     <span class="doccomment">/// Register a new [tensor operation](TensorOpsDescription).
-    ///
-    /// The return value should be either [closed](FusionStatus::Closed) or
-    /// [open](FusionStatus::Open).
-    ///
-    /// When [closed](FusionStatus::Closed), it&#39;s assumed that no more operation can be added
-    /// to the current fusion operation. No [tensor operation](TensorOpsDescription) can be
-    /// ignored, they are either accepted or rejected, and the [status](FusionStatus) describes it.
-    </span><span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>TensorOpsDescription) -&gt; FusionStatus;
-    <span class="doccomment">/// Execute the operation.
-    </span><span class="kw">fn </span>execute(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;);
+    </span><span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>TensorOpsDescription);
+    <span class="doccomment">/// Finish the optimization and create a fusion operation.
+    </span><span class="kw">fn </span>build(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Box&lt;<span class="kw">dyn </span>Optimization&lt;B&gt;&gt;;
     <span class="doccomment">/// Reset the state.
     </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>);
-    <span class="doccomment">/// The size of operations fused.
+    <span class="doccomment">/// Return the builder [status](OptimizationStatus).
+    </span><span class="kw">fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; OptimizationStatus;
+    <span class="doccomment">/// Return the builder [properties](OptimizationProperties).
+    </span><span class="kw">fn </span>properties(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; OptimizationProperties;
+}
+
+<span class="doccomment">/// The operation created from the [builder](OptimizationBuilder).
+</span><span class="kw">pub trait </span>Optimization&lt;B: FusionBackend&gt;: Send {
+    <span class="doccomment">/// Execute the operation.
+    </span><span class="kw">fn </span>execute(<span class="kw-2">&amp;</span><span class="self">self</span>, context: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>, B&gt;);
+    <span class="doccomment">/// The number of registered operations in this optimization.
     </span><span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize;
-    <span class="doccomment">/// If the current operation is empty.
+    <span class="doccomment">/// If the current optimization is empty.
     </span><span class="kw">fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.len() == <span class="number">0
     </span>}
+}
+
+<span class="comment">// We implement the OptimizationFactory for all boxed optimization to be used with the Optimization
+// Cache. The factory is only used to simplify types and allows better testing. It isn&#39;t a public
+// crate.
+</span><span class="kw">impl</span>&lt;B: FusionBackend&gt; OptimizationFactory&lt;Box&lt;<span class="kw">dyn </span>Optimization&lt;B&gt;&gt;&gt;
+    <span class="kw">for </span>Box&lt;<span class="kw">dyn </span>OptimizationBuilder&lt;B&gt;&gt;
+{
+    <span class="kw">fn </span>create(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Box&lt;<span class="kw">dyn </span>Optimization&lt;B&gt;&gt; {
+        OptimizationBuilder::build(<span class="self">self</span>.as_ref())
+    }
 }
 
 <span class="doccomment">/// The device id.
@@ -273,7 +305,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Trait that allows an existing [backend](Backend) to specify graph optimizations using
-/// [fusion operation](crate::FusionOps).
+/// [operation builder](crate::OptimizationBuilder).
 </span><span class="kw">pub trait </span>FusionBackend: Backend {
     <span class="doccomment">/// The device type that can return an ID.
     ///
@@ -284,8 +316,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// What kind of client should be used.
     </span><span class="kw">type </span>FusionClient: FusionClient&lt;FusionBackend = <span class="self">Self</span>&gt;;
 
-    <span class="doccomment">/// The list of operations that will be used to optimize the computational graph.
-    </span><span class="kw">fn </span>operations(device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; Vec&lt;Box&lt;<span class="kw">dyn </span>FusionOps&lt;<span class="self">Self</span>&gt;&gt;&gt;;
+    <span class="doccomment">/// The list of optimizations that will be used to optimize the computational graph.
+    </span><span class="kw">fn </span>optimizations(device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; Vec&lt;Box&lt;<span class="kw">dyn </span>OptimizationBuilder&lt;<span class="self">Self</span>&gt;&gt;&gt;;
 
     <span class="doccomment">/// Convert a [handle](FusionBackend::Handle) to a [float tensor](Backend::TensorPrimitive).
     </span><span class="kw">fn </span>float_tensor&lt;<span class="kw">const </span>D: usize&gt;(

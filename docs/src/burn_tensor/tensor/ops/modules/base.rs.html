@@ -509,7 +509,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Convolution options.
-</span><span class="attr">#[derive(new, Debug, Clone, Hash)]
+</span><span class="attr">#[derive(new, Debug, Clone, Hash, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>ConvOptions&lt;<span class="kw">const </span>N: usize&gt; {
     <span class="doccomment">/// Stride.
     </span><span class="kw">pub </span>stride: [usize; N],
@@ -525,7 +525,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Transposed convolution options.
-</span><span class="attr">#[derive(new, Debug, Clone, Hash)]
+</span><span class="attr">#[derive(new, Debug, Clone, Hash, PartialEq, Eq)]
 </span><span class="kw">pub struct </span>ConvTransposeOptions&lt;<span class="kw">const </span>N: usize&gt; {
     <span class="doccomment">/// Stride.
     </span><span class="kw">pub </span>stride: [usize; N],

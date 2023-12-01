@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/fusion/elemwise/ops.rs`."><title>ops.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/fusion/elemwise/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
 data-theme="burn"
 data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="burn_wgpu" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../burn_wgpu/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -658,31 +658,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#656" id="656">656</a>
 <a href="#657" id="657">657</a>
 <a href="#658" id="658">658</a>
-<a href="#659" id="659">659</a>
-<a href="#660" id="660">660</a>
-<a href="#661" id="661">661</a>
-<a href="#662" id="662">662</a>
-<a href="#663" id="663">663</a>
-<a href="#664" id="664">664</a>
-<a href="#665" id="665">665</a>
-<a href="#666" id="666">666</a>
-<a href="#667" id="667">667</a>
-<a href="#668" id="668">668</a>
-<a href="#669" id="669">669</a>
-<a href="#670" id="670">670</a>
-<a href="#671" id="671">671</a>
-<a href="#672" id="672">672</a>
-<a href="#673" id="673">673</a>
-<a href="#674" id="674">674</a>
-<a href="#675" id="675">675</a>
-<a href="#676" id="676">676</a>
-<a href="#677" id="677">677</a>
-<a href="#678" id="678">678</a>
-<a href="#679" id="679">679</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     element::WgpuElement,
     fusion::codegen::{Elem, Operator, Variable},
-    fusion::kernel::FusionKernel,
     FloatElement, GraphicsApi, IntElement, Wgpu,
 };
 <span class="kw">use </span>burn_fusion::{
@@ -690,13 +668,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         BaseOpsDescription, BinaryOpsDescription, FloatOpsDescription, NumericOpsDescription,
         ScalarOpsDescription, TensorOpsDescription, UnaryOpsDescription,
     },
-    FusionOps, FusionProperties, FusionStatus, HandleContainer, TensorDescription, TensorId,
+    Optimization, OptimizationBuilder, OptimizationProperties, OptimizationStatus,
+    TensorDescription, TensorId,
 };
 <span class="kw">use </span>burn_tensor::{Device, Element};
 <span class="kw">use </span>hashbrown::HashMap;
 
+<span class="kw">use </span><span class="kw">super</span>::optimization::FloatElementWise;
+
 <span class="doccomment">/// Fused element wise operations that are normally memory bound.
-</span><span class="kw">pub struct </span>FloatElementWiseFusionOps&lt;G, F, I&gt;
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>FloatElementWiseBuilder&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi,
     F: FloatElement,
@@ -705,48 +686,56 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub</span>(<span class="kw">crate</span>) inputs: Vec&lt;TensorDescription&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) locals: HashMap&lt;TensorId, u16&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) tensors: HashMap&lt;TensorId, (TensorDescription, Elem)&gt;,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) scalars_f32: Vec&lt;f32&gt;,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) scalars_i32: Vec&lt;i32&gt;,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) scalars_u32: Vec&lt;u32&gt;,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) booleans: Vec&lt;bool&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) scalars_f32: usize,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) scalars_i32: usize,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) scalars_u32: usize,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) booleans: usize,
     <span class="kw">pub</span>(<span class="kw">crate</span>) operators: Vec&lt;Operator&gt;,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) properties: FusionProperties,
     <span class="kw">pub</span>(<span class="kw">crate</span>) current_output_shape: Vec&lt;usize&gt;,
-    device: Device&lt;Wgpu&lt;G, F, I&gt;&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) status: OptimizationStatus,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) device: Device&lt;Wgpu&lt;G, F, I&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;G: GraphicsApi + <span class="lifetime">&#39;static</span>, F: FloatElement, I: IntElement&gt; FusionOps&lt;Wgpu&lt;G, F, I&gt;&gt;
-    <span class="kw">for </span>FloatElementWiseFusionOps&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; OptimizationBuilder&lt;Wgpu&lt;G, F, I&gt;&gt; <span class="kw">for </span>FloatElementWiseBuilder&lt;G, F, I&gt;
+<span class="kw">where
+    </span>G: GraphicsApi,
+    F: FloatElement,
+    I: IntElement,
 {
-    <span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>TensorOpsDescription) -&gt; FusionStatus {
+    <span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>TensorOpsDescription) {
+        <span class="kw">if let </span>OptimizationStatus::Closed = <span class="self">self</span>.status {
+            <span class="kw">return</span>;
+        }
+
         <span class="kw">match </span>ops {
             TensorOpsDescription::BaseOpsFloat(ops) =&gt; {
                 <span class="kw">if </span>!<span class="self">self</span>.register_base::&lt;F&gt;(ops) {
-                    <span class="kw">return </span>FusionStatus::Closed(<span class="self">self</span>.properties);
+                    <span class="self">self</span>.status = OptimizationStatus::Closed;
+                    <span class="kw">return</span>;
                 }
             }
             TensorOpsDescription::FloatOps(ops) =&gt; {
                 <span class="kw">if </span>!<span class="self">self</span>.register_float::&lt;F&gt;(ops) {
-                    <span class="kw">return </span>FusionStatus::Closed(<span class="self">self</span>.properties);
+                    <span class="self">self</span>.status = OptimizationStatus::Closed;
+                    <span class="kw">return</span>;
                 }
             }
             TensorOpsDescription::NumericOpsFloat(ops) =&gt; {
                 <span class="kw">if </span>!<span class="self">self</span>.register_numeric(ops) {
-                    <span class="kw">return </span>FusionStatus::Closed(<span class="self">self</span>.properties);
+                    <span class="self">self</span>.status = OptimizationStatus::Closed;
+                    <span class="kw">return</span>;
                 }
             }
             <span class="kw">_ </span>=&gt; {
-                <span class="kw">return </span>FusionStatus::Closed(<span class="self">self</span>.properties);
+                <span class="self">self</span>.status = OptimizationStatus::Closed;
+                <span class="kw">return</span>;
             }
         };
 
-        <span class="self">self</span>.properties.score += <span class="number">1</span>;
-        <span class="self">self</span>.properties.ready = <span class="self">self</span>.operators.len() &gt; <span class="number">1</span>;
-
-        FusionStatus::Open(<span class="self">self</span>.properties)
+        <span class="self">self</span>.status = OptimizationStatus::Open;
     }
 
-    <span class="kw">fn </span>execute(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;Wgpu&lt;G, F, I&gt;&gt;) {
+    <span class="kw">fn </span>build(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Box&lt;<span class="kw">dyn </span>Optimization&lt;Wgpu&lt;G, F, I&gt;&gt;&gt; {
         <span class="kw">let </span>inputs = <span class="self">self</span>.input_descriptions();
         <span class="kw">let </span>outputs = <span class="self">self</span>.output_descriptions();
         <span class="kw">let </span>locals = outputs
@@ -754,32 +743,47 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             .map(|out| <span class="kw-2">*</span><span class="self">self</span>.locals.get(<span class="kw-2">&amp;</span>out.<span class="number">0</span>.id).unwrap())
             .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
 
-        FusionKernel::new(<span class="kw-2">&amp;</span><span class="self">self</span>.device)
-            .inputs(<span class="kw-2">&amp;</span>inputs, <span class="kw-2">&amp;</span><span class="self">self</span>.scalars_f32)
-            .body(<span class="kw-2">&amp;</span><span class="self">self</span>.operators)
-            .outputs(<span class="kw-2">&amp;</span>outputs, <span class="kw-2">&amp;</span>locals)
-            .execute(handles);
+        Box::new(FloatElementWise {
+            inputs,
+            outputs,
+            locals,
+            operators: <span class="self">self</span>.operators.clone(),
+            scalars_f32: <span class="self">self</span>.scalars_f32,
+            device: <span class="self">self</span>.device.clone(),
+        })
     }
 
     <span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.inputs.clear();
         <span class="self">self</span>.locals.drain();
         <span class="self">self</span>.tensors.clear();
-        <span class="self">self</span>.scalars_f32.clear();
-        <span class="self">self</span>.scalars_i32.clear();
-        <span class="self">self</span>.scalars_u32.clear();
-        <span class="self">self</span>.booleans.clear();
+        <span class="self">self</span>.scalars_f32 = <span class="number">0</span>;
+        <span class="self">self</span>.scalars_i32 = <span class="number">0</span>;
+        <span class="self">self</span>.scalars_u32 = <span class="number">0</span>;
+        <span class="self">self</span>.booleans = <span class="number">0</span>;
         <span class="self">self</span>.operators.clear();
-        <span class="self">self</span>.properties = FusionProperties::default();
+        <span class="self">self</span>.status = OptimizationStatus::Open;
         <span class="self">self</span>.current_output_shape.clear();
     }
 
-    <span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
-        <span class="self">self</span>.operators.len()
+    <span class="kw">fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; OptimizationStatus {
+        <span class="self">self</span>.status
+    }
+
+    <span class="kw">fn </span>properties(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; OptimizationProperties {
+        <span class="kw">let </span>ready = <span class="kw">match </span><span class="self">self</span>.status {
+            OptimizationStatus::Closed =&gt; <span class="bool-val">false</span>,
+            OptimizationStatus::Open =&gt; <span class="self">self</span>.operators.len() &gt; <span class="number">1</span>,
+        };
+
+        OptimizationProperties {
+            ready,
+            score: <span class="self">self</span>.operators.len() <span class="kw">as </span>u64,
+        }
     }
 }
 
-<span class="kw">impl</span>&lt;G, F, I&gt; FloatElementWiseFusionOps&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; FloatElementWiseBuilder&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi,
     F: FloatElement,
@@ -790,28 +794,28 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             inputs: Vec::new(),
             locals: HashMap::new(),
             tensors: HashMap::new(),
-            scalars_f32: Vec::new(),
-            scalars_i32: Vec::new(),
-            scalars_u32: Vec::new(),
-            booleans: Vec::new(),
+            scalars_f32: <span class="number">0</span>,
+            scalars_i32: <span class="number">0</span>,
+            scalars_u32: <span class="number">0</span>,
+            booleans: <span class="number">0</span>,
             operators: Vec::new(),
             current_output_shape: Vec::new(),
-            properties: FusionProperties::default(),
+            status: OptimizationStatus::Open,
             device,
         }
     }
 
-    <span class="kw">fn </span>input_descriptions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>(TensorDescription, Elem)&gt; {
+    <span class="kw">fn </span>input_descriptions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;(TensorDescription, Elem)&gt; {
         <span class="self">self</span>.inputs
             .iter()
             .map(|input| {
                 <span class="kw">let </span>updated_tensor = <span class="self">self</span>.tensors.get(<span class="kw-2">&amp;</span>input.id).unwrap();
-                updated_tensor
+                updated_tensor.clone()
             })
             .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
     }
 
-    <span class="kw">fn </span>output_descriptions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>(TensorDescription, Elem)&gt; {
+    <span class="kw">fn </span>output_descriptions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;(TensorDescription, Elem)&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>outputs = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>local_tensor_ids_input = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>local_tensor_ids_output = Vec::new();
@@ -952,7 +956,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="kw">let </span>is_read = local_tensor_ids_input.contains(<span class="kw-2">&amp;</span>out);
 
             <span class="kw">if </span>!is_read {
-                outputs.push(<span class="self">self</span>.tensors.get(<span class="kw-2">&amp;</span>out).unwrap());
+                outputs.push(<span class="self">self</span>.tensors.get(<span class="kw-2">&amp;</span>out).unwrap().clone());
             }
         }
 
@@ -962,7 +966,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="kw">let </span>(tensor, <span class="kw">_</span>) = <span class="kw-2">&amp;</span>entry;
             <span class="kw">if let </span>burn_fusion::TensorStatus::ReadOnly = tensor.status {
                 <span class="kw">if </span><span class="self">self</span>.locals.contains_key(<span class="kw-2">&amp;</span>tensor.id) {
-                    outputs.push(entry);
+                    outputs.push(entry.clone());
                 }
             }
         }
@@ -1184,12 +1188,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 <span class="kw">let </span>rhs = <span class="self">self</span>.input_to_var(<span class="kw-2">&amp;</span>desc.tensor, E::elem_type());
                 <span class="kw">let </span>out = <span class="self">self</span>.output_to_var(<span class="kw-2">&amp;</span>desc.out, E::elem_type());
 
-                <span class="self">self</span>.operators.push(Operator::ConditionalAssign {
+                <span class="kw">let </span>ops = Operator::ConditionalAssign {
                     cond,
                     lhs,
                     rhs,
                     out,
-                });
+                };
+                <span class="self">self</span>.operators.push(ops);
 
                 <span class="bool-val">true
             </span>}
@@ -1281,19 +1286,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="bool-val">true
     </span>}
 
-    <span class="kw">fn </span>scalar_to_var&lt;E: Element&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>E, elem_type: Elem) -&gt; Variable {
+    <span class="kw">fn </span>scalar_to_var&lt;E: Element&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _value: <span class="kw-2">&amp;</span>E, elem_type: Elem) -&gt; Variable {
         <span class="kw">match </span>elem_type {
             Elem::F32 =&gt; {
-                <span class="self">self</span>.scalars_f32.push(value.elem());
-                Variable::Scalar(<span class="self">self</span>.scalars_f32.len() <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::F32)
+                <span class="self">self</span>.scalars_f32 += <span class="number">1</span>;
+                Variable::Scalar(<span class="self">self</span>.scalars_f32 <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::F32)
             }
             Elem::I32 =&gt; {
-                <span class="self">self</span>.scalars_i32.push(value.elem());
-                Variable::Scalar(<span class="self">self</span>.scalars_i32.len() <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::I32)
+                <span class="self">self</span>.scalars_i32 += <span class="number">1</span>;
+                Variable::Scalar(<span class="self">self</span>.scalars_i32 <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::I32)
             }
             Elem::U32 =&gt; {
-                <span class="self">self</span>.scalars_u32.push(value.elem());
-                Variable::Scalar(<span class="self">self</span>.scalars_u32.len() <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::U32)
+                <span class="self">self</span>.scalars_u32 += <span class="number">1</span>;
+                Variable::Scalar(<span class="self">self</span>.scalars_u32 <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::U32)
             }
             Elem::Bool =&gt; {
                 <span class="macro">panic!</span>(<span class="string">&quot;Bool scalars not supported&quot;</span>)
@@ -1310,52 +1315,5 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="bool-val">true
     </span>}
-}
-
-<span class="attr">#[cfg(test)]
-</span><span class="kw">mod </span>tests {
-    <span class="kw">use super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use </span>burn_fusion::graph::Ops;
-    <span class="kw">use </span>burn_fusion::{Fusion, FusionBackend};
-    <span class="kw">use </span>burn_tensor::Tensor;
-
-    <span class="kw">struct </span>FakeAddOps;
-
-    <span class="kw">impl</span>&lt;B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>FakeAddOps {
-        <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
-            <span class="macro">todo!</span>()
-        }
-    }
-
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_fusion_same_behavior() {
-        <span class="kw">type </span>Backend = Wgpu;
-        <span class="kw">type </span>FusedBackend = Fusion&lt;Wgpu&gt;;
-
-        <span class="kw">let </span>data_1 =
-            Tensor::&lt;Backend, <span class="number">2</span>&gt;::random([<span class="number">1</span>, <span class="number">32</span>], burn_tensor::Distribution::Default).into_data();
-        <span class="kw">let </span>data_2 =
-            Tensor::&lt;Backend, <span class="number">2</span>&gt;::random([<span class="number">32</span>, <span class="number">32</span>], burn_tensor::Distribution::Default).into_data();
-
-        <span class="kw">let </span>tensor_1 = Tensor::&lt;Backend, <span class="number">2</span>&gt;::from_data(data_1.clone());
-        <span class="kw">let </span>tensor_2 = Tensor::&lt;Backend, <span class="number">2</span>&gt;::from_data(data_2.clone());
-        <span class="kw">let </span>tensor_3 = tensor_1.clone() + tensor_2;
-        <span class="kw">let </span>tensor_4 = tensor_3.clone() - tensor_1;
-        <span class="kw">let </span>tensor_5 = tensor_4.clone() + <span class="number">5.0</span>;
-        <span class="kw">let </span>tensor_6 = tensor_5 + tensor_3.clone();
-        <span class="kw">let </span>mask = tensor_4.lower_equal(tensor_3);
-        <span class="kw">let </span>result_ref = tensor_6.mask_fill(mask, <span class="number">0.3</span>).into_data();
-
-        <span class="kw">let </span>tensor_1 = Tensor::&lt;FusedBackend, <span class="number">2</span>&gt;::from_data(data_1);
-        <span class="kw">let </span>tensor_2 = Tensor::&lt;FusedBackend, <span class="number">2</span>&gt;::from_data(data_2);
-        <span class="kw">let </span>tensor_3 = tensor_1.clone() + tensor_2;
-        <span class="kw">let </span>tensor_4 = tensor_3.clone() - tensor_1;
-        <span class="kw">let </span>tensor_5 = tensor_4.clone() + <span class="number">5.0</span>;
-        <span class="kw">let </span>tensor_6 = tensor_5 + tensor_3.clone();
-        <span class="kw">let </span>mask = tensor_4.lower_equal(tensor_3);
-        <span class="kw">let </span>result_fused = tensor_6.mask_fill(mask, <span class="number">0.3</span>).into_data();
-
-        result_fused.assert_approx_eq(<span class="kw-2">&amp;</span>result_ref, <span class="number">3</span>);
-    }
 }
 </code></pre></div></section></main></body></html>

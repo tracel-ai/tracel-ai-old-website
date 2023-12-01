@@ -440,7 +440,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="doccomment">/// Register the inputs used by the kernel.
     </span><span class="kw">pub fn </span>inputs(
         <span class="kw-2">mut </span><span class="self">self</span>,
-        inputs_tensor: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>(TensorDescription, Elem)],
+        inputs_tensor: <span class="kw-2">&amp;</span>[(<span class="kw-2">&amp;</span>TensorDescription, Elem)],
         inputs_scalar_f32: <span class="kw-2">&amp;</span>[f32],
     ) -&gt; FusionKernel&lt;G, F, I, BodyPhase&gt; {
         <span class="kw">for </span>(i, (input, elem)) <span class="kw">in </span>inputs_tensor.iter().enumerate() {
@@ -555,7 +555,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// So the 4th operator registered creates the local variable 3 (N-1, since the 1th index is 0).
     </span><span class="kw">pub fn </span>outputs(
         <span class="kw-2">mut </span><span class="self">self</span>,
-        outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>(TensorDescription, Elem)],
+        outputs: <span class="kw-2">&amp;</span>[(<span class="kw-2">&amp;</span>TensorDescription, Elem)],
         locals: <span class="kw-2">&amp;</span>[u16],
     ) -&gt; FusionKernel&lt;G, F, I, ExecutionPhase&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>num_elems_launch_option = <span class="number">0</span>;

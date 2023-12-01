@@ -1,8 +1,91 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Burn"><title>burn - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="burn" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../burn/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../burn/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Crate burn</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.11.0</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#types">Type Aliases</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">burn</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/burn/lib.rs.html#1-16">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="burn"><a href="#burn">Burn</a></h2>
-<p>This library strives to serve as a comprehensive <strong>deep learning framework</strong>,
-offering exceptional flexibility and written in Rust. The main objective is to cater
-to both researchers and practitioners by simplifying the process of experimenting,
-training, and deploying models.</p>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="burn" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../burn/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../burn/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Crate burn</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.11.0</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#types">Type Aliases</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">burn</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/burn/lib.rs.html#1-89">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="burn"><a href="#burn">Burn</a></h2>
+<p>Burn is a new comprehensive dynamic Deep Learning Framework built using Rust
+with extreme flexibility, compute efficiency and portability as its primary goals.</p>
+<h3 id="performance"><a href="#performance">Performance</a></h3>
+<p>Because we believe the goal of a deep learning framework is to convert computation
+into useful intelligence, we have made performance a core pillar of Burn.
+We strive to achieve top efficiency by leveraging multiple optimization techniques:</p>
+<ul>
+<li>Automatic kernel fusion</li>
+<li>Asynchronous execution</li>
+<li>Thread-safe building blocks</li>
+<li>Intelligent memory management</li>
+<li>Automatic kernel selection</li>
+<li>Hardware specific features</li>
+<li>Custom Backend Extension</li>
+</ul>
+<h3 id="training--inference"><a href="#training--inference">Training &amp; Inference</a></h3>
+<p>The whole deep learning workflow is made easy with Burn, as you can monitor your training progress
+with an ergonomic dashboard, and run inference everywhere from embedded devices to large GPU clusters.</p>
+<p>Burn was built from the ground up with training and inference in mind. It’s also worth noting how Burn,
+in comparison to frameworks like PyTorch, simplifies the transition from training to deployment,
+eliminating the need for code changes.</p>
+<h3 id="backends"><a href="#backends">Backends</a></h3>
+<p>Burn strives to be as fast as possible on as many hardwares as possible, with robust implementations.
+We believe this flexibility is crucial for modern needs where you may train your models in the cloud,
+then deploy on customer hardwares, which vary from user to user.</p>
+<p>Compared to other frameworks, Burn has a very different approach to supporting many backends.
+By design, most code is generic over the Backend trait, which allows us to build Burn with swappable backends.
+This makes composing backend possible, augmenting them with additional functionalities such as
+autodifferentiation and automatic kernel fusion.</p>
+<ul>
+<li>WGPU (WebGPU): Cross-Platform GPU Backend</li>
+<li>Candle: Backend using the Candle bindings</li>
+<li>LibTorch: Backend using the LibTorch bindings</li>
+<li>NdArray: Backend using the NdArray primitive as data structure</li>
+<li>Autodiff: Backend decorator that brings backpropagation to any backend</li>
+<li>Fusion: Backend decorator that brings kernel fusion to backends that support it</li>
+</ul>
+<h3 id="feature-flags"><a href="#feature-flags">Feature Flags</a></h3>
+<p>The following feature flags are available.
+By default, the feature <code>std</code> is activated.</p>
+<ul>
+<li>Training
+<ul>
+<li><code>train</code>: Enables features <code>dataset</code> and <code>autodiff</code> and provides a training environment</li>
+<li><code>tui</code>: Includes Text UI with progress bar and plots</li>
+<li><code>metrics</code>: Includes system info metrics (CPU/GPU usage, etc.)</li>
+</ul>
+</li>
+<li>Dataset
+<ul>
+<li><code>dataset</code>: Includes a datasets library</li>
+<li><code>audio</code>: Enables audio datasets (SpeechCommandsDataset)</li>
+<li><code>sqlite</code>: Stores datasets in SQLite database</li>
+<li><code>sqlite_bundled</code>: Use bundled version of SQLite</li>
+</ul>
+</li>
+<li>Backends
+<ul>
+<li><code>wgpu</code>: Makes available the WGPU backend</li>
+<li><code>candle</code>: Makes available the Candle backend</li>
+<li><code>tch</code>: Makes available the LibTorch backend</li>
+<li><code>ndarray</code>: Makes available the NdArray backend</li>
+</ul>
+</li>
+<li>Backend specifications
+<ul>
+<li><code>cuda</code>: If supported, CUDA will be used</li>
+<li><code>accelerate</code>: If supported, Accelerate will be used</li>
+<li><code>blas-netlib</code>: If supported, Blas Netlib will be use</li>
+<li><code>openblas</code>: If supported, Openblas will be use</li>
+<li><code>openblas-system</code>: If supported, Openblas installed on the system will be use</li>
+<li><code>wasm-sync</code>: When targeting wasm, but want a sync API (won’t work with WGPU)</li>
+</ul>
+</li>
+<li>Backend decorators
+<ul>
+<li><code>autodiff</code>: Makes available the Autodiff backend</li>
+<li><code>fusion</code>: Makes available the Fusion backend</li>
+</ul>
+</li>
+<li>Others:
+<ul>
+<li><code>std</code>: Activates the standard library (deactivate for no_std)</li>
+<li><code>experimental-named-tensor</code>: Enables named tensors (experimental)</li>
+</ul>
+</li>
+</ul>
 </div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="backend/index.html" title="mod burn::backend">backend</a></div><div class="desc docblock-short">Backend module.</div></li><li><div class="item-name"><a class="mod" href="config/index.html" title="mod burn::config">config</a></div><div class="desc docblock-short">The configuration module.</div></li><li><div class="item-name"><a class="mod" href="data/index.html" title="mod burn::data">data</a></div><div class="desc docblock-short">Data module.</div></li><li><div class="item-name"><a class="mod" href="grad_clipping/index.html" title="mod burn::grad_clipping">grad_clipping</a></div><div class="desc docblock-short">Gradient clipping module.</div></li><li><div class="item-name"><a class="mod" href="lr_scheduler/index.html" title="mod burn::lr_scheduler">lr_scheduler</a></div><div class="desc docblock-short">Learning rate scheduler module.</div></li><li><div class="item-name"><a class="mod" href="module/index.html" title="mod burn::module">module</a></div><div class="desc docblock-short">Module for the neural network module.</div></li><li><div class="item-name"><a class="mod" href="nn/index.html" title="mod burn::nn">nn</a></div><div class="desc docblock-short">Neural network module.</div></li><li><div class="item-name"><a class="mod" href="optim/index.html" title="mod burn::optim">optim</a></div><div class="desc docblock-short">Optimizer module.</div></li><li><div class="item-name"><a class="mod" href="record/index.html" title="mod burn::record">record</a></div><div class="desc docblock-short">Module for the recorder.</div></li><li><div class="item-name"><a class="mod" href="tensor/index.html" title="mod burn::tensor">tensor</a></div><div class="desc docblock-short">Module for the tensor.</div></li><li><div class="item-name"><a class="mod" href="train/index.html" title="mod burn::train">train</a></div><div class="desc docblock-short">Train module</div></li></ul><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2><ul class="item-table"><li><div class="item-name"><a class="macro" href="macro.constant.html" title="macro burn::constant">constant</a></div><div class="desc docblock-short">Constant macro.</div></li></ul><h2 id="types" class="small-section-header"><a href="#types">Type Aliases</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.LearningRate.html" title="type burn::LearningRate">LearningRate</a></div><div class="desc docblock-short">Type alias for the learning rate.</div></li></ul></section></div></main></body></html>

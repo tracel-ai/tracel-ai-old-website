@@ -179,8 +179,8 @@ have to use it. Sometimes you may have special needs for your training, and it m
 just reimplement the training loop yourself. Also, you may just prefer implementing your own
 training loop instead of using a pre-built one in general.</p>
 <p>Burn's got you covered!</p>
-<p>We will start from the same example shown in the <a href="./basic-workflow">basic workflow</a>
-section, but without using the <code>Learner</code> struct.</p>
+<p>We will start from the same example shown in the <a href="./basic-workflow">basic workflow</a> section, but
+without using the <code>Learner</code> struct.</p>
 <pre><code class="language-rust  ignore">#[derive(Config)]
 pub struct MnistTrainingConfig {
     #[config(default = 10)]
@@ -301,7 +301,8 @@ important to emphasize that we've declared our validation batcher to be on the i
 specifically <code>MNISTBatcher&lt;B::InnerBackend&gt;</code>; not using <code>model.valid()</code> will result in a compilation
 error.</p>
 <p>You can find the code above available as an
-<a href="https://github.com/burn-rs/burn/tree/main/examples/custom-training-loop">example</a> for you to test.</p>
+<a href="https://github.com/tracel-ai/burn/tree/main/examples/custom-training-loop">example</a> for you to
+test.</p>
 <h2 id="custom-type"><a class="header" href="#custom-type">Custom Type</a></h2>
 <p>The explanations above demonstrate how to create a basic training loop. However, you may find it
 beneficial to organize your program using intermediary types. There are various ways to do this, but

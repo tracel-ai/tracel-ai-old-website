@@ -1348,7 +1348,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1346" id="1346">1346</a>
 <a href="#1347" id="1347">1347</a>
 <a href="#1348" id="1348">1348</a>
-<a href="#1349" id="1349">1349</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     binary_int_cmp_ops, binary_int_ops,
     client::FusionClient,
@@ -1432,17 +1431,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ReshapeDimsOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_int_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
-                <span class="kw">let </span>output = B::int_reshape::&lt;D1, D2&gt;(input, Shape::from(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.shape));
+                <span class="kw">let </span>output = B::int_reshape::&lt;D1, D2&gt;(input, Shape::from(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.shape));
                 handles.register_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
-        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape.clone());
+        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
         <span class="kw">let </span>desc = ReshapeDescription {
             input: tensor.into_description(),
-            shape,
             out: out.to_description_out(),
         };
         out.client.register(

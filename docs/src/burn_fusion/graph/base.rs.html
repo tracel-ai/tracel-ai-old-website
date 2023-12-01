@@ -97,107 +97,101 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#95" id="95">95</a>
 <a href="#96" id="96">96</a>
 <a href="#97" id="97">97</a>
-<a href="#98" id="98">98</a>
-<a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Ops;
+<span class="kw">use </span><span class="kw">super</span>::RelativeGraphConverter;
 <span class="kw">use </span><span class="kw">super</span>::TensorOpsDescription;
-<span class="kw">use crate</span>::{FusionBackend, FusionOps, FusionProperties, FusionStatus, HandleContainer};
-<span class="kw">use </span>std::{ops::RangeBounds, sync::Arc};
+<span class="kw">use </span><span class="kw">crate</span>::Optimization;
+<span class="kw">use crate</span>::{FusionBackend, HandleContainer};
+<span class="kw">use </span>std::ops::RangeBounds;
 
 <span class="doccomment">/// The computational graph containing a list of [tensor operation descriptions](TensorOpsDescription).
 </span><span class="kw">pub struct </span>Graph&lt;B: FusionBackend&gt; {
-    operations: Vec&lt;Arc&lt;TensorOpsDescription&gt;&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) global: Vec&lt;TensorOpsDescription&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) relative: Vec&lt;TensorOpsDescription&gt;,
+    converter: RelativeGraphConverter,
     ops: Vec&lt;Box&lt;<span class="kw">dyn </span>Ops&lt;B&gt;&gt;&gt;,
 }
 
 <span class="kw">impl</span>&lt;B: FusionBackend&gt; Graph&lt;B&gt; {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            operations: Vec::new(),
+            global: Vec::new(),
+            relative: Vec::new(),
+            converter: RelativeGraphConverter::default(),
             ops: Vec::new(),
         }
     }
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>add(<span class="kw-2">&amp;mut </span><span class="self">self</span>, description: Arc&lt;TensorOpsDescription&gt;, ops: Box&lt;<span class="kw">dyn </span>Ops&lt;B&gt;&gt;) {
-        <span class="self">self</span>.operations.push(description);
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>split_relative_graph(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+    ) -&gt; (<span class="kw-2">&amp;</span>[TensorOpsDescription], <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TensorOpsDescription&gt;) {
+        <span class="kw">let </span>len = <span class="self">self</span>.relative.len();
+        <span class="kw">if </span>len &lt; <span class="number">1 </span>{
+            <span class="kw">return </span>(<span class="kw-2">&amp;</span><span class="self">self</span>.relative, <span class="prelude-val">None</span>);
+        }
+
+        (<span class="kw-2">&amp;</span><span class="self">self</span>.relative[<span class="number">0</span>..len - <span class="number">1</span>], <span class="self">self</span>.relative.last())
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>add(<span class="kw-2">&amp;mut </span><span class="self">self</span>, global: TensorOpsDescription, ops: Box&lt;<span class="kw">dyn </span>Ops&lt;B&gt;&gt;) {
+        <span class="kw">let </span>relative = global.to_relative(<span class="kw-2">&amp;mut </span><span class="self">self</span>.converter);
+        <span class="self">self</span>.relative.push(relative);
+        <span class="self">self</span>.global.push(global);
         <span class="self">self</span>.ops.push(ops);
     }
 
     <span class="doccomment">/// The size of the graph.
-    </span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
-        <span class="self">self</span>.operations.len()
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
+        <span class="self">self</span>.global.len()
     }
 
     <span class="doccomment">/// If the graph is empty.
-    </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="self">self</span>.operations.len() == <span class="number">0
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.len() == <span class="number">0
     </span>}
-
-    <span class="kw">fn </span>remove&lt;R: RangeBounds&lt;usize&gt; + Clone&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        range: R,
-        handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;,
-    ) {
-        <span class="kw">for </span>ops <span class="kw">in </span><span class="self">self</span>.operations.drain(range.clone()) {
-            ops.cleanup_tensor(handles)
-        }
-        <span class="self">self</span>.ops.drain(range);
-    }
-
-    <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[Arc&lt;TensorOpsDescription&gt;] {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.operations
-    }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>execute_optimization(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;,
-        index: usize,
-        optimizations: <span class="kw-2">&amp;mut </span>[Optimization&lt;B&gt;],
+        optimization: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Optimization&lt;B&gt;,
     ) {
-        <span class="kw">let </span>optimization = optimizations.get_mut(index).unwrap();
-        <span class="kw">let </span>num_keep = optimization.ops.len();
-        optimization.ops.execute(handles);
+        <span class="kw">let </span>num_keep = optimization.len();
+        <span class="kw">let </span><span class="kw-2">mut </span>context = <span class="self">self</span>.converter.context(handles);
+        optimization.execute(<span class="kw-2">&amp;mut </span>context);
 
-        <span class="self">self</span>.remove(<span class="number">0</span>..num_keep, handles);
-
-        <span class="kw">for </span>optimization <span class="kw">in </span>optimizations.iter_mut() {
-            optimization.reset();
-
-            <span class="kw">for </span>node <span class="kw">in </span><span class="self">self</span>.nodes() {
-                optimization.register(node);
-            }
-        }
+        <span class="self">self</span>.cleanup_partial(<span class="number">0</span>..num_keep, handles);
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>execute(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
-        <span class="kw">for </span>(description, ops) <span class="kw">in </span><span class="self">self</span>.operations.drain(..).zip(<span class="self">self</span>.ops.drain(..)) {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>execute_operations(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+        <span class="kw">for </span>(description, ops) <span class="kw">in </span><span class="self">self</span>.global.drain(..).zip(<span class="self">self</span>.ops.drain(..)) {
             ops.execute(handles);
             description.cleanup_tensor(handles);
         }
+        <span class="self">self</span>.cleanup_relative_graph();
     }
-}
 
-<span class="doccomment">/// An optimization that can be executed.
-</span><span class="attr">#[derive(new)]
-</span><span class="kw">pub struct </span>Optimization&lt;B: FusionBackend&gt; {
-    <span class="doccomment">/// The [fusion operation](FusionOps) to potentially be executed.
-    </span><span class="kw">pub </span>ops: Box&lt;<span class="kw">dyn </span>FusionOps&lt;B&gt;&gt;,
-    <span class="doccomment">/// The current status of the optimization.
-    </span><span class="kw">pub </span>status: FusionStatus,
-}
-
-<span class="kw">impl</span>&lt;B: FusionBackend&gt; Optimization&lt;B&gt; {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>TensorOpsDescription) {
-        <span class="kw">if let </span>FusionStatus::Closed(<span class="kw">_</span>) = <span class="self">self</span>.status {
-            <span class="kw">return</span>;
+    <span class="kw">fn </span>cleanup_partial&lt;R: RangeBounds&lt;usize&gt; + Clone&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        range: R,
+        handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;,
+    ) {
+        <span class="kw">for </span>ops <span class="kw">in </span><span class="self">self</span>.global.drain(range.clone()) {
+            ops.cleanup_tensor(handles)
         }
+        <span class="self">self</span>.ops.drain(range);
 
-        <span class="self">self</span>.status = <span class="self">self</span>.ops.register(ops);
+        <span class="comment">// Rebuild the relative graph when partially removing the global graph.
+        </span><span class="self">self</span>.cleanup_relative_graph();
+
+        <span class="kw">for </span>node <span class="kw">in </span><span class="self">self</span>.global.iter() {
+            <span class="kw">let </span>relative = node.to_relative(<span class="kw-2">&amp;mut </span><span class="self">self</span>.converter);
+            <span class="self">self</span>.relative.push(relative);
+        }
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.ops.reset();
-        <span class="self">self</span>.status = FusionStatus::Open(FusionProperties::default());
+    <span class="kw">fn </span>cleanup_relative_graph(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="self">self</span>.relative.clear();
+        <span class="self">self</span>.converter.clear();
     }
 }
 </code></pre></div></section></main></body></html>

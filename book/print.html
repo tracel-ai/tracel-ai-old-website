@@ -271,7 +271,9 @@ fn main() {
 }</code></pre>
 <p>By running <code>cargo run</code>, you should now see the result of the addition:</p>
 <pre><code class="language-console">Tensor {
-  data: [[3.0, 4.0], [5.0, 6.0]],
+  data:
+[[3.0, 4.0],
+ [5.0, 6.0]],
   shape:  [2, 2],
   device:  BestAvailable,
   backend:  &quot;wgpu&quot;,
@@ -283,10 +285,14 @@ fn main() {
 <a href="./basic-workflow/README.html">basic workflow section</a> will walk you through a much more relevant
 example for deep learning applications.</p>
 <h2 id="running-examples"><a class="header" href="#running-examples">Running examples</a></h2>
-<p>Burn uses HuggingFace's <a href="https://huggingface.co/docs/datasets/index">datasets</a> library to load
-datasets. <code>datasets</code> is a Python library, and therefore, in order to run examples, you will need to
-install Python. Follow the instructions on the <a href="https://www.python.org/downloads/">official website</a>
-to install Python on your computer.</p>
+<p>Burn uses a <a href="https://huggingface.co/docs/datasets/index">Python library by HuggingFace</a> to download
+datasets. Therefore, in order to run examples, you will need to install Python. Follow the
+instructions on the <a href="https://www.python.org/downloads/">official website</a> to install Python on your
+computer.</p>
+<p>Many Burn examples are available in the <a href="https://github.com/tracel-ai/burn/tree/main/examples">examples</a>
+directory. 
+To run one, please refer to the example's README.md for the specific command to
+execute.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guide"><a class="header" href="#guide">Guide</a></h1>
 <p>This guide will walk you through the process of creating a custom model built with Burn. We will
 train a simple convolutional neural network model on the MNIST dataset and prepare it for inference.</p>
@@ -311,7 +317,7 @@ version = &quot;0.1.0&quot;
 edition = &quot;2021&quot;
 
 [dependencies]
-burn = { version = &quot;0.10.0&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
+burn = { version = &quot;0.11.0&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
 
 # Serialization
 serde = &quot;1&quot;
@@ -1120,7 +1126,7 @@ pub trait ModuleMapper&lt;B: Backend&gt; {
 <tr><td><code>MSELoss</code></td><td><code>nn.MSELoss</code></td></tr>
 </tbody></table>
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="learner"><a class="header" href="#learner">Learner</a></h1>
-<p>The <a href="https://github.com/burn-rs/burn/tree/main/burn-train">burn-train</a> crate encapsulates multiple
+<p>The <a href="https://github.com/tracel-ai/burn/tree/main/burn-train">burn-train</a> crate encapsulates multiple
 utilities for training deep learning models. The goal of the crate is to provide users with a
 well-crafted and flexible training loop, so that projects do not have to write such components from
 the ground up. Most of the interactions with <code>burn-train</code> will be with the <code>LearnerBuilder</code> struct,
@@ -1452,8 +1458,8 @@ have to use it. Sometimes you may have special needs for your training, and it m
 just reimplement the training loop yourself. Also, you may just prefer implementing your own
 training loop instead of using a pre-built one in general.</p>
 <p>Burn's got you covered!</p>
-<p>We will start from the same example shown in the <a href="./basic-workflow">basic workflow</a>
-section, but without using the <code>Learner</code> struct.</p>
+<p>We will start from the same example shown in the <a href="./basic-workflow">basic workflow</a> section, but
+without using the <code>Learner</code> struct.</p>
 <pre><code class="language-rust  ignore">#[derive(Config)]
 pub struct MnistTrainingConfig {
     #[config(default = 10)]
@@ -1574,7 +1580,8 @@ important to emphasize that we've declared our validation batcher to be on the i
 specifically <code>MNISTBatcher&lt;B::InnerBackend&gt;</code>; not using <code>model.valid()</code> will result in a compilation
 error.</p>
 <p>You can find the code above available as an
-<a href="https://github.com/burn-rs/burn/tree/main/examples/custom-training-loop">example</a> for you to test.</p>
+<a href="https://github.com/tracel-ai/burn/tree/main/examples/custom-training-loop">example</a> for you to
+test.</p>
 <h2 id="custom-type"><a class="header" href="#custom-type">Custom Type</a></h2>
 <p>The explanations above demonstrate how to create a basic training loop. However, you may find it
 beneficial to organize your program using intermediary types. There are various ways to do this, but
@@ -1742,15 +1749,15 @@ fn main() {
 <h3 id="working-examples"><a class="header" href="#working-examples">Working Examples</a></h3>
 <p>For practical examples, please refer to:</p>
 <ol>
-<li><a href="https://github.com/burn-rs/burn/tree/main/examples/onnx-inference">MNIST Inference Example</a></li>
-<li><a href="https://github.com/burn-rs/models/tree/main/squeezenet-burn">SqueezeNet Image Classification</a></li>
+<li><a href="https://github.com/tracel-ai/burn/tree/main/examples/onnx-inference">MNIST Inference Example</a></li>
+<li><a href="https://github.com/tracel-ai/models/tree/main/squeezenet-burn">SqueezeNet Image Classification</a></li>
 </ol>
 <p>By combining ONNX's robustness with Burn's unique features, you'll have the flexibility and power to
 streamline your deep learning workflows like never before.</p>
 <hr />
 <blockquote>
 <p>🚨<strong>Note</strong>: <code>burn-import</code> crate is in active development and currently supports a
-<a href="https://github.com/burn-rs/burn/blob/main/burn-import/SUPPORTED-ONNX-OPS.md">limited set of ONNX operators</a>.</p>
+<a href="https://github.com/tracel-ai/burn/blob/main/burn-import/SUPPORTED-ONNX-OPS.md">limited set of ONNX operators</a>.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="advanced"><a class="header" href="#advanced">Advanced</a></h1>
 <p>In this section, we will go into advanced topics that extend beyond basic usage. Given Burn's
@@ -1833,7 +1840,7 @@ with the WGPU backend. We will take the example of a common workflow in the deep
 where we create a kernel to fuse multiple operations together. We will fuse a matmul kernel followed
 by an addition and the ReLU activation function, which is commonly found in various models. All the
 code can be found under the
-<a href="https://github.com/burn-rs/burn/tree/main/examples/custom-wgpu-kernel">examples directory</a>.</p>
+<a href="https://github.com/tracel-ai/burn/tree/main/examples/custom-wgpu-kernel">examples directory</a>.</p>
 <h2 id="custom-backend-trait"><a class="header" href="#custom-backend-trait">Custom Backend Trait</a></h2>
 <p>First, we need to determine the type signature of our newly created operation by defining our custom
 backend traits. As we will use the associated type <code>TensorPrimitive</code> of the <code>Backend</code> trait, which
