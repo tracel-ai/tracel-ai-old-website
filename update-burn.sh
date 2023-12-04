@@ -4,7 +4,7 @@ echo "Cloning Burn"
 git clone https://github.com/tracel-ai/burn
 cd burn
 git pull
-git checkout v0.11.0
+git checkout v0.11.1
 
 echo "Updating Burn Book"
 cd burn-book
