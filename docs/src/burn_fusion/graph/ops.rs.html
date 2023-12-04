@@ -1151,56 +1151,6 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1149" id="1149">1149</a>
 <a href="#1150" id="1150">1150</a>
 <a href="#1151" id="1151">1151</a>
-<a href="#1152" id="1152">1152</a>
-<a href="#1153" id="1153">1153</a>
-<a href="#1154" id="1154">1154</a>
-<a href="#1155" id="1155">1155</a>
-<a href="#1156" id="1156">1156</a>
-<a href="#1157" id="1157">1157</a>
-<a href="#1158" id="1158">1158</a>
-<a href="#1159" id="1159">1159</a>
-<a href="#1160" id="1160">1160</a>
-<a href="#1161" id="1161">1161</a>
-<a href="#1162" id="1162">1162</a>
-<a href="#1163" id="1163">1163</a>
-<a href="#1164" id="1164">1164</a>
-<a href="#1165" id="1165">1165</a>
-<a href="#1166" id="1166">1166</a>
-<a href="#1167" id="1167">1167</a>
-<a href="#1168" id="1168">1168</a>
-<a href="#1169" id="1169">1169</a>
-<a href="#1170" id="1170">1170</a>
-<a href="#1171" id="1171">1171</a>
-<a href="#1172" id="1172">1172</a>
-<a href="#1173" id="1173">1173</a>
-<a href="#1174" id="1174">1174</a>
-<a href="#1175" id="1175">1175</a>
-<a href="#1176" id="1176">1176</a>
-<a href="#1177" id="1177">1177</a>
-<a href="#1178" id="1178">1178</a>
-<a href="#1179" id="1179">1179</a>
-<a href="#1180" id="1180">1180</a>
-<a href="#1181" id="1181">1181</a>
-<a href="#1182" id="1182">1182</a>
-<a href="#1183" id="1183">1183</a>
-<a href="#1184" id="1184">1184</a>
-<a href="#1185" id="1185">1185</a>
-<a href="#1186" id="1186">1186</a>
-<a href="#1187" id="1187">1187</a>
-<a href="#1188" id="1188">1188</a>
-<a href="#1189" id="1189">1189</a>
-<a href="#1190" id="1190">1190</a>
-<a href="#1191" id="1191">1191</a>
-<a href="#1192" id="1192">1192</a>
-<a href="#1193" id="1193">1193</a>
-<a href="#1194" id="1194">1194</a>
-<a href="#1195" id="1195">1195</a>
-<a href="#1196" id="1196">1196</a>
-<a href="#1197" id="1197">1197</a>
-<a href="#1198" id="1198">1198</a>
-<a href="#1199" id="1199">1199</a>
-<a href="#1200" id="1200">1200</a>
-<a href="#1201" id="1201">1201</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::FusionBackend;
 <span class="kw">use crate</span>::{HandleContainer, TensorDescription};
 <span class="kw">use </span>burn_tensor::{
@@ -1979,343 +1929,293 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">impl </span>TensorOpsDescription {
     <span class="doccomment">/// Cleanup the remaining tensor handles that have not been used.
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>cleanup_tensor&lt;B: FusionBackend&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>TensorDescription&gt; {
         <span class="kw">match </span><span class="self">self </span>{
-            TensorOpsDescription::BaseOpsFloat(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::BaseOpsInt(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::BaseOpsBool(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::NumericOpsFloat(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::NumericOpsInt(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::BoolOps(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::IntOps(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::FloatOps(ops) =&gt; ops.cleanup_tensor(handles),
-            TensorOpsDescription::ModuleOps(ops) =&gt; ops.cleanup_tensor(handles),
+            TensorOpsDescription::BaseOpsFloat(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::BaseOpsInt(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::BaseOpsBool(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::NumericOpsFloat(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::NumericOpsInt(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::BoolOps(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::IntOps(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::FloatOps(ops) =&gt; ops.nodes(),
+            TensorOpsDescription::ModuleOps(ops) =&gt; ops.nodes(),
         }
-
-        <span class="comment">// Cleanup tensor handles that were outputted, but ignored.
-        </span>handles.cleanup_orphans();
     }
 }
 
 <span class="kw">impl </span>BaseOpsDescription {
-    <span class="kw">fn </span>cleanup_tensor&lt;B: FusionBackend&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+    <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>TensorDescription&gt; {
         <span class="kw">match </span><span class="self">self </span>{
-            BaseOpsDescription::ToDevice(<span class="kw">_</span>) =&gt; (),
+            BaseOpsDescription::ToDevice(desc) =&gt; <span class="macro">vec!</span>[desc],
             BaseOpsDescription::Reshape(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out]
             }
             BaseOpsDescription::SwapDims(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out]
             }
             BaseOpsDescription::Slice(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.out]
             }
             BaseOpsDescription::SliceAssign(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.value);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.value, <span class="kw-2">&amp;</span>desc.out]
             }
             BaseOpsDescription::Equal(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             BaseOpsDescription::Repeat(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.out]
             }
-            BaseOpsDescription::Cat(desc) =&gt; {
-                <span class="kw">for </span>t <span class="kw">in </span>desc.tensors.iter() {
-                    handles.cleanup(t);
-                }
-            }
+            BaseOpsDescription::Cat(desc) =&gt; desc.tensors.iter().collect(),
         }
     }
 }
 
 <span class="kw">impl</span>&lt;E: Element&gt; NumericOpsDescription&lt;E&gt; {
-    <span class="kw">fn </span>cleanup_tensor&lt;B: FusionBackend&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+    <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>TensorDescription&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             NumericOpsDescription::Add(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::AddScalar(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Sub(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::SubScalar(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Mul(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::MulScalar(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Div(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::DivScalar(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
-            NumericOpsDescription::Ones(<span class="kw">_</span>) =&gt; {}
+            NumericOpsDescription::Ones(desc) =&gt; <span class="macro">vec!</span>[desc],
             NumericOpsDescription::Gather(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Scatter(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.value);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.value, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Select(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::SelectAssign(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.value);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.value, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::MaskWhere(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.value);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.mask);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.mask, <span class="kw-2">&amp;</span>desc.value, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::MaskFill(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.mask);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.mask, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::EqualElem(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::GreaterElem(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::GreaterEqualElem(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::LowerElem(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::LowerEqualElem(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Greater(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::GreaterEqual(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Lower(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::LowerEqual(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::ArgMax(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::ArgMin(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Clamp(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::ClampMin(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::ClampMax(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Abs(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out]
             }
-            NumericOpsDescription::Zeros(<span class="kw">_</span>) =&gt; {}
-            NumericOpsDescription::Full(<span class="kw">_</span>) =&gt; {}
+            NumericOpsDescription::Zeros(desc) =&gt; <span class="macro">vec!</span>[desc],
+            NumericOpsDescription::Full(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.<span class="number">0</span>],
             NumericOpsDescription::MeanDim(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Mean(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Sum(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::SumDim(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Max(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::MaxDimWithIndices(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.out_indices, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::MinDimWithIndices(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.tensor);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.tensor, <span class="kw-2">&amp;</span>desc.out_indices, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::Min(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::MaxDim(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
             NumericOpsDescription::MinDim(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out]
             }
         }
     }
 }
 
 <span class="kw">impl </span>FloatOpsDescription {
-    <span class="kw">fn </span>cleanup_tensor&lt;B: FusionBackend&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+    <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>TensorDescription&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             FloatOpsDescription::Matmul(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.rhs);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.rhs, <span class="kw-2">&amp;</span>desc.out]
             }
-            FloatOpsDescription::Random(<span class="kw">_</span>) =&gt; {}
-            FloatOpsDescription::Exp(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Log(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Log1p(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Erf(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Recip(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Powf(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.lhs),
-            FloatOpsDescription::Sqrt(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Cos(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Sin(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::Tanh(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
-            FloatOpsDescription::IntoInt(desc) =&gt; handles.cleanup(<span class="kw-2">&amp;</span>desc.input),
+            FloatOpsDescription::Random(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Exp(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Log(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Log1p(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Erf(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Recip(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Powf(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.lhs, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Sqrt(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Cos(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Sin(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::Tanh(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            FloatOpsDescription::IntoInt(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
         }
     }
 }
 
 <span class="kw">impl </span>IntOpsDescription {
-    <span class="kw">fn </span>cleanup_tensor&lt;B: FusionBackend&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+    <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>TensorDescription&gt; {
         <span class="kw">match </span><span class="self">self </span>{
-            IntOpsDescription::IntoFloat(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
-            }
+            IntOpsDescription::IntoFloat(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
         }
     }
 }
 
 <span class="kw">impl </span>BoolOpsDescription {
-    <span class="kw">fn </span>cleanup_tensor&lt;B: FusionBackend&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+    <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>TensorDescription&gt; {
         <span class="kw">match </span><span class="self">self </span>{
-            BoolOpsDescription::IntoFloat(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
-            }
-            BoolOpsDescription::IntoInt(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
-            }
-            BoolOpsDescription::Not(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.input);
-            }
+            BoolOpsDescription::IntoFloat(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            BoolOpsDescription::IntoInt(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
+            BoolOpsDescription::Not(desc) =&gt; <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.input, <span class="kw-2">&amp;</span>desc.out],
         }
     }
 }
 
 <span class="kw">impl </span>ModuleOpsDescription {
-    <span class="kw">fn </span>cleanup_tensor&lt;B: FusionBackend&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+    <span class="kw">fn </span>nodes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>TensorDescription&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             ModuleOpsDescription::Embedding(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.weights);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.weights, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::EmbeddingBackward(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.weights);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.out_grad);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.weights, <span class="kw-2">&amp;</span>desc.out_grad, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::Conv1d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.weight);
-
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(bias) = <span class="kw-2">&amp;</span>desc.bias {
-                    handles.cleanup(bias);
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>bias, <span class="kw-2">&amp;</span>desc.out]
+                } <span class="kw">else </span>{
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>desc.out]
                 }
             }
             ModuleOpsDescription::Conv2d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.weight);
-
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(bias) = <span class="kw-2">&amp;</span>desc.bias {
-                    handles.cleanup(bias);
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>bias, <span class="kw-2">&amp;</span>desc.out]
+                } <span class="kw">else </span>{
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>desc.out]
                 }
             }
             ModuleOpsDescription::ConvTranspose1d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.weight);
-
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(bias) = <span class="kw-2">&amp;</span>desc.bias {
-                    handles.cleanup(bias);
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>bias, <span class="kw-2">&amp;</span>desc.out]
+                } <span class="kw">else </span>{
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>desc.out]
                 }
             }
             ModuleOpsDescription::ConvTranspose2d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.weight);
-
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(bias) = <span class="kw-2">&amp;</span>desc.bias {
-                    handles.cleanup(bias);
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>bias, <span class="kw-2">&amp;</span>desc.out]
+                } <span class="kw">else </span>{
+                    <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.weight, <span class="kw-2">&amp;</span>desc.out]
                 }
             }
             ModuleOpsDescription::AvgPool1d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::AvgPool2d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::AvgPool1dBackward(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.grad);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.grad]
             }
             ModuleOpsDescription::AvgPool2dBackward(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.grad);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.grad]
             }
             ModuleOpsDescription::AdaptiveAvgPool1d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::AdaptiveAvgPool2d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::AdaptiveAvgPool1dBackward(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.grad);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.grad]
             }
             ModuleOpsDescription::AdaptiveAvgPool2dBackward(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.grad);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.grad]
             }
             ModuleOpsDescription::MaxPool1d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::MaxPool1dWithIndices(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.out_indices]
             }
             ModuleOpsDescription::MaxPool1dWithIndicesBackward(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.grad);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.grad]
             }
             ModuleOpsDescription::MaxPool2d(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out]
             }
             ModuleOpsDescription::MaxPool2dWithIndices(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.out_indices]
             }
             ModuleOpsDescription::MaxPool2dWithIndicesBackward(desc) =&gt; {
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.x);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.grad);
-                handles.cleanup(<span class="kw-2">&amp;</span>desc.indices);
+                <span class="macro">vec!</span>[<span class="kw-2">&amp;</span>desc.x, <span class="kw-2">&amp;</span>desc.out, <span class="kw-2">&amp;</span>desc.indices, <span class="kw-2">&amp;</span>desc.grad]
             }
         }
     }

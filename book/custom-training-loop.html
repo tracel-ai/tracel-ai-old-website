@@ -344,7 +344,7 @@ where
 <pre><code class="language-console">1. the type parameter `B` is not constrained by the impl trait, self type, or predicates
    unconstrained type parameter [E0207]
 </code></pre>
-<p>To resolve this issue, you have two options. The first one is to make your function is generic over
+<p>To resolve this issue, you have two options. The first one is to make your function generic over
 the backend and add your trait constraint within its definition:</p>
 <pre><code class="language-rust  ignore">#[allow(dead_code)]
 impl&lt;M, O&gt; Learner2&lt;M, O&gt; {

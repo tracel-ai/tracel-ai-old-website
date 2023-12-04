@@ -308,16 +308,16 @@ corresponding code in the <code>examples/guide</code> directory.</p>
 <li>Using a model for inference</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="model"><a class="header" href="#model">Model</a></h1>
-<p>The first step is to create a project and add the different Burn dependencies. In the <code>Cargo.toml</code> file,
-add the <code>burn</code> dependency with <code>train</code> and <code>wgpu</code> features. Note that the <code>serde</code> dependency is also mandatory
-for the time being, as it is needed for serialization.</p>
+<p>The first step is to create a project and add the different Burn dependencies. In the <code>Cargo.toml</code>
+file, add the <code>burn</code> dependency with <code>train</code> and <code>wgpu</code> features. Note that the <code>serde</code> dependency
+is also mandatory for the time being, as it is needed for serialization.</p>
 <pre><code class="language-toml">[package]
 name = &quot;my-first-burn-model&quot;
 version = &quot;0.1.0&quot;
 edition = &quot;2021&quot;
 
 [dependencies]
-burn = { version = &quot;0.11.0&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
+burn = { version = &quot;0.11.1&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
 
 # Serialization
 serde = &quot;1&quot;
@@ -362,9 +362,9 @@ underlying low level implementations of tensor operations, allowing your new mod
 backend. Contrary to other frameworks, the backend abstraction isn't determined by a compilation
 flag or a device type. This is important because you can extend the functionalities of a specific
 backend (see <a href="basic-workflow/../advanced/backend-extension">backend extension section</a>), and it allows for an
-innovative <a href="basic-workflow/../building-blocks/autodiff.html">autodiff system</a>. You can also change backend during runtime, for instance to compute
-training metrics on a cpu backend while using a gpu one only to train the model. In our example,
-the backend in use will be determined later on.</p>
+innovative <a href="basic-workflow/../building-blocks/autodiff.html">autodiff system</a>. You can also change backend during
+runtime, for instance to compute training metrics on a cpu backend while using a gpu one only to
+train the model. In our example, the backend in use will be determined later on.</p>
 </li>
 </ol>
 <p>Next, we need to instantiate the model for training.</p>
@@ -589,7 +589,7 @@ pub fn train&lt;B: AutodiffBackend&gt;(artifact_dir: &amp;str, config: TrainingC
     std::fs::create_dir_all(artifact_dir).ok();
     config
         .save(format!(&quot;{artifact_dir}/config.json&quot;))
-        .expect(&quot;Save without error&quot;);
+        .expect(&quot;Config should be saved successfully&quot;);
 
     B::seed(config.seed);
 
@@ -626,7 +626,7 @@ pub fn train&lt;B: AutodiffBackend&gt;(artifact_dir: &amp;str, config: TrainingC
 
     model_trained
         .save_file(format!(&quot;{artifact_dir}/model&quot;), &amp;CompactRecorder::new())
-        .expect(&quot;Failed to save trained model&quot;);
+        .expect(&quot;Trained model should be saved successfully&quot;);
 }</code></pre>
 <p>It is a good practice to use the <code>Config</code> derive to create the experiment configuration. In the
 <code>train</code> function, the first thing we are doing is making sure the <code>artifact_dir</code> exists, using the
@@ -712,11 +712,11 @@ trait. It allows us to load the module state without having to deal with fetchin
 manually. Everything is validated when loading the model with the record.</p>
 <p>Now let's create a simple <code>infer</code> method in which we will load our trained model.</p>
 <pre><code class="language-rust   ignore">pub fn infer&lt;B: Backend&gt;(artifact_dir: &amp;str, device: B::Device, item: MNISTItem) {
-    let config =
-        TrainingConfig::load(format!(&quot;{artifact_dir}/config.json&quot;)).expect(&quot;A config exists&quot;);
+    let config = TrainingConfig::load(format!(&quot;{artifact_dir}/config.json&quot;))
+        .expect(&quot;Config should exist for the model&quot;);
     let record = CompactRecorder::new()
         .load(format!(&quot;{artifact_dir}/model&quot;).into())
-        .expect(&quot;Failed to load trained model&quot;);
+        .expect(&quot;Trained model should exist&quot;);
 
     let model = config.model.init_with::&lt;B&gt;(record).to_device(&amp;device);
 
@@ -1154,7 +1154,7 @@ creating a <a href="building-blocks/../custom-training-loop.html">custom trainin
 <tr><td>Checkpoint</td><td>Restart training from a checkpoint</td></tr>
 </tbody></table>
 </div>
-<p>When the builder is configured at your liking, you can them move forward to build the learner. The
+<p>When the builder is configured at your liking, you can then move forward to build the learner. The
 build method requires three inputs: the model, the optimizer and the learning rate scheduler. Note
 that the latter can be a simple float if you want it to be constant during training.</p>
 <p>The result will be a newly created Learner struct, which has only one method, the <code>fit</code> function
@@ -1319,8 +1319,8 @@ pattern, along with a <code>save</code> method.</p>
     config.save(&quot;config.json&quot;).unwrap();
 }</code></pre>
 <h2 id="good-practices"><a class="header" href="#good-practices">Good practices</a></h2>
-<p>The interest of the Config pattern is to be able to easily create instances, factoried from this
-config. In that optic, initialization methods should be implemented on the config struct.</p>
+<p>By using the Config pattern it is easy to create instances from this
+config. Therefore, initialization methods should be implemented on the config struct.</p>
 <pre><code class="language-rust  ignore">impl MyModuleConfig {
     /// Create a module with random weights.
     pub fn init(&amp;self) -&gt; MyModule {
@@ -1342,7 +1342,7 @@ config. In that optic, initialization methods should be implemented on the confi
     }
 }</code></pre>
 <p>Then we could add this line to the above <code>main</code>:</p>
-<pre><code class="language-rust  ignore">let my_module = config.init()</code></pre>
+<pre><code class="language-rust  ignore">let my_module = config.init();</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="record"><a class="header" href="#record">Record</a></h1>
 <p>Records are how states are saved with Burn. Compared to most other frameworks, Burn has its own
 advanced saving mechanism that allows interoperability between backends with minimal possible
@@ -1623,7 +1623,7 @@ where
 <pre><code class="language-console">1. the type parameter `B` is not constrained by the impl trait, self type, or predicates
    unconstrained type parameter [E0207]
 </code></pre>
-<p>To resolve this issue, you have two options. The first one is to make your function is generic over
+<p>To resolve this issue, you have two options. The first one is to make your function generic over
 the backend and add your trait constraint within its definition:</p>
 <pre><code class="language-rust  ignore">#[allow(dead_code)]
 impl&lt;M, O&gt; Learner2&lt;M, O&gt; {
@@ -1783,7 +1783,7 @@ impression that Burn operates at a high level over the backend layer. However, m
 explicit instead of being chosen via a compilation flag was a thoughtful design decision. This
 explicitness does not imply that all backends must be identical; rather, it offers a great deal of
 flexibility when composing backends. The autodifferentiation backend trait (see
-<a href="advanced/backend-extension/../building-blocks/autodiff">autodiff section</a>) is an example of how the backend trait has been
+<a href="advanced/backend-extension/../../building-blocks/autodiff.html">autodiff section</a>) is an example of how the backend trait has been
 extended to enable gradient computation with backpropagation. Furthermore, this design allows you to
 create your own backend extension. To achieve this, you need to design your own backend trait
 specifying which functions should be supported.</p>

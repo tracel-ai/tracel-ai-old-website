@@ -13,96 +13,6 @@
       "href": "/assets/entry-client-3e7d4bd4.css"
     }
   ],
-  "/blog/": [
-    {
-      "type": "script",
-      "href": "/assets/index-4a503afb.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-c2c9bbc9.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3e7d4bd4.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-359f05f9.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-a75ac475.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-3af1c2ce.js"
-    }
-  ],
-  "/blog/creating-high-performance-asynchronous-backends-with-burn-compute": [
-    {
-      "type": "script",
-      "href": "/assets/creating-high-performance-asynchronous-backends-with-burn-compute-ec83e915.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-c2c9bbc9.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3e7d4bd4.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-1078b72d.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-359f05f9.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-c292cd01.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-a75ac475.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-3af1c2ce.js"
-    }
-  ],
-  "/blog/a-case-for-rust-in-deep-learning": [
-    {
-      "type": "script",
-      "href": "/assets/a-case-for-rust-in-deep-learning-74e63fb5.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/entry-client-c2c9bbc9.js"
-    },
-    {
-      "type": "style",
-      "href": "/assets/entry-client-3e7d4bd4.css"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-1078b72d.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/index-359f05f9.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/blogs-a75ac475.js"
-    },
-    {
-      "type": "script",
-      "href": "/assets/page-3af1c2ce.js"
-    }
-  ],
   "/demo": [
     {
       "type": "script",
@@ -157,6 +67,96 @@
     {
       "type": "script",
       "href": "/assets/blogs-a75ac475.js"
+    }
+  ],
+  "/blog/a-case-for-rust-in-deep-learning": [
+    {
+      "type": "script",
+      "href": "/assets/a-case-for-rust-in-deep-learning-74e63fb5.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-c2c9bbc9.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-1078b72d.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-359f05f9.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-a75ac475.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-3af1c2ce.js"
+    }
+  ],
+  "/blog/creating-high-performance-asynchronous-backends-with-burn-compute": [
+    {
+      "type": "script",
+      "href": "/assets/creating-high-performance-asynchronous-backends-with-burn-compute-ec83e915.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-c2c9bbc9.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-1078b72d.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-359f05f9.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-c292cd01.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-a75ac475.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-3af1c2ce.js"
+    }
+  ],
+  "/blog/": [
+    {
+      "type": "script",
+      "href": "/assets/index-4a503afb.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client-c2c9bbc9.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-3e7d4bd4.css"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index-359f05f9.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/blogs-a75ac475.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/page-3af1c2ce.js"
     }
   ],
   "/blog/cross-platform-gpu-backend": [

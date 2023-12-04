@@ -304,7 +304,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>build(<span class="kw-2">&amp;mut </span><span class="self">self</span>, graph: <span class="kw-2">&amp;mut </span>Graph&lt;B&gt;, mode: ExecutionMode) -&gt; BuildAction&lt;<span class="lifetime">&#39;_</span>, B&gt; {
+    <span class="kw">fn </span>build(<span class="kw-2">&amp;mut </span><span class="self">self</span>, graph: <span class="kw-2">&amp;</span>Graph&lt;B&gt;, mode: ExecutionMode) -&gt; BuildAction&lt;<span class="lifetime">&#39;_</span>, B&gt; {
         <span class="comment">// When we are executing with the new ops mode, we need to register the last ops of the
         // graph even when there is no skipped operation.
         </span><span class="kw">let </span>offset = <span class="kw">match </span>mode {
@@ -345,7 +345,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>, graph: <span class="kw-2">&amp;mut </span>Graph&lt;B&gt;) {
+    <span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>, graph: <span class="kw-2">&amp;</span>Graph&lt;B&gt;) {
         <span class="kw">for </span>ops <span class="kw">in </span><span class="self">self</span>.optimizations.iter_mut() {
             ops.reset();
         }
@@ -364,7 +364,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">fn </span>cache&lt;<span class="lifetime">&#39;a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>,
-        graph: <span class="kw-2">&amp;mut </span>Graph&lt;B&gt;,
+        graph: <span class="kw-2">&amp;</span>Graph&lt;B&gt;,
         mode: ExecutionMode,
     ) -&gt; CacheResult&lt;<span class="lifetime">&#39;a</span>, Box&lt;<span class="kw">dyn </span>Optimization&lt;B&gt;&gt;&gt; {
         <span class="kw">let </span>(graph, next_ops) = <span class="self">Self</span>::split_relative_graph_ref(graph, mode);

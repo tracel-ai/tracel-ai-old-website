@@ -174,16 +174,16 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="model"><a class="header" href="#model">Model</a></h1>
-<p>The first step is to create a project and add the different Burn dependencies. In the <code>Cargo.toml</code> file,
-add the <code>burn</code> dependency with <code>train</code> and <code>wgpu</code> features. Note that the <code>serde</code> dependency is also mandatory
-for the time being, as it is needed for serialization.</p>
+<p>The first step is to create a project and add the different Burn dependencies. In the <code>Cargo.toml</code>
+file, add the <code>burn</code> dependency with <code>train</code> and <code>wgpu</code> features. Note that the <code>serde</code> dependency
+is also mandatory for the time being, as it is needed for serialization.</p>
 <pre><code class="language-toml">[package]
 name = &quot;my-first-burn-model&quot;
 version = &quot;0.1.0&quot;
 edition = &quot;2021&quot;
 
 [dependencies]
-burn = { version = &quot;0.11.0&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
+burn = { version = &quot;0.11.1&quot;, features=[&quot;train&quot;, &quot;wgpu&quot;]}
 
 # Serialization
 serde = &quot;1&quot;
@@ -228,9 +228,9 @@ underlying low level implementations of tensor operations, allowing your new mod
 backend. Contrary to other frameworks, the backend abstraction isn't determined by a compilation
 flag or a device type. This is important because you can extend the functionalities of a specific
 backend (see <a href="../advanced/backend-extension">backend extension section</a>), and it allows for an
-innovative <a href="../building-blocks/autodiff.html">autodiff system</a>. You can also change backend during runtime, for instance to compute
-training metrics on a cpu backend while using a gpu one only to train the model. In our example,
-the backend in use will be determined later on.</p>
+innovative <a href="../building-blocks/autodiff.html">autodiff system</a>. You can also change backend during
+runtime, for instance to compute training metrics on a cpu backend while using a gpu one only to
+train the model. In our example, the backend in use will be determined later on.</p>
 </li>
 </ol>
 <p>Next, we need to instantiate the model for training.</p>

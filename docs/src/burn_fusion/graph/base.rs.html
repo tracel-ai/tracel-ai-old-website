@@ -97,12 +97,31 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#95" id="95">95</a>
 <a href="#96" id="96">96</a>
 <a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Ops;
 <span class="kw">use </span><span class="kw">super</span>::RelativeGraphConverter;
 <span class="kw">use </span><span class="kw">super</span>::TensorOpsDescription;
 <span class="kw">use </span><span class="kw">crate</span>::Optimization;
 <span class="kw">use crate</span>::{FusionBackend, HandleContainer};
-<span class="kw">use </span>std::ops::RangeBounds;
 
 <span class="doccomment">/// The computational graph containing a list of [tensor operation descriptions](TensorOpsDescription).
 </span><span class="kw">pub struct </span>Graph&lt;B: FusionBackend&gt; {
@@ -159,26 +178,47 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span><span class="kw-2">mut </span>context = <span class="self">self</span>.converter.context(handles);
         optimization.execute(<span class="kw-2">&amp;mut </span>context);
 
-        <span class="self">self</span>.cleanup_partial(<span class="number">0</span>..num_keep, handles);
+        <span class="self">self</span>.cleanup_partial(num_keep, handles);
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>execute_operations(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
-        <span class="kw">for </span>(description, ops) <span class="kw">in </span><span class="self">self</span>.global.drain(..).zip(<span class="self">self</span>.ops.drain(..)) {
+        <span class="kw">for </span>ops <span class="kw">in </span><span class="self">self</span>.ops.drain(..) {
             ops.execute(handles);
-            description.cleanup_tensor(handles);
         }
+
+        <span class="self">self</span>.cleanup_total(handles);
+    }
+
+    <span class="kw">fn </span>cleanup_total(<span class="kw-2">&amp;mut </span><span class="self">self</span>, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+        <span class="self">self</span>.global
+            .iter()
+            .flat_map(|desc| desc.nodes())
+            .for_each(|tensor| handles.free(tensor));
+        handles.free_orphans(<span class="kw-2">&amp;</span>[]);
+
+        <span class="self">self</span>.global.clear();
+        <span class="self">self</span>.ops.clear();
         <span class="self">self</span>.cleanup_relative_graph();
     }
 
-    <span class="kw">fn </span>cleanup_partial&lt;R: RangeBounds&lt;usize&gt; + Clone&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        range: R,
-        handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;,
-    ) {
-        <span class="kw">for </span>ops <span class="kw">in </span><span class="self">self</span>.global.drain(range.clone()) {
-            ops.cleanup_tensor(handles)
-        }
-        <span class="self">self</span>.ops.drain(range);
+    <span class="kw">fn </span>cleanup_partial(<span class="kw-2">&amp;mut </span><span class="self">self</span>, num_keep: usize, handles: <span class="kw-2">&amp;mut </span>HandleContainer&lt;B&gt;) {
+        <span class="self">self</span>.global[<span class="number">0</span>..num_keep]
+            .iter()
+            .flat_map(|desc| desc.nodes())
+            .for_each(|tensor| handles.free(tensor));
+
+        <span class="self">self</span>.global.drain(<span class="number">0</span>..num_keep);
+
+        handles.free_orphans(
+            <span class="kw-2">&amp;</span><span class="self">self
+                </span>.global
+                .iter()
+                .flat_map(|desc| desc.nodes())
+                .map(|tensor| <span class="kw-2">&amp;</span>tensor.id)
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;(),
+        );
+
+        <span class="self">self</span>.ops.drain(<span class="number">0</span>..num_keep);
 
         <span class="comment">// Rebuild the relative graph when partially removing the global graph.
         </span><span class="self">self</span>.cleanup_relative_graph();

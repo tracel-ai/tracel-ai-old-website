@@ -137,6 +137,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#135" id="135">135</a>
 <a href="#136" id="136">136</a>
 <a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{FusionBackend, TensorDescription, TensorId, TensorStatus};
 <span class="kw">use </span>burn_tensor::Shape;
 <span class="kw">use </span>std::{collections::HashMap, sync::Arc};
@@ -258,7 +267,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         Arc::new(id)
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>cleanup(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tensor: <span class="kw-2">&amp;</span>TensorDescription) {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>free(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tensor: <span class="kw-2">&amp;</span>TensorDescription) {
         <span class="kw">match </span>tensor.status {
             TensorStatus::ReadOnly =&gt; (),
             TensorStatus::NotInit =&gt; (),
@@ -268,10 +277,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>cleanup_orphans(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">for </span>id <span class="kw">in </span><span class="self">self</span>.handles_orphan.drain(..) {
-            <span class="self">self</span>.handles.remove(<span class="kw-2">&amp;</span>id);
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>free_orphans(<span class="kw-2">&amp;mut </span><span class="self">self</span>, remaining: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorId]) {
+        <span class="kw">let </span><span class="kw-2">mut </span>handles_orphan = Vec::new();
+
+        <span class="comment">// TODO: Optimization =&gt; Change the for loop order depending of the length of each.
+        </span><span class="kw">for </span>id <span class="kw">in </span><span class="self">self</span>.handles_orphan.drain(..) {
+            <span class="kw">if </span>remaining.contains(&amp;&amp;id) {
+                handles_orphan.push(id);
+            } <span class="kw">else </span>{
+                <span class="self">self</span>.handles.remove(<span class="kw-2">&amp;</span>id);
+            }
         }
+
+        <span class="self">self</span>.handles_orphan = handles_orphan;
     }
 }
 </code></pre></div></section></main></body></html>

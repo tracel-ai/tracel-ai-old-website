@@ -205,8 +205,8 @@ pattern, along with a <code>save</code> method.</p>
     config.save(&quot;config.json&quot;).unwrap();
 }</code></pre>
 <h2 id="good-practices"><a class="header" href="#good-practices">Good practices</a></h2>
-<p>The interest of the Config pattern is to be able to easily create instances, factoried from this
-config. In that optic, initialization methods should be implemented on the config struct.</p>
+<p>By using the Config pattern it is easy to create instances from this
+config. Therefore, initialization methods should be implemented on the config struct.</p>
 <pre><code class="language-rust  ignore">impl MyModuleConfig {
     /// Create a module with random weights.
     pub fn init(&amp;self) -&gt; MyModule {
@@ -228,7 +228,7 @@ config. In that optic, initialization methods should be implemented on the confi
     }
 }</code></pre>
 <p>Then we could add this line to the above <code>main</code>:</p>
-<pre><code class="language-rust  ignore">let my_module = config.init()</code></pre>
+<pre><code class="language-rust  ignore">let my_module = config.init();</code></pre>
 
                     </main>
 

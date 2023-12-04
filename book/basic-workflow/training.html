@@ -250,7 +250,7 @@ pub fn train&lt;B: AutodiffBackend&gt;(artifact_dir: &amp;str, config: TrainingC
     std::fs::create_dir_all(artifact_dir).ok();
     config
         .save(format!(&quot;{artifact_dir}/config.json&quot;))
-        .expect(&quot;Save without error&quot;);
+        .expect(&quot;Config should be saved successfully&quot;);
 
     B::seed(config.seed);
 
@@ -287,7 +287,7 @@ pub fn train&lt;B: AutodiffBackend&gt;(artifact_dir: &amp;str, config: TrainingC
 
     model_trained
         .save_file(format!(&quot;{artifact_dir}/model&quot;), &amp;CompactRecorder::new())
-        .expect(&quot;Failed to save trained model&quot;);
+        .expect(&quot;Trained model should be saved successfully&quot;);
 }</code></pre>
 <p>It is a good practice to use the <code>Config</code> derive to create the experiment configuration. In the
 <code>train</code> function, the first thing we are doing is making sure the <code>artifact_dir</code> exists, using the
