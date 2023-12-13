@@ -30,6 +30,10 @@ const Content = () => {
     'Diderot: Divide and Conquer',
     'https://www.diderot.one/courses/89/books/351/chapter/4547'
   )
+  const ag_news_train = biblio.addReference(
+    'Text classification on AG News in Burn',
+    'https://github.com/tracel-ai/burn/tree/main/examples/text-classification'
+  )
   const matmul_kernel = biblio.addReference(
     'How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance: a Worklog',
     'https://siboehm.com/articles/22/CUDA-MMM'
@@ -84,16 +88,16 @@ const Content = () => {
             </p>
             <h2>What's Autotune?</h2>
             <p>
-              You may recognize the word _autotune_ from the music industry,
-              where Autotune was at first a software by Antares{' '}
+              You may recognize the word <i>Autotune</i> from the music
+              industry, where Autotune was at first a software by Antares{' '}
               <Reference references={[antares.ref()]} /> that can adjust a
               singer's pitch to a precise note in real time. It had such a high
               impact that the word is now often used for any such
               pitch-correcting algorithm. If you have a shaky voice -like me-,
-              you will find autotune to be a life saver when singing. In
+              you will find Autotune to be a life saver when singing. In
               computer science, Autotune is also a correcting process happening
               at runtime. Instead of adjusting to a specific voice, it adjusts
-              to specific machine -your laptop, for instance. And instead of
+              to a specific machine -your laptop, for instance. And instead of
               fixing the pitch, it fixes the execution time.
             </p>
             <p>
@@ -109,7 +113,7 @@ const Content = () => {
               Now, how does it work? It's actually rather simple: the first time
               you encounter an autotunable operation on a specific input when
               running your model on your machine, it will actually launch the
-              operation on all kernels that are registered for autotune,
+              operation on all kernels that are registered for Autotune,
               benchmark their execution time, and keep the fastest one in a
               cache for subsequent calls to that operation in similar settings.
             </p>
@@ -118,7 +122,7 @@ const Content = () => {
               the first calls, the goal being to save as much time as possible
               in the long run. We've picked a straightforward strategy that is
               guaranteed to adapt directly to any hardware, as being portable is
-              one of our main objectives. Also, we want autotune to work with
+              one of our main objectives. Also, we want Autotune to work with
               automatic kernel fusion, which creates never seen before kernels
               just-in-time for highly specialized task. Tuning by hand is just
               not possible in this dynamic context.
@@ -127,10 +131,10 @@ const Content = () => {
             <p>
               In a previous blogpost{' '}
               <Reference references={[burn_compute_blog.ref()]} />, I presented
-              Burn-Compute's architecture and I mentioned that autotune was part
-              of it. As Burn-Compute is a reusable basis for all of our in-house
-              backend, it means that autotune will by default be part of our
-              future backends. At the moment, we use it only on our WGPU
+              Burn-Compute's architecture and I mentioned that Autotune was a
+              part of it. As Burn-Compute is a reusable basis for all of our
+              in-house backend, it means that Autotune will by default be part
+              of our future backends. At the moment, we use it only on our WGPU
               backend, but it will be trivial to enhance our envisaged CUDA
               backend with it.
             </p>
@@ -162,22 +166,18 @@ const Content = () => {
               backend. Here are for instance our keys for the operations we will
               look at in the next sections:
             </p>
-            <p>Reduction:</p>
             <Code
               lang="rust"
-              code={`
-pub struct ReduceAutotuneKey {
+              code={`pub struct ReduceAutotuneKey {
     reduce_dim_length: usize, // Dimension on which we reduce (closest power of 2)
     reduce_dim_stride: usize, // Stride of reduce dimension (for data locality)
     others_product: usize,    // Product of all other dimensions (closest power of 2)
 }
 `}
             />
-            <p>Matmul:</p>
             <Code
               lang="rust"
-              code={`
-pub struct MatmulAutotuneKey {
+              code={`pub struct MatmulAutotuneKey {
     round: bool,            // True when all matmul dims are multiples of tile size
     broadcast: bool,        // True when there are differences in inputs batch size
     anchored_m: usize,      // M dimension (closest power of 2)
@@ -189,39 +189,40 @@ pub struct MatmulAutotuneKey {
             />
             <p>
               Since the cache is always local in our current implementation, we
-              do not bother keeping the device information in the key.
+              do not bother keeping the device information in the key, although
+              it may be included in the future.
             </p>
             <p>
-              Of note, we do not force autotune to run all benchmarks on the
+              Of note, we do not force Autotune to run all benchmarks on the
               actual input for which we request a kernel. Rather, we choose a
               random input on some shape that is representative of the key. For
               instance, we know that the execution time of our Matmul kernels
               always scales linearly with the batch size. If we need to run
-              thousands of batches in the model, running autotune on that batch
+              thousands of batches in the model, running Autotune on that batch
               size would take way more time than actually necessary, for the
-              same information.
+              same information gain.
             </p>
             <p>
               Also, if for instance all inputs between <i>512x512</i> and
               <i>1024x1024</i> shared the same key, should we run benchmarks on
               <i>1024x1024</i> which would likely take longer, or on{' '}
-              <i>512x512</i>
-              for shorter autotune time, but at the risk of results being not
-              too reliable at the higher end of the interval? We believe a
-              representant, such as the median size <i>768x768</i> would be a
-              great choice. We haven't yet explored the idea of a median
-              representant yet in Burn, but it would certainly be interesting to
-              measure how much more precise autotune would become.
+              <i>512x512</i> for shorter Autotune time, but at the risk of
+              results being not too reliable at the higher end of the interval?
+              We believe a representant, such as the median size <i>768x768</i>{' '}
+              would be a great choice. We haven't yet explored the idea of a
+              median representant yet in Burn, but it would certainly be
+              interesting to measure how much more precise Autotune would
+              become.
             </p>
             <h2>Tensor Operations on GPU</h2>
             <p>
-              Remember how I argumented that autotune was a necessity: tensor
+              Remember how I argumented that Autotune was a necessity: tensor
               operation kernels, in particular GPU ones, have execution speeds
               which highly depend on the system in use and input tensor shapes.
               In my personal experience, I find the impact of the tensor shape
               to be understandable, but the impact of the device less
               predictable -that's why I'm so happy to leave it in the hands of
-              autotune.
+              Autotune.
             </p>
             <p>
               Using Reduction and Matmul as examples, we will see how GPU
@@ -243,27 +244,26 @@ pub struct MatmulAutotuneKey {
               of <i>invocations</i>.
             </p>
             <img
-              class="w-half my-6 border-2 bg-white rounded"
+              class="w-half center my-6 border-2 bg-white rounded"
               src="/autotune/grid.svg"
             />
             <p>
               The grid is an arbitrarily long collection of workgroups.
               Typically, if a tensor has <i>n</i> elements and one workgroup is
               able to process <i>m</i> of them, then the grid consists of{' '}
-              <i>n/m</i>
-              workgroups. The grid's role is to ensure that the whole
+              <i>n/m</i> workgroups. The grid's role is to ensure that the whole
               computation is carried, despite the fact that workgroups have
               limited sizes. The grid does not guarantee any order nor
               parallelism between workgroup computations, therefore we must
               consider all workgroups to work in silos.
             </p>
             <p>
-              It's _within_ a workgroup that things get interesting. A workgroup
-              is a fixed-size collection of invocations, which are essentially
-              threads (in Burn we often launch 1024 invocations per workgroup).
-              These threads all work at the same time on the GPU and can share
-              data through a shared memory which leverages the GPU cache. They
-              can also be synchronized with a barrier if needed.
+              It's <i>within</i> a workgroup that things get interesting. A
+              workgroup is a fixed-size collection of invocations, which are
+              essentially threads (in Burn we often launch 1024 invocations per
+              workgroup). These threads all work at the same time on the GPU and
+              can share data through a shared memory which leverages the GPU
+              cache. They can also be synchronized with a barrier if needed.
             </p>
             <h3>Important Considerations of GPU Algorithm Design</h3>
             <p>
@@ -289,15 +289,17 @@ pub struct MatmulAutotuneKey {
                 fetched several times (by different threads of the same
                 workgroup), it's probably worth saving it in shared memory.
               </li>
+              <br />
               <li>
-                One must _avoid concurrency errors_, both across invocations of
-                a workgroup and across the grid, when writing results. While
-                CUDA offers atomic write primitives{' '}
+                One must <i>avoid concurrency errors</i>, both across
+                invocations of a workgroup and across the grid, when writing
+                results. While CUDA offers atomic write primitives{' '}
                 <Reference references={[nvidia_cuda.ref()]} /> which forbids two
                 threads to add to a value at the same time, Web GPU does not
-                afford us with this luxury, making it more complicated for
-                threads to collaborate on the same output cells.
+                afford us with this luxury, making it more delicate for threads
+                to collaborate on the same output cells.
               </li>
+              <br />
               <li>
                 <i>Memory coalescing</i> is something that can happen in GPUs,
                 which I personally find magical: if several threads of adjacent
@@ -308,26 +310,29 @@ pub struct MatmulAutotuneKey {
                 subtle, and it is precisely the type of aspect that can vary
                 across different devices.
               </li>
+              <br />
+
               <li>
                 Somewhat related to that is the concept of{' '}
                 <i>branch divergence</i>, which must be minimized. Branch
                 divergence occurs when threads within a workgroup do not take
-                the same path in the code, usually because of an _if_ statement.
-                The best example I can give is the one I mentioned earlier when
-                I said a kernel can be very good on <i>512x512</i> shapes but
-                poor on <i>512x511</i>. Suppose we have 64 threads working in
-                parallel. If they operate in the middle of the matrix, there is
-                no issue. However, when positioned on the edge, in the rounded
-                case, the 64 threads will operate on indices 448 to 511, whereas
-                in the truncated shape, they should cover indices 448 to 510 (a
-                total of 63 values). The 64th thread can either: do a
-                computation anyway on the data that follows, which will very
-                likely lead to corrupted data, or go through an if to <i>not</i>{' '}
-                do the computations like the others. This typically breaks all
-                hopes for good vectorization within that workgroup, and threads
-                have to wait for each other to be synchronized again. This is
-                why it may be best to pad the 511 elements row with a zero to
-                reach a round number and avoid the need for if statements.
+                the same path in the code, usually because of an <code>if</code>{' '}
+                statement. The best example I can give is the one I mentioned
+                earlier when I said a kernel can be very good on <i>512x512</i>{' '}
+                shapes but poor on <i>512x511</i>. Suppose we have 64 threads
+                working in parallel. If they operate in the middle of the
+                matrix, there is no issue. However, when positioned on the edge,
+                in the rounded case, the 64 threads will operate on indices 448
+                to 511, whereas in the truncated shape, they should cover
+                indices 448 to 510 (a total of 63 values). The 64th thread can
+                either: do a computation anyway on the data that follows, which
+                will very likely lead to corrupted data, or go through an if to{' '}
+                <i>not</i> do the computation like the others. This typically
+                breaks all hopes for good memory coalescing within that
+                workgroup, and threads have to wait for each other to be
+                synchronized again. This is why it may (or may not) be best to
+                pad the 511 elements row with a zero to reach a round number and
+                avoid the need for <code>if</code> statements.
               </li>
             </ul>
             <h2>Reduction</h2>
@@ -347,26 +352,30 @@ pub struct MatmulAutotuneKey {
               going for instance from a <i>MxKxN</i> tensor to a <i>1xKxN</i>{' '}
               one when the reduce dimension is 0. In that case, we reduce M
               values together, KxN times. We will call the M values that must be
-              reduced together a <i>reduce column</i>.
+              reduced together a <i>reduce column</i>. In the figure below, the
+              green block is the ouptputted <i>KxN</i> tensor, and the purple
+              block is one of the reduce columns and consists of M elements. For
+              visualization I've included only one reduce column, but there are
+              in fact one for each element of the output tensor.
             </p>
             <img
               class="w-half my-6 border-2 bg-white rounded"
               src="/autotune/reduce_explained.svg"
             />
             <p>
-              What is important here is that in the 0th dimension, the M values
-              of a reduce column fundamentally need to interact together.
+              What is important here is that in the 0th dimension, the <i>M</i>{' '}
+              values of a reduce column fundamentally need to interact together.
               Therefore, those values cannot be spread across different
               workgroups, since they would not be able to share information. On
-              the other hand, each of the KxN reduce columns can be treated
-              totally independantly from one another.
+              the other hand, each of the <i>KxN</i> reduce columns can be
+              treated totally independantly from one another.
             </p>
             <h3>One Invocation per Reduce Column</h3>
             <p>
               Our first reduce kernel always gives the responsibility of
-              computing a whole reduce column to only one _invocation_, which
-              only executes a for loop on the whole reduce column. This may be a
-              lot of computing for one thread when M is large, but this
+              computing a whole reduce column to only one <i>invocation</i>,
+              which only executes a for loop on the whole reduce column. This
+              may be a lot of computing for one thread when M is large, but this
               maximizes parallelization across the threads, who can all work in
               a well-vectorized way. Also, there is no risk of concurrency error
               as each output value is managed by only one thread.
@@ -375,12 +384,17 @@ pub struct MatmulAutotuneKey {
               class="w-half my-6 border-2 bg-white rounded"
               src="/autotune/reduce_invocation.svg"
             />
+            <p>
+              In the above, workgroups are separated by solid lines and
+              invocations by dashed lines.
+            </p>
             <h3>One Workgroup per Reduce Column</h3>
             <p>
               Our second reduce kernel rather gives the responsability of a
               reduce column to one <i>workgroup</i>. For large M, threads can
               work together through the shared memory to compute one reduce
-              column much more quickly.
+              column much more quickly. Again, in the figure below, workgroups
+              are separated by solid lines and invocations by dashed lines.
             </p>
             <img
               class="w-half my-6 border-2 bg-white rounded"
@@ -401,15 +415,48 @@ pub struct MatmulAutotuneKey {
               </li>
             </ul>
             <h3>Autotuning Reduction</h3>
-            <p>Let's see what autotune says about it:</p>
-            <p>TODO</p>
+            <p>
+              Let's see what Autotune says about it. The following are from the
+              Autotune logs during the training of a transformer, more precisely
+              the Burn repository text classification example{' '}
+              <Reference references={[ag_news_train.ref()]} />. In both
+              examples, the first line is the Autotune key, the following two
+              give the median computation time over a few executions, and the
+              last line gives the selected, fastest kernel.
+            </p>
+            <Code
+              lang=""
+              code={`Reduce - reduce_dim_length: 256 others_product: 4
+OneColumnPerInvocationReduce<f32, 3> => 1.37ms
+OneColumnPerWorkgroupReduce<f32, 3> => 1.34ms
+Fastest: OneColumnPerWorkgroupReduce<f32, 3>`}
+            />
+            <Code
+              lang=""
+              code={`Reduce - reduce_dim_length: 32 others_product: 65536
+OneColumnPerInvocationReduce<f32, 3> => 1.36ms
+OneColumnPerWorkgroupReduce<f32, 3> => 19.01ms
+Fastest: OneColumnPerInvocationReduce<f32, 3>
+`}
+            />
+            <p>
+              In the first example, the reduce dimension is much larger than the
+              product of all others, therefore it makes sense to use one
+              workgroup on each column. The difference in time is not impressive
+              here, but the gain could be massive on a larger reduce dimension.
+              In the second example, assigning one column per workgroup would
+              mean creating tens of thousands of workgroups, each with two many
+              threads, and is therefore very slow in comparison to creating
+              65536 threads who work independantly.
+            </p>
 
             <h2>Matmul</h2>
             <p>
-              The point here is not to explain matrix multiplication in detail
-              but to understand its complexity with regards to its inputs. On
-              2-dimensional input tensors (which are simply matrices), the
-              result of a matrix A of size <i>MxN</i> times a matrix B of size
+              Let's move on to our second operation. The point here is not to
+              explain matrix multiplication in detail but to understand its
+              complexity with regards to its inputs. On 2-dimensional input
+              tensors (which are simply matrices), the result of a matrix A of
+              size <i>MxN</i> times a matrix B of size
               <i>KxN</i> is an <i>MxN</i> output matrix C. In C, all values are
               the sum of K multiplications of an element of A with an element of
               B. On N-dimensional tensors, all other dimensions than the last
@@ -417,14 +464,10 @@ pub struct MatmulAutotuneKey {
               unrelated instances of the kernel. For that reason, we will assume
               2-dimensional tensors in the following explanations.
             </p>
-            <img
-              class="w-half my-6 border-2 bg-white rounded"
-              src="/autotune/matmul.svg"
-            />
             <p>
               The computation of one output element depends on many elements of
-              the inputs, making it impossible to make several threads work on a
-              single output element without just repeating work. For that
+              the inputs. This makes it impossible to make several threads work
+              on a single output element without just repeating work. For that
               reason, all our kernels have each thread responsible of one output
               element (contrarily to our second reduce kernel).
             </p>
@@ -433,19 +476,19 @@ pub struct MatmulAutotuneKey {
               with one element of B) are uniquely used - we cannot hope to reuse
               intermediate computation results several times. Therefore the
               algorithm must necessarily take at least{' '}
-              <i>(size of C)xK =MxNxK</i>
-              computation steps.
+              <i>(size of C)xK = MxNxK</i> computation steps.
             </p>
             <h2>Naive Approach (with Memory Coalescing)</h2>
             <p>
               The naive approach simply consists in launching one invocation per
               output element. Then, each thread iteratively reads values from a
-              row of A and from a column of B. The secret ingredient of this
-              kernel is memory coalescing. Conceptually, if threads of the same
-              workgroup with ids 0, 1, 2 and 3 read from memory cells i, i+1,
-              i+2, i+3 at the same time, these read operations can be done all
-              at once. Repeat this pattern everywhere and you get a pretty
-              efficient kernel, considering its simplicity.
+              row of A and from a column of B like in the figure above. The
+              secret ingredient of this kernel is memory coalescing.
+              Conceptually, if threads of the same workgroup with ids 0, 1, 2
+              and 3 read from memory cells i, i+1, i+2, i+3 at the same time,
+              these read operations can be done all at once. Repeat this pattern
+              everywhere and you get a pretty efficient kernel, considering its
+              simplicity.
             </p>
             <p>
               However, this approach does not use the GPU cache intelligently.
@@ -462,14 +505,14 @@ pub struct MatmulAutotuneKey {
             <p>
               In the tiling 2D kernel, we divide both input matrices into
               fixed-size tiles, and we also prepare one tile-size shared memory
-              per input. Working in synchronization with other invocations from
-              its workgroup, a thread first contributes to fill the shared
-              memory with the current input tile, then achieves all the partial
-              computations needed for the output element it is responsible of,
-              helping itself to values in the shared memory that have been
-              loaded by his sibling threads. Then the process is repeated for
-              all the tiles along the inner product dimension, to complete the
-              computation of the output value.
+              per input matrix. Working in synchronization with other
+              invocations from its workgroup, a thread first contributes to fill
+              the shared memory with the current input tile, then achieves all
+              the partial computations needed for the output element it is
+              responsible of, helping itself to values in the shared memory that
+              have been loaded by his sibling threads. Then the process is
+              repeated for all the tiles along the inner product dimension, to
+              complete the computation of the output value.
             </p>
             <p>
               I'm leaving out a lot of details as this gets very technical; more
@@ -520,9 +563,44 @@ pub struct MatmulAutotuneKey {
             <h3>Autotuning Matmul</h3>
             <p>
               Now let's see what benchmarks have to say about which kernel is
-              the best.
+              the best. While running the text classification training, I
+              selected three examples from the autotune log. Again, the first
+              line is the key and the last one is the winning kernel.
             </p>
-            <p>TODO</p>
+            <Code
+              lang=""
+              code={`Matmul - Round:false Broadcast:false m:1024 k:256 n:256 batch:32
+NaiveMemoryCoalescingMatmul<f32, 3> => 12.58ms
+PaddedTiling2DMatmul<f32, 3> => 6.29ms
+UnpaddedTiling2DMatmul<f32, 3> => 3.93ms
+Fastest: UnpaddedTiling2DMatmul<f32, 3>`}
+            />
+            <Code
+              lang=""
+              code={`Matmul - Round:true Broadcast:true m:256 k:1024 n:4 batch:32
+NaiveMemoryCoalescingMatmul<f32, 3> => 21.59ms
+PaddedTiling2DMatmul<f32, 3> => 5.04ms
+UnpaddedTiling2DMatmul<f32, 3> => 5.16ms
+Fastest: PaddedTiling2Dmatmul<f32, 3>`}
+            />
+            <Code
+              lang=""
+              code={`Matmul - Round:false Broadcast:false m:256 k:128 n:4 batch:32
+NaiveMemoryCoalescingMatmul<f32, 3> => 1.34ms
+PaddedTiling2DMatmul<f32, 3> => 1.43ms
+UnpaddedTiling2DMatmul<f32, 3> => 1.35ms
+Fastest: NaiveMemoryCoalescingMatmul<f32, 3>`}
+            />
+            <p>
+              In the first example, the unpadded tiling version wins by a large
+              margin. This is actually a common behaviour on my computer. For
+              the padded version to win, it helps if the matrix is round, like
+              in example 2. Still, it is won by a small margin. Finally, the
+              third example shows the naive version winning, which typically
+              happens on smaller inputs, a sign that the tiling algorithm
+              overhead can be overkill.
+            </p>
+
             <h2>Conclusion</h2>
             <p>
               In theory, it would be feasible to design an algorithm that
@@ -548,8 +626,9 @@ pub struct MatmulAutotuneKey {
               One may worry about the induced overhead of running all kernels at
               the beginning. For applications where cold start is crucial, for
               instance in cloud applications where new instances spawn very
-              often on the same machine to do similar jobs, our autotune
-              mechanism will rely on cached, pre-computed benchmarks.
+              often on the same machine to do similar jobs, our Autotune
+              mechanism will rely on cached, pre-computed benchmarks. That way,
+              using Autotune ensures peak performance in all settings.
             </p>
             <h2>References</h2>
             {biblio.generate()}
