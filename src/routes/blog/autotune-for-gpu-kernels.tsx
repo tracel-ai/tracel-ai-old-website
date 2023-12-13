@@ -2,7 +2,7 @@ import Blog from '@components/blog'
 import Stars from '@components/stars'
 import { Table } from '@components/blog/table'
 import { Reference, Biblio } from '@components/blog/reference'
-import { autotuningGpuKernelsBurn } from 'src/content/blogs'
+import { autotuneForGpuKernels } from 'src/content/blogs'
 import Layout from 'src/layout/page'
 import { Code } from '@components/code'
 
@@ -42,7 +42,7 @@ const Content = () => {
     <Layout>
       <Stars numStars={15} bot={30} />
       <Blog
-        props={autotuningGpuKernelsBurn}
+        props={autotuneForGpuKernels}
         children={
           <div>
             <h2>Introduction</h2>
