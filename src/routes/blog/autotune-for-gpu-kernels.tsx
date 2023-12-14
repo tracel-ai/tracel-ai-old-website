@@ -561,9 +561,10 @@ Fastest: OneColumnPerInvocationReduce<f32, 3>
             <h3>Autotuning Matmul</h3>
             <p>
               Now let's see what benchmarks have to say about which kernel is
-              the best. While running the text classification training, I
-              selected three examples from the autotune log. Again, the first
-              line is the key and the last one is the winning kernel.
+              the best. While running the text classification training of Burn{' '}
+              <Reference references={[ag_news_train.ref()]} />, I selected three
+              examples from the autotune log. Again, the first line is the key
+              and the last one is the winning kernel.
             </p>
             <Code
               lang=""
