@@ -244,7 +244,7 @@ const Content = () => {
               of <i>invocations</i>.
             </p>
             <img
-              class="w-half center my-6 border-2 bg-white rounded"
+              class="w-half my-6 border-2 bg-white rounded"
               src="/autotune/grid.svg"
             />
             <p>
@@ -416,24 +416,22 @@ const Content = () => {
             </ul>
             <h3>Autotuning Reduction</h3>
             <p>
-              Let's see what Autotune says about it. The following are from the
-              Autotune logs during the training of a transformer, more precisely
-              the Burn repository text classification example{' '}
-              <Reference references={[ag_news_train.ref()]} />. In both
+              Let's see what Autotune says about it. The following benchmarks
+              consider two very different scenarios of reduction. In both
               examples, the first line is the Autotune key, the following two
               give the median computation time over a few executions, and the
               last line gives the selected, fastest kernel.
             </p>
             <Code
               lang=""
-              code={`Reduce - reduce_dim_length: 256 others_product: 4
-OneColumnPerInvocationReduce<f32, 3> => 1.37ms
-OneColumnPerWorkgroupReduce<f32, 3> => 1.34ms
+              code={`Reduce - reduce_dim_length: 2048 reduce_dim_stride: 1024 others_product: 1024
+OneColumnPerInvocationReduce<f32, 3> => 8.98ms
+OneColumnPerWorkgroupReduce<f32, 3> => 3.88ms
 Fastest: OneColumnPerWorkgroupReduce<f32, 3>`}
             />
             <Code
               lang=""
-              code={`Reduce - reduce_dim_length: 32 others_product: 65536
+              code={`Reduce - reduce_dim_length: 32 reduce_dim_stride: 1 others_product: 65536
 OneColumnPerInvocationReduce<f32, 3> => 1.36ms
 OneColumnPerWorkgroupReduce<f32, 3> => 19.01ms
 Fastest: OneColumnPerInvocationReduce<f32, 3>
@@ -442,11 +440,11 @@ Fastest: OneColumnPerInvocationReduce<f32, 3>
             <p>
               In the first example, the reduce dimension is much larger than the
               product of all others, therefore it makes sense to use one
-              workgroup on each column. The difference in time is not impressive
-              here, but the gain could be massive on a larger reduce dimension.
-              In the second example, assigning one column per workgroup would
-              mean creating tens of thousands of workgroups, each with two many
-              threads, and is therefore very slow in comparison to creating
+              workgroup on each column. The difference in time is also due to
+              the large reduce_dim_stride which forbids memory coalescing to
+              occur. In the second example, assigning one column per workgroup
+              would mean creating tens of thousands of workgroups, each with too
+              many threads, and is therefore very slow in comparison to creating
               65536 threads who work independantly.
             </p>
 
