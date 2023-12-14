@@ -243,10 +243,12 @@ const Content = () => {
               collection of <i>workgroups</i> which are themselves collections
               of <i>invocations</i>.
             </p>
-            <img
-              class="w-half my-6 border-2 bg-white rounded"
-              src="/autotune/grid.svg"
-            />
+            <div class="flex justify-center">
+              <img
+                class="w-full center my-6 border-2 bg-white rounded"
+                src="/autotune/grid.svg"
+              />
+            </div>
             <p>
               The grid is an arbitrarily long collection of workgroups.
               Typically, if a tensor has <i>n</i> elements and one workgroup is
@@ -358,10 +360,12 @@ const Content = () => {
               visualization I've included only one reduce column, but there are
               in fact one for each element of the output tensor.
             </p>
-            <img
-              class="w-half my-6 border-2 bg-white rounded"
-              src="/autotune/reduce_explained.svg"
-            />
+            <div class="flex justify-center">
+              <img
+                class="w-96 my-6 border-2 bg-white rounded"
+                src="/autotune/reduce_explained.svg"
+              />
+            </div>
             <p>
               What is important here is that in the 0th dimension, the <i>M</i>{' '}
               values of a reduce column fundamentally need to interact together.
@@ -380,10 +384,12 @@ const Content = () => {
               a well-vectorized way. Also, there is no risk of concurrency error
               as each output value is managed by only one thread.
             </p>
-            <img
-              class="w-half my-6 border-2 bg-white rounded"
-              src="/autotune/reduce_invocation.svg"
-            />
+            <div class="flex justify-center">
+              <img
+                class="w-96 my-6 border-2 bg-white rounded"
+                src="/autotune/reduce_invocation.svg"
+              />
+            </div>
             <p>
               In the above, workgroups are separated by solid lines and
               invocations by dashed lines.
@@ -396,10 +402,12 @@ const Content = () => {
               column much more quickly. Again, in the figure below, workgroups
               are separated by solid lines and invocations by dashed lines.
             </p>
-            <img
-              class="w-half my-6 border-2 bg-white rounded"
-              src="/autotune/reduce_workgroup.svg"
-            />
+            <div class="flex justify-center">
+              <img
+                class="w-96 my-6 border-2 bg-white rounded"
+                src="/autotune/reduce_workgroup.svg"
+              />
+            </div>
             <p>There are however two caveats:</p>
             <ul class="list-disc px-8 text-xl pb-8">
               <li>
@@ -480,7 +488,7 @@ Fastest: OneColumnPerInvocationReduce<f32, 3>
             <p>
               The naive approach simply consists in launching one invocation per
               output element. Then, each thread iteratively reads values from a
-              row of A and from a column of B like in the figure above. The
+              row of A and from a column of B like in the figure below. The
               secret ingredient of this kernel is memory coalescing.
               Conceptually, if threads of the same workgroup with ids 0, 1, 2
               and 3 read from memory cells i, i+1, i+2, i+3 at the same time,
@@ -488,6 +496,13 @@ Fastest: OneColumnPerInvocationReduce<f32, 3>
               everywhere and you get a pretty efficient kernel, considering its
               simplicity.
             </p>
+            <div class="flex justify-center">
+              <img
+                class="w-96 my-6 border-2 bg-white rounded"
+                src="/autotune/matmul.svg"
+              />
+            </div>
+
             <p>
               However, this approach does not use the GPU cache intelligently.
             </p>
@@ -543,10 +558,12 @@ Fastest: OneColumnPerInvocationReduce<f32, 3>
               keeping contiguousness. Then, after the Matmul, the shifting must
               be undone to retrieve the original output shape.
             </p>
-            <img
-              class="w-half my-6 border-2 bg-white rounded"
-              src="/autotune/offset.svg"
-            />
+            <div class="flex justify-center">
+              <img
+                class="w-full my-6 border-2 bg-white rounded"
+                src="/autotune/offset.svg"
+              />
+            </div>
             <p>
               Couldn't we just prevent threads that are out of bound to do any
               computation, using an <code>if</code> statement? In a GPU kernel,
