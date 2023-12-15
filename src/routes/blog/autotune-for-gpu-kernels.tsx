@@ -216,7 +216,7 @@ const Content = () => {
             </p>
             <h2>Tensor Operations on GPU</h2>
             <p>
-              Remember how I argumented that Autotune was a necessity: tensor
+              Remember how I argued that Autotune was a necessity: tensor
               operation kernels, in particular GPU ones, have execution speeds
               which highly depend on the system in use and input tensor shapes.
               In my personal experience, I find the impact of the tensor shape
