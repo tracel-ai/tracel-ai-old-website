@@ -1,231 +1,231 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Int Tensor API for basic and numeric operations, see tensor for documentation on each function."><title>IntTensorOps in burn_tensor::ops - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../burn_tensor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../../burn_tensor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">IntTensorOps</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.int_abs">int_abs</a></li><li><a href="#tymethod.int_add">int_add</a></li><li><a href="#tymethod.int_add_scalar">int_add_scalar</a></li><li><a href="#tymethod.int_argmax">int_argmax</a></li><li><a href="#tymethod.int_argmin">int_argmin</a></li><li><a href="#tymethod.int_cat">int_cat</a></li><li><a href="#tymethod.int_device">int_device</a></li><li><a href="#tymethod.int_div">int_div</a></li><li><a href="#tymethod.int_div_scalar">int_div_scalar</a></li><li><a href="#tymethod.int_empty">int_empty</a></li><li><a href="#tymethod.int_equal">int_equal</a></li><li><a href="#tymethod.int_equal_elem">int_equal_elem</a></li><li><a href="#tymethod.int_from_data">int_from_data</a></li><li><a href="#tymethod.int_gather">int_gather</a></li><li><a href="#tymethod.int_greater">int_greater</a></li><li><a href="#tymethod.int_greater_elem">int_greater_elem</a></li><li><a href="#tymethod.int_greater_equal">int_greater_equal</a></li><li><a href="#tymethod.int_greater_equal_elem">int_greater_equal_elem</a></li><li><a href="#tymethod.int_into_data">int_into_data</a></li><li><a href="#tymethod.int_into_float">int_into_float</a></li><li><a href="#tymethod.int_lower">int_lower</a></li><li><a href="#tymethod.int_lower_elem">int_lower_elem</a></li><li><a href="#tymethod.int_lower_equal">int_lower_equal</a></li><li><a href="#tymethod.int_lower_equal_elem">int_lower_equal_elem</a></li><li><a href="#tymethod.int_mask_fill">int_mask_fill</a></li><li><a href="#tymethod.int_mask_where">int_mask_where</a></li><li><a href="#tymethod.int_mean_dim">int_mean_dim</a></li><li><a href="#tymethod.int_mul">int_mul</a></li><li><a href="#tymethod.int_mul_scalar">int_mul_scalar</a></li><li><a href="#tymethod.int_ones">int_ones</a></li><li><a href="#tymethod.int_reshape">int_reshape</a></li><li><a href="#tymethod.int_scatter">int_scatter</a></li><li><a href="#tymethod.int_select">int_select</a></li><li><a href="#tymethod.int_select_assign">int_select_assign</a></li><li><a href="#tymethod.int_shape">int_shape</a></li><li><a href="#tymethod.int_slice">int_slice</a></li><li><a href="#tymethod.int_slice_assign">int_slice_assign</a></li><li><a href="#tymethod.int_sub">int_sub</a></li><li><a href="#tymethod.int_sub_scalar">int_sub_scalar</a></li><li><a href="#tymethod.int_sum">int_sum</a></li><li><a href="#tymethod.int_sum_dim">int_sum_dim</a></li><li><a href="#tymethod.int_swap_dims">int_swap_dims</a></li><li><a href="#tymethod.int_to_device">int_to_device</a></li><li><a href="#tymethod.int_zeros">int_zeros</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.int_clamp">int_clamp</a></li><li><a href="#method.int_clamp_max">int_clamp_max</a></li><li><a href="#method.int_clamp_min">int_clamp_min</a></li><li><a href="#method.int_full">int_full</a></li><li><a href="#method.int_max">int_max</a></li><li><a href="#method.int_max_dim">int_max_dim</a></li><li><a href="#method.int_max_dim_with_indices">int_max_dim_with_indices</a></li><li><a href="#method.int_mean">int_mean</a></li><li><a href="#method.int_min">int_min</a></li><li><a href="#method.int_min_dim">int_min_dim</a></li><li><a href="#method.int_min_dim_with_indices">int_min_dim_with_indices</a></li><li><a href="#method.int_neg">int_neg</a></li><li><a href="#method.int_repeat">int_repeat</a></li><li><a href="#method.int_to_data">int_to_data</a></li><li><a href="#method.int_transpose">int_transpose</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In burn_tensor::ops</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../index.html">burn_tensor</a>::<wbr><a href="index.html">ops</a>::<wbr><a class="trait" href="#">IntTensorOps</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#9-853">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait IntTensorOps&lt;B: <a class="trait" href="../backend/trait.Backend.html" title="trait burn_tensor::backend::Backend">Backend</a>&gt; {
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../burn_tensor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../../burn_tensor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">IntTensorOps</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.int_abs">int_abs</a></li><li><a href="#tymethod.int_add">int_add</a></li><li><a href="#tymethod.int_add_scalar">int_add_scalar</a></li><li><a href="#tymethod.int_argmax">int_argmax</a></li><li><a href="#tymethod.int_argmin">int_argmin</a></li><li><a href="#tymethod.int_cat">int_cat</a></li><li><a href="#tymethod.int_device">int_device</a></li><li><a href="#tymethod.int_div">int_div</a></li><li><a href="#tymethod.int_div_scalar">int_div_scalar</a></li><li><a href="#tymethod.int_empty">int_empty</a></li><li><a href="#tymethod.int_equal">int_equal</a></li><li><a href="#tymethod.int_equal_elem">int_equal_elem</a></li><li><a href="#tymethod.int_from_data">int_from_data</a></li><li><a href="#tymethod.int_gather">int_gather</a></li><li><a href="#tymethod.int_greater">int_greater</a></li><li><a href="#tymethod.int_greater_elem">int_greater_elem</a></li><li><a href="#tymethod.int_greater_equal">int_greater_equal</a></li><li><a href="#tymethod.int_greater_equal_elem">int_greater_equal_elem</a></li><li><a href="#tymethod.int_into_data">int_into_data</a></li><li><a href="#tymethod.int_into_float">int_into_float</a></li><li><a href="#tymethod.int_lower">int_lower</a></li><li><a href="#tymethod.int_lower_elem">int_lower_elem</a></li><li><a href="#tymethod.int_lower_equal">int_lower_equal</a></li><li><a href="#tymethod.int_lower_equal_elem">int_lower_equal_elem</a></li><li><a href="#tymethod.int_mask_fill">int_mask_fill</a></li><li><a href="#tymethod.int_mask_where">int_mask_where</a></li><li><a href="#tymethod.int_mean_dim">int_mean_dim</a></li><li><a href="#tymethod.int_mul">int_mul</a></li><li><a href="#tymethod.int_mul_scalar">int_mul_scalar</a></li><li><a href="#tymethod.int_ones">int_ones</a></li><li><a href="#tymethod.int_reshape">int_reshape</a></li><li><a href="#tymethod.int_scatter">int_scatter</a></li><li><a href="#tymethod.int_select">int_select</a></li><li><a href="#tymethod.int_select_assign">int_select_assign</a></li><li><a href="#tymethod.int_shape">int_shape</a></li><li><a href="#tymethod.int_slice">int_slice</a></li><li><a href="#tymethod.int_slice_assign">int_slice_assign</a></li><li><a href="#tymethod.int_sub">int_sub</a></li><li><a href="#tymethod.int_sub_scalar">int_sub_scalar</a></li><li><a href="#tymethod.int_sum">int_sum</a></li><li><a href="#tymethod.int_sum_dim">int_sum_dim</a></li><li><a href="#tymethod.int_swap_dims">int_swap_dims</a></li><li><a href="#tymethod.int_to_device">int_to_device</a></li><li><a href="#tymethod.int_zeros">int_zeros</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.int_clamp">int_clamp</a></li><li><a href="#method.int_clamp_max">int_clamp_max</a></li><li><a href="#method.int_clamp_min">int_clamp_min</a></li><li><a href="#method.int_full">int_full</a></li><li><a href="#method.int_max">int_max</a></li><li><a href="#method.int_max_dim">int_max_dim</a></li><li><a href="#method.int_max_dim_with_indices">int_max_dim_with_indices</a></li><li><a href="#method.int_mean">int_mean</a></li><li><a href="#method.int_min">int_min</a></li><li><a href="#method.int_min_dim">int_min_dim</a></li><li><a href="#method.int_min_dim_with_indices">int_min_dim_with_indices</a></li><li><a href="#method.int_neg">int_neg</a></li><li><a href="#method.int_repeat">int_repeat</a></li><li><a href="#method.int_to_data">int_to_data</a></li><li><a href="#method.int_transpose">int_transpose</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In burn_tensor::ops</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../index.html">burn_tensor</a>::<wbr><a href="index.html">ops</a>::<wbr><a class="trait" href="#">IntTensorOps</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#9-853">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait IntTensorOps&lt;B: <a class="trait" href="../backend/trait.Backend.html" title="trait burn_tensor::backend::Backend">Backend</a>&gt; {
 <details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 59 methods</span></summary>    // Required methods
-    fn <a href="#tymethod.int_empty" class="fn">int_empty</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    fn <a href="#tymethod.int_empty" class="fn">int_empty</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
         device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_shape" class="fn">int_shape</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_into_data" class="fn">int_into_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_shape" class="fn">int_shape</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_into_data" class="fn">int_into_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="enum" href="../enum.Reader.html" title="enum burn_tensor::Reader">Reader</a>&lt;<a class="struct" href="../struct.Data.html" title="struct burn_tensor::Data">Data</a>&lt;<a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;, D&gt;&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_from_data" class="fn">int_from_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_from_data" class="fn">int_from_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         data: <a class="struct" href="../struct.Data.html" title="struct burn_tensor::Data">Data</a>&lt;<a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;, D&gt;,
         device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_device" class="fn">int_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_to_device" class="fn">int_to_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_device" class="fn">int_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_to_device" class="fn">int_to_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_reshape" class="fn">int_reshape</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_reshape" class="fn">int_reshape</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;,
         shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D2&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D2&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_slice" class="fn">int_slice</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_slice" class="fn">int_slice</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;,
-        indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.0/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.array.html">D2</a>]
+        indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.1/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.array.html">D2</a>]
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_slice_assign" class="fn">int_slice_assign</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_slice_assign" class="fn">int_slice_assign</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;,
-        indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.0/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.array.html">D2</a>],
+        indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.1/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.array.html">D2</a>],
         value: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_into_float" class="fn">int_into_float</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_into_float" class="fn">int_into_float</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.FloatTensor.html" title="type burn_tensor::ops::FloatTensor">FloatTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_mask_where" class="fn">int_mask_where</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_mask_where" class="fn">int_mask_where</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         mask: <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;,
         source: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_mask_fill" class="fn">int_mask_fill</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_mask_fill" class="fn">int_mask_fill</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         mask: <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;,
         value: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_gather" class="fn">int_gather</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_gather" class="fn">int_gather</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_scatter" class="fn">int_scatter</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_scatter" class="fn">int_scatter</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         value: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_select" class="fn">int_select</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_select" class="fn">int_select</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
         indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_select_assign" class="fn">int_select_assign</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_select_assign" class="fn">int_select_assign</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
         indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;,
         value: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_cat" class="fn">int_cat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
-        tensors: <a class="struct" href="https://doc.rust-lang.org/1.74.0/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_cat" class="fn">int_cat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
+        tensors: <a class="struct" href="https://doc.rust-lang.org/1.74.1/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;&gt;,
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_equal" class="fn">int_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_equal" class="fn">int_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_equal_elem" class="fn">int_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_equal_elem" class="fn">int_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater" class="fn">int_greater</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater" class="fn">int_greater</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater_elem" class="fn">int_greater_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater_elem" class="fn">int_greater_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater_equal" class="fn">int_greater_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater_equal" class="fn">int_greater_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater_equal_elem" class="fn">int_greater_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_greater_equal_elem" class="fn">int_greater_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower" class="fn">int_lower</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower" class="fn">int_lower</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower_elem" class="fn">int_lower_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower_elem" class="fn">int_lower_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower_equal" class="fn">int_lower_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower_equal" class="fn">int_lower_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower_equal_elem" class="fn">int_lower_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_lower_equal_elem" class="fn">int_lower_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_add" class="fn">int_add</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_add" class="fn">int_add</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_add_scalar" class="fn">int_add_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_add_scalar" class="fn">int_add_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_sub" class="fn">int_sub</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_sub" class="fn">int_sub</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_sub_scalar" class="fn">int_sub_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_sub_scalar" class="fn">int_sub_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_mul" class="fn">int_mul</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_mul" class="fn">int_mul</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_mul_scalar" class="fn">int_mul_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_mul_scalar" class="fn">int_mul_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_div" class="fn">int_div</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_div" class="fn">int_div</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_div_scalar" class="fn">int_div_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_div_scalar" class="fn">int_div_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_zeros" class="fn">int_zeros</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_zeros" class="fn">int_zeros</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
         device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_ones" class="fn">int_ones</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_ones" class="fn">int_ones</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
         device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_sum" class="fn">int_sum</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_sum_dim" class="fn">int_sum_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_sum" class="fn">int_sum</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_sum_dim" class="fn">int_sum_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_mean_dim" class="fn">int_mean_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_mean_dim" class="fn">int_mean_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_argmax" class="fn">int_argmax</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_argmax" class="fn">int_argmax</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_argmin" class="fn">int_argmin</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_argmin" class="fn">int_argmin</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_abs" class="fn">int_abs</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
-<span class="item-spacer"></span>    fn <a href="#tymethod.int_swap_dims" class="fn">int_swap_dims</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_abs" class="fn">int_abs</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.int_swap_dims" class="fn">int_swap_dims</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
-        dim2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
+        dim2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;;
 
     // Provided methods
-    fn <a href="#method.int_to_data" class="fn">int_to_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+    fn <a href="#method.int_to_data" class="fn">int_to_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
     ) -&gt; <a class="enum" href="../enum.Reader.html" title="enum burn_tensor::Reader">Reader</a>&lt;<a class="struct" href="../struct.Data.html" title="struct burn_tensor::Data">Data</a>&lt;<a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;, D&gt;&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_repeat" class="fn">int_repeat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_repeat" class="fn">int_repeat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
-        times: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
+        times: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_clamp_min" class="fn">int_clamp_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_clamp_min" class="fn">int_clamp_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         min: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_clamp_max" class="fn">int_clamp_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_clamp_max" class="fn">int_clamp_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         max: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_clamp" class="fn">int_clamp</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_clamp" class="fn">int_clamp</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
         min: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;,
         max: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_neg" class="fn">int_neg</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_full" class="fn">int_full</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_neg" class="fn">int_neg</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.int_full" class="fn">int_full</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
         fill_value: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;,
         device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_mean" class="fn">int_mean</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_max" class="fn">int_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_max_dim" class="fn">int_max_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_mean" class="fn">int_mean</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.int_max" class="fn">int_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.int_max_dim" class="fn">int_max_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_max_dim_with_indices" class="fn">int_max_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_max_dim_with_indices" class="fn">int_max_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; (<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;, <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_min" class="fn">int_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_min_dim" class="fn">int_min_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_min" class="fn">int_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.int_min_dim" class="fn">int_min_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_min_dim_with_indices" class="fn">int_min_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.int_min_dim_with_indices" class="fn">int_min_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
         tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+        dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
     ) -&gt; (<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;, <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) { ... }
-<span class="item-spacer"></span>    fn <a href="#method.int_transpose" class="fn">int_transpose</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.int_transpose" class="fn">int_transpose</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt; { ... }
 </details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Int Tensor API for basic and numeric operations, see <a href="../struct.Tensor.html" title="struct burn_tensor::Tensor">tensor</a>
 for documentation on each function.</p>
-</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.int_empty" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#20">source</a><h4 class="code-header">fn <a href="#tymethod.int_empty" class="fn">int_empty</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.int_empty" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#20">source</a><h4 class="code-header">fn <a href="#tymethod.int_empty" class="fn">int_empty</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
     device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Creates a new int tensor.</p>
@@ -236,14 +236,14 @@ for documentation on each function.</p>
 </ul>
 <h5 id="returns"><a href="#returns">Returns</a></h5>
 <p>The integer tensor with the given shape.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_shape" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#31">source</a><h4 class="code-header">fn <a href="#tymethod.int_shape" class="fn">int_shape</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Returns the shape of the tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_shape" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#31">source</a><h4 class="code-header">fn <a href="#tymethod.int_shape" class="fn">int_shape</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;</h4></section></summary><div class="docblock"><p>Returns the shape of the tensor.</p>
 <h5 id="arguments-1"><a href="#arguments-1">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor.</li>
 </ul>
 <h5 id="returns-1"><a href="#returns-1">Returns</a></h5>
 <p>The shape of the tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_into_data" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#42">source</a><h4 class="code-header">fn <a href="#tymethod.int_into_data" class="fn">int_into_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_into_data" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#42">source</a><h4 class="code-header">fn <a href="#tymethod.int_into_data" class="fn">int_into_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="enum" href="../enum.Reader.html" title="enum burn_tensor::Reader">Reader</a>&lt;<a class="struct" href="../struct.Data.html" title="struct burn_tensor::Data">Data</a>&lt;<a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;, D&gt;&gt;</h4></section></summary><div class="docblock"><p>Converts the tensor to a data structure.</p>
 <h5 id="arguments-2"><a href="#arguments-2">Arguments</a></h5>
@@ -252,7 +252,7 @@ for documentation on each function.</p>
 </ul>
 <h5 id="returns-2"><a href="#returns-2">Returns</a></h5>
 <p>The data structure with the tensor’s data.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_from_data" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#67-70">source</a><h4 class="code-header">fn <a href="#tymethod.int_from_data" class="fn">int_from_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_from_data" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#67-70">source</a><h4 class="code-header">fn <a href="#tymethod.int_from_data" class="fn">int_from_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     data: <a class="struct" href="../struct.Data.html" title="struct burn_tensor::Data">Data</a>&lt;<a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;, D&gt;,
     device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Creates a tensor from the data structure.</p>
@@ -263,18 +263,18 @@ for documentation on each function.</p>
 </ul>
 <h5 id="returns-3"><a href="#returns-3">Returns</a></h5>
 <p>The tensor with the data.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_device" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#81">source</a><h4 class="code-header">fn <a href="#tymethod.int_device" class="fn">int_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;</h4></section></summary><div class="docblock"><p>Gets the device of the tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_device" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#81">source</a><h4 class="code-header">fn <a href="#tymethod.int_device" class="fn">int_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;</h4></section></summary><div class="docblock"><p>Gets the device of the tensor.</p>
 <h5 id="arguments-4"><a href="#arguments-4">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor.</li>
 </ul>
 <h5 id="returns-4"><a href="#returns-4">Returns</a></h5>
 <p>The device of the tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_to_device" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#84-87">source</a><h4 class="code-header">fn <a href="#tymethod.int_to_device" class="fn">int_to_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_to_device" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#84-87">source</a><h4 class="code-header">fn <a href="#tymethod.int_to_device" class="fn">int_to_device</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Moves the tensor to the given device.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_reshape" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#99-102">source</a><h4 class="code-header">fn <a href="#tymethod.int_reshape" class="fn">int_reshape</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_reshape" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#99-102">source</a><h4 class="code-header">fn <a href="#tymethod.int_reshape" class="fn">int_reshape</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;,
     shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D2&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D2&gt;</h4></section></summary><div class="docblock"><p>Reshapes the tensor.</p>
@@ -285,9 +285,9 @@ for documentation on each function.</p>
 </ul>
 <h5 id="returns-5"><a href="#returns-5">Returns</a></h5>
 <p>The tensor with the new shape.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_slice" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#114-117">source</a><h4 class="code-header">fn <a href="#tymethod.int_slice" class="fn">int_slice</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_slice" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#114-117">source</a><h4 class="code-header">fn <a href="#tymethod.int_slice" class="fn">int_slice</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;,
-    indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.0/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.array.html">D2</a>]
+    indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.1/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.array.html">D2</a>]
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;</h4></section></summary><div class="docblock"><p>Gets the element at the given indices.</p>
 <h5 id="arguments-6"><a href="#arguments-6">Arguments</a></h5>
 <ul>
@@ -296,9 +296,9 @@ for documentation on each function.</p>
 </ul>
 <h5 id="returns-6"><a href="#returns-6">Returns</a></h5>
 <p>The elements at the given indices.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_slice_assign" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#129-133">source</a><h4 class="code-header">fn <a href="#tymethod.int_slice_assign" class="fn">int_slice_assign</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_slice_assign" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#129-133">source</a><h4 class="code-header">fn <a href="#tymethod.int_slice_assign" class="fn">int_slice_assign</a>&lt;const D1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>, const D2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;,
-    indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.0/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.array.html">D2</a>],
+    indices: [<a class="struct" href="https://doc.rust-lang.org/1.74.1/core/ops/range/struct.Range.html" title="struct core::ops::range::Range">Range</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;; <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.array.html">D2</a>],
     value: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D1&gt;</h4></section></summary><div class="docblock"><p>Sets the element at the given indices.</p>
 <h5 id="arguments-7"><a href="#arguments-7">Arguments</a></h5>
@@ -308,14 +308,14 @@ for documentation on each function.</p>
 </ul>
 <h5 id="returns-7"><a href="#returns-7">Returns</a></h5>
 <p>The tensor with the element at the given indices set.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_into_float" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#144">source</a><h4 class="code-header">fn <a href="#tymethod.int_into_float" class="fn">int_into_float</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.FloatTensor.html" title="type burn_tensor::ops::FloatTensor">FloatTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Converts int tensor to float tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_into_float" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#144">source</a><h4 class="code-header">fn <a href="#tymethod.int_into_float" class="fn">int_into_float</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.FloatTensor.html" title="type burn_tensor::ops::FloatTensor">FloatTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Converts int tensor to float tensor.</p>
 <h5 id="arguments-8"><a href="#arguments-8">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor.</li>
 </ul>
 <h5 id="returns-8"><a href="#returns-8">Returns</a></h5>
 <p>The int tensor with the same data as the float tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mask_where" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#158-162">source</a><h4 class="code-header">fn <a href="#tymethod.int_mask_where" class="fn">int_mask_where</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mask_where" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#158-162">source</a><h4 class="code-header">fn <a href="#tymethod.int_mask_where" class="fn">int_mask_where</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     mask: <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;,
     source: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
@@ -329,7 +329,7 @@ indices.</p>
 </ul>
 <h5 id="returns-9"><a href="#returns-9">Returns</a></h5>
 <p>The tensor with the values filled.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mask_fill" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#175-179">source</a><h4 class="code-header">fn <a href="#tymethod.int_mask_fill" class="fn">int_mask_fill</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mask_fill" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#175-179">source</a><h4 class="code-header">fn <a href="#tymethod.int_mask_fill" class="fn">int_mask_fill</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     mask: <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;,
     value: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
@@ -342,8 +342,8 @@ indices.</p>
 </ul>
 <h5 id="returns-10"><a href="#returns-10">Returns</a></h5>
 <p>The tensor with the values filled.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_gather" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#188-192">source</a><h4 class="code-header">fn <a href="#tymethod.int_gather" class="fn">int_gather</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_gather" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#188-192">source</a><h4 class="code-header">fn <a href="#tymethod.int_gather" class="fn">int_gather</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Gather elements from the tensor at the given indices.</p>
@@ -353,8 +353,8 @@ indices.</p>
 <li><code>tensor</code> - The tensor.</li>
 <li><code>indices</code> - The indices.</li>
 </ul>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_scatter" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#206-211">source</a><h4 class="code-header">fn <a href="#tymethod.int_scatter" class="fn">int_scatter</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_scatter" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#206-211">source</a><h4 class="code-header">fn <a href="#tymethod.int_scatter" class="fn">int_scatter</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     value: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
@@ -368,9 +368,9 @@ indices.</p>
 </ul>
 <h5 id="returns-11"><a href="#returns-11">Returns</a></h5>
 <p>The tensor with the values scattered.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_select" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#224-228">source</a><h4 class="code-header">fn <a href="#tymethod.int_select" class="fn">int_select</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_select" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#224-228">source</a><h4 class="code-header">fn <a href="#tymethod.int_select" class="fn">int_select</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
     indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Select tensor elements along the given dimension corresponding to the given indices.</p>
 <h5 id="arguments-13"><a href="#arguments-13">Arguments</a></h5>
@@ -381,9 +381,9 @@ indices.</p>
 </ul>
 <h5 id="returns-12"><a href="#returns-12">Returns</a></h5>
 <p>The tensor with the selected elements.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_select_assign" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#243-248">source</a><h4 class="code-header">fn <a href="#tymethod.int_select_assign" class="fn">int_select_assign</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_select_assign" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#243-248">source</a><h4 class="code-header">fn <a href="#tymethod.int_select_assign" class="fn">int_select_assign</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
     indices: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;,
     value: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Assign the selected elements along the given dimension corresponding to the given indices
@@ -397,9 +397,9 @@ to the given value.</p>
 </ul>
 <h5 id="returns-13"><a href="#returns-13">Returns</a></h5>
 <p>The tensor with the selected elements assigned to the given value.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_cat" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#300">source</a><h4 class="code-header">fn <a href="#tymethod.int_cat" class="fn">int_cat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
-    tensors: <a class="struct" href="https://doc.rust-lang.org/1.74.0/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_cat" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#300">source</a><h4 class="code-header">fn <a href="#tymethod.int_cat" class="fn">int_cat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
+    tensors: <a class="struct" href="https://doc.rust-lang.org/1.74.1/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;&gt;,
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Concatenates the given tensors along the given dimension.</p>
 <h5 id="arguments-15"><a href="#arguments-15">Arguments</a></h5>
 <ul>
@@ -408,7 +408,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-14"><a href="#returns-14">Returns</a></h5>
 <p>The concatenated tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#312">source</a><h4 class="code-header">fn <a href="#tymethod.int_equal" class="fn">int_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#312">source</a><h4 class="code-header">fn <a href="#tymethod.int_equal" class="fn">int_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise equality comparison.</p>
@@ -419,7 +419,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-15"><a href="#returns-15">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#324">source</a><h4 class="code-header">fn <a href="#tymethod.int_equal_elem" class="fn">int_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#324">source</a><h4 class="code-header">fn <a href="#tymethod.int_equal_elem" class="fn">int_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise equality comparison with a scalar.</p>
@@ -430,7 +430,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-16"><a href="#returns-16">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#336">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater" class="fn">int_greater</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#336">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater" class="fn">int_greater</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise greater than comparison.</p>
@@ -441,7 +441,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-17"><a href="#returns-17">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#348">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater_elem" class="fn">int_greater_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#348">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater_elem" class="fn">int_greater_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise greater than comparison with a scalar.</p>
@@ -452,7 +452,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-18"><a href="#returns-18">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#360-363">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater_equal" class="fn">int_greater_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#360-363">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater_equal" class="fn">int_greater_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise greater than or equal comparison.</p>
@@ -463,7 +463,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-19"><a href="#returns-19">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#375-378">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater_equal_elem" class="fn">int_greater_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_greater_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#375-378">source</a><h4 class="code-header">fn <a href="#tymethod.int_greater_equal_elem" class="fn">int_greater_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise greater than or equal comparison with a scalar.</p>
@@ -474,7 +474,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-20"><a href="#returns-20">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#390">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower" class="fn">int_lower</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#390">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower" class="fn">int_lower</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise less than comparison.</p>
@@ -485,7 +485,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-21"><a href="#returns-21">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#402">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower_elem" class="fn">int_lower_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#402">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower_elem" class="fn">int_lower_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise less than comparison with a scalar.</p>
@@ -496,7 +496,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-22"><a href="#returns-22">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#414-417">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower_equal" class="fn">int_lower_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower_equal" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#414-417">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower_equal" class="fn">int_lower_equal</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise less than or equal comparison.</p>
@@ -507,7 +507,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-23"><a href="#returns-23">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#429-432">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower_equal_elem" class="fn">int_lower_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_lower_equal_elem" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#429-432">source</a><h4 class="code-header">fn <a href="#tymethod.int_lower_equal_elem" class="fn">int_lower_equal_elem</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.BoolTensor.html" title="type burn_tensor::ops::BoolTensor">BoolTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise less than or equal comparison with a scalar.</p>
@@ -518,7 +518,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-24"><a href="#returns-24">Returns</a></h5>
 <p>The boolean tensor with the result of the comparison.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_add" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#446">source</a><h4 class="code-header">fn <a href="#tymethod.int_add" class="fn">int_add</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_add" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#446">source</a><h4 class="code-header">fn <a href="#tymethod.int_add" class="fn">int_add</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise addition.</p>
@@ -529,7 +529,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-25"><a href="#returns-25">Returns</a></h5>
 <p>The result of the addition.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_add_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#458">source</a><h4 class="code-header">fn <a href="#tymethod.int_add_scalar" class="fn">int_add_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_add_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#458">source</a><h4 class="code-header">fn <a href="#tymethod.int_add_scalar" class="fn">int_add_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise addition with a scalar.</p>
@@ -540,7 +540,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-26"><a href="#returns-26">Returns</a></h5>
 <p>The result of the addition.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sub" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#519">source</a><h4 class="code-header">fn <a href="#tymethod.int_sub" class="fn">int_sub</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sub" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#519">source</a><h4 class="code-header">fn <a href="#tymethod.int_sub" class="fn">int_sub</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise subtraction.</p>
@@ -551,7 +551,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-27"><a href="#returns-27">Returns</a></h5>
 <p>The result of the subtraction.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sub_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#531">source</a><h4 class="code-header">fn <a href="#tymethod.int_sub_scalar" class="fn">int_sub_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sub_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#531">source</a><h4 class="code-header">fn <a href="#tymethod.int_sub_scalar" class="fn">int_sub_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise subtraction with a scalar.</p>
@@ -562,7 +562,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-28"><a href="#returns-28">Returns</a></h5>
 <p>The result of the subtraction.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mul" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#543">source</a><h4 class="code-header">fn <a href="#tymethod.int_mul" class="fn">int_mul</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mul" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#543">source</a><h4 class="code-header">fn <a href="#tymethod.int_mul" class="fn">int_mul</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise multiplication.</p>
@@ -573,7 +573,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-29"><a href="#returns-29">Returns</a></h5>
 <p>The result of the multiplication.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mul_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#555">source</a><h4 class="code-header">fn <a href="#tymethod.int_mul_scalar" class="fn">int_mul_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mul_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#555">source</a><h4 class="code-header">fn <a href="#tymethod.int_mul_scalar" class="fn">int_mul_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise multiplication with a scalar.</p>
@@ -584,7 +584,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-30"><a href="#returns-30">Returns</a></h5>
 <p>The result of the multiplication.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_div" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#567">source</a><h4 class="code-header">fn <a href="#tymethod.int_div" class="fn">int_div</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_div" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#567">source</a><h4 class="code-header">fn <a href="#tymethod.int_div" class="fn">int_div</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise division.</p>
@@ -595,7 +595,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-31"><a href="#returns-31">Returns</a></h5>
 <p>The result of the division.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_div_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#579">source</a><h4 class="code-header">fn <a href="#tymethod.int_div_scalar" class="fn">int_div_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_div_scalar" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#579">source</a><h4 class="code-header">fn <a href="#tymethod.int_div_scalar" class="fn">int_div_scalar</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     lhs: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     rhs: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise division with a scalar.</p>
@@ -606,7 +606,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-32"><a href="#returns-32">Returns</a></h5>
 <p>The result of the division.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_zeros" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#604">source</a><h4 class="code-header">fn <a href="#tymethod.int_zeros" class="fn">int_zeros</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_zeros" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#604">source</a><h4 class="code-header">fn <a href="#tymethod.int_zeros" class="fn">int_zeros</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
     device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Creates a tensor of zeros.</p>
@@ -617,7 +617,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-33"><a href="#returns-33">Returns</a></h5>
 <p>The tensor of zeros.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_ones" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#616">source</a><h4 class="code-header">fn <a href="#tymethod.int_ones" class="fn">int_ones</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_ones" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#616">source</a><h4 class="code-header">fn <a href="#tymethod.int_ones" class="fn">int_ones</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
     device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Creates a tensor of ones.</p>
@@ -628,16 +628,16 @@ to the given value.</p>
 </ul>
 <h5 id="returns-34"><a href="#returns-34">Returns</a></h5>
 <p>The tensor of ones.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sum" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#646">source</a><h4 class="code-header">fn <a href="#tymethod.int_sum" class="fn">int_sum</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Sums all elements in the tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sum" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#646">source</a><h4 class="code-header">fn <a href="#tymethod.int_sum" class="fn">int_sum</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Sums all elements in the tensor.</p>
 <h5 id="arguments-36"><a href="#arguments-36">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor to sum.</li>
 </ul>
 <h5 id="returns-35"><a href="#returns-35">Returns</a></h5>
 <p>The sum of all elements in the tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sum_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#658">source</a><h4 class="code-header">fn <a href="#tymethod.int_sum_dim" class="fn">int_sum_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_sum_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#658">source</a><h4 class="code-header">fn <a href="#tymethod.int_sum_dim" class="fn">int_sum_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Sums all elements in the tensor along a dimension.</p>
 <h5 id="arguments-37"><a href="#arguments-37">Arguments</a></h5>
 <ul>
@@ -646,9 +646,9 @@ to the given value.</p>
 </ul>
 <h5 id="returns-36"><a href="#returns-36">Returns</a></h5>
 <p>The sum of all elements in the tensor along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mean_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#683">source</a><h4 class="code-header">fn <a href="#tymethod.int_mean_dim" class="fn">int_mean_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_mean_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#683">source</a><h4 class="code-header">fn <a href="#tymethod.int_mean_dim" class="fn">int_mean_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Computes the mean of all elements in the tensor along a dimension.</p>
 <h5 id="arguments-38"><a href="#arguments-38">Arguments</a></h5>
 <ul>
@@ -656,9 +656,9 @@ to the given value.</p>
 </ul>
 <h5 id="returns-37"><a href="#returns-37">Returns</a></h5>
 <p>The mean of all elements in the tensor along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_argmax" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#695">source</a><h4 class="code-header">fn <a href="#tymethod.int_argmax" class="fn">int_argmax</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_argmax" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#695">source</a><h4 class="code-header">fn <a href="#tymethod.int_argmax" class="fn">int_argmax</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Gets the indices of the maximum elements along a dimension.</p>
 <h5 id="arguments-39"><a href="#arguments-39">Arguments</a></h5>
 <ul>
@@ -667,9 +667,9 @@ to the given value.</p>
 </ul>
 <h5 id="returns-38"><a href="#returns-38">Returns</a></h5>
 <p>The indices of the maximum elements along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_argmin" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#707">source</a><h4 class="code-header">fn <a href="#tymethod.int_argmin" class="fn">int_argmin</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_argmin" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#707">source</a><h4 class="code-header">fn <a href="#tymethod.int_argmin" class="fn">int_argmin</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Gets the indices of the minimum elements along a dimension.</p>
 <h5 id="arguments-40"><a href="#arguments-40">Arguments</a></h5>
 <ul>
@@ -678,17 +678,17 @@ to the given value.</p>
 </ul>
 <h5 id="returns-39"><a href="#returns-39">Returns</a></h5>
 <p>The indices of the minimum elements along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_abs" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#822">source</a><h4 class="code-header">fn <a href="#tymethod.int_abs" class="fn">int_abs</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Returns a new tensor with absolute values.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_abs" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#822">source</a><h4 class="code-header">fn <a href="#tymethod.int_abs" class="fn">int_abs</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Returns a new tensor with absolute values.</p>
 <h5 id="arguments-41"><a href="#arguments-41">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor to take absolute value of.</li>
 </ul>
 <h5 id="returns-40"><a href="#returns-40">Returns</a></h5>
 <p>A tensor with the same shape as <code>tensor</code> with absolute values.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_swap_dims" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#848-852">source</a><h4 class="code-header">fn <a href="#tymethod.int_swap_dims" class="fn">int_swap_dims</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.int_swap_dims" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#848-852">source</a><h4 class="code-header">fn <a href="#tymethod.int_swap_dims" class="fn">int_swap_dims</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim1: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
-    dim2: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim1: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
+    dim2: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Swaps two dimensions of an int tensor.</p>
 <h5 id="arguments-42"><a href="#arguments-42">Arguments</a></h5>
 <ul>
@@ -698,7 +698,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-41"><a href="#returns-41">Returns</a></h5>
 <p>The tensor with the dimensions swapped.</p>
-</div></details></div><h2 id="provided-methods" class="small-section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.int_to_data" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#53-55">source</a><h4 class="code-header">fn <a href="#method.int_to_data" class="fn">int_to_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details></div><h2 id="provided-methods" class="small-section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.int_to_data" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#53-55">source</a><h4 class="code-header">fn <a href="#method.int_to_data" class="fn">int_to_data</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: &amp;<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;
 ) -&gt; <a class="enum" href="../enum.Reader.html" title="enum burn_tensor::Reader">Reader</a>&lt;<a class="struct" href="../struct.Data.html" title="struct burn_tensor::Data">Data</a>&lt;<a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;, D&gt;&gt;</h4></section></summary><div class="docblock"><p>Gets the data from the tensor.</p>
 <h5 id="arguments-43"><a href="#arguments-43">Arguments</a></h5>
@@ -707,10 +707,10 @@ to the given value.</p>
 </ul>
 <h5 id="returns-42"><a href="#returns-42">Returns</a></h5>
 <p>The data cloned from the data structure.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_repeat" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#261-288">source</a><h4 class="code-header">fn <a href="#method.int_repeat" class="fn">int_repeat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_repeat" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#261-288">source</a><h4 class="code-header">fn <a href="#method.int_repeat" class="fn">int_repeat</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>,
-    times: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>,
+    times: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Repeats the tensor along the given dimension the given number of times.</p>
 <h5 id="arguments-44"><a href="#arguments-44">Arguments</a></h5>
 <ul>
@@ -720,7 +720,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-43"><a href="#returns-43">Returns</a></h5>
 <p>The tensor with the given dimension repeated the given number of times.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_clamp_min" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#470-473">source</a><h4 class="code-header">fn <a href="#method.int_clamp_min" class="fn">int_clamp_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_clamp_min" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#470-473">source</a><h4 class="code-header">fn <a href="#method.int_clamp_min" class="fn">int_clamp_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     min: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Clamps a tensor under a minimum value.</p>
@@ -731,7 +731,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-44"><a href="#returns-44">Returns</a></h5>
 <p>The clamped tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_clamp_max" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#485-488">source</a><h4 class="code-header">fn <a href="#method.int_clamp_max" class="fn">int_clamp_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_clamp_max" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#485-488">source</a><h4 class="code-header">fn <a href="#method.int_clamp_max" class="fn">int_clamp_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     max: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Clamps a tensor over a maximum value.</p>
@@ -742,7 +742,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-45"><a href="#returns-45">Returns</a></h5>
 <p>The clamped tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_clamp" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#501-507">source</a><h4 class="code-header">fn <a href="#method.int_clamp" class="fn">int_clamp</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_clamp" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#501-507">source</a><h4 class="code-header">fn <a href="#method.int_clamp" class="fn">int_clamp</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
     min: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;,
     max: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;
@@ -755,14 +755,14 @@ to the given value.</p>
 </ul>
 <h5 id="returns-46"><a href="#returns-46">Returns</a></h5>
 <p>The clamped tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_neg" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#590-592">source</a><h4 class="code-header">fn <a href="#method.int_neg" class="fn">int_neg</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise negation.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_neg" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#590-592">source</a><h4 class="code-header">fn <a href="#method.int_neg" class="fn">int_neg</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Elementwise negation.</p>
 <h5 id="arguments-48"><a href="#arguments-48">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor to negate.</li>
 </ul>
 <h5 id="returns-47"><a href="#returns-47">Returns</a></h5>
 <p>The negated tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_full" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#629-635">source</a><h4 class="code-header">fn <a href="#method.int_full" class="fn">int_full</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_full" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#629-635">source</a><h4 class="code-header">fn <a href="#method.int_full" class="fn">int_full</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     shape: <a class="struct" href="../struct.Shape.html" title="struct burn_tensor::Shape">Shape</a>&lt;D&gt;,
     fill_value: <a class="type" href="type.IntElem.html" title="type burn_tensor::ops::IntElem">IntElem</a>&lt;B&gt;,
     device: &amp;<a class="type" href="type.Device.html" title="type burn_tensor::ops::Device">Device</a>&lt;B&gt;
@@ -775,23 +775,23 @@ to the given value.</p>
 </ul>
 <h5 id="returns-48"><a href="#returns-48">Returns</a></h5>
 <p>The tensor filled with given value</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_mean" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#669-672">source</a><h4 class="code-header">fn <a href="#method.int_mean" class="fn">int_mean</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Computes the mean of all elements in the tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_mean" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#669-672">source</a><h4 class="code-header">fn <a href="#method.int_mean" class="fn">int_mean</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Computes the mean of all elements in the tensor.</p>
 <h5 id="arguments-50"><a href="#arguments-50">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor to compute the mean of.</li>
 </ul>
 <h5 id="returns-49"><a href="#returns-49">Returns</a></h5>
 <p>The mean of all elements in the tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_max" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#718-723">source</a><h4 class="code-header">fn <a href="#method.int_max" class="fn">int_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Gets the maximum element in the tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_max" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#718-723">source</a><h4 class="code-header">fn <a href="#method.int_max" class="fn">int_max</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Gets the maximum element in the tensor.</p>
 <h5 id="arguments-51"><a href="#arguments-51">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor to get the maximum element of.</li>
 </ul>
 <h5 id="returns-50"><a href="#returns-50">Returns</a></h5>
 <p>The maximum element in the tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_max_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#735-739">source</a><h4 class="code-header">fn <a href="#method.int_max_dim" class="fn">int_max_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_max_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#735-739">source</a><h4 class="code-header">fn <a href="#method.int_max_dim" class="fn">int_max_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Gets the maximum element in the tensor along a dimension.</p>
 <h5 id="arguments-52"><a href="#arguments-52">Arguments</a></h5>
 <ul>
@@ -800,9 +800,9 @@ to the given value.</p>
 </ul>
 <h5 id="returns-51"><a href="#returns-51">Returns</a></h5>
 <p>The maximum element in the tensor along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_max_dim_with_indices" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#751-759">source</a><h4 class="code-header">fn <a href="#method.int_max_dim_with_indices" class="fn">int_max_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_max_dim_with_indices" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#751-759">source</a><h4 class="code-header">fn <a href="#method.int_max_dim_with_indices" class="fn">int_max_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; (<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;, <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;)</h4></section></summary><div class="docblock"><p>Gets the maximum elements and corresponding indices along a dimension.</p>
 <h5 id="arguments-53"><a href="#arguments-53">Arguments</a></h5>
 <ul>
@@ -811,16 +811,16 @@ to the given value.</p>
 </ul>
 <h5 id="returns-52"><a href="#returns-52">Returns</a></h5>
 <p>The maximum elements and corresponding indices along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_min" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#770-775">source</a><h4 class="code-header">fn <a href="#method.int_min" class="fn">int_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Gets the minimum element in the tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_min" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#770-775">source</a><h4 class="code-header">fn <a href="#method.int_min" class="fn">int_min</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, 1&gt;</h4></section></summary><div class="docblock"><p>Gets the minimum element in the tensor.</p>
 <h5 id="arguments-54"><a href="#arguments-54">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor to get the minimum element of.</li>
 </ul>
 <h5 id="returns-53"><a href="#returns-53">Returns</a></h5>
 <p>The minimum element in the tensor.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_min_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#787-791">source</a><h4 class="code-header">fn <a href="#method.int_min_dim" class="fn">int_min_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_min_dim" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#787-791">source</a><h4 class="code-header">fn <a href="#method.int_min_dim" class="fn">int_min_dim</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Gets the minimum elements in the tensor along a dimension.</p>
 <h5 id="arguments-55"><a href="#arguments-55">Arguments</a></h5>
 <ul>
@@ -829,9 +829,9 @@ to the given value.</p>
 </ul>
 <h5 id="returns-54"><a href="#returns-54">Returns</a></h5>
 <p>The minimum element in the tensor along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_min_dim_with_indices" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#803-811">source</a><h4 class="code-header">fn <a href="#method.int_min_dim_with_indices" class="fn">int_min_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_min_dim_with_indices" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#803-811">source</a><h4 class="code-header">fn <a href="#method.int_min_dim_with_indices" class="fn">int_min_dim_with_indices</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(
     tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;,
-    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>
+    dim: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>
 ) -&gt; (<a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;, <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;)</h4></section></summary><div class="docblock"><p>Gets the minimum elements and corresponding indices along a dimension.</p>
 <h5 id="arguments-56"><a href="#arguments-56">Arguments</a></h5>
 <ul>
@@ -840,7 +840,7 @@ to the given value.</p>
 </ul>
 <h5 id="returns-55"><a href="#returns-55">Returns</a></h5>
 <p>The minimum elements and corresponding indices along the dimension.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.int_transpose" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#833-835">source</a><h4 class="code-header">fn <a href="#method.int_transpose" class="fn">int_transpose</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.0/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Transposes an int tensor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.int_transpose" class="method"><a class="src rightside" href="../../src/burn_tensor/tensor/ops/int_tensor.rs.html#833-835">source</a><h4 class="code-header">fn <a href="#method.int_transpose" class="fn">int_transpose</a>&lt;const D: <a class="primitive" href="https://doc.rust-lang.org/1.74.1/std/primitive.usize.html">usize</a>&gt;(tensor: <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;) -&gt; <a class="type" href="type.IntTensor.html" title="type burn_tensor::ops::IntTensor">IntTensor</a>&lt;B, D&gt;</h4></section></summary><div class="docblock"><p>Transposes an int tensor.</p>
 <h5 id="arguments-57"><a href="#arguments-57">Arguments</a></h5>
 <ul>
 <li><code>tensor</code> - The tensor to transpose.</li>

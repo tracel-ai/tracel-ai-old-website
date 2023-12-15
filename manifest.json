@@ -8,138 +8,151 @@
     "src": "src/assets/burn.png"
   },
   "src/entry-client.css": {
-    "file": "assets/entry-client-3e7d4bd4.css",
+    "file": "assets/entry-client-512d4306.css",
     "src": "src/entry-client.css"
   },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_-6fd0071b.js",
+    "file": "assets/_...404_-a74f4987.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "_blogs-a75ac475.js": {
-    "file": "assets/blogs-a75ac475.js"
-  },
-  "_index-359f05f9.js": {
-    "file": "assets/index-359f05f9.js",
+  "_index-1ef6eb89.js": {
+    "file": "assets/index-1ef6eb89.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
   "src/routes/demo.tsx": {
-    "file": "assets/demo-30ee8882.js",
+    "file": "assets/demo-c6045576.js",
     "src": "src/routes/demo.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-3af1c2ce.js"
-    ]
-  },
-  "_page-3af1c2ce.js": {
-    "file": "assets/page-3af1c2ce.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
-    "file": "assets/burn-rusty-approach-to-tensor-handling-d31a3fcf.js",
-    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-1078b72d.js",
-      "_page-3af1c2ce.js",
-      "_index-359f05f9.js",
-      "_index-bb9e1f3e.js",
-      "_index-c292cd01.js",
-      "_blogs-a75ac475.js"
-    ]
-  },
-  "_index-1078b72d.js": {
-    "file": "assets/index-1078b72d.js",
-    "imports": [
-      "src/entry-client.tsx"
-    ]
-  },
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
-    "file": "assets/a-case-for-rust-in-deep-learning-74e63fb5.js",
-    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-1078b72d.js",
-      "_index-359f05f9.js",
-      "_blogs-a75ac475.js",
-      "_page-3af1c2ce.js"
-    ]
-  },
-  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": {
-    "file": "assets/creating-high-performance-asynchronous-backends-with-burn-compute-ec83e915.js",
-    "src": "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/entry-client.tsx",
-      "_index-1078b72d.js",
-      "_index-359f05f9.js",
-      "_index-c292cd01.js",
-      "_blogs-a75ac475.js",
-      "_page-3af1c2ce.js"
+      "_page-80f6abfb.js"
     ]
   },
   "src/routes/blog/index.tsx": {
-    "file": "assets/index-4a503afb.js",
+    "file": "assets/index-0ea9e680.js",
     "src": "src/routes/blog/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-359f05f9.js",
-      "_blogs-a75ac475.js",
-      "_page-3af1c2ce.js"
+      "_index-1ef6eb89.js",
+      "_blogs-0558d79c.js",
+      "_page-80f6abfb.js"
     ]
   },
-  "src/routes/blog/cross-platform-gpu-backend.tsx": {
-    "file": "assets/cross-platform-gpu-backend-f4bc6277.js",
-    "src": "src/routes/blog/cross-platform-gpu-backend.tsx",
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": {
+    "file": "assets/a-case-for-rust-in-deep-learning-4faa39cc.js",
+    "src": "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_index-1078b72d.js",
-      "_index-359f05f9.js",
-      "_blogs-a75ac475.js",
-      "_page-3af1c2ce.js"
+      "_index-e39a1bee.js",
+      "_index-1ef6eb89.js",
+      "_blogs-0558d79c.js",
+      "_page-80f6abfb.js"
     ]
   },
-  "_index-c292cd01.js": {
-    "file": "assets/index-c292cd01.js",
+  "_index-1370d281.js": {
+    "file": "assets/index-1370d281.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
-  "_index-bb9e1f3e.js": {
-    "file": "assets/index-bb9e1f3e.js",
+  "_index-e39a1bee.js": {
+    "file": "assets/index-e39a1bee.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "_index-4b6b25fe.js": {
+    "file": "assets/index-4b6b25fe.js",
     "imports": [
       "src/entry-client.tsx"
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index-9a2909cf.js",
+    "file": "assets/index-160243b7.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "src/entry-client.tsx",
-      "_page-3af1c2ce.js",
-      "_index-359f05f9.js",
-      "_index-bb9e1f3e.js"
+      "_page-80f6abfb.js",
+      "_index-1ef6eb89.js",
+      "_index-4b6b25fe.js"
     ],
     "assets": [
       "assets/logo-d7813d0c.png",
       "assets/burn-33192fe7.png"
     ]
   },
+  "src/routes/blog/cross-platform-gpu-backend.tsx": {
+    "file": "assets/cross-platform-gpu-backend-2021b3c2.js",
+    "src": "src/routes/blog/cross-platform-gpu-backend.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-e39a1bee.js",
+      "_index-1ef6eb89.js",
+      "_blogs-0558d79c.js",
+      "_page-80f6abfb.js"
+    ]
+  },
+  "_page-80f6abfb.js": {
+    "file": "assets/page-80f6abfb.js",
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": {
+    "file": "assets/creating-high-performance-asynchronous-backends-with-burn-compute-e38920cb.js",
+    "src": "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-e39a1bee.js",
+      "_index-1ef6eb89.js",
+      "_index-1370d281.js",
+      "_blogs-0558d79c.js",
+      "_page-80f6abfb.js"
+    ]
+  },
+  "_blogs-0558d79c.js": {
+    "file": "assets/blogs-0558d79c.js"
+  },
+  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": {
+    "file": "assets/burn-rusty-approach-to-tensor-handling-85a5e849.js",
+    "src": "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-e39a1bee.js",
+      "_page-80f6abfb.js",
+      "_index-1ef6eb89.js",
+      "_index-4b6b25fe.js",
+      "_index-1370d281.js",
+      "_blogs-0558d79c.js"
+    ]
+  },
+  "src/routes/blog/autotune-for-gpu-kernels.tsx": {
+    "file": "assets/autotune-for-gpu-kernels-10fa755a.js",
+    "src": "src/routes/blog/autotune-for-gpu-kernels.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx",
+      "_index-e39a1bee.js",
+      "_index-1ef6eb89.js",
+      "_blogs-0558d79c.js",
+      "_page-80f6abfb.js",
+      "_index-4b6b25fe.js"
+    ]
+  },
   "src/entry-client.tsx": {
-    "file": "assets/entry-client-c2c9bbc9.js",
+    "file": "assets/entry-client-4d19b180.js",
     "src": "src/entry-client.tsx",
     "isEntry": true,
     "dynamicImports": [
@@ -147,13 +160,14 @@
       "src/routes/demo.tsx",
       "src/routes/index.tsx",
       "src/routes/blog/a-case-for-rust-in-deep-learning.tsx",
+      "src/routes/blog/autotune-for-gpu-kernels.tsx",
       "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx",
       "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx",
       "src/routes/blog/cross-platform-gpu-backend.tsx",
       "src/routes/blog/index.tsx"
     ],
     "css": [
-      "assets/entry-client-3e7d4bd4.css"
+      "assets/entry-client-512d4306.css"
     ]
   }
 }
