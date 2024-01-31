@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BookCommand","BookKind"],"struct":["Book","BookKindArgs","BooksArgs","OpenArgs"]};

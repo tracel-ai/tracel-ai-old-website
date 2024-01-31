@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["format_tokens"],"mod":["burn","onnx"]};
+window.SIDEBAR_ITEMS = {"fn":["format_tokens"],"mod":["burn","onnx","pytorch"]};

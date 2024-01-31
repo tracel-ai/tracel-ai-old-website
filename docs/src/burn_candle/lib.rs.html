@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-candle/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-candle/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="burn_candle" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../burn_candle/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="burn_candle" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -146,6 +146,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#144" id="144">144</a>
 <a href="#145" id="145">145</a>
 <a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
 </pre></div><pre class="rust"><code><span class="attr">#![warn(missing_docs)]
 #![allow(unused)] </span><span class="comment">// TODO remove when backend filled
 
@@ -172,6 +175,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub type </span>TestTensor&lt;<span class="kw">const </span>D: usize&gt; = burn_tensor::Tensor&lt;TestBackend, D&gt;;
     <span class="kw">pub type </span>ReferenceTensor&lt;<span class="kw">const </span>D: usize&gt; = burn_tensor::Tensor&lt;ReferenceBackend, D&gt;;
     <span class="kw">pub type </span>TestTensorInt&lt;<span class="kw">const </span>D: usize&gt; = burn_tensor::Tensor&lt;TestBackend, D, burn_tensor::Int&gt;;
+    <span class="kw">pub type </span>TestTensorBool&lt;<span class="kw">const </span>D: usize&gt; =
+        burn_tensor::Tensor&lt;TestBackend, D, burn_tensor::Bool&gt;;
 
     <span class="kw">type </span>TestAutodiffBackend = burn_autodiff::Autodiff&lt;TestBackend&gt;;
     <span class="kw">type </span>TestAutodiffTensor&lt;<span class="kw">const </span>D: usize&gt; = burn_tensor::Tensor&lt;TestAutodiffBackend, D&gt;;
@@ -222,14 +227,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="macro">burn_tensor::testgen_maxmin!</span>();
     <span class="macro">burn_tensor::testgen_mul!</span>();
     <span class="macro">burn_tensor::testgen_neg!</span>();
+    <span class="macro">burn_tensor::testgen_powf_scalar!</span>();
     <span class="macro">burn_tensor::testgen_powf!</span>();
     <span class="macro">burn_tensor::testgen_random!</span>();
-    <span class="comment">// burn_tensor::testgen_repeat!();
-    </span><span class="macro">burn_tensor::testgen_reshape!</span>();
+    <span class="macro">burn_tensor::testgen_repeat!</span>();
+    <span class="macro">burn_tensor::testgen_reshape!</span>();
     <span class="macro">burn_tensor::testgen_select!</span>();
     <span class="macro">burn_tensor::testgen_sin!</span>();
-    <span class="comment">// burn_tensor::testgen_slice!();
-    </span><span class="macro">burn_tensor::testgen_sqrt!</span>();
+    <span class="macro">burn_tensor::testgen_slice!</span>();
+    <span class="macro">burn_tensor::testgen_sqrt!</span>();
     <span class="macro">burn_tensor::testgen_abs!</span>();
     <span class="macro">burn_tensor::testgen_squeeze!</span>();
     <span class="macro">burn_tensor::testgen_sub!</span>();
@@ -272,8 +278,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="macro">burn_autodiff::testgen_ad_div!</span>();
     <span class="macro">burn_autodiff::testgen_ad_erf!</span>();
     <span class="macro">burn_autodiff::testgen_ad_exp!</span>();
-    <span class="comment">// burn_autodiff::testgen_ad_slice!();
-    </span><span class="macro">burn_autodiff::testgen_ad_gather_scatter!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_slice!</span>();
+    <span class="macro">burn_autodiff::testgen_ad_gather_scatter!</span>();
     <span class="macro">burn_autodiff::testgen_ad_select!</span>();
     <span class="macro">burn_autodiff::testgen_ad_log!</span>();
     <span class="macro">burn_autodiff::testgen_ad_log1p!</span>();

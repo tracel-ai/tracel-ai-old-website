@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/ops/float_ops.rs`."><title>float_ops.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/ops/float_ops.rs`."><title>float_ops.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_wgpu" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_wgpu/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_wgpu" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -528,7 +528,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#526" id="526">526</a>
 <a href="#527" id="527">527</a>
 <a href="#528" id="528">528</a>
+<a href="#529" id="529">529</a>
+<a href="#530" id="530">530</a>
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::numeric;
+<span class="kw">use </span><span class="kw">crate</span>::codegen::{Elem, Item, Operator, Variable};
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;autotune&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::kernel::matmul::init_matmul_output;
 <span class="attr">#[cfg(feature = <span class="string">&quot;autotune&quot;</span>)]
@@ -538,34 +550,30 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <span class="kw">use </span><span class="kw">crate</span>::kernel::prng::{random_bernoulli, random_normal, random_uniform};
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;autotune&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::kernel::reduce::init_reduce_output;
-<span class="kw">use </span><span class="kw">crate</span>::kernel::{
-    <span class="self">self</span>, reduce, unary_default, unary_inplace_default, unary_scalar_default,
-    unary_scalar_inplace_default,
-};
-<span class="kw">use crate</span>::{unary, unary_inplace, unary_scalar, FloatElement, GraphicsApi, IntElement, Wgpu};
-<span class="kw">use crate</span>::{unary_scalar_inplace, WgpuDevice};
+<span class="kw">use </span><span class="kw">crate</span>::kernel::{<span class="self">self</span>, reduce};
+<span class="kw">use </span><span class="kw">crate</span>::WgpuDevice;
+<span class="kw">use crate</span>::{unary, FloatElement, GraphicsApi, IntElement, Wgpu};
 <span class="kw">use </span>burn_tensor::ops::{
     BoolTensor, Device, FloatElem, FloatTensor, FullPrecisionBackend, IntTensor,
 };
-<span class="kw">use </span>burn_tensor::{ops::TensorOps, Data, Distribution, Shape};
+<span class="kw">use </span>burn_tensor::{ops::FloatTensorOps, Data, Distribution, Shape};
 <span class="kw">use </span>burn_tensor::{ElementConversion, Reader};
-
 <span class="kw">use </span>std::ops::Range;
 
-<span class="kw">impl</span>&lt;G, F, I&gt; TensorOps&lt;Wgpu&lt;G, F, I&gt;&gt; <span class="kw">for </span>Wgpu&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; FloatTensorOps&lt;Wgpu&lt;G, F, I&gt;&gt; <span class="kw">for </span>Wgpu&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi + <span class="lifetime">&#39;static</span>,
     F: FloatElement,
     I: IntElement,
 {
-    <span class="kw">fn </span>from_data&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_from_data&lt;<span class="kw">const </span>D: usize&gt;(
         data: Data&lt;FloatElem&lt;<span class="self">Self</span>&gt;, D&gt;,
         device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="kw">super</span>::from_data::&lt;G, F, D&gt;(data, device)
     }
 
-    <span class="kw">fn </span>random&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_random&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
         distribution: Distribution,
         device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;,
@@ -584,48 +592,50 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Shape&lt;D&gt; {
+    <span class="kw">fn </span>float_shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Shape&lt;D&gt; {
         tensor.shape.clone()
     }
 
-    <span class="kw">fn </span>into_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Reader&lt;Data&lt;FloatElem&lt;<span class="self">Self</span>&gt;, D&gt;&gt; {
+    <span class="kw">fn </span>float_into_data&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+    ) -&gt; Reader&lt;Data&lt;FloatElem&lt;<span class="self">Self</span>&gt;, D&gt;&gt; {
         <span class="kw">super</span>::into_data(tensor)
     }
 
-    <span class="kw">fn </span>device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Device&lt;<span class="self">Self</span>&gt; {
+    <span class="kw">fn </span>float_device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Device&lt;<span class="self">Self</span>&gt; {
         tensor.device.clone()
     }
 
-    <span class="kw">fn </span>to_device&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_to_device&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="kw">super</span>::to_device::&lt;G, F, D&gt;(tensor, device)
     }
 
-    <span class="kw">fn </span>empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="kw">super</span>::empty::&lt;G, F, D&gt;(shape, device)
     }
 
-    <span class="kw">fn </span>add&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_add&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::add(lhs, rhs)
     }
 
-    <span class="kw">fn </span>add_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_add_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::add_scalar(lhs, rhs)
     }
 
-    <span class="kw">fn </span>zeros&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_zeros&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::zeros::&lt;G, F, D&gt;(shape, device)
     }
 
-    <span class="kw">fn </span>full&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_full&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
         fill_value: FloatElem&lt;<span class="self">Self</span>&gt;,
         device: <span class="kw-2">&amp;</span>WgpuDevice,
@@ -633,53 +643,53 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         numeric::full::&lt;G, F, D&gt;(shape, device, fill_value)
     }
 
-    <span class="kw">fn </span>ones&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_ones&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::ones::&lt;G, F, D&gt;(shape, device)
     }
 
-    <span class="kw">fn </span>sub&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_sub&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::sub(lhs, rhs)
     }
 
-    <span class="kw">fn </span>sub_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_sub_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::sub_scalar(lhs, rhs)
     }
 
-    <span class="kw">fn </span>mul&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mul&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::mul(lhs, rhs)
     }
 
-    <span class="kw">fn </span>mul_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mul_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::mul_scalar(lhs, rhs)
     }
 
-    <span class="kw">fn </span>div&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_div&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::div(lhs, rhs)
     }
 
-    <span class="kw">fn </span>div_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_div_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         numeric::div_scalar(lhs, rhs)
     }
 
-    <span class="kw">fn </span>matmul&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_matmul&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
@@ -695,7 +705,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim1: usize,
         dim2: usize,
@@ -703,14 +713,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">super</span>::swap_dims(tensor, dim1, dim2)
     }
 
-    <span class="kw">fn </span>reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
+    <span class="kw">fn </span>float_reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
         shape: Shape&lt;D2&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D2&gt; {
         <span class="kw">super</span>::reshape(tensor, shape)
     }
 
-    <span class="kw">fn </span>gather&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_gather&lt;<span class="kw">const </span>D: usize&gt;(
         dim: usize,
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         indices: IntTensor&lt;<span class="self">Self</span>, D&gt;,
@@ -718,7 +728,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::gather(dim, tensor, indices)
     }
 
-    <span class="kw">fn </span>scatter&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_scatter&lt;<span class="kw">const </span>D: usize&gt;(
         dim: usize,
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         indices: IntTensor&lt;<span class="self">Self</span>, D&gt;,
@@ -727,7 +737,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::scatter(dim, tensor, indices, value)
     }
 
-    <span class="kw">fn </span>select&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_select&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim: usize,
         indices: IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt;,
@@ -735,7 +745,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::select(tensor, dim, indices)
     }
 
-    <span class="kw">fn </span>select_assign&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_select_assign&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim: usize,
         indices: IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt;,
@@ -744,14 +754,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::select_assign(tensor, dim, indices, value)
     }
 
-    <span class="kw">fn </span>slice&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
+    <span class="kw">fn </span>float_slice&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D1&gt; {
         kernel::slice(tensor, ranges)
     }
 
-    <span class="kw">fn </span>slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
+    <span class="kw">fn </span>float_slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
         value: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
@@ -759,7 +769,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::slice_assign(tensor, ranges, value)
     }
 
-    <span class="kw">fn </span>mask_where&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mask_where&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         mask: BoolTensor&lt;<span class="self">Self</span>, D&gt;,
         value: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
@@ -767,7 +777,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::mask_where(tensor, mask, value)
     }
 
-    <span class="kw">fn </span>mask_fill&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mask_fill&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         mask: BoolTensor&lt;<span class="self">Self</span>, D&gt;,
         value: FloatElem&lt;<span class="self">Self</span>&gt;,
@@ -775,81 +785,84 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::mask_fill(tensor, mask, value)
     }
 
-    <span class="kw">fn </span>equal&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_equal&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::equal(lhs, rhs)
     }
 
-    <span class="kw">fn </span>equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::equal_elem(lhs, rhs)
     }
 
-    <span class="kw">fn </span>greater&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::greater(lhs, rhs)
     }
 
-    <span class="kw">fn </span>greater_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::greater_elem(lhs, rhs)
     }
 
-    <span class="kw">fn </span>greater_equal&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater_equal&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::greater_equal(lhs, rhs)
     }
 
-    <span class="kw">fn </span>greater_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::greater_equal_elem(lhs, rhs)
     }
 
-    <span class="kw">fn </span>lower&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::lower(lhs, rhs)
     }
 
-    <span class="kw">fn </span>lower_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::lower_elem(lhs, rhs)
     }
 
-    <span class="kw">fn </span>lower_equal&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower_equal&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::lower_equal(lhs, rhs)
     }
 
-    <span class="kw">fn </span>lower_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::lower_equal_elem(lhs, rhs)
     }
 
-    <span class="kw">fn </span>sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
+    <span class="kw">fn </span>float_sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
         reduce::sum(tensor)
     }
 
-    <span class="kw">fn </span>sum_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_sum_dim&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[cfg(feature = <span class="string">&quot;autotune&quot;</span>)]
         </span>{
             reduce::sum_dim_autotune(tensor, dim)
@@ -862,7 +875,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>mean_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_mean_dim&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[cfg(feature = <span class="string">&quot;autotune&quot;</span>)]
         </span>{
             reduce::mean_dim_autotune(tensor, dim)
@@ -875,167 +891,158 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>to_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_to_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;FullPrecisionBackend&lt;<span class="self">Self</span>&gt;, D&gt; {
         kernel::cast(tensor.clone())
     }
 
-    <span class="kw">fn </span>from_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_from_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;FullPrecisionBackend&lt;<span class="self">Self</span>&gt;, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::cast(tensor)
     }
 
-    <span class="kw">fn </span>exp&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Exp, func <span class="string">&quot;exp&quot;</span>);
-        <span class="macro">unary_inplace!</span>(ExpInplace, func <span class="string">&quot;exp&quot;</span>);
-
-        <span class="kw">if </span>lhs.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;ExpInplace, F, D&gt;(lhs);
-        }
-
-        unary_default::&lt;Exp, F, D&gt;(lhs)
+    <span class="kw">fn </span>float_exp&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Exp {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>log&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Log, func <span class="string">&quot;log&quot;</span>);
-        <span class="macro">unary_inplace!</span>(LogInplace, func <span class="string">&quot;log&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;LogInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Log, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_log&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Log {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>log1p&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Log1p, body <span class="string">&quot;output[id] = log(1.0 + input[id]);&quot;</span>);
-        <span class="macro">unary_inplace!</span>(Log1pInplace, body <span class="string">&quot;input[id] = log(1.0 + input[id]);&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;Log1pInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Log1p, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_log1p&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Log1p {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>powf&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;, rhs: f32) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_scalar!</span>(Powf, func <span class="string">&quot;powf&quot;</span>, include <span class="string">&quot;../template/powf.wgsl&quot;</span>);
-        <span class="macro">unary_scalar_inplace!</span>(PowfInplace, func <span class="string">&quot;powf&quot;</span>, include <span class="string">&quot;../template/powf.wgsl&quot;</span>);
-
-        <span class="kw">if </span>lhs.can_mut() {
-            <span class="kw">return </span>unary_scalar_inplace_default::&lt;PowfInplace, F, D&gt;(lhs, rhs.elem());
-        }
-
-        unary_scalar_default::&lt;Powf, F, D&gt;(lhs, rhs.elem())
+    <span class="kw">fn </span>float_powf_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+        lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        rhs: f32,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Powf {
+                lhs: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                rhs: Variable::Scalar(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: lhs; rhs.elem(),
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>sqrt&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Sqrt, func <span class="string">&quot;sqrt&quot;</span>);
-        <span class="macro">unary_inplace!</span>(SqrtInplace, func <span class="string">&quot;sqrt&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;SqrtInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Sqrt, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_sqrt&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Sqrt {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>abs&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Abs, func <span class="string">&quot;abs&quot;</span>);
-        <span class="macro">unary_inplace!</span>(AbsInplace, func <span class="string">&quot;abs&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;AbsInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Abs, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_abs&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Abs {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>cos&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Cos, func <span class="string">&quot;cos&quot;</span>);
-        <span class="macro">unary_inplace!</span>(CosInplace, func <span class="string">&quot;cos&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;CosInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Cos, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_cos&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Cos {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>sin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Sin, func <span class="string">&quot;sin&quot;</span>);
-        <span class="macro">unary_inplace!</span>(SinInplace, func <span class="string">&quot;sin&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;SinInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Sin, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_sin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Sin {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>tanh&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="comment">// Metal has a weird numerical behaviour with tanh which require a new function
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
-        </span><span class="macro">unary!</span>(Tanh, func <span class="string">&quot;safe_tanh&quot;</span>, include <span class="string">&quot;../template/safe_tanh.wgsl&quot;</span>);
-        <span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
-        </span><span class="macro">unary_inplace!</span>(TanhInplace, func <span class="string">&quot;safe_tanh&quot;</span>, include <span class="string">&quot;../template/safe_tanh.wgsl&quot;</span>);
-
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;macos&quot;</span>))]
-        </span><span class="macro">unary!</span>(Tanh, func <span class="string">&quot;tanh&quot;</span>);
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;macos&quot;</span>))]
-        </span><span class="macro">unary_inplace!</span>(TanhInplace, func <span class="string">&quot;tanh&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;TanhInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Tanh, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_tanh&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Tanh {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>erf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary!</span>(Erf, func <span class="string">&quot;erf&quot;</span>, include <span class="string">&quot;../template/erf.wgsl&quot;</span>);
-        <span class="macro">unary_inplace!</span>(ErfInplace, func <span class="string">&quot;erf&quot;</span>, include <span class="string">&quot;../template/erf.wgsl&quot;</span>);
-
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;ErfInplace, F, D&gt;(tensor);
-        }
-
-        unary_default::&lt;Erf, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_erf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Erf {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
     }
 
-    <span class="kw">fn </span>cat&lt;<span class="kw">const </span>D: usize&gt;(tensors: Vec&lt;FloatTensor&lt;<span class="self">Self</span>, D&gt;&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_cat&lt;<span class="kw">const </span>D: usize&gt;(
+        tensors: Vec&lt;FloatTensor&lt;<span class="self">Self</span>, D&gt;&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::cat(tensors, dim)
     }
 
-    <span class="kw">fn </span>argmax&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_argmax&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         reduce::argmax(tensor, dim)
     }
 
-    <span class="kw">fn </span>argmin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_argmin&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         reduce::argmin(tensor, dim)
     }
 
-    <span class="kw">fn </span>into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         kernel::cast(tensor)
     }
 
-    <span class="kw">fn </span>clamp_min&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
-        min: FloatElem&lt;<span class="self">Self</span>&gt;,
-    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        kernel::clamp_min(tensor, min)
-    }
-
-    <span class="kw">fn </span>clamp_max&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
-        max: FloatElem&lt;<span class="self">Self</span>&gt;,
-    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        kernel::clamp_max(tensor, max)
-    }
-
-    <span class="kw">fn </span>clamp&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_clamp&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         min: FloatElem&lt;<span class="self">Self</span>&gt;,
         max: FloatElem&lt;<span class="self">Self</span>&gt;,
@@ -1043,17 +1050,32 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         kernel::clamp(tensor, min, max)
     }
 
-    <span class="kw">fn </span>recip&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_recip&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;Wgpu&lt;G, F, I&gt;, D&gt;,
     ) -&gt; FloatTensor&lt;Wgpu&lt;G, F, I&gt;, D&gt; {
-        <span class="macro">unary!</span>(Recip, func <span class="string">&quot;1.0 /&quot;</span>);
-        <span class="macro">unary_inplace!</span>(RecipInplace, func <span class="string">&quot;1.0 /&quot;</span>);
+        <span class="macro">unary!</span>(
+            operator: |elem: Elem| Operator::Recip {
+                input: Variable::Input(<span class="number">0</span>, Item::Scalar(elem)),
+                out: Variable::Local(<span class="number">0</span>, Item::Scalar(elem)),
+            },
+            input: tensor,
+            elem: F
+        )
+    }
 
-        <span class="kw">if </span>tensor.can_mut() {
-            <span class="kw">return </span>unary_inplace_default::&lt;RecipInplace, F, D&gt;(tensor);
-        }
+    <span class="kw">fn </span>float_repeat&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+        times: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        kernel::repeat(tensor, dim, times)
+    }
 
-        unary_default::&lt;Recip, F, D&gt;(tensor)
+    <span class="kw">fn </span>float_powf&lt;<span class="kw">const </span>D: usize&gt;(
+        lhs: FloatTensor&lt;Wgpu&lt;G, F, I&gt;, D&gt;,
+        rhs: FloatTensor&lt;Wgpu&lt;G, F, I&gt;, D&gt;,
+    ) -&gt; FloatTensor&lt;Wgpu&lt;G, F, I&gt;, D&gt; {
+        numeric::pow(lhs, rhs)
     }
 }
 </code></pre></div></section></main></body></html>

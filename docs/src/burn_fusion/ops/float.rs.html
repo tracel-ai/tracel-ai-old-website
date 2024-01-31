@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-fusion/src/ops/float.rs`."><title>float.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-fusion/src/ops/float.rs`."><title>float.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_fusion" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_fusion/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_fusion" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1632,130 +1632,319 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1630" id="1630">1630</a>
 <a href="#1631" id="1631">1631</a>
 <a href="#1632" id="1632">1632</a>
+<a href="#1633" id="1633">1633</a>
+<a href="#1634" id="1634">1634</a>
+<a href="#1635" id="1635">1635</a>
+<a href="#1636" id="1636">1636</a>
+<a href="#1637" id="1637">1637</a>
+<a href="#1638" id="1638">1638</a>
+<a href="#1639" id="1639">1639</a>
+<a href="#1640" id="1640">1640</a>
+<a href="#1641" id="1641">1641</a>
+<a href="#1642" id="1642">1642</a>
+<a href="#1643" id="1643">1643</a>
+<a href="#1644" id="1644">1644</a>
+<a href="#1645" id="1645">1645</a>
+<a href="#1646" id="1646">1646</a>
+<a href="#1647" id="1647">1647</a>
+<a href="#1648" id="1648">1648</a>
+<a href="#1649" id="1649">1649</a>
+<a href="#1650" id="1650">1650</a>
+<a href="#1651" id="1651">1651</a>
+<a href="#1652" id="1652">1652</a>
+<a href="#1653" id="1653">1653</a>
+<a href="#1654" id="1654">1654</a>
+<a href="#1655" id="1655">1655</a>
+<a href="#1656" id="1656">1656</a>
+<a href="#1657" id="1657">1657</a>
+<a href="#1658" id="1658">1658</a>
+<a href="#1659" id="1659">1659</a>
+<a href="#1660" id="1660">1660</a>
+<a href="#1661" id="1661">1661</a>
+<a href="#1662" id="1662">1662</a>
+<a href="#1663" id="1663">1663</a>
+<a href="#1664" id="1664">1664</a>
+<a href="#1665" id="1665">1665</a>
+<a href="#1666" id="1666">1666</a>
+<a href="#1667" id="1667">1667</a>
+<a href="#1668" id="1668">1668</a>
+<a href="#1669" id="1669">1669</a>
+<a href="#1670" id="1670">1670</a>
+<a href="#1671" id="1671">1671</a>
+<a href="#1672" id="1672">1672</a>
+<a href="#1673" id="1673">1673</a>
+<a href="#1674" id="1674">1674</a>
+<a href="#1675" id="1675">1675</a>
+<a href="#1676" id="1676">1676</a>
+<a href="#1677" id="1677">1677</a>
+<a href="#1678" id="1678">1678</a>
+<a href="#1679" id="1679">1679</a>
+<a href="#1680" id="1680">1680</a>
+<a href="#1681" id="1681">1681</a>
+<a href="#1682" id="1682">1682</a>
+<a href="#1683" id="1683">1683</a>
+<a href="#1684" id="1684">1684</a>
+<a href="#1685" id="1685">1685</a>
+<a href="#1686" id="1686">1686</a>
+<a href="#1687" id="1687">1687</a>
+<a href="#1688" id="1688">1688</a>
+<a href="#1689" id="1689">1689</a>
+<a href="#1690" id="1690">1690</a>
+<a href="#1691" id="1691">1691</a>
+<a href="#1692" id="1692">1692</a>
+<a href="#1693" id="1693">1693</a>
+<a href="#1694" id="1694">1694</a>
+<a href="#1695" id="1695">1695</a>
+<a href="#1696" id="1696">1696</a>
+<a href="#1697" id="1697">1697</a>
+<a href="#1698" id="1698">1698</a>
+<a href="#1699" id="1699">1699</a>
+<a href="#1700" id="1700">1700</a>
+<a href="#1701" id="1701">1701</a>
+<a href="#1702" id="1702">1702</a>
+<a href="#1703" id="1703">1703</a>
+<a href="#1704" id="1704">1704</a>
+<a href="#1705" id="1705">1705</a>
+<a href="#1706" id="1706">1706</a>
+<a href="#1707" id="1707">1707</a>
+<a href="#1708" id="1708">1708</a>
+<a href="#1709" id="1709">1709</a>
+<a href="#1710" id="1710">1710</a>
+<a href="#1711" id="1711">1711</a>
+<a href="#1712" id="1712">1712</a>
+<a href="#1713" id="1713">1713</a>
+<a href="#1714" id="1714">1714</a>
+<a href="#1715" id="1715">1715</a>
+<a href="#1716" id="1716">1716</a>
+<a href="#1717" id="1717">1717</a>
+<a href="#1718" id="1718">1718</a>
+<a href="#1719" id="1719">1719</a>
+<a href="#1720" id="1720">1720</a>
+<a href="#1721" id="1721">1721</a>
+<a href="#1722" id="1722">1722</a>
+<a href="#1723" id="1723">1723</a>
+<a href="#1724" id="1724">1724</a>
+<a href="#1725" id="1725">1725</a>
+<a href="#1726" id="1726">1726</a>
+<a href="#1727" id="1727">1727</a>
+<a href="#1728" id="1728">1728</a>
+<a href="#1729" id="1729">1729</a>
+<a href="#1730" id="1730">1730</a>
+<a href="#1731" id="1731">1731</a>
+<a href="#1732" id="1732">1732</a>
+<a href="#1733" id="1733">1733</a>
+<a href="#1734" id="1734">1734</a>
+<a href="#1735" id="1735">1735</a>
+<a href="#1736" id="1736">1736</a>
+<a href="#1737" id="1737">1737</a>
+<a href="#1738" id="1738">1738</a>
+<a href="#1739" id="1739">1739</a>
+<a href="#1740" id="1740">1740</a>
+<a href="#1741" id="1741">1741</a>
+<a href="#1742" id="1742">1742</a>
+<a href="#1743" id="1743">1743</a>
+<a href="#1744" id="1744">1744</a>
+<a href="#1745" id="1745">1745</a>
+<a href="#1746" id="1746">1746</a>
+<a href="#1747" id="1747">1747</a>
+<a href="#1748" id="1748">1748</a>
+<a href="#1749" id="1749">1749</a>
+<a href="#1750" id="1750">1750</a>
+<a href="#1751" id="1751">1751</a>
+<a href="#1752" id="1752">1752</a>
+<a href="#1753" id="1753">1753</a>
+<a href="#1754" id="1754">1754</a>
+<a href="#1755" id="1755">1755</a>
+<a href="#1756" id="1756">1756</a>
+<a href="#1757" id="1757">1757</a>
+<a href="#1758" id="1758">1758</a>
+<a href="#1759" id="1759">1759</a>
+<a href="#1760" id="1760">1760</a>
+<a href="#1761" id="1761">1761</a>
+<a href="#1762" id="1762">1762</a>
+<a href="#1763" id="1763">1763</a>
+<a href="#1764" id="1764">1764</a>
+<a href="#1765" id="1765">1765</a>
+<a href="#1766" id="1766">1766</a>
+<a href="#1767" id="1767">1767</a>
+<a href="#1768" id="1768">1768</a>
+<a href="#1769" id="1769">1769</a>
+<a href="#1770" id="1770">1770</a>
+<a href="#1771" id="1771">1771</a>
+<a href="#1772" id="1772">1772</a>
+<a href="#1773" id="1773">1773</a>
+<a href="#1774" id="1774">1774</a>
+<a href="#1775" id="1775">1775</a>
+<a href="#1776" id="1776">1776</a>
+<a href="#1777" id="1777">1777</a>
+<a href="#1778" id="1778">1778</a>
+<a href="#1779" id="1779">1779</a>
+<a href="#1780" id="1780">1780</a>
+<a href="#1781" id="1781">1781</a>
+<a href="#1782" id="1782">1782</a>
+<a href="#1783" id="1783">1783</a>
+<a href="#1784" id="1784">1784</a>
+<a href="#1785" id="1785">1785</a>
+<a href="#1786" id="1786">1786</a>
+<a href="#1787" id="1787">1787</a>
+<a href="#1788" id="1788">1788</a>
+<a href="#1789" id="1789">1789</a>
+<a href="#1790" id="1790">1790</a>
+<a href="#1791" id="1791">1791</a>
+<a href="#1792" id="1792">1792</a>
+<a href="#1793" id="1793">1793</a>
+<a href="#1794" id="1794">1794</a>
+<a href="#1795" id="1795">1795</a>
+<a href="#1796" id="1796">1796</a>
+<a href="#1797" id="1797">1797</a>
+<a href="#1798" id="1798">1798</a>
+<a href="#1799" id="1799">1799</a>
+<a href="#1800" id="1800">1800</a>
+<a href="#1801" id="1801">1801</a>
+<a href="#1802" id="1802">1802</a>
+<a href="#1803" id="1803">1803</a>
+<a href="#1804" id="1804">1804</a>
+<a href="#1805" id="1805">1805</a>
+<a href="#1806" id="1806">1806</a>
+<a href="#1807" id="1807">1807</a>
+<a href="#1808" id="1808">1808</a>
+<a href="#1809" id="1809">1809</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     binary_float_cmp_ops, binary_float_ops,
     client::FusionClient,
     get_client,
-    graph::{
-        BaseOpsDescription, BinaryOpsDescription, CatOpsDescription, ClampOpsDescription,
-        FloatOpsDescription, GatherOpsDescription, MaskFillOpsDescription, MaskWhereOpsDescription,
-        NumericOpsDescription, Ops, RandomOpsDescription, ReduceDimWithIndicesDescription,
-        ReshapeDescription, ScalarOpsDescription, ScatterOpsDescription,
-        SelectAssignOpsDescription, SelectOpsDescription, SliceAssignOpsDescription,
-        SliceOpsDescription, SwapDimsDescription, TensorOpsDescription, UnaryOpsDescription,
-    },
     ops::binary::binary_ops_shape,
-    scalar_float2int_ops, scalar_float_cmp_ops, scalar_float_ops, unary_float_ops, Fusion,
-    FusionBackend, TensorDescription,
+    scalar_float2int_ops, scalar_float_cmp_ops, scalar_float_ops,
+    stream::{
+        BaseOperationDescription, BinaryOperationDescription, CatOperationDescription,
+        ClampOperationDescription, FloatOperationDescription, GatherOperationDescription,
+        MaskFillOperationDescription, MaskWhereOperationDescription, NumericOperationDescription,
+        Operation, OperationDescription, RandomOperationDescription,
+        ReduceDimWithIndicesDescription, ReshapeDescription, ScalarOperationDescription,
+        ScatterOperationDescription, SelectAssignOperationDescription, SelectOperationDescription,
+        SliceAssignOperationDescription, SliceOperationDescription, StreamId, SwapDimsDescription,
+        UnaryOperationDescription,
+    },
+    unary_float_ops, Fusion, FusionBackend, TensorDescription,
 };
 <span class="kw">use </span>burn_tensor::{
-    ops::{BoolTensor, FloatElem, FloatTensor, FullPrecisionBackend, IntTensor, TensorOps},
+    ops::{BoolTensor, FloatElem, FloatTensor, FloatTensorOps, FullPrecisionBackend, IntTensor},
     Data, Device, Distribution, ElementConversion, Reader, Shape,
 };
 <span class="kw">use </span>std::ops::Range;
 
-<span class="kw">impl</span>&lt;B: FusionBackend&gt; TensorOps&lt;<span class="self">Self</span>&gt; <span class="kw">for </span>Fusion&lt;B&gt; {
-    <span class="kw">fn </span>from_data&lt;<span class="kw">const </span>D: usize&gt;(
+<span class="kw">impl</span>&lt;B: FusionBackend&gt; FloatTensorOps&lt;<span class="self">Self</span>&gt; <span class="kw">for </span>Fusion&lt;B&gt; {
+    <span class="kw">fn </span>float_from_data&lt;<span class="kw">const </span>D: usize&gt;(
         data: Data&lt;FloatElem&lt;<span class="self">Self</span>&gt;, D&gt;,
         device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
-        <span class="kw">let </span>tensor = B::from_data(data, device);
-        <span class="kw">let </span>shape = B::shape(<span class="kw-2">&amp;</span>tensor);
+        <span class="kw">let </span>tensor = B::float_from_data(data, device);
+        <span class="kw">let </span>shape = B::float_shape(<span class="kw-2">&amp;</span>tensor);
 
-        client.register_tensor(B::float_tensor_handle(tensor), shape.dims.into())
+        client.register_tensor(
+            B::float_tensor_handle(tensor),
+            shape.dims.into(),
+            StreamId::current(),
+        )
     }
 
-    <span class="kw">fn </span>random&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_random&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
         distribution: Distribution,
         device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>RandomOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: RandomOpsDescription,
+            desc: RandomOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>RandomOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>RandomOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.desc.out.shape.clone());
-                <span class="kw">let </span>output: B::TensorPrimitive&lt;D&gt; =
-                    B::random(shape, <span class="self">self</span>.desc.distribution, <span class="kw-2">&amp;</span>handles.device);
+                <span class="kw">let </span>output: B::FloatTensorPrimitive&lt;D&gt; =
+                    B::float_random(shape, <span class="self">self</span>.desc.distribution, <span class="kw-2">&amp;</span>handles.device);
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = StreamId::current();
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = RandomOpsDescription {
+        <span class="kw">let </span>desc = RandomOperationDescription {
             out: out.to_description_out(),
             distribution,
         };
         client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Random(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Random(desc.clone())),
             RandomOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>zeros&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_zeros&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>ZerosOps&lt;<span class="kw">const </span>D: usize&gt; {
             out: TensorDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ZerosOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ZerosOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.out.shape.clone());
-                <span class="kw">let </span>output = B::zeros::&lt;D&gt;(shape, <span class="kw-2">&amp;</span>handles.device);
+                <span class="kw">let </span>output = B::float_zeros::&lt;D&gt;(shape, <span class="kw-2">&amp;</span>handles.device);
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = StreamId::current();
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
         <span class="kw">let </span>desc = out.to_description_out();
         client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Zeros(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Zeros(desc.clone())),
             ZerosOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>ones&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_ones&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>OnesOps&lt;<span class="kw">const </span>D: usize&gt; {
             out: TensorDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>OnesOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>OnesOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.out.shape.clone());
-                <span class="kw">let </span>output = B::ones::&lt;D&gt;(shape, <span class="kw-2">&amp;</span>handles.device);
+                <span class="kw">let </span>output = B::float_ones::&lt;D&gt;(shape, <span class="kw-2">&amp;</span>handles.device);
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = StreamId::current();
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
         <span class="kw">let </span>desc = out.to_description_out();
         client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Ones(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Ones(desc.clone())),
             OnesOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>full&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_full&lt;<span class="kw">const </span>D: usize&gt;(
         shape: Shape&lt;D&gt;,
         fill_value: FloatElem&lt;<span class="self">Self</span>&gt;,
         device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;,
@@ -1766,41 +1955,45 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             elem: f32,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>FullOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>FullOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.out.shape.clone());
-                <span class="kw">let </span>output: B::TensorPrimitive&lt;D&gt; =
-                    B::full(shape, <span class="self">self</span>.elem.elem(), <span class="kw-2">&amp;</span>handles.device);
+                <span class="kw">let </span>output: B::FloatTensorPrimitive&lt;D&gt; =
+                    B::float_full(shape, <span class="self">self</span>.elem.elem(), <span class="kw-2">&amp;</span>handles.device);
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = StreamId::current();
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
         <span class="kw">let </span>desc = (out.to_description_out(), fill_value.elem::&lt;f32&gt;());
         client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Full(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Full(desc.clone())),
             FullOps::&lt;D&gt;::new(desc.<span class="number">0</span>, desc.<span class="number">1</span>),
         );
 
         out
     }
 
-    <span class="kw">fn </span>shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Shape&lt;D&gt; {
+    <span class="kw">fn </span>float_shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Shape&lt;D&gt; {
         tensor.shape()
     }
 
-    <span class="kw">fn </span>into_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Reader&lt;Data&lt;FloatElem&lt;<span class="self">Self</span>&gt;, D&gt;&gt; {
+    <span class="kw">fn </span>float_into_data&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+    ) -&gt; Reader&lt;Data&lt;FloatElem&lt;<span class="self">Self</span>&gt;, D&gt;&gt; {
         tensor.into_data()
     }
 
-    <span class="kw">fn </span>device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Device&lt;<span class="self">Self</span>&gt; {
+    <span class="kw">fn </span>float_device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Device&lt;<span class="self">Self</span>&gt; {
         tensor.client.device().clone().into()
     }
 
-    <span class="kw">fn </span>to_device&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_to_device&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
@@ -1811,330 +2004,328 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="kw">return </span>tensor;
         }
 
+        <span class="kw">let </span>id = tensor.stream;
         <span class="kw">let </span>client_target = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device_target);
         <span class="kw">let </span>client_original = tensor.client.clone();
 
-        client_original
-            .clone()
-            .change_client_float::&lt;D&gt;(tensor.into_description(), client_target)
+        client_original.clone().change_client_float::&lt;D&gt;(
+            tensor.into_description(),
+            client_target,
+            id,
+        )
     }
 
-    <span class="kw">fn </span>into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_into_int&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>IntoIntOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: UnaryOpsDescription,
+            desc: UnaryOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>IntoIntOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>IntoIntOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
-                <span class="kw">let </span>output = B::into_int(input);
+                <span class="kw">let </span>output = B::float_into_int(input);
 
                 handles.register_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::IntoInt(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::IntoInt(desc.clone())),
             IntoIntOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
-        <span class="kw">let </span>tensor = B::empty(shape.clone(), device);
+        <span class="kw">let </span>stream = StreamId::current();
+        <span class="kw">let </span>tensor = B::float_empty(shape.clone(), device);
 
-        client.register_tensor(B::float_tensor_handle(tensor), shape.dims.into())
+        client.register_tensor(B::float_tensor_handle(tensor), shape.dims.into(), stream)
     }
 
-    <span class="kw">fn </span>add&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_add&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_ops!</span>(AddOps, B::add);
+        <span class="macro">binary_float_ops!</span>(AddOps, B::float_add);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
+
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Add(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Add(desc.clone())),
             AddOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>add_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_add_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(AddOps, B::add_scalar);
+        <span class="macro">scalar_float_ops!</span>(AddOps, B::float_add_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem::&lt;f32&gt;(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::AddScalar(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::AddScalar(
+                desc.clone(),
+            )),
             AddOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>clamp_min&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
-        min: FloatElem&lt;<span class="self">Self</span>&gt;,
-    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(ClampMinOps, B::clamp_min);
-
-        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
-
-        <span class="kw">let </span>desc = ScalarOpsDescription {
-            lhs: tensor.into_description(),
-            rhs: min.elem(),
-            out: out.to_description_out(),
-        };
-        out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::ClampMin(desc.clone())),
-            ClampMinOps::&lt;D&gt;::new(desc),
-        );
-
-        out
-    }
-
-    <span class="kw">fn </span>clamp_max&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
-        max: FloatElem&lt;<span class="self">Self</span>&gt;,
-    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(ClampMaxOps, B::clamp_max);
-
-        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
-
-        <span class="kw">let </span>desc = ScalarOpsDescription {
-            lhs: tensor.into_description(),
-            rhs: max.elem(),
-            out: out.to_description_out(),
-        };
-        out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::ClampMax(desc.clone())),
-            ClampMaxOps::&lt;D&gt;::new(desc),
-        );
-
-        out
-    }
-
-    <span class="kw">fn </span>clamp&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_clamp&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         min: FloatElem&lt;<span class="self">Self</span>&gt;,
         max: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>ClampOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: ClampOpsDescription&lt;f32&gt;,
+            desc: ClampOperationDescription&lt;f32&gt;,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ClampOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ClampOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
-                <span class="kw">let </span>output = B::clamp(input, <span class="self">self</span>.desc.min.elem(), <span class="self">self</span>.desc.max.elem());
+                <span class="kw">let </span>output = B::float_clamp(input, <span class="self">self</span>.desc.min.elem(), <span class="self">self</span>.desc.max.elem());
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = ClampOpsDescription {
+        <span class="kw">let </span>desc = ClampOperationDescription {
             tensor: tensor.into_description(),
             min: min.elem(),
             max: max.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Clamp(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Clamp(desc.clone())),
             ClampOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>sub&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_sub&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_ops!</span>(SubOps, B::sub);
+        <span class="macro">binary_float_ops!</span>(SubOps, B::float_sub);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Sub(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Sub(desc.clone())),
             SubOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>sub_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_sub_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(SubOps, B::sub_scalar);
+        <span class="macro">scalar_float_ops!</span>(SubOps, B::float_sub_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
 
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::SubScalar(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::SubScalar(
+                desc.clone(),
+            )),
             SubOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>mul&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mul&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_ops!</span>(MulOps, B::mul);
+        <span class="macro">binary_float_ops!</span>(MulOps, B::float_mul);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Mul(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Mul(desc.clone())),
             MulOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>mul_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mul_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(MulOps, B::mul_scalar);
+        <span class="macro">scalar_float_ops!</span>(MulOps, B::float_mul_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MulScalar(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::MulScalar(
+                desc.clone(),
+            )),
             MulOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>div&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_div&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_ops!</span>(DivOps, B::div);
+        <span class="macro">binary_float_ops!</span>(DivOps, B::float_div);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Div(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Div(desc.clone())),
             DivOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>div_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_div_scalar&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(DivOps, B::div_scalar);
+        <span class="macro">scalar_float_ops!</span>(DivOps, B::float_div_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::DivScalar(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::DivScalar(
+                desc.clone(),
+            )),
             DivOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>matmul&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_matmul&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_ops!</span>(MatmulOps, B::matmul);
+        <span class="macro">binary_float_ops!</span>(MatmulOps, B::float_matmul);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape);
 
         shape[D - <span class="number">2</span>] = lhs.shape[D - <span class="number">2</span>];
         shape[D - <span class="number">1</span>] = rhs.shape[D - <span class="number">1</span>];
 
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
 
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Matmul(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::Float(FloatOperationDescription::Matmul(desc.clone())),
             MatmulOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim1: usize,
         dim2: usize,
@@ -2144,19 +2335,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: SwapDimsDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SwapDimsOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SwapDimsOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
-                <span class="kw">let </span>output = B::swap_dims(input, <span class="self">self</span>.desc.dim1, <span class="self">self</span>.desc.dim2);
+                <span class="kw">let </span>output = B::float_swap_dims(input, <span class="self">self</span>.desc.dim1, <span class="self">self</span>.desc.dim2);
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim1] = tensor.shape[dim2];
         shape[dim2] = tensor.shape[dim1];
 
-        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
+        <span class="kw">let </span><span class="kw-2">mut </span>out = tensor.client.tensor_uninitialized(shape);
 
         <span class="kw">let </span>desc = SwapDimsDescription {
             input: tensor.into_description(),
@@ -2165,14 +2357,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsFloat(BaseOpsDescription::SwapDims(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::BaseFloat(BaseOperationDescription::SwapDims(desc.clone())),
             SwapDimsOps::&lt;D&gt;::new(desc),
         );
+        out.stream = stream;
 
         out
     }
 
-    <span class="kw">fn </span>reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
+    <span class="kw">fn </span>float_reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
         shape: Shape&lt;D2&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D2&gt; {
@@ -2181,14 +2375,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: ReshapeDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ReshapeDimsOps&lt;D1, D2&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ReshapeDimsOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_float_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
-                <span class="kw">let </span>output = B::reshape::&lt;D1, D2&gt;(input, Shape::from(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.shape));
+                <span class="kw">let </span>output = B::float_reshape::&lt;D1, D2&gt;(input, Shape::from(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.shape));
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
@@ -2197,51 +2392,55 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsFloat(BaseOpsDescription::Reshape(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::BaseFloat(BaseOperationDescription::Reshape(desc.clone())),
             ReshapeDimsOps::&lt;D1, D2&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>gather&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_gather&lt;<span class="kw">const </span>D: usize&gt;(
         dim: usize,
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         indices: IntTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>GatherOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: GatherOpsDescription,
+            desc: GatherOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>GatherOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>GatherOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
 
-                <span class="kw">let </span>output = B::gather(<span class="self">self</span>.desc.dim, tensor, indices);
+                <span class="kw">let </span>output = B::float_gather(<span class="self">self</span>.desc.dim, tensor, indices);
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = indices.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = GatherOpsDescription {
+        <span class="kw">let </span>desc = GatherOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Gather(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Gather(desc.clone())),
             GatherOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>scatter&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_scatter&lt;<span class="kw">const </span>D: usize&gt;(
         dim: usize,
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         indices: IntTensor&lt;<span class="self">Self</span>, D&gt;,
@@ -2249,25 +2448,28 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>ScatterOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: ScatterOpsDescription,
+            desc: ScatterOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ScatterOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ScatterOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
                 <span class="kw">let </span>value = handles.get_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.value);
 
-                <span class="kw">let </span>output = B::scatter(<span class="self">self</span>.desc.dim, tensor, indices, value);
+                <span class="kw">let </span>output = B::float_scatter(<span class="self">self</span>.desc.dim, tensor, indices, value);
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
+        <span class="kw">let </span>stream_3 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScatterOpsDescription {
+        <span class="kw">let </span>desc = ScatterOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
@@ -2276,52 +2478,56 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         };
 
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Scatter(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::NumericFloat(NumericOperationDescription::Scatter(desc.clone())),
             ScatterOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>select&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_select&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim: usize,
         indices: IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SelectOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: SelectOpsDescription,
+            desc: SelectOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SelectOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SelectOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
 
-                <span class="kw">let </span>output = B::select(tensor, <span class="self">self</span>.desc.dim, indices);
+                <span class="kw">let </span>output = B::float_select(tensor, <span class="self">self</span>.desc.dim, indices);
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         shape[dim] = indices.shape[<span class="number">0</span>];
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = SelectOpsDescription {
+        <span class="kw">let </span>desc = SelectOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Select(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Select(desc.clone())),
             SelectOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>select_assign&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_select_assign&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim: usize,
         indices: IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt;,
@@ -2329,25 +2535,28 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SelectAssignOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: SelectAssignOpsDescription,
+            desc: SelectAssignOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SelectAssignOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SelectAssignOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
                 <span class="kw">let </span>value = handles.get_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.value);
 
-                <span class="kw">let </span>output = B::select_assign(tensor, <span class="self">self</span>.desc.dim, indices, value);
+                <span class="kw">let </span>output = B::float_select_assign(tensor, <span class="self">self</span>.desc.dim, indices, value);
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
+        <span class="kw">let </span>stream_3 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = SelectAssignOpsDescription {
+        <span class="kw">let </span>desc = SelectAssignOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
@@ -2355,7 +2564,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::SelectAssign(
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::NumericFloat(NumericOperationDescription::SelectAssign(
                 desc.clone(),
             )),
             SelectAssignOps::&lt;D&gt;::new(desc),
@@ -2364,26 +2574,26 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         out
     }
 
-    <span class="kw">fn </span>slice&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
+    <span class="kw">fn </span>float_slice&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D1&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SliceOps&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt; {
-            desc: SliceOpsDescription,
+            desc: SliceOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SliceOps&lt;D1, D2&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SliceOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
 
                 <span class="kw">let </span>output =
-                    B::slice::&lt;D1, D2&gt;(tensor, <span class="self">self</span>.desc.ranges.clone().try_into().unwrap());
+                    B::float_slice::&lt;D1, D2&gt;(tensor, <span class="self">self</span>.desc.ranges.clone().try_into().unwrap());
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
-
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = ranges.iter().map(|range| range.end - range.start).collect();
 
         <span class="kw">for </span>i <span class="kw">in </span>shape.len()..D1 {
@@ -2392,35 +2602,36 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = SliceOpsDescription {
+        <span class="kw">let </span>desc = SliceOperationDescription {
             tensor: tensor.into_description(),
             ranges: ranges.into(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsFloat(BaseOpsDescription::Slice(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::BaseFloat(BaseOperationDescription::Slice(desc.clone())),
             SliceOps::&lt;D1, D2&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
+    <span class="kw">fn </span>float_slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
         value: FloatTensor&lt;<span class="self">Self</span>, D1&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D1&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SliceAssignOps&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt; {
-            desc: SliceAssignOpsDescription,
+            desc: SliceAssignOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SliceAssignOps&lt;D1, D2&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SliceAssignOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>value = handles.get_float_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.value);
 
-                <span class="kw">let </span>output = B::slice_assign::&lt;D1, D2&gt;(
+                <span class="kw">let </span>output = B::float_slice_assign::&lt;D1, D2&gt;(
                     tensor,
                     <span class="self">self</span>.desc.ranges.clone().try_into().unwrap(),
                     value,
@@ -2430,204 +2641,233 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = SliceAssignOpsDescription {
+        <span class="kw">let </span>desc = SliceAssignOperationDescription {
             tensor: tensor.into_description(),
             ranges: ranges.into(),
             value: value.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsFloat(BaseOpsDescription::SliceAssign(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::BaseFloat(BaseOperationDescription::SliceAssign(desc.clone())),
             SliceAssignOps::&lt;D1, D2&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>mask_where&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mask_where&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         mask: BoolTensor&lt;<span class="self">Self</span>, D&gt;,
         value: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>MaskWhereOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: MaskWhereOpsDescription,
+            desc: MaskWhereOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MaskWhereOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MaskWhereOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>value = handles.get_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.value);
                 <span class="kw">let </span>mask = handles.get_bool_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.mask);
 
-                <span class="kw">let </span>output = B::mask_where(tensor, mask, value);
+                <span class="kw">let </span>output = B::float_mask_where(tensor, mask, value);
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = mask.stream;
+        <span class="kw">let </span>stream_3 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = MaskWhereOpsDescription {
+        <span class="kw">let </span>desc = MaskWhereOperationDescription {
             tensor: tensor.into_description(),
             value: value.into_description(),
             mask: mask.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MaskWhere(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::NumericFloat(NumericOperationDescription::MaskWhere(
+                desc.clone(),
+            )),
             MaskWhereOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>mask_fill&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_mask_fill&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         mask: BoolTensor&lt;<span class="self">Self</span>, D&gt;,
         value: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>MaskFillOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: MaskFillOpsDescription&lt;f32&gt;,
+            desc: MaskFillOperationDescription&lt;f32&gt;,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MaskFillOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MaskFillOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>mask = handles.get_bool_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.mask);
 
-                <span class="kw">let </span>output = B::mask_fill(tensor, mask, <span class="self">self</span>.desc.value.elem());
+                <span class="kw">let </span>output = B::float_mask_fill(tensor, mask, <span class="self">self</span>.desc.value.elem());
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = mask.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = MaskFillOpsDescription {
+        <span class="kw">let </span>desc = MaskFillOperationDescription {
             tensor: tensor.into_description(),
             value: value.elem(),
             mask: mask.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MaskFill(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::MaskFill(desc.clone())),
             MaskFillOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>equal&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_equal&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_cmp_ops!</span>(EqualOps, B::equal);
+        <span class="macro">binary_float_cmp_ops!</span>(EqualOps, B::float_equal);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsFloat(BaseOpsDescription::Equal(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::BaseFloat(BaseOperationDescription::Equal(desc.clone())),
             EqualOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_cmp_ops!</span>(EqualElemOps, B::equal_elem);
+        <span class="macro">scalar_float_cmp_ops!</span>(EqualElemOps, B::float_equal_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::EqualElem(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::EqualElem(
+                desc.clone(),
+            )),
             EqualElemOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>greater&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_cmp_ops!</span>(GreaterOps, B::greater);
+        <span class="macro">binary_float_cmp_ops!</span>(GreaterOps, B::float_greater);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Greater(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Greater(desc.clone())),
             GreaterOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>greater_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_cmp_ops!</span>(GreaterElemOps, B::greater_elem);
+        <span class="macro">scalar_float_cmp_ops!</span>(GreaterElemOps, B::float_greater_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::GreaterElem(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::GreaterElem(
+                desc.clone(),
+            )),
             GreaterElemOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>greater_equal&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater_equal&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_cmp_ops!</span>(GreaterEqualOps, B::greater_equal);
+        <span class="macro">binary_float_cmp_ops!</span>(GreaterEqualOps, B::float_greater_equal);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::GreaterEqual(
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::GreaterEqual(
                 desc.clone(),
             )),
             GreaterEqualOps::&lt;D&gt;::new(desc),
@@ -2636,21 +2876,23 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         out
     }
 
-    <span class="kw">fn </span>greater_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_greater_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_cmp_ops!</span>(GreaterEqualElemOps, B::greater_equal_elem);
+        <span class="macro">scalar_float_cmp_ops!</span>(GreaterEqualElemOps, B::float_greater_equal_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::GreaterEqualElem(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::GreaterEqualElem(
                 desc.clone(),
             )),
             GreaterEqualElemOps::&lt;D&gt;::new(desc),
@@ -2659,88 +2901,102 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         out
     }
 
-    <span class="kw">fn </span>lower&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_cmp_ops!</span>(LowerOps, B::lower);
+        <span class="macro">binary_float_cmp_ops!</span>(LowerOps, B::float_lower);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Lower(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Lower(desc.clone())),
             LowerOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>lower_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_cmp_ops!</span>(LowerElemOps, B::lower_elem);
+        <span class="macro">scalar_float_cmp_ops!</span>(LowerElemOps, B::float_lower_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::LowerElem(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::LowerElem(
+                desc.clone(),
+            )),
             LowerElemOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>lower_equal&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower_equal&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">binary_float_cmp_ops!</span>(LowerEqualOps, B::lower_equal);
+        <span class="macro">binary_float_cmp_ops!</span>(LowerEqualOps, B::float_lower_equal);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::LowerEqual(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::LowerEqual(
+                desc.clone(),
+            )),
             LowerEqualOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>lower_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_lower_equal_elem&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         rhs: FloatElem&lt;<span class="self">Self</span>&gt;,
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_cmp_ops!</span>(LowerEqualElemOps, B::lower_equal_elem);
+        <span class="macro">scalar_float_cmp_ops!</span>(LowerEqualElemOps, B::float_lower_equal_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::LowerEqualElem(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::LowerEqualElem(
                 desc.clone(),
             )),
             LowerEqualElemOps::&lt;D&gt;::new(desc),
@@ -2749,286 +3005,328 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         out
     }
 
-    <span class="kw">fn </span>sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
-        <span class="macro">unary_float_ops!</span>(SumOps, B::sum);
+    <span class="kw">fn </span>float_sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
+        <span class="macro">unary_float_ops!</span>(SumOps, B::float_sum);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Sum(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Sum(desc.clone())),
             SumOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>sum_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(SumDimOps, B::sum_dim, usize, noconvert);
+    <span class="kw">fn </span>float_sum_dim&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">scalar_float_ops!</span>(SumDimOps, B::float_sum_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::SumDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::SumDim(desc.clone())),
             SumDimOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>mean&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
-        <span class="macro">unary_float_ops!</span>(MeanOps, B::mean);
+    <span class="kw">fn </span>float_mean&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
+        <span class="macro">unary_float_ops!</span>(MeanOps, B::float_mean);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Mean(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Mean(desc.clone())),
             MeanOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>mean_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(MeanDimOps, B::mean_dim, usize, noconvert);
+    <span class="kw">fn </span>float_mean_dim&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">scalar_float_ops!</span>(MeanDimOps, B::float_mean_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MeanDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::MeanDim(desc.clone())),
             MeanDimOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>to_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_to_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: <span class="kw-2">&amp;</span>FloatTensor&lt;<span class="self">Self</span>, D&gt;,
     ) -&gt; FloatTensor&lt;FullPrecisionBackend&lt;<span class="self">Self</span>&gt;, D&gt; {
         tensor.clone()
     }
 
-    <span class="kw">fn </span>from_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_from_full_precision&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;FullPrecisionBackend&lt;<span class="self">Self</span>&gt;, D&gt;,
     ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         tensor
     }
 
-    <span class="kw">fn </span>exp&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(ExpOps, B::exp);
+    <span class="kw">fn </span>float_exp&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(ExpOps, B::float_exp);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: lhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Exp(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Exp(desc.clone())),
             ExpOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>log&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(LogOps, B::log);
+    <span class="kw">fn </span>float_log&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(LogOps, B::float_log);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Log(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Log(desc.clone())),
             LogOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>log1p&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(Log1pOps, B::log1p);
+    <span class="kw">fn </span>float_log1p&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(Log1pOps, B::float_log1p);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Log1p(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Log1p(desc.clone())),
             Log1pOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>powf&lt;<span class="kw">const </span>D: usize&gt;(lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;, rhs: f32) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(PowfOps, B::powf, f32);
+    <span class="kw">fn </span>float_powf_scalar&lt;<span class="kw">const </span>D: usize&gt;(
+        lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        rhs: f32,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">scalar_float_ops!</span>(PowfOps, B::float_powf_scalar, f32);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Powf(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::PowfScalar(desc.clone())),
             PowfOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>sqrt&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(SqrtOps, B::sqrt);
+    <span class="kw">fn </span>float_sqrt&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(SqrtOps, B::float_sqrt);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Sqrt(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Sqrt(desc.clone())),
             SqrtOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>abs&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(AbsOps, B::abs);
+    <span class="kw">fn </span>float_abs&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(AbsOps, B::float_abs);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Abs(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Abs(desc.clone())),
             AbsOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>cos&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(CosOps, B::cos);
+    <span class="kw">fn </span>float_cos&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(CosOps, B::float_cos);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Cos(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Cos(desc.clone())),
             CosOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>sin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(SinOps, B::sin);
+    <span class="kw">fn </span>float_sin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(SinOps, B::float_sin);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Sin(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Sin(desc.clone())),
             SinOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>tanh&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(TanhOps, B::tanh);
+    <span class="kw">fn </span>float_tanh&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(TanhOps, B::float_tanh);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Tanh(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Tanh(desc.clone())),
             TanhOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>recip&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(Recip, B::recip);
+    <span class="kw">fn </span>float_recip&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(Recip, B::float_recip);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Recip(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Recip(desc.clone())),
             Recip::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>erf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">unary_float_ops!</span>(TanhOps, B::erf);
+    <span class="kw">fn </span>float_erf&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">unary_float_ops!</span>(TanhOps, B::float_erf);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::FloatOps(FloatOpsDescription::Erf(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Float(FloatOperationDescription::Erf(desc.clone())),
             TanhOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>cat&lt;<span class="kw">const </span>D: usize&gt;(tensors: Vec&lt;FloatTensor&lt;<span class="self">Self</span>, D&gt;&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+    <span class="kw">fn </span>float_cat&lt;<span class="kw">const </span>D: usize&gt;(
+        tensors: Vec&lt;FloatTensor&lt;<span class="self">Self</span>, D&gt;&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>CatOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: CatOpsDescription,
+            desc: CatOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>CatOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>CatOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensors = <span class="self">self
                     </span>.desc
@@ -3037,17 +3335,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     .map(|tensor| handles.get_float_tensor(tensor))
                     .collect();
 
-                <span class="kw">let </span>output = B::cat::&lt;D&gt;(tensors, <span class="self">self</span>.desc.dim);
+                <span class="kw">let </span>output = B::float_cat::&lt;D&gt;(tensors, <span class="self">self</span>.desc.dim);
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
             }
         }
 
-        <span class="kw">let </span>tensor_first = tensors.get(<span class="number">0</span>).unwrap();
+        <span class="kw">let </span>tensor_first = tensors.first().unwrap();
         <span class="kw">let </span>client = tensor_first.client.clone();
 
         <span class="comment">// Calculate the output shape
-        </span><span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = tensor_first.shape.clone();
+        </span><span class="kw">let </span>streams = tensors.iter().map(|tensor| tensor.stream).collect();
+        <span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = tensor_first.shape.clone();
         shape[dim] = <span class="number">0</span>;
         <span class="kw">for </span>tensor <span class="kw">in </span>tensors.iter() {
             shape[dim] += tensor.shape[dim];
@@ -3055,97 +3354,115 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = CatOpsDescription {
+        <span class="kw">let </span>desc = CatOperationDescription {
             tensors: tensors.into_iter().map(|t| t.into_description()).collect(),
             dim,
             out: out.to_description_out(),
         };
         client.register(
-            TensorOpsDescription::BaseOpsFloat(BaseOpsDescription::Cat(desc.clone())),
+            streams,
+            OperationDescription::BaseFloat(BaseOperationDescription::Cat(desc.clone())),
             CatOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>argmax&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float2int_ops!</span>(ArgMaxOps, B::argmax, usize);
+    <span class="kw">fn </span>float_argmax&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">scalar_float2int_ops!</span>(ArgMaxOps, B::float_argmax, usize);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::ArgMax(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::ArgMax(desc.clone())),
             ArgMaxOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>argmin&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float2int_ops!</span>(ArgMinOps, B::argmin, usize);
+    <span class="kw">fn </span>float_argmin&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">scalar_float2int_ops!</span>(ArgMinOps, B::float_argmin, usize);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::ArgMin(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::ArgMin(desc.clone())),
             ArgMinOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>max&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
-        <span class="macro">unary_float_ops!</span>(MaxOps, B::max);
+    <span class="kw">fn </span>float_max&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
+        <span class="macro">unary_float_ops!</span>(MaxOps, B::float_max);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Max(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Max(desc.clone())),
             MaxOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>max_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(MaxDimOps, B::max_dim, usize, noconvert);
+    <span class="kw">fn </span>float_max_dim&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">scalar_float_ops!</span>(MaxDimOps, B::float_max_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MaxDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::MaxDim(desc.clone())),
             MaxDimOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>max_dim_with_indices&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_max_dim_with_indices&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim: usize,
     ) -&gt; (FloatTensor&lt;<span class="self">Self</span>, D&gt;, IntTensor&lt;<span class="self">Self</span>, D&gt;) {
@@ -3154,16 +3471,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: ReduceDimWithIndicesDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MaxDimWithIndicesOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MaxDimWithIndicesOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
-                <span class="kw">let </span>(output, indices) = B::max_dim_with_indices(tensor, <span class="self">self</span>.desc.dim);
+                <span class="kw">let </span>(output, indices) = B::float_max_dim_with_indices(tensor, <span class="self">self</span>.desc.dim);
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
                 handles.register_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out_indices.id, indices);
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>client = tensor.client.clone();
@@ -3177,7 +3495,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out_indices: out_indices.to_description_out(),
         };
         client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MaxDimWithIndices(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::MaxDimWithIndices(
                 desc.clone(),
             )),
             MaxDimWithIndicesOps::&lt;D&gt;::new(desc),
@@ -3186,44 +3505,51 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         (out, out_indices)
     }
 
-    <span class="kw">fn </span>min&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
-        <span class="macro">unary_float_ops!</span>(MinOps, B::min);
+    <span class="kw">fn </span>float_min&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
+        <span class="macro">unary_float_ops!</span>(MinOps, B::float_min);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::Min(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::Min(desc.clone())),
             MinOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>min_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_float_ops!</span>(MinDimOps, B::min_dim, usize, noconvert);
+    <span class="kw">fn </span>float_min_dim&lt;<span class="kw">const </span>D: usize&gt;(
+        tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        dim: usize,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">scalar_float_ops!</span>(MinDimOps, B::float_min_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MinDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::MinDim(desc.clone())),
             MinDimOps::&lt;D&gt;::new(desc),
         );
 
         out
     }
 
-    <span class="kw">fn </span>min_dim_with_indices&lt;<span class="kw">const </span>D: usize&gt;(
+    <span class="kw">fn </span>float_min_dim_with_indices&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
         dim: usize,
     ) -&gt; (FloatTensor&lt;<span class="self">Self</span>, D&gt;, IntTensor&lt;<span class="self">Self</span>, D&gt;) {
@@ -3232,16 +3558,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: ReduceDimWithIndicesDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MinDimWithIndicesOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MinDimWithIndicesOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_float_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
-                <span class="kw">let </span>(output, indices) = B::min_dim_with_indices(tensor, <span class="self">self</span>.desc.dim);
+                <span class="kw">let </span>(output, indices) = B::float_min_dim_with_indices(tensor, <span class="self">self</span>.desc.dim);
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.id, output);
                 handles.register_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out_indices.id, indices);
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>client = tensor.client.clone();
@@ -3255,13 +3582,40 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out_indices: out_indices.to_description_out(),
         };
         client.register(
-            TensorOpsDescription::NumericOpsFloat(NumericOpsDescription::MinDimWithIndices(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericFloat(NumericOperationDescription::MinDimWithIndices(
                 desc.clone(),
             )),
             MinDimWithIndicesOps::&lt;D&gt;::new(desc),
         );
 
         (out, out_indices)
+    }
+
+    <span class="kw">fn </span>float_powf&lt;<span class="kw">const </span>D: usize&gt;(
+        lhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+        rhs: FloatTensor&lt;<span class="self">Self</span>, D&gt;,
+    ) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
+        <span class="macro">binary_float_ops!</span>(PowOps, B::float_powf);
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
+
+        <span class="kw">let </span>out = lhs
+            .client
+            .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
+
+        <span class="kw">let </span>desc = BinaryOperationDescription {
+            lhs: lhs.into_description(),
+            rhs: rhs.into_description(),
+            out: out.to_description_out(),
+        };
+        out.client.register(
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericFloat(NumericOperationDescription::Powf(desc.clone())),
+            PowOps::&lt;D&gt;::new(desc),
+        );
+
+        out
     }
 }
 </code></pre></div></section></main></body></html>

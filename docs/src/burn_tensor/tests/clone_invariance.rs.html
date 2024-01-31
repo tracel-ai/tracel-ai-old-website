@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-tensor/src/tests/clone_invariance.rs`."><title>clone_invariance.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-tensor/src/tests/clone_invariance.rs`."><title>clone_invariance.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_tensor/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -718,6 +718,24 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#716" id="716">716</a>
 <a href="#717" id="717">717</a>
 <a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
 </pre></div><pre class="rust"><code><span class="attr">#[burn_tensor_testgen::testgen(clone_invariance)]
 </span><span class="doccomment">/// This module tests whether basic tensor operations remain invariant when performed on clones,
 /// meaning that cloning input tensors won&#39;t affect the results.
@@ -728,7 +746,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 </span><span class="kw">mod </span>tests {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>burn_tensor::activation::{
-        gelu, log_sigmoid, log_softmax, relu, sigmoid, silu, softmax, tanh,
+        gelu, log_sigmoid, log_softmax, mish, relu, sigmoid, silu, softmax, softplus, tanh,
     };
     <span class="kw">use </span>burn_tensor::{Data, Distribution, Tensor};
 
@@ -759,13 +777,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     <span class="kw">type </span>Args = Data&lt;f32, <span class="number">2</span>&gt;;
 
                     <span class="kw">fn </span>args(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Args {
-                        TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default)
+                        TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default, <span class="kw-2">&amp;</span>Default::default())
                             .into_data()
                             .convert()
                     }
 
                     <span class="kw">fn </span>run(<span class="kw-2">&amp;</span><span class="self">self</span>, args: <span class="kw-2">&amp;</span><span class="self">Self</span>::Args, inplace: bool) -&gt; Data&lt;f32, <span class="number">2</span>&gt; {
-                        <span class="kw">let </span>lhs = TestTensor::from_data(args.clone().convert());
+                        <span class="kw">let </span>lhs =
+                            TestTensor::from_data(args.clone().convert(), <span class="kw-2">&amp;</span>Default::default());
 
                         <span class="kw">if </span>inplace {
                             <span class="macro-nonterminal">$ops</span>(lhs).into_data().convert()
@@ -791,20 +810,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     <span class="kw">type </span>Args = (Data&lt;f32, <span class="number">2</span>&gt;, Data&lt;f32, <span class="number">2</span>&gt;);
 
                     <span class="kw">fn </span>args(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Args {
+                        <span class="kw">let </span>device = Default::default();
                         (
-                            TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default)
+                            TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Default, <span class="kw-2">&amp;</span>device)
                                 .into_data()
                                 .convert(),
                             <span class="comment">// Avoid div by zero.
-                            </span>TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Uniform(<span class="number">1.</span>, <span class="number">3.</span>))
+                            </span>TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Uniform(<span class="number">1.</span>, <span class="number">3.</span>), <span class="kw-2">&amp;</span>device)
                                 .into_data()
                                 .convert(),
                         )
                     }
 
                     <span class="kw">fn </span>run(<span class="kw-2">&amp;</span><span class="self">self</span>, (lhs_arg, rhs_arg): <span class="kw-2">&amp;</span><span class="self">Self</span>::Args, inplace: bool) -&gt; Data&lt;f32, <span class="number">2</span>&gt; {
-                        <span class="kw">let </span>lhs = TestTensor::from_data(lhs_arg.clone().convert());
-                        <span class="kw">let </span>rhs = TestTensor::from_data(rhs_arg.clone().convert());
+                        <span class="kw">let </span>device = Default::default();
+                        <span class="kw">let </span>lhs = TestTensor::from_data(lhs_arg.clone().convert(), <span class="kw-2">&amp;</span>device);
+                        <span class="kw">let </span>rhs = TestTensor::from_data(rhs_arg.clone().convert(), <span class="kw-2">&amp;</span>device);
 
                         <span class="kw">if </span>inplace {
                             <span class="macro-nonterminal">$ops</span>(lhs, rhs).into_data().convert()
@@ -833,13 +854,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     <span class="kw">type </span>Args = Data&lt;i32, <span class="number">2</span>&gt;;
 
                     <span class="kw">fn </span>args(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Args {
-                        TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Uniform(<span class="number">0.0</span>, <span class="number">50.0</span>))
-                            .into_data()
-                            .convert()
+                        TestTensor::random(
+                            [<span class="number">32</span>, <span class="number">32</span>],
+                            Distribution::Uniform(<span class="number">0.0</span>, <span class="number">50.0</span>),
+                            <span class="kw-2">&amp;</span>Default::default(),
+                        )
+                        .into_data()
+                        .convert()
                     }
 
                     <span class="kw">fn </span>run(<span class="kw-2">&amp;</span><span class="self">self</span>, args: <span class="kw-2">&amp;</span><span class="self">Self</span>::Args, inplace: bool) -&gt; Data&lt;f32, <span class="number">2</span>&gt; {
-                        <span class="kw">let </span>lhs = TestTensorInt::from_data(args.clone().convert());
+                        <span class="kw">let </span>lhs =
+                            TestTensorInt::from_data(args.clone().convert(), <span class="kw-2">&amp;</span>Default::default());
 
                         <span class="kw">if </span>inplace {
                             <span class="macro-nonterminal">$ops</span>(lhs).into_data().convert()
@@ -865,20 +891,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     <span class="kw">type </span>Args = (Data&lt;i32, <span class="number">2</span>&gt;, Data&lt;i32, <span class="number">2</span>&gt;);
 
                     <span class="kw">fn </span>args(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Args {
+                        <span class="kw">let </span>device = Default::default();
                         (
-                            TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Uniform(<span class="number">0.</span>, <span class="number">50.</span>))
+                            TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Uniform(<span class="number">0.</span>, <span class="number">50.</span>), <span class="kw-2">&amp;</span>device)
                                 .into_data()
                                 .convert(),
                             <span class="comment">// Avoid div by zero.
-                            </span>TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Uniform(<span class="number">1.</span>, <span class="number">51.</span>))
+                            </span>TestTensor::random([<span class="number">32</span>, <span class="number">32</span>], Distribution::Uniform(<span class="number">1.</span>, <span class="number">51.</span>), <span class="kw-2">&amp;</span>device)
                                 .into_data()
                                 .convert(),
                         )
                     }
 
                     <span class="kw">fn </span>run(<span class="kw-2">&amp;</span><span class="self">self</span>, (lhs_arg, rhs_arg): <span class="kw-2">&amp;</span><span class="self">Self</span>::Args, inplace: bool) -&gt; Data&lt;f32, <span class="number">2</span>&gt; {
-                        <span class="kw">let </span>lhs = TestTensorInt::from_data(lhs_arg.clone().convert());
-                        <span class="kw">let </span>rhs = TestTensorInt::from_data(rhs_arg.clone().convert());
+                        <span class="kw">let </span>device = Default::default();
+                        <span class="kw">let </span>lhs = TestTensorInt::from_data(lhs_arg.clone().convert(), <span class="kw-2">&amp;</span>device);
+                        <span class="kw">let </span>rhs = TestTensorInt::from_data(rhs_arg.clone().convert(), <span class="kw-2">&amp;</span>device);
 
                         <span class="kw">if </span>inplace {
                             <span class="macro-nonterminal">$ops</span>(lhs, rhs).into_data().convert()
@@ -920,7 +948,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         );
         <span class="macro">clone_invariance_test!</span>(
             unary: PowScalar,
-            ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| tensor.powf(<span class="number">2.0</span>)
+                                        ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| tensor.powf_scalar(<span class="number">2.0</span>)
         );
         <span class="macro">clone_invariance_test!</span>(
             unary: Sqrt,
@@ -1065,17 +1093,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
         <span class="macro">clone_invariance_test!</span>(
-            unary: Gather,
+            unary: Gatter,
             ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| {
                 <span class="kw">let </span>shape = tensor.shape();
-                <span class="kw">let </span>indices = TestTensorInt::ones(shape);
+                <span class="kw">let </span>indices = TestTensorInt::ones(shape, <span class="kw-2">&amp;</span>Default::default());
                 tensor.gather(<span class="number">0</span>, indices)
             }
         );
         <span class="macro">clone_invariance_test!</span>(
             unary: Select,
             ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| {
-                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>]);
+                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>], <span class="kw-2">&amp;</span>Default::default());
                 tensor.select(<span class="number">0</span>, indices)
             }
         );
@@ -1113,8 +1141,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| gelu(tensor)
         );
         <span class="macro">clone_invariance_test!</span>(
+            unary: Mish,
+            ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| mish(tensor)
+        );
+        <span class="macro">clone_invariance_test!</span>(
             unary: Silu,
             ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| silu(tensor)
+        );
+        <span class="macro">clone_invariance_test!</span>(
+            unary: Softplus,
+            ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;| softplus(tensor, <span class="number">1.0</span>)
         );
         <span class="macro">clone_invariance_test!</span>(
             unary: Tanh,
@@ -1175,7 +1211,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             binary: Scatter,
             ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;, values: TestTensor&lt;<span class="number">2</span>&gt;| {
                 <span class="kw">let </span>shape = tensor.shape();
-                <span class="kw">let </span>indices = TestTensorInt::ones(shape);
+                <span class="kw">let </span>indices = TestTensorInt::ones(shape, <span class="kw-2">&amp;</span>Default::default());
                 tensor.scatter(<span class="number">0</span>, indices, values)
             }
         );
@@ -1195,7 +1231,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="macro">clone_invariance_test!</span>(
             binary: SelectAssign,
             ops_float: |tensor: TestTensor&lt;<span class="number">2</span>&gt;, values: TestTensor&lt;<span class="number">2</span>&gt;| {
-                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>]);
+                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>], <span class="kw-2">&amp;</span>Default::default());
                 <span class="kw">let </span>values = values.select(<span class="number">0</span>, indices.clone());
                 tensor.select_assign(<span class="number">0</span>, indices, values)
             }
@@ -1337,17 +1373,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
         <span class="macro">clone_invariance_test!</span>(
-            unary: Gather,
+            unary: Gatter,
             ops_int: |tensor: TestTensorInt&lt;<span class="number">2</span>&gt;| {
                 <span class="kw">let </span>shape = tensor.shape();
-                <span class="kw">let </span>indices = TestTensorInt::ones(shape);
+                <span class="kw">let </span>indices = TestTensorInt::ones(shape, <span class="kw-2">&amp;</span>Default::default());
                 tensor.gather(<span class="number">0</span>, indices)
             }
         );
         <span class="macro">clone_invariance_test!</span>(
             unary: Select,
             ops_int: |tensor: TestTensorInt&lt;<span class="number">2</span>&gt;| {
-                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>]);
+                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>], <span class="kw-2">&amp;</span>Default::default());
                 tensor.select(<span class="number">0</span>, indices)
             }
         );
@@ -1409,7 +1445,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             binary: Scatter,
             ops_int: |tensor: TestTensorInt&lt;<span class="number">2</span>&gt;, values: TestTensorInt&lt;<span class="number">2</span>&gt;| {
                 <span class="kw">let </span>shape = tensor.shape();
-                <span class="kw">let </span>indices = TestTensorInt::ones(shape);
+                <span class="kw">let </span>indices = TestTensorInt::ones(shape, <span class="kw-2">&amp;</span>Default::default());
                 tensor.scatter(<span class="number">0</span>, indices, values)
             }
         );
@@ -1429,7 +1465,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="macro">clone_invariance_test!</span>(
             binary: SelectAssign,
             ops_int: |tensor: TestTensorInt&lt;<span class="number">2</span>&gt;, values: TestTensorInt&lt;<span class="number">2</span>&gt;| {
-                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>]);
+                <span class="kw">let </span>indices = TestTensorInt::from_ints([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>], <span class="kw-2">&amp;</span>Default::default());
                 <span class="kw">let </span>values = values.select(<span class="number">0</span>, indices.clone());
                 tensor.select_assign(<span class="number">0</span>, indices, values)
             }

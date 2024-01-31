@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-fusion/src/ops/int.rs`."><title>int.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-fusion/src/ops/int.rs`."><title>int.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_fusion" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_fusion/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_fusion" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1348,20 +1348,110 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1346" id="1346">1346</a>
 <a href="#1347" id="1347">1347</a>
 <a href="#1348" id="1348">1348</a>
+<a href="#1349" id="1349">1349</a>
+<a href="#1350" id="1350">1350</a>
+<a href="#1351" id="1351">1351</a>
+<a href="#1352" id="1352">1352</a>
+<a href="#1353" id="1353">1353</a>
+<a href="#1354" id="1354">1354</a>
+<a href="#1355" id="1355">1355</a>
+<a href="#1356" id="1356">1356</a>
+<a href="#1357" id="1357">1357</a>
+<a href="#1358" id="1358">1358</a>
+<a href="#1359" id="1359">1359</a>
+<a href="#1360" id="1360">1360</a>
+<a href="#1361" id="1361">1361</a>
+<a href="#1362" id="1362">1362</a>
+<a href="#1363" id="1363">1363</a>
+<a href="#1364" id="1364">1364</a>
+<a href="#1365" id="1365">1365</a>
+<a href="#1366" id="1366">1366</a>
+<a href="#1367" id="1367">1367</a>
+<a href="#1368" id="1368">1368</a>
+<a href="#1369" id="1369">1369</a>
+<a href="#1370" id="1370">1370</a>
+<a href="#1371" id="1371">1371</a>
+<a href="#1372" id="1372">1372</a>
+<a href="#1373" id="1373">1373</a>
+<a href="#1374" id="1374">1374</a>
+<a href="#1375" id="1375">1375</a>
+<a href="#1376" id="1376">1376</a>
+<a href="#1377" id="1377">1377</a>
+<a href="#1378" id="1378">1378</a>
+<a href="#1379" id="1379">1379</a>
+<a href="#1380" id="1380">1380</a>
+<a href="#1381" id="1381">1381</a>
+<a href="#1382" id="1382">1382</a>
+<a href="#1383" id="1383">1383</a>
+<a href="#1384" id="1384">1384</a>
+<a href="#1385" id="1385">1385</a>
+<a href="#1386" id="1386">1386</a>
+<a href="#1387" id="1387">1387</a>
+<a href="#1388" id="1388">1388</a>
+<a href="#1389" id="1389">1389</a>
+<a href="#1390" id="1390">1390</a>
+<a href="#1391" id="1391">1391</a>
+<a href="#1392" id="1392">1392</a>
+<a href="#1393" id="1393">1393</a>
+<a href="#1394" id="1394">1394</a>
+<a href="#1395" id="1395">1395</a>
+<a href="#1396" id="1396">1396</a>
+<a href="#1397" id="1397">1397</a>
+<a href="#1398" id="1398">1398</a>
+<a href="#1399" id="1399">1399</a>
+<a href="#1400" id="1400">1400</a>
+<a href="#1401" id="1401">1401</a>
+<a href="#1402" id="1402">1402</a>
+<a href="#1403" id="1403">1403</a>
+<a href="#1404" id="1404">1404</a>
+<a href="#1405" id="1405">1405</a>
+<a href="#1406" id="1406">1406</a>
+<a href="#1407" id="1407">1407</a>
+<a href="#1408" id="1408">1408</a>
+<a href="#1409" id="1409">1409</a>
+<a href="#1410" id="1410">1410</a>
+<a href="#1411" id="1411">1411</a>
+<a href="#1412" id="1412">1412</a>
+<a href="#1413" id="1413">1413</a>
+<a href="#1414" id="1414">1414</a>
+<a href="#1415" id="1415">1415</a>
+<a href="#1416" id="1416">1416</a>
+<a href="#1417" id="1417">1417</a>
+<a href="#1418" id="1418">1418</a>
+<a href="#1419" id="1419">1419</a>
+<a href="#1420" id="1420">1420</a>
+<a href="#1421" id="1421">1421</a>
+<a href="#1422" id="1422">1422</a>
+<a href="#1423" id="1423">1423</a>
+<a href="#1424" id="1424">1424</a>
+<a href="#1425" id="1425">1425</a>
+<a href="#1426" id="1426">1426</a>
+<a href="#1427" id="1427">1427</a>
+<a href="#1428" id="1428">1428</a>
+<a href="#1429" id="1429">1429</a>
+<a href="#1430" id="1430">1430</a>
+<a href="#1431" id="1431">1431</a>
+<a href="#1432" id="1432">1432</a>
+<a href="#1433" id="1433">1433</a>
+<a href="#1434" id="1434">1434</a>
+<a href="#1435" id="1435">1435</a>
+<a href="#1436" id="1436">1436</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     binary_int_cmp_ops, binary_int_ops,
     client::FusionClient,
     get_client,
-    graph::{
-        <span class="self">self</span>, BaseOpsDescription, BinaryOpsDescription, CatOpsDescription, ClampOpsDescription,
-        GatherOpsDescription, MaskFillOpsDescription, MaskWhereOpsDescription,
-        NumericOpsDescription, Ops, ReduceDimWithIndicesDescription, ReshapeDescription,
-        ScalarOpsDescription, ScatterOpsDescription, SelectAssignOpsDescription,
-        SelectOpsDescription, SliceAssignOpsDescription, SliceOpsDescription, SwapDimsDescription,
-        TensorOpsDescription, UnaryOpsDescription,
-    },
     ops::binary::binary_ops_shape,
-    scalar_int_cmp_ops, scalar_int_ops, unary_int_ops, Fusion, FusionBackend, TensorDescription,
+    scalar_int_cmp_ops, scalar_int_ops,
+    stream::{
+        <span class="self">self</span>, BaseOperationDescription, BinaryOperationDescription, CatOperationDescription,
+        ClampOperationDescription, GatherOperationDescription, MaskFillOperationDescription,
+        MaskWhereOperationDescription, NumericOperationDescription, Operation,
+        OperationDescription, ReduceDimWithIndicesDescription, ReshapeDescription,
+        ScalarOperationDescription, ScatterOperationDescription, SelectAssignOperationDescription,
+        SelectOperationDescription, SliceAssignOperationDescription, SliceOperationDescription,
+        StreamId, SwapDimsDescription, UnaryOperationDescription,
+    },
+    unary_int_ops, Fusion, FusionBackend, TensorDescription,
 };
 <span class="kw">use </span>burn_tensor::{
     ops::{BoolTensor, FloatTensor, IntElem, IntTensor, IntTensorOps},
@@ -1373,8 +1463,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>Device&lt;<span class="self">Self</span>&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>tensor = B::int_empty(shape.clone(), device);
+        <span class="kw">let </span>stream = StreamId::current();
 
-        client.register_tensor(B::int_tensor_handle(tensor), shape.dims.into())
+        client.register_tensor(B::int_tensor_handle(tensor), shape.dims.into(), stream)
     }
 
     <span class="kw">fn </span>int_shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Shape&lt;D&gt; {
@@ -1392,8 +1483,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>tensor = B::int_from_data(data, device);
         <span class="kw">let </span>shape = B::int_shape(<span class="kw-2">&amp;</span>tensor);
+        <span class="kw">let </span>stream = StreamId::current();
 
-        client.register_tensor(B::int_tensor_handle(tensor), shape.dims.into())
+        client.register_tensor(B::int_tensor_handle(tensor), shape.dims.into(), stream)
     }
 
     <span class="kw">fn </span>int_device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span>IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; Device&lt;<span class="self">Self</span>&gt; {
@@ -1411,12 +1503,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             <span class="kw">return </span>tensor;
         }
 
+        <span class="kw">let </span>id = tensor.stream;
         <span class="kw">let </span>client_target = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device_target);
         <span class="kw">let </span>client_original = tensor.client.clone();
 
         client_original
             .clone()
-            .change_client_int::&lt;D&gt;(tensor.into_description(), client_target)
+            .change_client_int::&lt;D&gt;(tensor.into_description(), client_target, id)
     }
 
     <span class="kw">fn </span>int_reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
@@ -1428,7 +1521,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: ReshapeDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ReshapeDimsOps&lt;D1, D2&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ReshapeDimsOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_int_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
                 <span class="kw">let </span>output = B::int_reshape::&lt;D1, D2&gt;(input, Shape::from(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.out.shape));
@@ -1436,6 +1529,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
@@ -1444,7 +1538,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsInt(BaseOpsDescription::Reshape(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::BaseInt(BaseOperationDescription::Reshape(desc.clone())),
             ReshapeDimsOps::&lt;D1, D2&gt;::new(desc),
         );
 
@@ -1457,10 +1552,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D1&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SliceOps&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt; {
-            desc: SliceOpsDescription,
+            desc: SliceOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SliceOps&lt;D1, D2&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SliceOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
 
@@ -1471,6 +1566,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = ranges.iter().map(|range| range.end - range.start).collect();
 
         <span class="kw">for </span>i <span class="kw">in </span>shape.len()..D1 {
@@ -1479,13 +1575,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = SliceOpsDescription {
+        <span class="kw">let </span>desc = SliceOperationDescription {
             tensor: tensor.into_description(),
             ranges: ranges.into(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsInt(BaseOpsDescription::Slice(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::BaseInt(BaseOperationDescription::Slice(desc.clone())),
             SliceOps::&lt;D1, D2&gt;::new(desc),
         );
 
@@ -1499,10 +1596,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D1&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SliceAssignOps&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt; {
-            desc: SliceAssignOpsDescription,
+            desc: SliceAssignOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SliceAssignOps&lt;D1, D2&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SliceAssignOps&lt;D1, D2&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>value = handles.get_int_tensor::&lt;D1&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.value);
@@ -1517,16 +1614,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = SliceAssignOpsDescription {
+        <span class="kw">let </span>desc = SliceAssignOperationDescription {
             tensor: tensor.into_description(),
             ranges: ranges.into(),
             value: value.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsInt(BaseOpsDescription::SliceAssign(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::BaseInt(BaseOperationDescription::SliceAssign(desc.clone())),
             SliceAssignOps::&lt;D1, D2&gt;::new(desc),
         );
 
@@ -1540,10 +1640,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>MaskWhereOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: MaskWhereOpsDescription,
+            desc: MaskWhereOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MaskWhereOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MaskWhereOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>value = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.value);
@@ -1555,17 +1655,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = mask.stream;
+        <span class="kw">let </span>stream_3 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = MaskWhereOpsDescription {
+        <span class="kw">let </span>desc = MaskWhereOperationDescription {
             tensor: tensor.into_description(),
             value: value.into_description(),
             mask: mask.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MaskWhere(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::NumericInt(NumericOperationDescription::MaskWhere(desc.clone())),
             MaskWhereOps::&lt;D&gt;::new(desc),
         );
 
@@ -1579,10 +1683,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>MaskFillOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: MaskFillOpsDescription&lt;i32&gt;,
+            desc: MaskFillOperationDescription&lt;i32&gt;,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MaskFillOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MaskFillOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>mask = handles.get_bool_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.mask);
@@ -1593,16 +1697,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = mask.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = MaskFillOpsDescription {
+        <span class="kw">let </span>desc = MaskFillOperationDescription {
             tensor: tensor.into_description(),
             value: value.elem(),
             mask: mask.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MaskFill(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericInt(NumericOperationDescription::MaskFill(desc.clone())),
             MaskFillOps::&lt;D&gt;::new(desc),
         );
 
@@ -1616,10 +1723,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>GatherOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: GatherOpsDescription,
+            desc: GatherOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>GatherOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>GatherOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
@@ -1629,16 +1736,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = indices.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = GatherOpsDescription {
+        <span class="kw">let </span>desc = GatherOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Gather(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericInt(NumericOperationDescription::Gather(desc.clone())),
             GatherOps::&lt;D&gt;::new(desc),
         );
 
@@ -1653,10 +1763,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>ScatterOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: ScatterOpsDescription,
+            desc: ScatterOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ScatterOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ScatterOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
@@ -1668,9 +1778,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
+        <span class="kw">let </span>stream_3 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = ScatterOpsDescription {
+        <span class="kw">let </span>desc = ScatterOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
@@ -1678,7 +1791,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Scatter(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::NumericInt(NumericOperationDescription::Scatter(desc.clone())),
             ScatterOps::&lt;D&gt;::new(desc),
         );
 
@@ -1692,10 +1806,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SelectOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: SelectOpsDescription,
+            desc: SelectOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SelectOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SelectOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
@@ -1706,17 +1820,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         shape[dim] = indices.shape[<span class="number">0</span>];
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = SelectOpsDescription {
+        <span class="kw">let </span>desc = SelectOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Select(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericInt(NumericOperationDescription::Select(desc.clone())),
             SelectOps::&lt;D&gt;::new(desc),
         );
 
@@ -1731,10 +1848,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>SelectAssignOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: SelectAssignOpsDescription,
+            desc: SelectAssignOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SelectAssignOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SelectAssignOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>indices = handles.get_int_tensor(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.indices);
@@ -1746,9 +1863,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream_1 = tensor.stream;
+        <span class="kw">let </span>stream_2 = indices.stream;
+        <span class="kw">let </span>stream_3 = value.stream;
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = tensor.shape.clone();
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
-        <span class="kw">let </span>desc = SelectAssignOpsDescription {
+        <span class="kw">let </span>desc = SelectAssignOperationDescription {
             tensor: tensor.into_description(),
             dim,
             indices: indices.into_description(),
@@ -1756,7 +1876,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::SelectAssign(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::NumericInt(NumericOperationDescription::SelectAssign(
+                desc.clone(),
+            )),
             SelectAssignOps::&lt;D&gt;::new(desc),
         );
 
@@ -1766,10 +1889,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_cat&lt;<span class="kw">const </span>D: usize&gt;(tensors: Vec&lt;IntTensor&lt;<span class="self">Self</span>, D&gt;&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>CatOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: CatOpsDescription,
+            desc: CatOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>CatOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>CatOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensors = <span class="self">self
                     </span>.desc
@@ -1784,11 +1907,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
-        <span class="kw">let </span>tensor_first = tensors.get(<span class="number">0</span>).unwrap();
+        <span class="kw">let </span>tensor_first = tensors.first().unwrap();
         <span class="kw">let </span>client = tensor_first.client.clone();
 
         <span class="comment">// Calculate the output shape
-        </span><span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = tensor_first.shape.clone();
+        </span><span class="kw">let </span>streams = tensors.iter().map(|tensor| tensor.stream).collect();
+        <span class="kw">let </span><span class="kw-2">mut </span>shape: Vec&lt;usize&gt; = tensor_first.shape.clone();
         shape[dim] = <span class="number">0</span>;
         <span class="kw">for </span>tensor <span class="kw">in </span>tensors.iter() {
             shape[dim] += tensor.shape[dim];
@@ -1796,13 +1920,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = CatOpsDescription {
+        <span class="kw">let </span>desc = CatOperationDescription {
             tensors: tensors.into_iter().map(|t| t.into_description()).collect(),
             dim,
             out: out.to_description_out(),
         };
         client.register(
-            TensorOpsDescription::BaseOpsInt(BaseOpsDescription::Cat(desc.clone())),
+            streams,
+            OperationDescription::BaseInt(BaseOperationDescription::Cat(desc.clone())),
             CatOps::&lt;D&gt;::new(desc),
         );
 
@@ -1815,17 +1940,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_cmp_ops!</span>(EqualOps, B::int_equal);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsInt(BaseOpsDescription::Equal(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::BaseInt(BaseOperationDescription::Equal(desc.clone())),
             EqualOps::&lt;D&gt;::new(desc),
         );
 
@@ -1838,15 +1966,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_cmp_ops!</span>(EqualElemOps, B::int_equal_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::EqualElem(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::EqualElem(desc.clone())),
             EqualElemOps::&lt;D&gt;::new(desc),
         );
 
@@ -1859,17 +1989,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_cmp_ops!</span>(GreaterOps, B::int_greater);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Greater(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericInt(NumericOperationDescription::Greater(desc.clone())),
             GreaterOps::&lt;D&gt;::new(desc),
         );
 
@@ -1882,15 +2015,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_cmp_ops!</span>(GreaterElemOps, B::int_greater_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::GreaterElem(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::GreaterElem(
+                desc.clone(),
+            )),
             GreaterElemOps::&lt;D&gt;::new(desc),
         );
 
@@ -1903,17 +2040,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_cmp_ops!</span>(GreaterEqualOps, B::int_greater_equal);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::GreaterEqual(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericInt(NumericOperationDescription::GreaterEqual(
+                desc.clone(),
+            )),
             GreaterEqualOps::&lt;D&gt;::new(desc),
         );
 
@@ -1926,15 +2068,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_cmp_ops!</span>(GreaterEqualElemOps, B::int_greater_equal_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::GreaterEqualElem(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::GreaterEqualElem(
                 desc.clone(),
             )),
             GreaterEqualElemOps::&lt;D&gt;::new(desc),
@@ -1949,17 +2093,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_cmp_ops!</span>(LowerOps, B::int_lower);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Lower(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericInt(NumericOperationDescription::Lower(desc.clone())),
             LowerOps::&lt;D&gt;::new(desc),
         );
 
@@ -1972,15 +2119,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_cmp_ops!</span>(LowerElemOps, B::int_lower_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::LowerElem(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::LowerElem(desc.clone())),
             LowerElemOps::&lt;D&gt;::new(desc),
         );
 
@@ -1993,17 +2142,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_cmp_ops!</span>(LowerEqualOps, B::int_lower_equal);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::LowerEqual(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::NumericInt(NumericOperationDescription::LowerEqual(desc.clone())),
             LowerEqualOps::&lt;D&gt;::new(desc),
         );
 
@@ -2016,15 +2168,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; BoolTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_cmp_ops!</span>(LowerEqualElemOps, B::int_lower_equal_elem);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::LowerEqualElem(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::LowerEqualElem(
                 desc.clone(),
             )),
             LowerEqualElemOps::&lt;D&gt;::new(desc),
@@ -2039,17 +2193,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_ops!</span>(AddOps, B::int_add);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Add(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::Add(
+                desc.clone(),
+            )),
             AddOps::&lt;D&gt;::new(desc),
         );
 
@@ -2062,15 +2221,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(AddOps, B::int_add_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::AddScalar(
+            <span class="macro">vec!</span>[stream],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::AddScalar(
                 desc.clone(),
             )),
             AddOps::&lt;D&gt;::new(desc),
@@ -2085,17 +2246,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_ops!</span>(SubOps, B::int_sub);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Sub(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::Sub(
+                desc.clone(),
+            )),
             SubOps::&lt;D&gt;::new(desc),
         );
 
@@ -2108,15 +2274,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(SubOps, B::int_sub_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::SubScalar(
+            <span class="macro">vec!</span>[stream],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::SubScalar(
                 desc.clone(),
             )),
             SubOps::&lt;D&gt;::new(desc),
@@ -2131,17 +2299,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_ops!</span>(MulOps, B::int_mul);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Mul(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::Mul(
+                desc.clone(),
+            )),
             MulOps::&lt;D&gt;::new(desc),
         );
 
@@ -2154,15 +2327,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(MulOps, B::int_mul_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MulScalar(
+            <span class="macro">vec!</span>[stream],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::MulScalar(
                 desc.clone(),
             )),
             MulOps::&lt;D&gt;::new(desc),
@@ -2177,17 +2352,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">binary_int_ops!</span>(DivOps, B::int_div);
 
+        <span class="kw">let </span>stream_1 = lhs.stream;
+        <span class="kw">let </span>stream_2 = rhs.stream;
         <span class="kw">let </span>out = lhs
             .client
             .tensor_uninitialized(binary_ops_shape(<span class="kw-2">&amp;</span>lhs.shape, <span class="kw-2">&amp;</span>rhs.shape));
 
-        <span class="kw">let </span>desc = BinaryOpsDescription {
+        <span class="kw">let </span>desc = BinaryOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Div(desc.clone())),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::Div(
+                desc.clone(),
+            )),
             DivOps::&lt;D&gt;::new(desc),
         );
 
@@ -2200,15 +2380,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(DivOps, B::int_div_scalar);
 
+        <span class="kw">let </span>stream = lhs.stream;
         <span class="kw">let </span>out = lhs.client.tensor_uninitialized(lhs.shape.clone());
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: lhs.into_description(),
             rhs: rhs.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            graph::TensorOpsDescription::NumericOpsInt(NumericOpsDescription::DivScalar(
+            <span class="macro">vec!</span>[stream],
+            stream::OperationDescription::NumericInt(NumericOperationDescription::DivScalar(
                 desc.clone(),
             )),
             DivOps::&lt;D&gt;::new(desc),
@@ -2223,7 +2405,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: TensorDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ZerosOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ZerosOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.desc.shape.clone());
                 <span class="kw">let </span>output = B::int_zeros::&lt;D&gt;(shape, <span class="kw-2">&amp;</span>handles.device);
@@ -2231,12 +2413,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = StreamId::current();
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
         <span class="kw">let </span>desc = out.to_description_out();
         client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Zeros(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Zeros(desc.clone())),
             ZerosOps::&lt;D&gt;::new(desc),
         );
 
@@ -2249,7 +2433,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: TensorDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>OnesOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>OnesOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>shape = Shape::from(<span class="self">self</span>.desc.shape.clone());
                 <span class="kw">let </span>output = B::int_ones::&lt;D&gt;(shape, <span class="kw-2">&amp;</span>handles.device);
@@ -2257,13 +2441,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = StreamId::current();
         <span class="kw">let </span>shape: Vec&lt;usize&gt; = shape.dims.into();
         <span class="kw">let </span>client = get_client::&lt;B&gt;(<span class="kw-2">&amp;</span>device.clone().into());
         <span class="kw">let </span>out = client.tensor_uninitialized(shape);
 
         <span class="kw">let </span>desc = out.to_description_out();
         client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Ones(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Ones(desc.clone())),
             OnesOps::&lt;D&gt;::new(desc),
         );
 
@@ -2273,14 +2459,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_sum&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
         <span class="macro">unary_int_ops!</span>(SumOps, B::int_sum);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Sum(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Sum(desc.clone())),
             SumOps::&lt;D&gt;::new(desc),
         );
 
@@ -2290,17 +2478,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_sum_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(SumDimOps, B::int_sum_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::SumDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::SumDim(desc.clone())),
             SumDimOps::&lt;D&gt;::new(desc),
         );
 
@@ -2310,14 +2500,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_mean&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
         <span class="macro">unary_int_ops!</span>(MeanOps, B::int_mean);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Mean(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Mean(desc.clone())),
             MeanOps::&lt;D&gt;::new(desc),
         );
 
@@ -2327,17 +2519,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_mean_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(MeanDimOps, B::int_mean_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MeanDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::MeanDim(desc.clone())),
             MeanDimOps::&lt;D&gt;::new(desc),
         );
 
@@ -2347,17 +2541,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_argmax&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(ArgMaxOps, B::int_argmax, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::ArgMax(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::ArgMax(desc.clone())),
             ArgMaxOps::&lt;D&gt;::new(desc),
         );
 
@@ -2367,60 +2563,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_argmin&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(ArgMinOps, B::int_argmin, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::ArgMin(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::ArgMin(desc.clone())),
             ArgMinOps::&lt;D&gt;::new(desc),
-        );
-
-        out
-    }
-
-    <span class="kw">fn </span>int_clamp_min&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;,
-        min: IntElem&lt;<span class="self">Self</span>&gt;,
-    ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_int_ops!</span>(ClampMinOps, B::int_clamp_min);
-
-        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
-
-        <span class="kw">let </span>desc = ScalarOpsDescription {
-            lhs: tensor.into_description(),
-            rhs: min.elem(),
-            out: out.to_description_out(),
-        };
-        out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::ClampMin(desc.clone())),
-            ClampMinOps::&lt;D&gt;::new(desc),
-        );
-
-        out
-    }
-
-    <span class="kw">fn </span>int_clamp_max&lt;<span class="kw">const </span>D: usize&gt;(
-        tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;,
-        max: IntElem&lt;<span class="self">Self</span>&gt;,
-    ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
-        <span class="macro">scalar_int_ops!</span>(ClampMaxOps, B::int_clamp_max);
-
-        <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
-
-        <span class="kw">let </span>desc = ScalarOpsDescription {
-            lhs: tensor.into_description(),
-            rhs: max.elem(),
-            out: out.to_description_out(),
-        };
-        out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::ClampMax(desc.clone())),
-            ClampMaxOps::&lt;D&gt;::new(desc),
         );
 
         out
@@ -2433,10 +2589,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     ) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>ClampOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: ClampOpsDescription&lt;i32&gt;,
+            desc: ClampOperationDescription&lt;i32&gt;,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>ClampOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>ClampOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>output = B::int_clamp(input, <span class="self">self</span>.desc.min.elem(), <span class="self">self</span>.desc.max.elem());
@@ -2445,15 +2601,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
-        <span class="kw">let </span>desc = ClampOpsDescription {
+        <span class="kw">let </span>desc = ClampOperationDescription {
             tensor: tensor.into_description(),
             min: min.elem(),
             max: max.elem(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Clamp(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Clamp(desc.clone())),
             ClampOps::&lt;D&gt;::new(desc),
         );
 
@@ -2463,14 +2621,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_abs&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">unary_int_ops!</span>(AbsOps, B::int_abs);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Abs(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Abs(desc.clone())),
             AbsOps::&lt;D&gt;::new(desc),
         );
 
@@ -2480,10 +2640,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_into_float&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; FloatTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="attr">#[derive(new)]
         </span><span class="kw">struct </span>IntoFloatOps&lt;<span class="kw">const </span>D: usize&gt; {
-            desc: UnaryOpsDescription,
+            desc: UnaryOperationDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>IntoFloatOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>IntoFloatOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
                 <span class="kw">let </span>output = B::int_into_float(input);
@@ -2491,13 +2651,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(tensor.shape.clone());
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::IntOps(graph::IntOpsDescription::IntoFloat(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Int(stream::IntOperationDescription::IntoFloat(desc.clone())),
             IntoFloatOps::&lt;D&gt;::new(desc),
         );
 
@@ -2514,7 +2676,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: SwapDimsDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>SwapDimsOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>SwapDimsOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>input = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.input);
                 <span class="kw">let </span>output = B::int_swap_dims(input, <span class="self">self</span>.desc.dim1, <span class="self">self</span>.desc.dim2);
@@ -2522,6 +2684,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim1] = tensor.shape[dim2];
         shape[dim2] = tensor.shape[dim1];
@@ -2535,7 +2698,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::BaseOpsInt(BaseOpsDescription::SwapDims(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::BaseInt(BaseOperationDescription::SwapDims(desc.clone())),
             SwapDimsOps::&lt;D&gt;::new(desc),
         );
 
@@ -2545,14 +2709,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_max&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
         <span class="macro">unary_int_ops!</span>(MaxOps, B::int_max);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Max(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Max(desc.clone())),
             MaxOps::&lt;D&gt;::new(desc),
         );
 
@@ -2562,17 +2728,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_max_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(MaxDimOps, B::int_max_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MaxDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::MaxDim(desc.clone())),
             MaxDimOps::&lt;D&gt;::new(desc),
         );
 
@@ -2588,7 +2756,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: ReduceDimWithIndicesDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MaxDimWithIndicesOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MaxDimWithIndicesOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>(output, indices) = B::int_max_dim_with_indices(tensor, <span class="self">self</span>.desc.dim);
@@ -2598,6 +2766,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>client = tensor.client.clone();
@@ -2610,7 +2779,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out_indices: out_indices.to_description_out(),
         };
         client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MaxDimWithIndices(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::MaxDimWithIndices(
                 desc.clone(),
             )),
             MaxDimWithIndicesOps::&lt;D&gt;::new(desc),
@@ -2622,14 +2792,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_min&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;) -&gt; IntTensor&lt;<span class="self">Self</span>, <span class="number">1</span>&gt; {
         <span class="macro">unary_int_ops!</span>(MinOps, B::int_min);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(<span class="macro">vec!</span>[<span class="number">1</span>]);
 
-        <span class="kw">let </span>desc = UnaryOpsDescription {
+        <span class="kw">let </span>desc = UnaryOperationDescription {
             input: tensor.into_description(),
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::Min(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::Min(desc.clone())),
             MinOps::&lt;D&gt;::new(desc),
         );
 
@@ -2639,17 +2811,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">fn </span>int_min_dim&lt;<span class="kw">const </span>D: usize&gt;(tensor: IntTensor&lt;<span class="self">Self</span>, D&gt;, dim: usize) -&gt; IntTensor&lt;<span class="self">Self</span>, D&gt; {
         <span class="macro">scalar_int_ops!</span>(MinDimOps, B::int_min_dim, usize, noconvert);
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>out = tensor.client.tensor_uninitialized(shape);
 
-        <span class="kw">let </span>desc = ScalarOpsDescription {
+        <span class="kw">let </span>desc = ScalarOperationDescription {
             lhs: tensor.into_description(),
             rhs: dim,
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MinDim(desc.clone())),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::MinDim(desc.clone())),
             MinDimOps::&lt;D&gt;::new(desc),
         );
 
@@ -2665,7 +2839,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: ReduceDimWithIndicesDescription,
         }
 
-        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span>MinDimWithIndicesOps&lt;D&gt; {
+        <span class="kw">impl</span>&lt;<span class="kw">const </span>D: usize, B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span>MinDimWithIndicesOps&lt;D&gt; {
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="kw">let </span>tensor = handles.get_int_tensor::&lt;D&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>.desc.tensor);
                 <span class="kw">let </span>(output, indices) = B::int_min_dim_with_indices(tensor, <span class="self">self</span>.desc.dim);
@@ -2675,6 +2849,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         }
 
+        <span class="kw">let </span>stream = tensor.stream;
         <span class="kw">let </span><span class="kw-2">mut </span>shape = tensor.shape.clone();
         shape[dim] = <span class="number">1</span>;
         <span class="kw">let </span>client = tensor.client.clone();
@@ -2687,7 +2862,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out_indices: out_indices.to_description_out(),
         };
         client.register(
-            TensorOpsDescription::NumericOpsInt(NumericOpsDescription::MinDimWithIndices(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::NumericInt(NumericOperationDescription::MinDimWithIndices(
                 desc.clone(),
             )),
             MinDimWithIndicesOps::&lt;D&gt;::new(desc),

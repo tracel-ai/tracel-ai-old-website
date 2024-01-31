@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `backend-comparison/src/persistence/base.rs`."><title>base.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `backend-comparison/src/persistence/base.rs`."><title>base.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="backend_comparison" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../backend_comparison/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="backend_comparison" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -100,104 +100,152 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#98" id="98">98</a>
 <a href="#99" id="99">99</a>
 <a href="#100" id="100">100</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::{
-    collections::HashMap,
-    fs::{create_dir_all, File},
-    path::PathBuf,
-    time::Duration,
-};
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::fs;
 
-<span class="kw">use </span>burn::tensor::backend::Backend;
+<span class="kw">use </span>burn::{
+    serde::{ser::SerializeStruct, Serialize, Serializer},
+    tensor::backend::Backend,
+};
 <span class="kw">use </span>burn_common::benchmark::BenchmarkResult;
 <span class="kw">use </span>dirs;
 <span class="kw">use </span>serde_json;
 
-<span class="kw">type </span>BenchmarkCommitResults = HashMap&lt;String, BenchmarkOpResults&gt;;
-<span class="kw">type </span>BenchmarkOpResults = HashMap&lt;String, BenchmarkBackendResults&gt;;
-<span class="kw">type </span>BenchmarkBackendResults = HashMap&lt;String, StampedBenchmarks&gt;;
-<span class="kw">type </span>StampedBenchmarks = HashMap&lt;u128, Vec&lt;Duration&gt;&gt;;
-
-<span class="attr">#[derive(Default)]
-</span><span class="kw">pub struct </span>Persistence {
-    results: BenchmarkCommitResults,
+<span class="attr">#[derive(Default, Clone)]
+</span><span class="kw">pub struct </span>BenchmarkRecord {
+    backend: String,
+    device: String,
+    results: BenchmarkResult,
 }
 
-<span class="kw">impl </span>Persistence {
-    <span class="doccomment">/// Updates the cached backend comparison json file with new benchmarks results.
-    ///
-    /// The file has the following structure:
-    ///
-    ///  {
-    ///    &quot;GIT_COMMIT_HASH&quot;:
-    ///      {
-    ///        &quot;BENCHMARK_NAME (OP + SHAPE)&quot;: {
-    ///          &quot;BACKEND_NAME-DEVICE&quot;: {
-    ///            &quot;TIMESTAMP&quot;: \[
-    ///              DURATIONS
-    ///           \]
-    ///         }
-    ///       }
-    ///    }
-    ///  }
-    </span><span class="kw">pub fn </span>persist&lt;B: Backend&gt;(benches: Vec&lt;BenchmarkResult&gt;, device: <span class="kw-2">&amp;</span>B::Device) {
-        <span class="kw">for </span>bench <span class="kw">in </span>benches.iter() {
-            <span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, bench);
-        }
-        <span class="kw">let </span>cache_file = dirs::home_dir()
-            .expect(<span class="string">&quot;Could not get home directory&quot;</span>)
-            .join(<span class="string">&quot;.cache&quot;</span>)
-            .join(<span class="string">&quot;backend-comparison&quot;</span>)
-            .join(<span class="string">&quot;db.json&quot;</span>);
+<span class="doccomment">/// Save the benchmarks results on disk.
+///
+/// The structure is flat so that it can be easily queried from a database
+/// like MongoDB.
+///
+/// ```txt
+///  [
+///    {
+///      &quot;backend&quot;: &quot;backend name&quot;,
+///      &quot;device&quot;: &quot;device name&quot;,
+///      &quot;git_hash&quot;: &quot;hash&quot;,
+///      &quot;name&quot;: &quot;benchmark name&quot;,
+///      &quot;operation&quot;: &quot;operation name&quot;,
+///      &quot;shapes&quot;: [&quot;shape dimension&quot;, &quot;shape dimension&quot;, ...],
+///      &quot;timestamp&quot;: &quot;timestamp&quot;,
+///      &quot;numSamples&quot;: &quot;number of samples&quot;,
+///      &quot;min&quot;: &quot;duration in seconds&quot;,
+///      &quot;max&quot;: &quot;duration in seconds&quot;,
+///      &quot;median&quot;: &quot;duration in seconds&quot;,
+///      &quot;mean&quot;: &quot;duration in seconds&quot;,
+///      &quot;variance&quot;: &quot;duration in seconds&quot;
+///      &quot;rawDurations&quot;: [&quot;duration 1&quot;, &quot;duration 2&quot;, ...],
+///    },
+///    { ... }
+/// ]
+/// ```
+</span><span class="kw">pub fn </span>save&lt;B: Backend&gt;(
+    benches: Vec&lt;BenchmarkResult&gt;,
+    device: <span class="kw-2">&amp;</span>B::Device,
+) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;BenchmarkRecord&gt;, std::io::Error&gt; {
+    <span class="kw">let </span>cache_dir = dirs::home_dir()
+        .expect(<span class="string">&quot;Home directory should exist&quot;</span>)
+        .join(<span class="string">&quot;.cache&quot;</span>)
+        .join(<span class="string">&quot;burn&quot;</span>)
+        .join(<span class="string">&quot;backend-comparison&quot;</span>);
 
-        <span class="kw">let </span><span class="kw-2">mut </span>cache = <span class="self">Self</span>::load(<span class="kw-2">&amp;</span>cache_file);
-        cache.update::&lt;B&gt;(device, benches);
-        cache.save(<span class="kw-2">&amp;</span>cache_file);
-        <span class="macro">println!</span>(<span class="string">&quot;Persisting to {:?}&quot;</span>, cache_file);
+    <span class="kw">for </span>bench <span class="kw">in </span>benches.iter() {
+        <span class="macro">println!</span>(<span class="string">&quot;{bench}&quot;</span>);
     }
 
-    <span class="doccomment">/// Load the cache from disk.
-    </span><span class="kw">fn </span>load(path: <span class="kw-2">&amp;</span>PathBuf) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>results = <span class="kw">match </span>File::open(path) {
-            <span class="prelude-val">Ok</span>(file) =&gt; serde_json::from_reader(file)
-                .expect(<span class="string">&quot;Should have parsed to BenchmarkCommitResults struct&quot;</span>),
-            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; HashMap::default(),
-        };
-
-        <span class="self">Self </span>{ results }
+    <span class="kw">if </span>!cache_dir.exists() {
+        fs::create_dir_all(<span class="kw-2">&amp;</span>cache_dir)<span class="question-mark">?</span>;
     }
 
-    <span class="doccomment">/// Save the cache on disk.
-    </span><span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>PathBuf) {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(parent) = path.parent() {
-            create_dir_all(parent).expect(<span class="string">&quot;Unable to create directory&quot;</span>);
-        }
-        <span class="kw">let </span>file = File::create(path).expect(<span class="string">&quot;Unable to create backend comparison file&quot;</span>);
+    <span class="kw">let </span>records: Vec&lt;BenchmarkRecord&gt; = benches
+        .into_iter()
+        .map(|bench| BenchmarkRecord {
+            backend: B::name().to_string(),
+            device: <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, device),
+            results: bench,
+        })
+        .collect();
 
-        serde_json::to_writer_pretty(file, <span class="kw-2">&amp;</span><span class="self">self</span>.results)
-            .expect(<span class="string">&quot;Unable to write to backend comparison file&quot;</span>);
+    <span class="kw">for </span>record <span class="kw">in </span>records.clone() {
+        <span class="kw">let </span>file_name = <span class="macro">format!</span>(
+            <span class="string">&quot;bench_{}_{}.json&quot;</span>,
+            record.results.name, record.results.timestamp
+        );
+        <span class="kw">let </span>file_path = cache_dir.join(file_name);
+        <span class="kw">let </span>file = fs::File::create(file_path).expect(<span class="string">&quot;Benchmark file should exist or be created&quot;</span>);
+        serde_json::to_writer_pretty(file, <span class="kw-2">&amp;</span>record)
+            .expect(<span class="string">&quot;Benchmark file should be updated with benchmark results&quot;</span>);
     }
 
-    <span class="doccomment">/// Update the cache with the given [benchmark results](BenchmarkResult).
-    ///
-    /// Assumes only that benches share the same backend and device.
-    /// It could run faster if we assumed they have the same git hash
-    </span><span class="kw">fn </span>update&lt;B: Backend&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>B::Device, benches: Vec&lt;BenchmarkResult&gt;) {
-        <span class="kw">let </span>backend_key = <span class="macro">format!</span>(<span class="string">&quot;{}-{:?}&quot;</span>, B::name(), device);
+    <span class="prelude-val">Ok</span>(records)
+}
 
-        <span class="kw">for </span>bench <span class="kw">in </span>benches {
-            <span class="kw">let </span><span class="kw-2">mut </span>benchmark_op_results = <span class="self">self</span>.results.remove(<span class="kw-2">&amp;</span>bench.git_hash).unwrap_or_default();
-            <span class="kw">let </span><span class="kw-2">mut </span>benchmark_backend_results =
-                benchmark_op_results.remove(<span class="kw-2">&amp;</span>bench.name).unwrap_or_default();
+<span class="doccomment">/// Macro to easily serialize each field in a flatten manner.
+/// This macro automatically computes the number of fields to serialize
+/// and allows specifying a custom serialization key for each field.
+</span><span class="macro">macro_rules! </span>serialize_fields {
+    (<span class="macro-nonterminal">$serializer</span>:expr, <span class="macro-nonterminal">$record</span>:expr, $((<span class="macro-nonterminal">$key</span>:expr, <span class="macro-nonterminal">$field</span>:expr)),<span class="kw-2">*</span>) =&gt; {{
+        <span class="comment">// Hacky way to get the fields count
+        </span><span class="kw">let </span>fields_count = [ $(<span class="macro">stringify!</span>(<span class="macro-nonterminal">$key</span>),)+ ].len();
+        <span class="kw">let </span><span class="kw-2">mut </span>state = <span class="macro-nonterminal">$serializer</span>.serialize_struct(<span class="string">&quot;BenchmarkRecord&quot;</span>, fields_count)<span class="question-mark">?</span>;
+        $(
+            state.serialize_field(<span class="macro-nonterminal">$key</span>, <span class="macro-nonterminal">$field</span>)<span class="question-mark">?</span>;
+        )*
+            state.end()
+    }};
+}
 
-            <span class="kw">let </span><span class="kw-2">mut </span>stamped_benchmarks = benchmark_backend_results
-                .remove(<span class="kw-2">&amp;</span>backend_key)
-                .unwrap_or_default();
-
-            stamped_benchmarks.insert(bench.timestamp, bench.durations.durations);
-            benchmark_backend_results.insert(backend_key.clone(), stamped_benchmarks);
-            benchmark_op_results.insert(bench.name, benchmark_backend_results);
-            <span class="self">self</span>.results.insert(bench.git_hash, benchmark_op_results);
-        }
+<span class="kw">impl </span>Serialize <span class="kw">for </span>BenchmarkRecord {
+    <span class="kw">fn </span>serialize&lt;S&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="macro">serialize_fields!</span>(
+            serializer,
+            <span class="self">self</span>,
+            (<span class="string">&quot;backend&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.backend),
+            (<span class="string">&quot;device&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.device),
+            (<span class="string">&quot;gitHash&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.git_hash),
+            (<span class="string">&quot;max&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.computed.max.as_micros()),
+            (<span class="string">&quot;mean&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.computed.mean.as_micros()),
+            (<span class="string">&quot;median&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.computed.median.as_micros()),
+            (<span class="string">&quot;min&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.computed.min.as_micros()),
+            (<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.name),
+            (<span class="string">&quot;numSamples&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.raw.durations.len()),
+            (<span class="string">&quot;options&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.options),
+            (<span class="string">&quot;rawDurations&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.raw.durations),
+            (<span class="string">&quot;shapes&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.shapes),
+            (<span class="string">&quot;timestamp&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.timestamp),
+            (<span class="string">&quot;variance&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.results.computed.variance.as_micros())
+        )
     }
 }
 </code></pre></div></section></main></body></html>

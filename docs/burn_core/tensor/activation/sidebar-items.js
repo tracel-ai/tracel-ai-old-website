@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["gelu","log_sigmoid","log_softmax","quiet_softmax","relu","sigmoid","silu","softmax","tanh"]};
+window.SIDEBAR_ITEMS = {"fn":["gelu","log_sigmoid","log_softmax","mish","quiet_softmax","relu","sigmoid","silu","softmax","softplus","tanh"]};

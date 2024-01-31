@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_current_toolchain_nightly","rustup","rustup_add_component","rustup_add_target","rustup_get_installed_targets"]};

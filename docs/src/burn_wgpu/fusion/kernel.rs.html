@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/fusion/kernel.rs`."><title>kernel.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/fusion/kernel.rs`."><title>kernel.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_wgpu" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_wgpu/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_wgpu" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -303,411 +303,307 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#301" id="301">301</a>
 <a href="#302" id="302">302</a>
 <a href="#303" id="303">303</a>
-<a href="#304" id="304">304</a>
-<a href="#305" id="305">305</a>
-<a href="#306" id="306">306</a>
-<a href="#307" id="307">307</a>
-<a href="#308" id="308">308</a>
-<a href="#309" id="309">309</a>
-<a href="#310" id="310">310</a>
-<a href="#311" id="311">311</a>
-<a href="#312" id="312">312</a>
-<a href="#313" id="313">313</a>
-<a href="#314" id="314">314</a>
-<a href="#315" id="315">315</a>
-<a href="#316" id="316">316</a>
-<a href="#317" id="317">317</a>
-<a href="#318" id="318">318</a>
-<a href="#319" id="319">319</a>
-<a href="#320" id="320">320</a>
-<a href="#321" id="321">321</a>
-<a href="#322" id="322">322</a>
-<a href="#323" id="323">323</a>
-<a href="#324" id="324">324</a>
-<a href="#325" id="325">325</a>
-<a href="#326" id="326">326</a>
-<a href="#327" id="327">327</a>
-<a href="#328" id="328">328</a>
-<a href="#329" id="329">329</a>
-<a href="#330" id="330">330</a>
-<a href="#331" id="331">331</a>
-<a href="#332" id="332">332</a>
-<a href="#333" id="333">333</a>
-<a href="#334" id="334">334</a>
-<a href="#335" id="335">335</a>
-<a href="#336" id="336">336</a>
-<a href="#337" id="337">337</a>
-<a href="#338" id="338">338</a>
-<a href="#339" id="339">339</a>
-<a href="#340" id="340">340</a>
-<a href="#341" id="341">341</a>
-<a href="#342" id="342">342</a>
-<a href="#343" id="343">343</a>
-<a href="#344" id="344">344</a>
-<a href="#345" id="345">345</a>
-<a href="#346" id="346">346</a>
-<a href="#347" id="347">347</a>
-<a href="#348" id="348">348</a>
-<a href="#349" id="349">349</a>
-<a href="#350" id="350">350</a>
-<a href="#351" id="351">351</a>
-<a href="#352" id="352">352</a>
-<a href="#353" id="353">353</a>
-<a href="#354" id="354">354</a>
-<a href="#355" id="355">355</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::codegen::Body;
-<span class="kw">use </span><span class="kw">crate</span>::compute::{compute_client, DynamicKernel, WgpuComputeClient};
-<span class="kw">use </span><span class="kw">crate</span>::fusion::codegen::Function;
-<span class="kw">use </span><span class="kw">crate</span>::fusion::{calculate_num_elems_dyn_rank, strides_dyn_rank};
-<span class="kw">use </span><span class="kw">crate</span>::fusion::{
-    codegen::{
-        Binding, ComputeShader, Elem, Location, Operator, Variable, Visibility, WorkgroupSize,
-    },
-    WgpuFusionHandle,
-};
-<span class="kw">use </span><span class="kw">crate</span>::kernel::{elemwise_workgroup, WORKGROUP_DEFAULT};
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::compute::{Kernel, WgpuComputeClient, WgpuHandle};
+<span class="kw">use </span><span class="kw">crate</span>::fusion::strides_dyn_rank;
+<span class="kw">use </span><span class="kw">crate</span>::fusion::WgpuFusionHandle;
 <span class="kw">use crate</span>::{FloatElement, GraphicsApi, IntElement, Wgpu};
-<span class="kw">use </span>burn_fusion::{HandleContainer, TensorDescription};
+<span class="kw">use </span>burn_compute::tune::AutotuneOperation;
+<span class="kw">use </span>burn_fusion::stream::Context;
+<span class="kw">use </span>burn_fusion::{TensorDescription, TensorStatus};
 <span class="kw">use </span>burn_tensor::Device;
-<span class="kw">use </span>std::marker::PhantomData;
+<span class="kw">use </span>std::sync::Arc;
 
-<span class="doccomment">/// Kernel creation input phase, see [fusion kernel](FusionKernel) for more details.
-</span><span class="kw">pub struct </span>InputPhase;
-<span class="doccomment">/// Kernel creation body phase, see [fusion kernel](FusionKernel) for more details.
-</span><span class="kw">pub struct </span>BodyPhase;
-<span class="doccomment">/// Kernel creation output phase, see [fusion kernel](FusionKernel) for more details.
-</span><span class="kw">pub struct </span>OutputPhase;
-<span class="doccomment">/// Kernel execution phase, see [fusion kernel](FusionKernel) for more details.
-</span><span class="kw">pub struct </span>ExecutionPhase;
+<span class="doccomment">/// Many kernels can be used for the same set of tensor operations fused into one.
+///
+/// This type makes it easy to group those potential kernels and execute the best one depending on the context.
+</span><span class="attr">#[derive(new)]
+</span><span class="kw">pub struct </span>FusionKernelSet {
+    kernels: Vec&lt;Box&lt;<span class="kw">dyn </span>FusionKernel&gt;&gt;,
+}
 
-<span class="doccomment">/// Allows to create custom wgsl kernels based on configured inputs, body and outputs.
-///
-/// This type has 4 phases that must be executed in order, but no worry the type system won&#39;t allow
-/// you to make mistakes.
-///
-///   1. [Input Phase](InputPhase)
-///     This phase focuses on registering the input tensor descriptions that are going to be used by
-///     the fused kernel.
-///   2. [Body Phase](BodyPhase)
-///     After the input phase is done, all the operations that happen in the body must be
-///     registered.
-///   3. [Output Phase](OutputPhase)
-///     This step focuses on registering all tensor descriptions that the kernel needs to write to.
-///   4. [Execution Phase](ExecutionPhase)
-///     Now that all other phases are completed, we can actually run the kernel on the given
-///     [handles](HandleContainer). Note that the actual chosen kernel may vary based on the
-///     handles provided.
-</span><span class="kw">pub struct </span>FusionKernel&lt;G, F, I, Phase = InputPhase&gt;
-<span class="kw">where
-    </span>G: GraphicsApi,
-    F: FloatElement,
-    I: IntElement,
-{
-    operations: Vec&lt;Operator&gt;,
-    input_bindings: Vec&lt;(Binding, TensorDescription)&gt;,
-    output_bindings: Vec&lt;(Binding, TensorDescription)&gt;,
-    named_bindings: Vec&lt;(String, Binding, DataBuffer)&gt;,
-    functions: Vec&lt;Function&gt;,
-    num_elems_output: usize,
-    device: Device&lt;Wgpu&lt;G, F, I&gt;&gt;,
+<span class="doccomment">/// An instantiation of a [kernel](Kernel) that can be executed.
+</span><span class="attr">#[derive(new)]
+</span><span class="kw">pub struct </span>ExecutableKernel {
+    kernel: Box&lt;<span class="kw">dyn </span>Kernel&gt;,
+    handles: Vec&lt;WgpuHandle&gt;,
     client: WgpuComputeClient,
-    _phase: PhantomData&lt;Phase&gt;,
 }
 
-<span class="kw">enum </span>DataBuffer {
-    F32(Vec&lt;f32&gt;),
-    U32(Vec&lt;u32&gt;),
+<span class="doccomment">/// An instantiation of a [kernel](Kernel) that can be autotuned.
+///
+/// The main difference with an [executable kernel](ExecutableKernel) is that this kernel can be
+/// cloned and executed multiple times to properly collect benchmarks.
+///
+/// The clone function used is defined in the trait [AutotuneOperation] instead of [Clone].
+</span><span class="attr">#[derive(new)]
+</span><span class="kw">pub struct </span>AutotunableKernel {
+    kernel: Arc&lt;<span class="kw">dyn </span>Kernel&gt;,
+    handles: Vec&lt;WgpuHandle&gt;,
+    client: WgpuComputeClient,
 }
 
-<span class="kw">impl</span>&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; FusionKernel&lt;G, F, I, InputPhase&gt; {
-    <span class="doccomment">/// Create a new fusion kernel on the given device.
-    </span><span class="kw">pub fn </span>new(device: <span class="kw-2">&amp;</span>Device&lt;Wgpu&lt;G, F, I&gt;&gt;) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>client = compute_client::&lt;G&gt;(device);
+<span class="doccomment">/// A selected kernel encapsulates a kernel that should be executed with the provided
+/// [output info](OutputInfo).
+///
+/// It isn&#39;t ready for execution yet but should provide all information necessary to
+/// a [kernel set](FusionKernelSet) to create an [executable kernel](ExecutableKernel).
+</span><span class="attr">#[derive(new)]
+</span><span class="kw">pub struct </span>SelectedKernel {
+    kernel: Box&lt;<span class="kw">dyn </span>Kernel&gt;,
+    info: Vec&lt;OutputInfo&gt;,
+}
 
+<span class="doccomment">/// The priority of a kernel.
+</span><span class="kw">pub enum </span>Priority {
+    <span class="doccomment">/// When a kernel can be executed in the specified context with its priority, higher is better.
+    </span>Available(u8),
+    <span class="doccomment">/// When a kernel can&#39;t be executed in the specified context.
+    </span>Unavailable,
+}
+
+<span class="comment">// Information related to the output of this kernel.
+</span><span class="kw">pub enum </span>OutputInfo {
+    Inplace { input_index: usize },
+    Array { size: usize },
+}
+
+<span class="kw">impl </span>ExecutableKernel {
+    <span class="doccomment">/// Execute the kernel.
+    </span><span class="kw">pub fn </span>execute(<span class="self">self</span>) {
+        <span class="self">self</span>.client
+            .execute(<span class="self">self</span>.kernel, <span class="kw-2">&amp;</span><span class="self">self</span>.handles.iter().collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;())
+    }
+}
+
+<span class="kw">impl </span>AutotuneOperation <span class="kw">for </span>AutotunableKernel {
+    <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;) {
+        <span class="self">self</span>.client.execute(
+            Box::new(<span class="self">self</span>.kernel),
+            <span class="kw-2">&amp;</span><span class="self">self</span>.handles.iter().collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;(),
+        )
+    }
+
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Box&lt;<span class="kw">dyn </span>AutotuneOperation&gt; {
+        Box::new(<span class="self">Self </span>{
+            kernel: <span class="self">self</span>.kernel.clone(),
+            handles: <span class="self">self</span>.handles.iter().map(Clone::clone).collect(),
+            client: <span class="self">self</span>.client.clone(),
+        })
+    }
+}
+
+<span class="kw">impl </span>From&lt;ExecutableKernel&gt; <span class="kw">for </span>AutotunableKernel {
+    <span class="kw">fn </span>from(value: ExecutableKernel) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            operations: Vec::new(),
-            input_bindings: Vec::new(),
-            output_bindings: Vec::new(),
-            named_bindings: Vec::new(),
-            functions: Vec::new(),
-            num_elems_output: <span class="number">0</span>,
-            device: device.clone(),
-            client,
-            _phase: PhantomData,
-        }
-    }
-
-    <span class="doccomment">/// Register the inputs used by the kernel.
-    </span><span class="kw">pub fn </span>inputs(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        inputs_tensor: <span class="kw-2">&amp;</span>[(<span class="kw-2">&amp;</span>TensorDescription, Elem)],
-        inputs_scalar_f32: <span class="kw-2">&amp;</span>[f32],
-    ) -&gt; FusionKernel&lt;G, F, I, BodyPhase&gt; {
-        <span class="kw">for </span>(i, (input, elem)) <span class="kw">in </span>inputs_tensor.iter().enumerate() {
-            <span class="kw">if </span>elem != <span class="kw-2">&amp;</span>Elem::Bool {
-                <span class="self">self</span>.input_bindings.push((
-                    Binding {
-                        elem: <span class="kw-2">*</span>elem,
-                        visibility: Visibility::Read,
-                        location: Location::Storage,
-                        size: <span class="prelude-val">None</span>,
-                    },
-                    (<span class="kw-2">*</span>input).clone(),
-                ));
-
-                <span class="self">self</span>.operations.push(Operator::ReadGlobal {
-                    variable: Variable::Input(i <span class="kw">as </span>u16, <span class="kw-2">*</span>elem),
-                    position: i,
-                    position_out: inputs_tensor.len(), <span class="comment">// First output
-                </span>});
-            } <span class="kw">else </span>{
-                <span class="self">self</span>.input_bindings.push((
-                    Binding {
-                        elem: Elem::I32,
-                        visibility: Visibility::Read,
-                        location: Location::Storage,
-                        size: <span class="prelude-val">None</span>,
-                    },
-                    (<span class="kw-2">*</span>input).clone(),
-                ));
-
-                <span class="self">self</span>.operations.push(Operator::ReadGlobal {
-                    variable: Variable::Input(i <span class="kw">as </span>u16, <span class="kw-2">*</span>elem),
-                    position: i,
-                    position_out: inputs_tensor.len(), <span class="comment">// First output
-                </span>});
-            }
-        }
-
-        <span class="kw">if </span>!inputs_scalar_f32.is_empty() {
-            <span class="self">self</span>.named_bindings.push((
-                <span class="string">&quot;scalars_f32&quot;</span>.to_string(),
-                Binding {
-                    elem: Elem::F32,
-                    visibility: Visibility::Read,
-                    location: Location::Storage,
-                    size: <span class="prelude-val">Some</span>(inputs_scalar_f32.len()),
-                },
-                DataBuffer::F32(inputs_scalar_f32.to_vec()),
-            ));
-        }
-
-        FusionKernel {
-            operations: <span class="self">self</span>.operations,
-            input_bindings: <span class="self">self</span>.input_bindings,
-            output_bindings: <span class="self">self</span>.output_bindings,
-            named_bindings: <span class="self">self</span>.named_bindings,
-            functions: <span class="self">self</span>.functions,
-            num_elems_output: <span class="self">self</span>.num_elems_output,
-            device: <span class="self">self</span>.device,
-            client: <span class="self">self</span>.client,
-            _phase: PhantomData,
+            kernel: Arc::new(value.kernel),
+            handles: value.handles,
+            client: value.client,
         }
     }
 }
 
-<span class="kw">impl</span>&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; FusionKernel&lt;G, F, I, BodyPhase&gt; {
-    <span class="doccomment">/// Register the [operators](Operator) that the kernel must execute in the order provided.
-    </span><span class="kw">pub fn </span>body(<span class="kw-2">mut </span><span class="self">self</span>, operators: <span class="kw-2">&amp;</span>[Operator]) -&gt; FusionKernel&lt;G, F, I, OutputPhase&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>register_function = |function: Function| {
-            <span class="kw">if </span>!<span class="self">self</span>.functions.contains(<span class="kw-2">&amp;</span>function) {
-                <span class="self">self</span>.functions.push(function);
-            }
-        };
-
-        <span class="comment">// Since not all operators are native to WGSL, we need to add the custom ones.
-        </span><span class="kw">for </span>ops <span class="kw">in </span>operators.iter() {
-            <span class="kw">match </span>ops {
-                Operator::Powf {
-                    lhs: <span class="kw">_</span>,
-                    rhs: <span class="kw">_</span>,
-                    out: <span class="kw">_</span>,
-                } =&gt; {
-                    register_function(Function::Powf(Elem::F32));
-                }
-                Operator::Erf { input: <span class="kw">_</span>, out: <span class="kw">_ </span>} =&gt; {
-                    register_function(Function::Erf(Elem::F32));
-                }
-                <span class="kw">_ </span>=&gt; {}
-            }
-            <span class="self">self</span>.operations.push(ops.clone());
-        }
-
-        FusionKernel {
-            operations: <span class="self">self</span>.operations,
-            input_bindings: <span class="self">self</span>.input_bindings,
-            output_bindings: <span class="self">self</span>.output_bindings,
-            named_bindings: <span class="self">self</span>.named_bindings,
-            functions: <span class="self">self</span>.functions,
-            num_elems_output: <span class="self">self</span>.num_elems_output,
-            device: <span class="self">self</span>.device,
-            client: <span class="self">self</span>.client,
-            _phase: PhantomData,
-        }
-    }
+<span class="kw">pub trait </span>FusionKernel: Send + Sync {
+    <span class="doccomment">/// Returns the priority of this kernel based on the input and output information.
+    </span><span class="kw">fn </span>priority(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        handles_inputs: <span class="kw-2">&amp;</span>[WgpuFusionHandle],
+        inputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+        outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+    ) -&gt; Priority;
+    <span class="doccomment">/// Returns a [selected kernel](SelectedKernel) that can be executed by the compute server.
+    </span><span class="kw">fn </span>kernel(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        handles_inputs: <span class="kw-2">&amp;</span>[WgpuFusionHandle],
+        inputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+        outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+    ) -&gt; SelectedKernel;
 }
 
-<span class="kw">impl</span>&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; FusionKernel&lt;G, F, I, OutputPhase&gt; {
-    <span class="doccomment">/// Register the outputs with their local variable index.
-    ///
-    /// Note that the index corresponds to the registered [operator](Operator) number at the
-    /// [body phase](BodyPhase).
-    /// So the 4th operator registered creates the local variable 3 (N-1, since the 1th index is 0).
-    </span><span class="kw">pub fn </span>outputs(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        outputs: <span class="kw-2">&amp;</span>[(<span class="kw-2">&amp;</span>TensorDescription, Elem)],
-        locals: <span class="kw-2">&amp;</span>[u16],
-    ) -&gt; FusionKernel&lt;G, F, I, ExecutionPhase&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>num_elems_launch_option = <span class="number">0</span>;
+<span class="kw">impl </span>FusionKernelSet {
+    <span class="doccomment">/// Select the best kernel based on the given information.
+    </span><span class="attr">#[allow(clippy::too_many_arguments)]
+    </span><span class="kw">pub fn </span>select&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt;(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        inputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+        outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+        scalars_f32: usize,
+        scalars_i32: usize,
+        context: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>, Wgpu&lt;G, F, I&gt;&gt;,
+        device: Device&lt;Wgpu&lt;G, F, I&gt;&gt;,
+        client: WgpuComputeClient,
+        stateful: bool,
+    ) -&gt; ExecutableKernel {
+        <span class="kw">let </span>(handles_input, inputs_description_updated, outputs_description_updated) =
+            process_inputs_outputs(inputs, outputs, context, stateful);
 
-        <span class="kw">for </span>(i, ((output, elem), local)) <span class="kw">in </span>outputs.iter().zip(locals).enumerate() {
-            <span class="kw">let </span>num_elems_output = calculate_num_elems_dyn_rank(<span class="kw-2">&amp;</span>output.shape);
-            <span class="kw">if </span>num_elems_output &gt; num_elems_launch_option {
-                num_elems_launch_option = num_elems_output;
-            }
+        <span class="kw">let </span>selected = <span class="self">self</span>.select_kernel(
+            <span class="kw-2">&amp;</span>handles_input,
+            <span class="kw-2">&amp;</span>inputs_description_updated,
+            <span class="kw-2">&amp;</span>outputs_description_updated,
+        );
 
-            <span class="kw">if </span>elem != <span class="kw-2">&amp;</span>Elem::Bool {
-                <span class="self">self</span>.output_bindings.push((
-                    Binding {
-                        elem: <span class="kw-2">*</span>elem,
-                        visibility: Visibility::ReadWrite,
-                        location: Location::Storage,
-                        size: <span class="prelude-val">None</span>,
-                    },
-                    (<span class="kw-2">*</span>output).clone(),
-                ));
+        <span class="kw">let </span>rank_input = inputs.first().map(|desc| desc.shape.len()).unwrap_or(<span class="number">1</span>);
+        <span class="kw">let </span>rank_output = outputs.first().map(|desc| desc.shape.len()).unwrap_or(<span class="number">1</span>);
+        <span class="kw">let </span>rank = usize::max(rank_input, rank_output);
 
-                <span class="self">self</span>.operations.push(Operator::AssignGlobal {
-                    input: Variable::Local(<span class="kw-2">*</span>local, <span class="kw-2">*</span>elem),
-                    out: Variable::Output(i <span class="kw">as </span>u16, <span class="kw-2">*</span>elem),
-                });
-            } <span class="kw">else </span>{
-                <span class="self">self</span>.output_bindings.push((
-                    Binding {
-                        elem: Elem::I32, <span class="comment">// I32 are used for bool tensors
-                        </span>visibility: Visibility::ReadWrite,
-                        location: Location::Storage,
-                        size: <span class="prelude-val">None</span>,
-                    },
-                    (<span class="kw-2">*</span>output).clone(),
-                ));
+        <span class="kw">let </span>num_tensors = inputs.len() + outputs.len();
+        <span class="comment">// The buffer starts with the rank, then each tensor shape and stride.
+        </span><span class="kw">let </span>info_size = (num_tensors * rank * <span class="number">2</span>) + <span class="number">1</span>;
 
-                <span class="self">self</span>.operations.push(Operator::AssignGlobal {
-                    input: Variable::Local(<span class="kw-2">*</span>local, <span class="kw-2">*</span>elem),
-                    out: Variable::Output(i <span class="kw">as </span>u16, Elem::I32),
-                });
-            }
+        <span class="kw">let </span><span class="kw-2">mut </span>num_handles = num_tensors + <span class="number">1</span>;
+        <span class="kw">if </span>scalars_f32 &gt; <span class="number">0 </span>{
+            num_handles += <span class="number">1</span>;
+        }
+        <span class="kw">if </span>scalars_i32 &gt; <span class="number">0 </span>{
+            num_handles += <span class="number">1</span>;
         }
 
-        <span class="self">self</span>.num_elems_output = num_elems_launch_option;
+        <span class="kw">let </span><span class="kw-2">mut </span>info = Vec::with_capacity(info_size);
+        <span class="kw">let </span><span class="kw-2">mut </span>handles = Vec::with_capacity(num_handles);
+        <span class="kw">let </span><span class="kw-2">mut </span>output_register = Vec::with_capacity(outputs_description_updated.len());
 
-        FusionKernel {
-            operations: <span class="self">self</span>.operations,
-            input_bindings: <span class="self">self</span>.input_bindings,
-            output_bindings: <span class="self">self</span>.output_bindings,
-            named_bindings: <span class="self">self</span>.named_bindings,
-            functions: <span class="self">self</span>.functions,
-            num_elems_output: <span class="self">self</span>.num_elems_output,
-            device: <span class="self">self</span>.device,
-            client: <span class="self">self</span>.client,
-            _phase: PhantomData,
-        }
-    }
-}
-
-<span class="kw">impl</span>&lt;G: GraphicsApi, F: FloatElement, I: IntElement&gt; FusionKernel&lt;G, F, I, ExecutionPhase&gt; {
-    <span class="doccomment">/// Execute the kernel on the provided [handles](HandleContainer).
-    </span><span class="kw">pub fn </span>execute(<span class="kw-2">mut </span><span class="self">self</span>, handle_container: <span class="kw-2">&amp;mut </span>HandleContainer&lt;Wgpu&lt;G, F, I&gt;&gt;) {
-        <span class="kw">let </span><span class="kw-2">mut </span>inputs = Vec::with_capacity(<span class="self">self</span>.input_bindings.len());
-        <span class="kw">let </span><span class="kw-2">mut </span>outputs = Vec::with_capacity(<span class="self">self</span>.output_bindings.len());
-        <span class="kw">let </span><span class="kw-2">mut </span>named = Vec::with_capacity(<span class="number">2</span>);
-        <span class="kw">let </span><span class="kw-2">mut </span>info = Vec::new();
-        <span class="kw">let </span><span class="kw-2">mut </span>handles =
-            Vec::with_capacity(inputs.capacity() + outputs.capacity() + named.capacity());
-
-        <span class="comment">// Inner function to fill the info buffer.
-        </span><span class="kw">let </span><span class="kw-2">mut </span>register_info_tensor = |tensor: <span class="kw-2">&amp;</span>TensorDescription, handle: <span class="kw-2">&amp;</span>WgpuFusionHandle| {
-            <span class="kw">if </span>info.is_empty() {
-                info.push(handle.strides.len() <span class="kw">as </span>u32);
-            }
-
-            <span class="kw">for </span>s <span class="kw">in </span>handle.strides.iter() {
-                info.push(<span class="kw-2">*</span>s <span class="kw">as </span>u32);
-            }
-            <span class="kw">for </span>s <span class="kw">in </span>tensor.shape.iter() {
-                info.push(<span class="kw-2">*</span>s <span class="kw">as </span>u32);
-            }
-        };
-
-        <span class="comment">// We start by registering the inputs.
-        </span><span class="kw">for </span>(binding, tensor) <span class="kw">in </span><span class="self">self</span>.input_bindings.into_iter() {
-            <span class="kw">let </span>handle = handle_container.get_handle(<span class="kw-2">&amp;</span>tensor);
-            register_info_tensor(<span class="kw-2">&amp;</span>tensor, <span class="kw-2">&amp;</span>handle);
-
-            inputs.push(binding);
+        <span class="comment">// We register the info and handles for the inputs.
+        </span><span class="kw">for </span>(handle, tensor) <span class="kw">in </span>handles_input.into_iter().zip(inputs_description_updated) {
+            register_info_tensor(<span class="kw-2">&amp;mut </span>info, tensor, <span class="kw-2">&amp;</span>handle);
             handles.push(handle.handle);
         }
 
-        <span class="comment">// Then we follow with the outputs.
-        </span><span class="kw">for </span>(binding, tensor) <span class="kw">in </span><span class="self">self</span>.output_bindings {
-            <span class="kw">let </span>num_elems = calculate_num_elems_dyn_rank(<span class="kw-2">&amp;</span>tensor.shape);
-            <span class="kw">let </span>handle_fusion = WgpuFusionHandle {
-                client: <span class="self">self</span>.client.clone(),
-                device: <span class="self">self</span>.device.clone(),
-                strides: strides_dyn_rank(<span class="kw-2">&amp;</span>tensor.shape),
-                handle: <span class="self">self</span>.client.empty(core::mem::size_of::&lt;F&gt;() * num_elems),
-            };
-            register_info_tensor(<span class="kw-2">&amp;</span>tensor, <span class="kw-2">&amp;</span>handle_fusion);
+        <span class="comment">// We register the info and handles for the outputs.
+        </span><span class="kw">for </span>(tensor, output_info) <span class="kw">in </span>outputs_description_updated
+            .into_iter()
+            .zip(selected.info.iter())
+        {
+            <span class="kw">match </span>output_info {
+                <span class="comment">// Use the input inplace for this output.
+                </span>OutputInfo::Inplace { input_index } =&gt; {
+                    <span class="kw">let </span>handle = handles.get(<span class="kw-2">*</span>input_index).unwrap().clone();
+                    <span class="kw">let </span>handle_fusion = WgpuFusionHandle {
+                        client: client.clone(),
+                        device: device.clone(),
+                        strides: strides_dyn_rank(<span class="kw-2">&amp;</span>tensor.shape),
+                        handle,
+                    };
+                    output_register.push((tensor.id, handle_fusion));
+                }
+                <span class="comment">// Create a new buffer for this output.
+                </span>OutputInfo::Array { size } =&gt; {
+                    <span class="kw">let </span>handle_fusion = WgpuFusionHandle {
+                        client: client.clone(),
+                        device: device.clone(),
+                        strides: strides_dyn_rank(<span class="kw-2">&amp;</span>tensor.shape),
+                        handle: client.empty(<span class="kw-2">*</span>size),
+                    };
 
-            handles.push(handle_fusion.handle.clone());
-            handle_container.register_handle(tensor.id, handle_fusion);
-            outputs.push(binding);
+                    register_info_tensor(<span class="kw-2">&amp;mut </span>info, tensor, <span class="kw-2">&amp;</span>handle_fusion);
+                    handles.push(handle_fusion.handle.clone());
+                    output_register.push((tensor.id, handle_fusion));
+                }
+            };
         }
 
-        <span class="comment">// Now we can create the info handle.
-        </span><span class="self">Self</span>::build_info_handle(<span class="kw-2">&amp;mut </span><span class="self">self</span>.named_bindings, info);
+        <span class="comment">// Create the info buffer.
+        </span>handles.push(client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>info)));
 
         <span class="comment">// Finally we finish with the named bindings.
-        </span><span class="kw">for </span>(name, binding, data) <span class="kw">in </span><span class="self">self</span>.named_bindings {
-            <span class="kw">let </span>handle = <span class="self">self</span>.client.create(<span class="kw">match </span><span class="kw-2">&amp;</span>data {
-                DataBuffer::F32(values) =&gt; bytemuck::cast_slice(values),
-                DataBuffer::U32(values) =&gt; bytemuck::cast_slice(values),
-            });
-            named.push((name, binding));
-            handles.push(handle);
+        </span><span class="kw">if </span>scalars_f32 &gt; <span class="number">0 </span>{
+            handles
+                .push(client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>context.scalar_floats[<span class="number">0</span>..scalars_f32])));
         }
 
-        <span class="comment">// We create the shader codegen type and launch the kernel.
-        </span><span class="kw">let </span>kernel = ComputeShader {
-            inputs,
-            outputs,
-            named,
-            workgroup_size: WorkgroupSize::default(),
-            body: Body::new(<span class="self">self</span>.operations),
-            num_workgroups: <span class="bool-val">true</span>,
-            global_invocation_id: <span class="bool-val">true</span>,
-            functions: <span class="self">self</span>.functions,
+        <span class="kw">if </span>scalars_i32 &gt; <span class="number">0 </span>{
+            handles.push(client.create(bytemuck::cast_slice(<span class="kw-2">&amp;</span>context.scalar_ints[<span class="number">0</span>..scalars_i32])));
+        }
+
+        <span class="comment">// We have to register the output handles to the context.
+        </span><span class="kw">for </span>(id, handle) <span class="kw">in </span>output_register {
+            context.handles.register_handle(id, handle);
+        }
+
+        ExecutableKernel::new(selected.kernel, handles, client)
+    }
+
+    <span class="kw">fn </span>select_kernel(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        handles_input: <span class="kw-2">&amp;</span>[WgpuFusionHandle],
+        inputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+        outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+    ) -&gt; SelectedKernel {
+        <span class="comment">// For now we simply select the kernel with the highest priority.
+        </span><span class="kw">let </span><span class="kw-2">mut </span>selected = <span class="self">self
+            </span>.kernels
+            .iter()
+            .filter_map(
+                |source| <span class="kw">match </span>source.priority(handles_input, inputs, outputs) {
+                    Priority::Available(priority) =&gt; <span class="prelude-val">Some</span>((source, priority)),
+                    Priority::Unavailable =&gt; <span class="prelude-val">None</span>,
+                },
+            )
+            .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+        selected.sort_by(|(<span class="kw">_</span>, priority_a), (<span class="kw">_</span>, priority_b)| priority_a.cmp(priority_b));
+
+        <span class="kw">let </span>selected = selected.pop().unwrap().<span class="number">0</span>;
+
+        selected.kernel(handles_input, inputs, outputs)
+    }
+}
+
+<span class="kw">fn </span>register_info_tensor(
+    info: <span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;,
+    tensor: <span class="kw-2">&amp;</span>TensorDescription,
+    handle: <span class="kw-2">&amp;</span>WgpuFusionHandle,
+) {
+    <span class="kw">if </span>info.is_empty() {
+        info.push(handle.strides.len() <span class="kw">as </span>u32);
+    }
+
+    <span class="kw">for </span>s <span class="kw">in </span>handle.strides.iter() {
+        info.push(<span class="kw-2">*</span>s <span class="kw">as </span>u32);
+    }
+    <span class="kw">for </span>s <span class="kw">in </span>tensor.shape.iter() {
+        info.push(<span class="kw-2">*</span>s <span class="kw">as </span>u32);
+    }
+}
+
+<span class="kw">fn </span>process_inputs_outputs&lt;<span class="lifetime">&#39;a</span>, G: GraphicsApi, F: FloatElement, I: IntElement&gt;(
+    inputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+    outputs: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>TensorDescription],
+    context: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Context&lt;<span class="lifetime">&#39;_</span>, Wgpu&lt;G, F, I&gt;&gt;,
+    stateful: bool,
+) -&gt; (
+    Vec&lt;WgpuFusionHandle&gt;,
+    Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>TensorDescription&gt;,
+    Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>TensorDescription&gt;,
+) {
+    <span class="kw">let </span><span class="kw-2">mut </span>inputs_description_updated = Vec::with_capacity(inputs.len());
+    <span class="kw">let </span><span class="kw-2">mut </span>outputs_description_updated = Vec::with_capacity(outputs.len());
+    <span class="kw">let </span><span class="kw-2">mut </span>handles_input = Vec::new();
+
+    <span class="kw">for </span>tensor <span class="kw">in </span>inputs.iter() {
+        <span class="kw">let </span>status = <span class="kw">if </span>stateful {
+            <span class="kw-2">&amp;</span>tensor.status <span class="comment">// Important to take the status of the relative graph and not
+                           // the global graph, since the status of the global graph
+                           // might be of a later operation on the same tensor id.
+        </span>} <span class="kw">else </span>{
+            <span class="kw-2">&amp;</span>TensorStatus::ReadOnly
         };
 
-        <span class="kw">let </span>workgroup = elemwise_workgroup(<span class="self">self</span>.num_elems_output, WORKGROUP_DEFAULT);
-        <span class="kw">let </span>kernel = Box::new(DynamicKernel::new(kernel, workgroup));
+        <span class="kw">let </span>tensor = context.tensors.get(<span class="kw-2">&amp;</span>tensor.id).unwrap();
+        <span class="kw">let </span>handle = context.handles.get_handle(<span class="kw-2">&amp;</span>tensor.id, status);
 
-        <span class="self">self</span>.client
-            .execute(kernel, <span class="kw-2">&amp;</span>handles.iter().collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;());
+        handles_input.push(handle);
+        inputs_description_updated.push(tensor);
     }
 
-    <span class="kw">fn </span>build_info_handle(named_bindings: <span class="kw-2">&amp;mut </span>Vec&lt;(String, Binding, DataBuffer)&gt;, info: Vec&lt;u32&gt;) {
-        named_bindings.push((
-            <span class="string">&quot;info&quot;</span>.to_string(),
-            Binding {
-                elem: Elem::U32,
-                visibility: Visibility::Read,
-                location: Location::Storage,
-                size: <span class="prelude-val">None</span>, <span class="comment">// We avoid putting the length here since it will force a new kernel
-                            // for each tensor rank.
-            </span>},
-            DataBuffer::U32(info),
-        ));
+    <span class="kw">for </span>tensor <span class="kw">in </span>outputs.iter() {
+        <span class="kw">let </span>tensor = context.tensors.get(<span class="kw-2">&amp;</span>tensor.id).unwrap();
+        outputs_description_updated.push(tensor);
     }
+
+    (
+        handles_input,
+        inputs_description_updated,
+        outputs_description_updated,
+    )
 }
 </code></pre></div></section></main></body></html>

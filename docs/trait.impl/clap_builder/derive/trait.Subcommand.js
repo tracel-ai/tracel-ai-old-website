@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"xtask":[["impl Subcommand for <a class=\"enum\" href=\"xtask/books/enum.BookKind.html\" title=\"enum xtask::books::BookKind\">BookKind</a>"],["impl Subcommand for <a class=\"enum\" href=\"xtask/books/enum.BookCommand.html\" title=\"enum xtask::books::BookCommand\">BookCommand</a>"],["impl Subcommand for <a class=\"enum\" href=\"xtask/enum.Command.html\" title=\"enum xtask::Command\">Command</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

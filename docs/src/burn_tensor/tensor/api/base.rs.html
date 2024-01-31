@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-tensor/src/tensor/api/base.rs`."><title>base.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-tensor/src/tensor/api/base.rs`."><title>base.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../burn_tensor/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1509,6 +1509,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#1507" id="1507">1507</a>
 <a href="#1508" id="1508">1508</a>
 <a href="#1509" id="1509">1509</a>
+<a href="#1510" id="1510">1510</a>
+<a href="#1511" id="1511">1511</a>
+<a href="#1512" id="1512">1512</a>
+<a href="#1513" id="1513">1513</a>
+<a href="#1514" id="1514">1514</a>
+<a href="#1515" id="1515">1515</a>
 </pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::single_range_in_vec_init)]
 
 </span><span class="kw">use </span>alloc::vec::Vec;
@@ -1522,10 +1528,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">use </span>burn_common::{reader::Reader, stub::Mutex};
 <span class="kw">use </span>core::{fmt::Debug, ops::Range};
+<span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-<span class="kw">use crate</span>::{
-    backend::Backend, check, check::TensorCheck, Bool, Data, Float, Int, Shape, TensorKind,
-};
+<span class="kw">use </span><span class="kw">crate</span>::check::TensorCheck;
+<span class="kw">use </span><span class="kw">crate</span>::tensor::api::chunk::chunk;
+<span class="kw">use </span><span class="kw">crate</span>::tensor::api::narrow::narrow;
+<span class="kw">use crate</span>::{backend::Backend, check, Bool, Data, DataSerialize, Float, Int, Shape, TensorKind};
 
 <span class="doccomment">/// A tensor with a given backend, shape and data type.
 </span><span class="attr">#[derive(new, Clone, Debug)]
@@ -1535,6 +1543,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     K: TensorKind&lt;B&gt;,
 {
     <span class="kw">pub</span>(<span class="kw">crate</span>) primitive: K::Primitive&lt;D&gt;,
+}
+
+<span class="kw">impl</span>&lt;B, <span class="kw">const </span>D: usize, K, T&gt; From&lt;T&gt; <span class="kw">for </span>Tensor&lt;B, D, K&gt;
+<span class="kw">where
+    </span>B: Backend,
+    K: BasicOps&lt;B&gt;,
+    T: Into&lt;Data&lt;K::Elem, D&gt;&gt;,
+{
+    <span class="kw">fn </span>from(value: T) -&gt; <span class="self">Self </span>{
+        Tensor::from_data(value.into(), <span class="kw-2">&amp;</span>Default::default())
+    }
 }
 
 <span class="kw">impl</span>&lt;B, <span class="kw">const </span>D: usize, K&gt; Tensor&lt;B, D, K&gt;
@@ -1553,12 +1572,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="doccomment">/// Create an empty tensor of the given shape.
-    </span><span class="kw">pub fn </span>empty&lt;S: Into&lt;Shape&lt;D&gt;&gt;&gt;(shape: S) -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::empty_device(shape, <span class="kw-2">&amp;</span>B::Device::default())
-    }
-
-    <span class="doccomment">/// Create an empty tensor of the given shape.
-    </span><span class="kw">pub fn </span>empty_device&lt;S: Into&lt;Shape&lt;D&gt;&gt;&gt;(shape: S, device: <span class="kw-2">&amp;</span>B::Device) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>empty&lt;S: Into&lt;Shape&lt;D&gt;&gt;&gt;(shape: S, device: <span class="kw-2">&amp;</span>B::Device) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(K::empty(shape.into(), device))
     }
 
@@ -1599,7 +1613,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// use burn_tensor::Tensor;
     ///
     /// fn example&lt;B: Backend&gt;() {
-    ///    let tensor = Tensor::&lt;B, 3&gt;::ones([2, 3, 4]);
+    ///    let device = Default::default();
+    ///    let tensor = Tensor::&lt;B, 3&gt;::ones([2, 3, 4], &amp;device);
     ///    // Given a 3D tensor with dimensions (2, 3, 4), reshape it to (2, 12)
     ///    let reshaped_tensor: Tensor::&lt;B, 2&gt; = tensor.reshape([2, -1]);
     ///    // The resulting tensor will have dimensions (2, 12).
@@ -1666,7 +1681,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// use burn_tensor::{Tensor, Shape};
     ///
     /// fn example&lt;B: Backend&gt;() {
-    ///     let tensor = Tensor::&lt;B, 3&gt;::ones(Shape::new([2, 3, 4]));
+    ///     let device = Default::default();
+    ///     let tensor = Tensor::&lt;B, 3&gt;::ones(Shape::new([2, 3, 4]), &amp;device);
     ///
     ///     // Given a 3D tensor with dimensions (2, 3, 4), flatten the dimensions between indices 1 and 2:
     ///     let flattened_tensor: Tensor::&lt;B, 2&gt; = tensor.flatten(1, 2);
@@ -1717,7 +1733,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// use burn_tensor::{Tensor, Shape};
     ///
     /// fn example&lt;B: Backend&gt;() {
-    ///     let tensor = Tensor::&lt;B, 3&gt;::ones(Shape::new([2, 1, 4]));
+    ///     let device = Default::default();
+    ///     let tensor = Tensor::&lt;B, 3&gt;::ones(Shape::new([2, 1, 4]), &amp;device);
     ///
     ///     // Given a 3D tensor with dimensions (2, 1, 4), squeeze the dimension 1
     ///     let squeezed_tensor: Tensor::&lt;B, 2&gt; = tensor.squeeze(1);
@@ -1749,7 +1766,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// use burn_tensor::{Tensor, Shape};
     ///
     /// fn example&lt;B: Backend&gt;() {
-    ///     let tensor = Tensor::&lt;B, 2&gt;::ones(Shape::new([3, 3]));
+    ///     let device = Default::default();
+    ///     let tensor = Tensor::&lt;B, 2&gt;::ones(Shape::new([3, 3]), &amp;device);
     ///     let tensor = tensor.unsqueeze::&lt;4&gt;();
     ///     println!(&quot;{:?}&quot;, tensor.shape());
     ///     // Shape { dims: [1, 1, 3, 3] }
@@ -1777,7 +1795,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// use burn_tensor::{Tensor, Shape};
     ///
     /// fn example&lt;B: Backend&gt;() {
-    ///     let tensor = Tensor::&lt;B, 2&gt;::ones(Shape::new([3, 3]));
+    ///     let device = Default::default();
+    ///     let tensor = Tensor::&lt;B, 2&gt;::ones(Shape::new([3, 3]), &amp;device);
     ///     let tensor: Tensor&lt;B, 3&gt; = tensor.unsqueeze_dim(1);
     ///     println!(&quot;{:?}&quot;, tensor.shape());
     ///     // Shape { dims: [3, 1, 3] }
@@ -1815,22 +1834,23 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// use burn_tensor::{Tensor, Shape};
     ///
     /// fn example&lt;B: Backend&gt;() {
+    ///     let device = B::Device::default();
     ///     // Create a tensor with a single dimension of ints between 0 and 11
-    ///     let tensor = Tensor::&lt;B, 1, burn_tensor::Int&gt;::arange(0..12);
+    ///     let tensor = Tensor::&lt;B, 1, burn_tensor::Int&gt;::arange(0..12, &amp;device);
     ///     // Select elements 0, 1, 2, 3 from the first dimension
     ///     let tensor_slices = tensor.clone().slice([0..4]);
     ///     println!(&quot;\nexpecting [0,1,2,3] : {:?}&quot;, tensor);
     ///     println!(&quot;expecting [4] : {:?}&quot;, tensor.dims());
     ///
     ///     // Create a Tensor with 3 dimensions
-    ///     let tensor = Tensor::&lt;B, 3&gt;::ones(Shape::new([2, 3, 3]));
+    ///     let tensor = Tensor::&lt;B, 3&gt;::ones(Shape::new([2, 3, 3]), &amp;device);
     ///     // This slice will select the element 0 on the first dimension,
     ///     // elements 0,1,2 of the second dimension and element 1 of third dimension
     ///     let tensor_slices = tensor.slice([0..1, 0..3, 1..2]);
     ///     println!(&quot;expecting [1, 3, 1] : {:?}&quot;, tensor_slices.dims());
     ///
     ///     // Create a tensor of ints from 0 to 11 and reshape it into three dimensions
-    ///     let tensor = Tensor::&lt;B, 1, burn_tensor::Int&gt;::arange(0..12);
+    ///     let tensor = Tensor::&lt;B, 1, burn_tensor::Int&gt;::arange(0..12, &amp;device);
     ///     let tensor = tensor.reshape([1, 3, 4]);
     ///     println!(&quot;\nexpecting [[[0,1,2,3],[4,5,6,7],[8,9,10,11]]] : {:?}&quot;, tensor);
     ///     println!(&quot;expecting [1, 3, 4] : {:?}&quot;, tensor.dims());
@@ -1866,8 +1886,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// use burn_tensor::Tensor;
     ///
     /// fn example&lt;B: Backend&gt;() {
-    ///     let tensor = Tensor::&lt;B, 3&gt;::ones([2, 3, 3]);
-    ///     let values = Tensor::&lt;B, 3&gt;::zeros([1, 1, 1]);
+    ///     let device = B::Device::default();
+    ///     let tensor = Tensor::&lt;B, 3&gt;::ones([2, 3, 3], &amp;device);
+    ///     let values = Tensor::&lt;B, 3&gt;::zeros([1, 1, 1], &amp;device);
     ///     let tensor_sliced = tensor.slice_assign([0..1, 0..1, 0..1], values);
     ///     println!(&quot;{:?}&quot;, tensor_sliced.dims()); // [2, 3, 3]
     /// }
@@ -1919,16 +1940,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">Self</span>::into_data(<span class="self">self</span>.clone())
     }
 
-    <span class="doccomment">/// Create a tensor from the given data.
-    </span><span class="kw">pub fn </span>from_data&lt;T&gt;(data: T) -&gt; <span class="self">Self
-    </span><span class="kw">where
-        </span>T: Into&lt;Data&lt;K::Elem, D&gt;&gt;,
-    {
-        <span class="self">Self</span>::from_data_device(data, <span class="kw-2">&amp;</span>B::Device::default())
-    }
-
     <span class="doccomment">/// Create a tensor from the given data on the given device.
-    </span><span class="kw">pub fn </span>from_data_device&lt;T&gt;(data: T, device: <span class="kw-2">&amp;</span>B::Device) -&gt; <span class="self">Self
+    </span><span class="kw">pub fn </span>from_data&lt;T&gt;(data: T, device: <span class="kw-2">&amp;</span>B::Device) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>T: Into&lt;Data&lt;K::Elem, D&gt;&gt;,
     {
@@ -1973,7 +1986,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Panics
     ///
     /// If all tensors don&#39;t have the same shape.
-    /// Given dimension is not with range of 0..=D2
+    /// Given dimension is not with range of 0..D2
     </span><span class="kw">pub fn </span>stack&lt;<span class="kw">const </span>D2: usize&gt;(tensors: Vec&lt;Tensor&lt;B, D, K&gt;&gt;, dim: usize) -&gt; Tensor&lt;B, D2, K&gt; {
         <span class="macro">check!</span>(TensorCheck::stack(<span class="kw-2">&amp;</span>tensors, dim));
         <span class="kw">let </span>tensors = tensors.into_iter().map(|t| t.unsqueeze_dim(dim)).collect();
@@ -2007,20 +2020,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">pub fn </span>narrow(<span class="self">self</span>, dim: usize, start: usize, length: usize) -&gt; <span class="self">Self </span>{
         <span class="macro">check!</span>(TensorCheck::dim_ops::&lt;D&gt;(<span class="string">&quot;narrow&quot;</span>, dim));
         <span class="macro">check!</span>(TensorCheck::narrow(<span class="kw-2">&amp;</span><span class="self">self</span>, dim, start, length));
-
-        <span class="kw">let </span>ranges: Vec&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..D)
-            .map(|i| {
-                <span class="kw">if </span>i == dim {
-                    start..(start + length)
-                } <span class="kw">else </span>{
-                    <span class="number">0</span>..<span class="self">self</span>.shape().dims[i]
-                }
-            })
-            .collect();
-
-        <span class="kw">let </span>ranges_array: [<span class="kw">_</span>; D] = ranges.try_into().unwrap();
-
-        <span class="self">self</span>.slice(ranges_array)
+        <span class="self">Self</span>::new(narrow::&lt;B, D, K&gt;(<span class="self">self</span>.primitive, dim, start, length))
     }
 
     <span class="doccomment">/// Attempts to split the tensor along the given dimension into chunks.
@@ -2037,31 +2037,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// A vector of tensors.
     </span><span class="kw">pub fn </span>chunk(<span class="self">self</span>, chunks: usize, dim: usize) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
         <span class="macro">check!</span>(TensorCheck::dim_ops::&lt;D&gt;(<span class="string">&quot;chunk&quot;</span>, dim));
-
-        <span class="kw">let </span>size = <span class="self">self</span>.shape().dims[dim];
-        <span class="kw">if </span>size &lt; chunks {
-            <span class="kw">return </span>(<span class="number">0</span>..size).map(|i| <span class="self">self</span>.clone().narrow(dim, i, <span class="number">1</span>)).collect();
-        }
-
-        <span class="kw">let </span><span class="kw-2">mut </span>tensors = Vec::with_capacity(chunks);
-        <span class="kw">let </span><span class="kw-2">mut </span>sum_chunk_size = <span class="number">0</span>;
-        <span class="kw">if </span>size % chunks == <span class="number">0 </span>{
-            <span class="kw">let </span>chunk_size = size / chunks;
-            <span class="kw">for _ in </span><span class="number">0</span>..chunks {
-                tensors.push(<span class="self">self</span>.clone().narrow(dim, sum_chunk_size, chunk_size));
-                sum_chunk_size += chunk_size;
-            }
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>chunk_size = (size / chunks) + <span class="number">1</span>; <span class="comment">// assumes not divisible
-            </span><span class="kw">for _ in </span><span class="number">0</span>..chunks - <span class="number">1 </span>{
-                tensors.push(<span class="self">self</span>.clone().narrow(dim, sum_chunk_size, chunk_size));
-                sum_chunk_size += chunk_size;
-            }
-            <span class="kw">let </span>remainder = size % chunk_size;
-            tensors.push(<span class="self">self</span>.clone().narrow(dim, sum_chunk_size, remainder));
-        }
-
-        tensors
+        chunk::&lt;B, D, K&gt;(<span class="self">self</span>.primitive, chunks, dim)
+            .into_iter()
+            .map(|v| <span class="self">Self</span>::new(v))
+            .collect()
     }
 }
 
@@ -2342,7 +2321,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 /// use burn_tensor::{Tensor, T};
 ///
 /// fn example&lt;B: Backend&gt;() {
-///     let tensor = Tensor::&lt;B, 2&gt;::from_floats([[1.0, 2.0], [3.0, 4.0]]);
+///     let device = Default::default();
+///     let tensor = Tensor::&lt;B, 2&gt;::from_floats([[1.0, 2.0], [3.0, 4.0]], &amp;device);
 ///     let transposed = tensor^T;
 /// }
 /// ```
@@ -2676,21 +2656,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">type </span>Elem = B::FloatElem;
 
     <span class="kw">fn </span>empty&lt;<span class="kw">const </span>D: usize&gt;(shape: Shape&lt;D&gt;, device: <span class="kw-2">&amp;</span>B::Device) -&gt; <span class="self">Self</span>::Primitive&lt;D&gt; {
-        B::empty(shape, device)
+        B::float_empty(shape, device)
     }
     <span class="kw">fn </span>shape&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span><span class="self">Self</span>::Primitive&lt;D&gt;) -&gt; Shape&lt;D&gt; {
-        B::shape(tensor)
+        B::float_shape(tensor)
     }
 
     <span class="kw">fn </span>reshape&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: <span class="self">Self</span>::Primitive&lt;D1&gt;,
         shape: Shape&lt;D2&gt;,
     ) -&gt; <span class="self">Self</span>::Primitive&lt;D2&gt; {
-        B::reshape(tensor, shape)
+        B::float_reshape(tensor, shape)
     }
 
     <span class="kw">fn </span>transpose&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="self">Self</span>::Primitive&lt;D&gt;) -&gt; <span class="self">Self</span>::Primitive&lt;D&gt; {
-        B::transpose(tensor)
+        B::float_transpose(tensor)
     }
 
     <span class="kw">fn </span>swap_dims&lt;<span class="kw">const </span>D: usize&gt;(
@@ -2699,14 +2679,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         dim2: usize,
     ) -&gt; <span class="self">Self</span>::Primitive&lt;D&gt; {
         <span class="macro">check!</span>(TensorCheck::swap_dims::&lt;D&gt;(dim1, dim2));
-        B::swap_dims(tensor, dim1, dim2)
+        B::float_swap_dims(tensor, dim1, dim2)
     }
 
     <span class="kw">fn </span>slice&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
         tensor: <span class="self">Self</span>::Primitive&lt;D1&gt;,
         ranges: [Range&lt;usize&gt;; D2],
     ) -&gt; <span class="self">Self</span>::Primitive&lt;D1&gt; {
-        B::slice(tensor, ranges)
+        B::float_slice(tensor, ranges)
     }
 
     <span class="kw">fn </span>slice_assign&lt;<span class="kw">const </span>D1: usize, <span class="kw">const </span>D2: usize&gt;(
@@ -2714,29 +2694,29 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         ranges: [Range&lt;usize&gt;; D2],
         value: <span class="self">Self</span>::Primitive&lt;D1&gt;,
     ) -&gt; <span class="self">Self</span>::Primitive&lt;D1&gt; {
-        B::slice_assign(tensor, ranges, value)
+        B::float_slice_assign(tensor, ranges, value)
     }
 
     <span class="kw">fn </span>device&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="kw-2">&amp;</span><span class="self">Self</span>::Primitive&lt;D&gt;) -&gt; &lt;B <span class="kw">as </span>Backend&gt;::Device {
-        B::device(tensor)
+        B::float_device(tensor)
     }
 
     <span class="kw">fn </span>to_device&lt;<span class="kw">const </span>D: usize&gt;(
         tensor: <span class="self">Self</span>::Primitive&lt;D&gt;,
         device: <span class="kw-2">&amp;</span>&lt;B <span class="kw">as </span>Backend&gt;::Device,
     ) -&gt; <span class="self">Self</span>::Primitive&lt;D&gt; {
-        B::to_device(tensor, device)
+        B::float_to_device(tensor, device)
     }
 
     <span class="kw">fn </span>into_data&lt;<span class="kw">const </span>D: usize&gt;(tensor: <span class="self">Self</span>::Primitive&lt;D&gt;) -&gt; Reader&lt;Data&lt;<span class="self">Self</span>::Elem, D&gt;&gt; {
-        B::into_data(tensor)
+        B::float_into_data(tensor)
     }
 
     <span class="kw">fn </span>from_data&lt;<span class="kw">const </span>D: usize&gt;(
         data: Data&lt;<span class="self">Self</span>::Elem, D&gt;,
         device: <span class="kw-2">&amp;</span>B::Device,
     ) -&gt; <span class="self">Self</span>::Primitive&lt;D&gt; {
-        B::from_data(data, device)
+        B::float_from_data(data, device)
     }
 
     <span class="kw">fn </span>repeat&lt;<span class="kw">const </span>D: usize&gt;(
@@ -2744,18 +2724,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         dim: usize,
         times: usize,
     ) -&gt; <span class="self">Self</span>::Primitive&lt;D&gt; {
-        B::repeat(tensor, dim, times)
+        B::float_repeat(tensor, dim, times)
     }
 
     <span class="kw">fn </span>cat&lt;<span class="kw">const </span>D: usize&gt;(vectors: Vec&lt;<span class="self">Self</span>::Primitive&lt;D&gt;&gt;, dim: usize) -&gt; <span class="self">Self</span>::Primitive&lt;D&gt; {
-        B::cat(vectors, dim)
+        B::float_cat(vectors, dim)
     }
 
     <span class="kw">fn </span>equal&lt;<span class="kw">const </span>D: usize&gt;(
         lhs: <span class="self">Self</span>::Primitive&lt;D&gt;,
         rhs: <span class="self">Self</span>::Primitive&lt;D&gt;,
     ) -&gt; Tensor&lt;B, D, Bool&gt; {
-        Tensor::new(B::equal(lhs, rhs))
+        Tensor::new(B::float_equal(lhs, rhs))
     }
 }
 
@@ -3016,6 +2996,38 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         </span><span class="kw">let </span>new_shape: [usize; D2] = new_shape.map(|x| x <span class="kw">as </span>usize);
 
         Shape::from(new_shape)
+    }
+}
+
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;wasm-sync&quot;</span>, not(target_family = <span class="string">&quot;wasm&quot;</span>)))]
+</span><span class="kw">impl</span>&lt;B, <span class="kw">const </span>D: usize, K&gt; Serialize <span class="kw">for </span>Tensor&lt;B, D, K&gt;
+<span class="kw">where
+    </span>B: Backend,
+    K: BasicOps&lt;B&gt;,
+    K::Elem: Debug + Copy + Serialize,
+{
+    <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
+        <span class="kw">let </span>data = <span class="self">self</span>.to_data();
+        <span class="comment">// manually construct instead of calling `serialize` to move instead of clone value
+        </span><span class="kw">let </span>serialized: DataSerialize&lt;K::Elem&gt; = DataSerialize {
+            value: data.value,
+            shape: data.shape.dims.to_vec(),
+        };
+        serialized.serialize(serializer)
+    }
+}
+
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>, B, <span class="kw">const </span>D: usize, K&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>Tensor&lt;B, D, K&gt;
+<span class="kw">where
+    </span>B: Backend,
+    K: BasicOps&lt;B&gt;,
+    K::Elem: Debug + Copy + Deserialize&lt;<span class="lifetime">&#39;de</span>&gt;,
+{
+    <span class="kw">fn </span>deserialize&lt;De: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: De) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, De::Error&gt; {
+        <span class="kw">let </span>data_res: <span class="prelude-ty">Result</span>&lt;DataSerialize&lt;K::Elem&gt;, De::Error&gt; =
+            DataSerialize::deserialize(deserializer);
+        <span class="kw">let </span>tensor = Tensor::from_data(data_res<span class="question-mark">?</span>, <span class="kw-2">&amp;</span>&lt;B::Device <span class="kw">as </span>Default&gt;::default());
+        <span class="prelude-val">Ok</span>(tensor)
     }
 }
 </code></pre></div></section></main></body></html>

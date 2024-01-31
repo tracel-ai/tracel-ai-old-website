@@ -1,0 +1,5 @@
+(function() {var implementors = {
+"burn":[],
+"burn_core":[],
+"burn_import":[["impl&lt;PS: <a class=\"trait\" href=\"burn_core/record/settings/trait.PrecisionSettings.html\" title=\"trait burn_core::record::settings::PrecisionSettings\">PrecisionSettings</a>, B: <a class=\"trait\" href=\"burn_tensor/tensor/backend/base/trait.Backend.html\" title=\"trait burn_tensor::tensor::backend::base::Backend\">Backend</a>&gt; <a class=\"trait\" href=\"burn_core/record/recorder/trait.Recorder.html\" title=\"trait burn_core::record::recorder::Recorder\">Recorder</a>&lt;B&gt; for <a class=\"struct\" href=\"burn_import/pytorch/struct.PyTorchFileRecorder.html\" title=\"struct burn_import::pytorch::PyTorchFileRecorder\">PyTorchFileRecorder</a>&lt;PS&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

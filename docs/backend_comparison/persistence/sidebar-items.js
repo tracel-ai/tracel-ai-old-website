@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["Persistence"]};
+window.SIDEBAR_ITEMS = {"fn":["save"],"struct":["BenchmarkRecord"]};

@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-core/src/nn/initializer.rs`."><title>initializer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-core/src/nn/initializer.rs`."><title>initializer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_core" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_core/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_core" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -371,6 +371,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#369" id="369">369</a>
 <a href="#370" id="370">370</a>
 <a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>burn_tensor::Shape;
 <span class="kw">use </span>libm::sqrt;
 
@@ -446,8 +460,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// # Params
     ///
     /// - shape: Shape of the initiated tensor.
-    </span><span class="kw">pub fn </span>init&lt;B: Backend, <span class="kw">const </span>D: usize, S: Into&lt;Shape&lt;D&gt;&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, shape: S) -&gt; Tensor&lt;B, D&gt; {
-        <span class="self">self</span>.init_with(shape, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>)
+    </span><span class="kw">pub fn </span>init&lt;B: Backend, <span class="kw">const </span>D: usize, S: Into&lt;Shape&lt;D&gt;&gt;&gt;(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        shape: S,
+        device: <span class="kw-2">&amp;</span>B::Device,
+    ) -&gt; Tensor&lt;B, D&gt; {
+        <span class="self">self</span>.init_with(shape, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>, device)
     }
 
     <span class="doccomment">/// Inits a tensor of given shape with values depending on initializer kind, with the possibility
@@ -463,29 +481,30 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         shape: S,
         fan_in: <span class="prelude-ty">Option</span>&lt;usize&gt;,
         fan_out: <span class="prelude-ty">Option</span>&lt;usize&gt;,
+        device: <span class="kw-2">&amp;</span>B::Device,
     ) -&gt; Tensor&lt;B, D&gt; {
         <span class="kw">let </span>shape = shape.into();
         <span class="kw">match </span><span class="self">self </span>{
-            Initializer::Constant { value } =&gt; Tensor::&lt;B, D&gt;::full(shape, <span class="kw-2">*</span>value),
-            Initializer::Ones =&gt; Tensor::&lt;B, D&gt;::ones(shape),
-            Initializer::Zeros =&gt; Tensor::&lt;B, D&gt;::zeros(shape),
-            Initializer::Uniform { min, max } =&gt; uniform_draw(shape, <span class="kw-2">*</span>min, <span class="kw-2">*</span>max),
-            Initializer::Normal { mean, std } =&gt; normal_draw(shape, <span class="kw-2">*</span>mean, <span class="kw-2">*</span>std),
+            Initializer::Constant { value } =&gt; Tensor::&lt;B, D&gt;::full(shape, <span class="kw-2">*</span>value, device),
+            Initializer::Ones =&gt; Tensor::&lt;B, D&gt;::ones(shape, device),
+            Initializer::Zeros =&gt; Tensor::&lt;B, D&gt;::zeros(shape, device),
+            Initializer::Uniform { min, max } =&gt; uniform_draw(shape, <span class="kw-2">*</span>min, <span class="kw-2">*</span>max, device),
+            Initializer::Normal { mean, std } =&gt; normal_draw(shape, <span class="kw-2">*</span>mean, <span class="kw-2">*</span>std, device),
             Initializer::KaimingUniform { gain, fan_out_only } =&gt; {
                 <span class="kw">let </span>a = sqrt(<span class="number">3.0</span>) * <span class="kw-2">*</span>gain * <span class="self">self</span>.kaiming_std(<span class="kw-2">*</span>fan_out_only, fan_in, fan_out);
-                uniform_draw(shape, -a, a)
+                uniform_draw(shape, -a, a, device)
             }
             Initializer::KaimingNormal { gain, fan_out_only } =&gt; {
                 <span class="kw">let </span>std = <span class="kw-2">*</span>gain * <span class="self">self</span>.kaiming_std(<span class="kw-2">*</span>fan_out_only, fan_in, fan_out);
-                normal_draw(shape, <span class="number">0.0</span>, std)
+                normal_draw(shape, <span class="number">0.0</span>, std, device)
             }
             Initializer::XavierUniform { gain } =&gt; {
                 <span class="kw">let </span>a = sqrt(<span class="number">3.0</span>) * <span class="kw-2">*</span>gain * <span class="self">self</span>.xavier_std(fan_in, fan_out);
-                uniform_draw(shape, -a, a)
+                uniform_draw(shape, -a, a, device)
             }
             Initializer::XavierNormal { gain } =&gt; {
                 <span class="kw">let </span>std = <span class="kw-2">*</span>gain * <span class="self">self</span>.xavier_std(fan_in, fan_out);
-                normal_draw(shape, <span class="number">0.0</span>, std)
+                normal_draw(shape, <span class="number">0.0</span>, std, device)
             }
         }
     }
@@ -506,10 +525,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">fn </span>xavier_std(<span class="kw-2">&amp;</span><span class="self">self</span>, fan_in: <span class="prelude-ty">Option</span>&lt;usize&gt;, fan_out: <span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; f64 {
         <span class="kw">let </span>fan_in = fan_in.expect(
-            <span class="string">&quot;Can&#39;t use Xavier initialization without specifying fan in. Use init_with method and provide fan_in.&quot;</span>,
+            <span class="string">&quot;Can&#39;t use Xavier initialization without specifying fan in. Use init_with method and \
+             provide fan_in.&quot;</span>,
         );
         <span class="kw">let </span>fan_out = fan_out.expect(
-            <span class="string">&quot;Can&#39;t use Xavier initialization without specifying fan out. Use init_with method and provide fan_out.&quot;</span>,
+            <span class="string">&quot;Can&#39;t use Xavier initialization without specifying fan out. Use init_with method and \
+             provide fan_out.&quot;</span>,
         );
         sqrt(<span class="number">2.0 </span>/ (fan_in + fan_out) <span class="kw">as </span>f64)
     }
@@ -519,18 +540,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     shape: S,
     low: f64,
     high: f64,
+    device: <span class="kw-2">&amp;</span>B::Device,
 ) -&gt; Tensor&lt;B, D&gt; {
     <span class="kw">let </span>distribution = Distribution::Uniform(low, high);
-    Tensor::&lt;B, D&gt;::random(shape, distribution)
+    Tensor::&lt;B, D&gt;::random(shape, distribution, device)
 }
 
 <span class="kw">fn </span>normal_draw&lt;B: Backend, <span class="kw">const </span>D: usize, S: Into&lt;Shape&lt;D&gt;&gt;&gt;(
     shape: S,
     mean: f64,
     std: f64,
+    device: <span class="kw-2">&amp;</span>B::Device,
 ) -&gt; Tensor&lt;B, D&gt; {
     <span class="kw">let </span>distribution = Distribution::Normal(mean, std);
-    Tensor::&lt;B, D&gt;::random(shape, distribution)
+    Tensor::&lt;B, D&gt;::random(shape, distribution, device)
 }
 
 <span class="attr">#[cfg(test)]
@@ -565,7 +588,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>(min, max) = (<span class="number">0.0</span>, <span class="number">1.0</span>);
         <span class="kw">let </span>uniform = Initializer::Uniform { min, max };
-        <span class="kw">let </span>tensor: Tensor&lt;TB, <span class="number">4</span>&gt; = uniform.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]);
+        <span class="kw">let </span>tensor: Tensor&lt;TB, <span class="number">4</span>&gt; = uniform.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>], <span class="kw-2">&amp;</span>Default::default());
 
         tensor.into_data().assert_within_range(min..max);
     }
@@ -575,7 +598,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="comment">// seed random generator
         </span>TB::seed(<span class="number">0</span>);
         <span class="kw">let </span>(mean, std) = (<span class="number">0.0</span>, <span class="number">1.0</span>);
-        <span class="kw">let </span>normal: Tensor&lt;TB, <span class="number">1</span>&gt; = Initializer::Normal { mean, std }.init([<span class="number">1000</span>]);
+        <span class="kw">let </span>normal: Tensor&lt;TB, <span class="number">1</span>&gt; =
+            Initializer::Normal { mean, std }.init([<span class="number">1000</span>], <span class="kw-2">&amp;</span>Default::default());
         <span class="kw">let </span>(var_act, mean_act) = normal.var_mean(<span class="number">0</span>);
 
         <span class="kw">let </span>var_act: f32 = var_act.into_scalar().elem();
@@ -594,7 +618,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="attr">#[test]
     </span><span class="kw">fn </span>initializer_constant_init() {
         <span class="kw">let </span>value = <span class="number">5.0</span>;
-        <span class="kw">let </span>constants: Tensor&lt;TB, <span class="number">4</span>&gt; = Initializer::Constant { value }.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]);
+        <span class="kw">let </span>constants: Tensor&lt;TB, <span class="number">4</span>&gt; =
+            Initializer::Constant { value }.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>], <span class="kw-2">&amp;</span>Default::default());
         constants
             .sum()
             .to_data()
@@ -603,7 +628,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>initializer_zeros_init() {
-        <span class="kw">let </span>zeros: Tensor&lt;TB, <span class="number">4</span>&gt; = Initializer::Zeros.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]);
+        <span class="kw">let </span>zeros: Tensor&lt;TB, <span class="number">4</span>&gt; = Initializer::Zeros.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>], <span class="kw-2">&amp;</span>Default::default());
         zeros
             .sum()
             .to_data()
@@ -612,7 +637,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>initializer_ones_init() {
-        <span class="kw">let </span>ones: Tensor&lt;TB, <span class="number">4</span>&gt; = Initializer::Ones.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]);
+        <span class="kw">let </span>ones: Tensor&lt;TB, <span class="number">4</span>&gt; = Initializer::Ones.init([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>], <span class="kw-2">&amp;</span>Default::default());
         ones.sum()
             .to_data()
             .assert_approx_eq(<span class="kw-2">&amp;</span>Data::from([<span class="number">16.0</span>]), <span class="number">3</span>);
@@ -630,7 +655,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             gain,
             fan_out_only: <span class="bool-val">false</span>,
         }
-        .init_with([fan_out, fan_in], <span class="prelude-val">Some</span>(fan_in), <span class="prelude-val">None</span>);
+        .init_with([fan_out, fan_in], <span class="prelude-val">Some</span>(fan_in), <span class="prelude-val">None</span>, <span class="kw-2">&amp;</span>Default::default());
         tensor.into_data().assert_within_range(-k..k);
     }
 
@@ -647,7 +672,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             gain,
             fan_out_only: <span class="bool-val">false</span>,
         }
-        .init_with([fan_out, fan_in], <span class="prelude-val">Some</span>(fan_in), <span class="prelude-val">None</span>);
+        .init_with([fan_out, fan_in], <span class="prelude-val">Some</span>(fan_in), <span class="prelude-val">None</span>, <span class="kw-2">&amp;</span>Default::default());
         assert_normal_init(expected_mean, expected_var, <span class="kw-2">&amp;</span>tensor)
     }
 
@@ -664,7 +689,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             gain,
             fan_out_only: <span class="bool-val">false</span>,
         }
-        .init_with(shape, <span class="prelude-val">Some</span>(fan_in), <span class="prelude-val">None</span>);
+        .init_with(shape, <span class="prelude-val">Some</span>(fan_in), <span class="prelude-val">None</span>, <span class="kw-2">&amp;</span>Default::default());
         tensor.into_data().assert_within_range(-k..k);
     }
 
@@ -680,7 +705,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             gain,
             fan_out_only: <span class="bool-val">true</span>,
         }
-        .init_with([fan_out, fan_in], <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(fan_out));
+        .init_with([fan_out, fan_in], <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(fan_out), <span class="kw-2">&amp;</span>Default::default());
         tensor.into_data().assert_within_range(-k..k);
     }
 
@@ -696,7 +721,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             gain,
             fan_out_only: <span class="bool-val">false</span>,
         }
-        .init([fan_out, fan_in]);
+        .init([fan_out, fan_in], <span class="kw-2">&amp;</span>Default::default());
     }
 
     <span class="attr">#[test]
@@ -710,6 +735,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             [fan_out, fan_in],
             <span class="prelude-val">Some</span>(fan_in),
             <span class="prelude-val">Some</span>(fan_out),
+            <span class="kw-2">&amp;</span>Default::default(),
         );
 
         tensor.into_data().assert_within_range(-bound..bound);
@@ -728,6 +754,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             [fan_out, fan_in],
             <span class="prelude-val">Some</span>(fan_in),
             <span class="prelude-val">Some</span>(fan_out),
+            <span class="kw-2">&amp;</span>Default::default(),
         );
         assert_normal_init(expected_mean, expected_var, <span class="kw-2">&amp;</span>tensor)
     }
@@ -739,7 +766,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>gain = <span class="number">2.</span>;
         <span class="kw">let </span>(fan_in, fan_out) = (<span class="number">5</span>, <span class="number">6</span>);
-        <span class="kw">let _</span>: Tensor&lt;TB, <span class="number">2</span>&gt; = Initializer::XavierUniform { gain }.init([fan_out, fan_in]);
+        <span class="kw">let _</span>: Tensor&lt;TB, <span class="number">2</span>&gt; =
+            Initializer::XavierUniform { gain }.init([fan_out, fan_in], <span class="kw-2">&amp;</span>Default::default());
     }
 }
 </code></pre></div></section></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["IMAGE_INX","OUT_DIR"],"fn":["main"]};

@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"burn":[],
+"burn_core":[["impl&lt;'de, A: <a class=\"trait\" href=\"burn_core/record/serde/adapter/trait.BurnModuleAdapter.html\" title=\"trait burn_core::record::serde::adapter::BurnModuleAdapter\">BurnModuleAdapter</a>&gt; <a class=\"trait\" href=\"https://docs.rs/serde/1.0.196/serde/de/trait.Deserializer.html\" title=\"trait serde::de::Deserializer\">Deserializer</a>&lt;'de&gt; for <a class=\"struct\" href=\"burn_core/record/serde/de/struct.Deserializer.html\" title=\"struct burn_core::record::serde::de::Deserializer\">Deserializer</a>&lt;A&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

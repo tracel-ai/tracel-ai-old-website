@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `xtask/src/runchecks.rs`."><title>runchecks.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `xtask/src/runchecks.rs`."><title>runchecks.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="xtask" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../xtask/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="xtask" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -401,194 +401,162 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#399" id="399">399</a>
 <a href="#400" id="400">400</a>
 <a href="#401" id="401">401</a>
-<a href="#402" id="402">402</a>
-<a href="#403" id="403">403</a>
-<a href="#404" id="404">404</a>
-<a href="#405" id="405">405</a>
-<a href="#406" id="406">406</a>
-<a href="#407" id="407">407</a>
-<a href="#408" id="408">408</a>
-<a href="#409" id="409">409</a>
-<a href="#410" id="410">410</a>
-<a href="#411" id="411">411</a>
-<a href="#412" id="412">412</a>
-<a href="#413" id="413">413</a>
-<a href="#414" id="414">414</a>
-<a href="#415" id="415">415</a>
-<a href="#416" id="416">416</a>
-<a href="#417" id="417">417</a>
-<a href="#418" id="418">418</a>
-<a href="#419" id="419">419</a>
-<a href="#420" id="420">420</a>
-<a href="#421" id="421">421</a>
-<a href="#422" id="422">422</a>
-<a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
-<a href="#434" id="434">434</a>
-<a href="#435" id="435">435</a>
-<a href="#436" id="436">436</a>
-<a href="#437" id="437">437</a>
-<a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a>
-<a href="#445" id="445">445</a>
-<a href="#446" id="446">446</a>
-<a href="#447" id="447">447</a>
-<a href="#448" id="448">448</a>
-<a href="#449" id="449">449</a>
-<a href="#450" id="450">450</a>
-<a href="#451" id="451">451</a>
-<a href="#452" id="452">452</a>
-<a href="#453" id="453">453</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! This script is run before a PR is created.
 //!
 //! It is used to check that the code compiles and passes all tests.
 //!
 //! It is also used to check that the code is formatted correctly and passes clippy.
 
-</span><span class="kw">use </span>std::env;
-<span class="kw">use </span>std::process::{Child, Command, Stdio};
+</span><span class="kw">use </span>std::collections::HashMap;
+<span class="kw">use </span>std::env;
+<span class="kw">use </span>std::process::{Command, Stdio};
 <span class="kw">use </span>std::str;
 <span class="kw">use </span>std::time::Instant;
+
+<span class="kw">use </span><span class="kw">crate</span>::logging::init_logger;
+<span class="kw">use </span><span class="kw">crate</span>::utils::cargo::{run_cargo, run_cargo_with_path};
+<span class="kw">use </span><span class="kw">crate</span>::utils::process::{handle_child_process, run_command};
+<span class="kw">use </span><span class="kw">crate</span>::utils::rustup::{rustup_add_component, rustup_add_target};
+<span class="kw">use </span><span class="kw">crate</span>::utils::time::format_duration;
+<span class="kw">use </span><span class="kw">crate</span>::utils::workspace::{get_workspaces, WorkspaceMemberType};
+<span class="kw">use </span><span class="kw">crate</span>::utils::Params;
+<span class="kw">use crate</span>::{endgroup, group};
 
 <span class="comment">// Targets constants
 </span><span class="kw">const </span>WASM32_TARGET: <span class="kw-2">&amp;</span>str = <span class="string">&quot;wasm32-unknown-unknown&quot;</span>;
 <span class="kw">const </span>ARM_TARGET: <span class="kw-2">&amp;</span>str = <span class="string">&quot;thumbv7m-none-eabi&quot;</span>;
 
-<span class="comment">// Handle child process
-</span><span class="kw">fn </span>handle_child_process(<span class="kw-2">mut </span>child: Child, error: <span class="kw-2">&amp;</span>str) {
-    <span class="comment">// Wait for the child process to finish
-    </span><span class="kw">let </span>status = child.wait().expect(error);
+<span class="attr">#[derive(clap::ValueEnum, Default, Copy, Clone, PartialEq, Eq)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>CheckType {
+    <span class="doccomment">/// Run all checks.
+    </span><span class="attr">#[default]
+    </span>All,
+    <span class="doccomment">/// Run `std` environment checks
+    </span>Std,
+    <span class="doccomment">/// Run `no-std` environment checks
+    </span>NoStd,
+    <span class="doccomment">/// Check for typos
+    </span>Typos,
+    <span class="doccomment">/// Test the examples
+    </span>Examples,
+}
 
-    <span class="comment">// If exit status is not a success, terminate the process with an error
-    </span><span class="kw">if </span>!status.success() {
-        <span class="comment">// Use the exit code associated to a command to terminate the process,
-        // if any exit code had been found, use the default value 1
-        </span>std::process::exit(status.code().unwrap_or(<span class="number">1</span>));
+<span class="kw">impl </span>CheckType {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>run(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; anyhow::Result&lt;()&gt; {
+        <span class="comment">// Setup logger
+        </span>init_logger().init();
+
+        <span class="comment">// Start time measurement
+        </span><span class="kw">let </span>start = Instant::now();
+
+        <span class="comment">// The environment can assume ONLY &quot;std&quot;, &quot;no_std&quot;, &quot;typos&quot;, &quot;examples&quot;
+        //
+        // Depending on the input argument, the respective environment checks
+        // are run.
+        //
+        // If no environment has been passed, run all checks.
+        </span><span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Std =&gt; std_checks(),
+            <span class="self">Self</span>::NoStd =&gt; no_std_checks(),
+            <span class="self">Self</span>::Typos =&gt; check_typos(),
+            <span class="self">Self</span>::Examples =&gt; check_examples(),
+            <span class="self">Self</span>::All =&gt; {
+                <span class="comment">/* Run all checks */
+                </span>check_typos();
+                std_checks();
+                no_std_checks();
+                check_examples();
+            }
+        }
+
+        <span class="comment">// Stop time measurement
+        //
+        // Compute runtime duration
+        </span><span class="kw">let </span>duration = start.elapsed();
+
+        <span class="comment">// Print duration
+        </span><span class="macro">info!</span>(
+            <span class="string">&quot;\x1B[32;1mTime elapsed for the current execution: {}\x1B[0m&quot;</span>,
+            format_duration(<span class="kw-2">&amp;</span>duration)
+        );
+
+        <span class="prelude-val">Ok</span>(())
     }
 }
 
-<span class="comment">// Run a command
-</span><span class="kw">fn </span>run_command(command: <span class="kw-2">&amp;</span>str, args: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str], command_error: <span class="kw-2">&amp;</span>str, child_error: <span class="kw-2">&amp;</span>str) {
-    <span class="comment">// Format command
-    </span><span class="macro">println!</span>(<span class="string">&quot;{command} {}\n\n&quot;</span>, args.join(<span class="string">&quot; &quot;</span>));
-
-    <span class="comment">// Run command as child process
-    </span><span class="kw">let </span>command = Command::new(command)
-        .args(args)
-        .stdout(Stdio::inherit()) <span class="comment">// Send stdout directly to terminal
-        </span>.stderr(Stdio::inherit()) <span class="comment">// Send stderr directly to terminal
-        </span>.spawn()
-        .expect(command_error);
-
-    <span class="comment">// Handle command child process
-    </span>handle_child_process(command, child_error);
-}
-
-<span class="comment">// Define and run rustup command
-</span><span class="kw">fn </span>rustup(command: <span class="kw-2">&amp;</span>str, target: <span class="kw-2">&amp;</span>str) {
-    run_command(
-        <span class="string">&quot;rustup&quot;</span>,
-        <span class="kw-2">&amp;</span>[command, <span class="string">&quot;add&quot;</span>, target],
-        <span class="string">&quot;Failed to run rustup&quot;</span>,
-        <span class="string">&quot;Failed to wait for rustup child process&quot;</span>,
-    )
-}
-
-<span class="comment">// Define and run a cargo command
-</span><span class="kw">fn </span>run_cargo(command: <span class="kw-2">&amp;</span>str, params: Params, error: <span class="kw-2">&amp;</span>str) {
-    <span class="comment">// Print cargo command
-    </span><span class="macro">println!</span>(<span class="string">&quot;\ncargo {} {}\n&quot;</span>, command, params);
-
-    <span class="comment">// Run cargo
-    </span><span class="kw">let </span>cargo = Command::new(<span class="string">&quot;cargo&quot;</span>)
-        .env(<span class="string">&quot;CARGO_INCREMENTAL&quot;</span>, <span class="string">&quot;0&quot;</span>)
-        .arg(command)
-        .args(params.params)
-        .stdout(Stdio::inherit()) <span class="comment">// Send stdout directly to terminal
-        </span>.stderr(Stdio::inherit()) <span class="comment">// Send stderr directly to terminal
-        </span>.spawn()
-        .expect(error);
-
-    <span class="comment">// Handle cargo child process
-    </span>handle_child_process(cargo, <span class="string">&quot;Failed to wait for cargo child process&quot;</span>);
-}
-
-<span class="comment">// Run cargo build command
+<span class="doccomment">/// Run cargo build command
 </span><span class="kw">fn </span>cargo_build(params: Params) {
     <span class="comment">// Run cargo build
     </span>run_cargo(
         <span class="string">&quot;build&quot;</span>,
         params + <span class="string">&quot;--color=always&quot;</span>,
+        HashMap::new(),
         <span class="string">&quot;Failed to run cargo build&quot;</span>,
     );
 }
 
-<span class="comment">// Run cargo install command
+<span class="doccomment">/// Run cargo install command
 </span><span class="kw">fn </span>cargo_install(params: Params) {
     <span class="comment">// Run cargo install
     </span>run_cargo(
         <span class="string">&quot;install&quot;</span>,
         params + <span class="string">&quot;--color=always&quot;</span>,
+        HashMap::new(),
         <span class="string">&quot;Failed to run cargo install&quot;</span>,
     );
 }
 
-<span class="comment">// Run cargo test command
+<span class="doccomment">/// Run cargo test command
 </span><span class="kw">fn </span>cargo_test(params: Params) {
     <span class="comment">// Run cargo test
     </span>run_cargo(
         <span class="string">&quot;test&quot;</span>,
         params + <span class="string">&quot;--color=always&quot; </span>+ <span class="string">&quot;--&quot; </span>+ <span class="string">&quot;--color=always&quot;</span>,
+        HashMap::new(),
         <span class="string">&quot;Failed to run cargo test&quot;</span>,
     );
 }
 
-<span class="comment">// Run cargo fmt command
+<span class="doccomment">/// Run cargo fmt command
 </span><span class="kw">fn </span>cargo_fmt() {
-    <span class="comment">// Run cargo fmt
-    </span>run_cargo(
+    <span class="macro">group!</span>(<span class="string">&quot;Cargo: fmt&quot;</span>);
+    run_cargo(
         <span class="string">&quot;fmt&quot;</span>,
         [<span class="string">&quot;--check&quot;</span>, <span class="string">&quot;--all&quot;</span>, <span class="string">&quot;--&quot;</span>, <span class="string">&quot;--color=always&quot;</span>].into(),
+        HashMap::new(),
         <span class="string">&quot;Failed to run cargo fmt&quot;</span>,
     );
+    <span class="macro">endgroup!</span>();
 }
 
-<span class="comment">// Run cargo clippy command
+<span class="doccomment">/// Run cargo clippy command
 </span><span class="kw">fn </span>cargo_clippy() {
-    <span class="kw">if </span>std::env::var(<span class="string">&quot;CI_RUN&quot;</span>).is_ok() {
+    <span class="kw">if </span>std::env::var(<span class="string">&quot;CI&quot;</span>).is_ok() {
         <span class="kw">return</span>;
     }
     <span class="comment">// Run cargo clippy
     </span>run_cargo(
         <span class="string">&quot;clippy&quot;</span>,
         [<span class="string">&quot;--color=always&quot;</span>, <span class="string">&quot;--all-targets&quot;</span>, <span class="string">&quot;--&quot;</span>, <span class="string">&quot;-D&quot;</span>, <span class="string">&quot;warnings&quot;</span>].into(),
+        HashMap::new(),
         <span class="string">&quot;Failed to run cargo clippy&quot;</span>,
     );
 }
 
-<span class="comment">// Run cargo doc command
+<span class="doccomment">/// Run cargo doc command
 </span><span class="kw">fn </span>cargo_doc(params: Params) {
     <span class="comment">// Run cargo doc
-    </span>run_cargo(<span class="string">&quot;doc&quot;</span>, params + <span class="string">&quot;--color=always&quot;</span>, <span class="string">&quot;Failed to run cargo doc&quot;</span>);
+    </span>run_cargo(
+        <span class="string">&quot;doc&quot;</span>,
+        params + <span class="string">&quot;--color=always&quot;</span>,
+        HashMap::new(),
+        <span class="string">&quot;Failed to run cargo doc&quot;</span>,
+    );
 }
 
 <span class="comment">// Build and test a crate in a no_std environment
 </span><span class="kw">fn </span>build_and_test_no_std&lt;<span class="kw">const </span>N: usize&gt;(crate_name: <span class="kw-2">&amp;</span>str, extra_args: [<span class="kw-2">&amp;</span>str; N]) {
-    <span class="macro">println!</span>(<span class="string">&quot;\nRun checks for `{}` crate&quot;</span>, crate_name);
+    <span class="macro">group!</span>(<span class="string">&quot;Checks: {} (no-std)&quot;</span>, crate_name);
 
     <span class="comment">// Run cargo build --no-default-features
     </span>cargo_build(Params::from([<span class="string">&quot;-p&quot;</span>, crate_name, <span class="string">&quot;--no-default-features&quot;</span>]) + extra_args);
@@ -617,12 +585,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             ARM_TARGET,
         ]) + extra_args,
     );
+
+    <span class="macro">endgroup!</span>();
 }
 
 <span class="comment">// Setup code coverage
 </span><span class="kw">fn </span>setup_coverage() {
     <span class="comment">// Install llvm-tools-preview
-    </span>rustup(<span class="string">&quot;component&quot;</span>, <span class="string">&quot;llvm-tools-preview&quot;</span>);
+    </span>rustup_add_component(<span class="string">&quot;llvm-tools-preview&quot;</span>);
 
     <span class="comment">// Set coverage environment variables
     </span>env::set_var(<span class="string">&quot;RUSTFLAGS&quot;</span>, <span class="string">&quot;-Cinstrument-coverage&quot;</span>);
@@ -656,20 +626,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="comment">// Run no_std checks
 </span><span class="kw">fn </span>no_std_checks() {
-    <span class="macro">println!</span>(<span class="string">&quot;Checks for no_std environment...\n\n&quot;</span>);
-
     <span class="comment">// Install wasm32 target
-    </span>rustup(<span class="string">&quot;target&quot;</span>, WASM32_TARGET);
+    </span>rustup_add_target(WASM32_TARGET);
 
     <span class="comment">// Install ARM target
-    </span>rustup(<span class="string">&quot;target&quot;</span>, ARM_TARGET);
+    </span>rustup_add_target(ARM_TARGET);
 
     <span class="comment">// Run checks for the following crates
     </span>build_and_test_no_std(<span class="string">&quot;burn&quot;</span>, []);
     build_and_test_no_std(<span class="string">&quot;burn-core&quot;</span>, []);
     build_and_test_no_std(
         <span class="string">&quot;burn-compute&quot;</span>,
-        [<span class="string">&quot;--features&quot;</span>, <span class="string">&quot;channel-mutex storage-bytes&quot;</span>],
+        [<span class="string">&quot;--features&quot;</span>, <span class="string">&quot;channel-mutex,storage-bytes&quot;</span>],
     );
     build_and_test_no_std(<span class="string">&quot;burn-common&quot;</span>, []);
     build_and_test_no_std(<span class="string">&quot;burn-tensor&quot;</span>, []);
@@ -679,20 +647,31 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="comment">// Test burn-core with tch and wgpu backend
 </span><span class="kw">fn </span>burn_core_std() {
-    <span class="macro">println!</span>(<span class="string">&quot;\n\nRun checks for burn-core crate with tch and wgpu backend&quot;</span>);
-
-    <span class="comment">// Run cargo test --features test-tch
-    </span>cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-core&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;test-tch&quot;</span>].into());
+    <span class="comment">// Run cargo test --features test-tch, record-item-custom-serde
+    </span><span class="macro">group!</span>(<span class="string">&quot;Test: burn-core (tch) and record-item-custom-serde&quot;</span>);
+    cargo_test(
+        [
+            <span class="string">&quot;-p&quot;</span>,
+            <span class="string">&quot;burn-core&quot;</span>,
+            <span class="string">&quot;--features&quot;</span>,
+            <span class="string">&quot;test-tch&quot;</span>,
+            <span class="string">&quot;record-item-custom-serde&quot;</span>,
+        ]
+        .into(),
+    );
+    <span class="macro">endgroup!</span>();
 
     <span class="comment">// Run cargo test --features test-wgpu
     </span><span class="kw">if </span>std::env::var(<span class="string">&quot;DISABLE_WGPU&quot;</span>).is_err() {
+        <span class="macro">group!</span>(<span class="string">&quot;Test: burn-core (wgpu)&quot;</span>);
         cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-core&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;test-wgpu&quot;</span>].into());
+        <span class="macro">endgroup!</span>();
     }
 }
 
 <span class="comment">// Test burn-dataset features
 </span><span class="kw">fn </span>burn_dataset_features_std() {
-    <span class="macro">println!</span>(<span class="string">&quot;\n\nRun checks for burn-dataset features&quot;</span>);
+    <span class="macro">group!</span>(<span class="string">&quot;Checks: burn-dataset (all-features)&quot;</span>);
 
     <span class="comment">// Run cargo build --all-features
     </span>cargo_build([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-dataset&quot;</span>, <span class="string">&quot;--all-features&quot;</span>].into());
@@ -701,14 +680,23 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span>cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-dataset&quot;</span>, <span class="string">&quot;--all-features&quot;</span>].into());
 
     <span class="comment">// Run cargo doc --all-features
-    </span>cargo_doc([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-dataset&quot;</span>, <span class="string">&quot;--all-features&quot;</span>].into());
+    </span>cargo_doc([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-dataset&quot;</span>, <span class="string">&quot;--all-features&quot;</span>, <span class="string">&quot;--no-deps&quot;</span>].into());
+
+    <span class="macro">endgroup!</span>();
 }
 
-<span class="comment">// Test burn-candle with accelerate (macOS only)
-// Leverages the macOS Accelerate framework: https://developer.apple.com/documentation/accelerate
+<span class="comment">// macOS only checks
 </span><span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
-</span><span class="kw">fn </span>burn_candle_accelerate() {
+</span><span class="kw">fn </span>macos_checks() {
+    <span class="comment">// Leverages the macOS Accelerate framework: https://developer.apple.com/documentation/accelerate
+    </span><span class="macro">group!</span>(<span class="string">&quot;Checks: burn-candle (accelerate)&quot;</span>);
     cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-candle&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;accelerate&quot;</span>].into());
+    <span class="macro">endgroup!</span>();
+
+    <span class="comment">// Leverages the macOS Accelerate framework: https://developer.apple.com/documentation/accelerate
+    </span><span class="macro">group!</span>(<span class="string">&quot;Checks: burn-ndarray (accelerate)&quot;</span>);
+    cargo_test([<span class="string">&quot;-p&quot;</span>, <span class="string">&quot;burn-ndarray&quot;</span>, <span class="string">&quot;--features&quot;</span>, <span class="string">&quot;blas-accelerate&quot;</span>].into());
+    <span class="macro">endgroup!</span>();
 }
 
 <span class="kw">fn </span>std_checks() {
@@ -720,35 +708,42 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     </span><span class="kw">let </span>is_coverage = std::env::var(<span class="string">&quot;COVERAGE&quot;</span>).is_ok();
     <span class="kw">let </span>disable_wgpu = std::env::var(<span class="string">&quot;DISABLE_WGPU&quot;</span>).is_ok();
 
-    <span class="macro">println!</span>(<span class="string">&quot;Running std checks&quot;</span>);
-
     <span class="comment">// Check format
     </span>cargo_fmt();
 
     <span class="comment">// Check clippy lints
     </span>cargo_clippy();
 
-    <span class="comment">// Build each workspace
-    </span><span class="kw">if </span>disable_wgpu {
-        cargo_build([<span class="string">&quot;--workspace&quot;</span>, <span class="string">&quot;--exclude=xtask&quot;</span>, <span class="string">&quot;--exclude=burn-wgpu&quot;</span>].into());
-    } <span class="kw">else </span>{
-        cargo_build([<span class="string">&quot;--workspace&quot;</span>, <span class="string">&quot;--exclude=xtask&quot;</span>].into());
-    }
-
     <span class="comment">// Produce documentation for each workspace
-    </span>cargo_doc([<span class="string">&quot;--workspace&quot;</span>].into());
+    </span><span class="macro">group!</span>(<span class="string">&quot;Docs: workspaces&quot;</span>);
+    cargo_doc([<span class="string">&quot;--workspace&quot;</span>, <span class="string">&quot;--no-deps&quot;</span>].into());
+    <span class="macro">endgroup!</span>();
 
     <span class="comment">// Setup code coverage
     </span><span class="kw">if </span>is_coverage {
         setup_coverage();
     }
 
-    <span class="comment">// Test each workspace
-    </span>cargo_test([<span class="string">&quot;--workspace&quot;</span>].into());
+    <span class="comment">// Build &amp; test each workspace
+    </span><span class="kw">let </span>workspaces = get_workspaces(WorkspaceMemberType::Crate);
+    <span class="kw">for </span>workspace <span class="kw">in </span>workspaces {
+        <span class="kw">if </span>disable_wgpu &amp;&amp; workspace.name == <span class="string">&quot;burn-wgpu&quot; </span>{
+            <span class="kw">continue</span>;
+        }
+
+        <span class="kw">if </span>workspace.name == <span class="string">&quot;burn-tch&quot; </span>{
+            <span class="kw">continue</span>;
+        }
+
+        <span class="macro">group!</span>(<span class="string">&quot;Checks: {}&quot;</span>, workspace.name);
+        cargo_build(Params::from([<span class="string">&quot;-p&quot;</span>, <span class="kw-2">&amp;</span>workspace.name]));
+        cargo_test(Params::from([<span class="string">&quot;-p&quot;</span>, <span class="kw-2">&amp;</span>workspace.name]));
+        <span class="macro">endgroup!</span>();
+    }
 
     <span class="comment">// Test burn-candle with accelerate (macOS only)
     </span><span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
-    </span>burn_candle_accelerate();
+    </span>macos_checks();
 
     <span class="comment">// Test burn-dataset features
     </span>burn_dataset_features_std();
@@ -763,7 +758,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>check_typos() {
-    <span class="comment">// This path defines where typos-cl is installed on different
+    <span class="comment">// This path defines where typos-cli is installed on different
     // operating systems.
     </span><span class="kw">let </span>typos_cli_path = std::env::var(<span class="string">&quot;CARGO_HOME&quot;</span>)
         .map(|v| std::path::Path::new(<span class="kw-2">&amp;</span>v).join(<span class="string">&quot;bin/typos-cli&quot;</span>))
@@ -771,12 +766,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="comment">// Do not run cargo install on CI to speed up the computation.
     // Check whether the file has been installed on
-    </span><span class="kw">if </span>std::env::var(<span class="string">&quot;CI_RUN&quot;</span>).is_err() &amp;&amp; !typos_cli_path.exists() {
+    </span><span class="kw">if </span>std::env::var(<span class="string">&quot;CI&quot;</span>).is_err() &amp;&amp; !typos_cli_path.exists() {
         <span class="comment">// Install typos-cli
         </span>cargo_install([<span class="string">&quot;typos-cli&quot;</span>, <span class="string">&quot;--version&quot;</span>, <span class="string">&quot;1.16.5&quot;</span>].into());
     }
 
-    <span class="macro">println!</span>(<span class="string">&quot;Running typos check \n\n&quot;</span>);
+    <span class="macro">info!</span>(<span class="string">&quot;Running typos check \n\n&quot;</span>);
 
     <span class="comment">// Run typos command as child process
     </span><span class="kw">let </span>typos = Command::new(<span class="string">&quot;typos&quot;</span>)
@@ -790,120 +785,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="kw">fn </span>check_examples() {
-    <span class="macro">println!</span>(<span class="string">&quot;Checking examples compile \n\n&quot;</span>);
-
-    std::fs::read_dir(<span class="string">&quot;examples&quot;</span>).unwrap().for_each(|dir| {
-        <span class="kw">let </span>dir = dir.unwrap();
-        <span class="kw">let </span>path = dir.path();
-        <span class="comment">// Skip if not a directory
-        </span><span class="kw">if </span>!path.is_dir() {
-            <span class="kw">return</span>;
+    <span class="kw">let </span>workspaces = get_workspaces(WorkspaceMemberType::Example);
+    <span class="kw">for </span>workspace <span class="kw">in </span>workspaces {
+        <span class="kw">if </span>workspace.name == <span class="string">&quot;notebook&quot; </span>{
+            <span class="kw">continue</span>;
         }
-        <span class="kw">if </span>path.file_name().unwrap().to_str().unwrap() == <span class="string">&quot;notebook&quot; </span>{
-            <span class="comment">// not a crate
-            </span><span class="kw">return</span>;
-        }
-        <span class="kw">let </span>path = path.to_str().unwrap();
-        <span class="macro">println!</span>(<span class="string">&quot;Checking {path} \n\n&quot;</span>);
 
-        <span class="kw">let </span>child = Command::new(<span class="string">&quot;cargo&quot;</span>)
-            .arg(<span class="string">&quot;check&quot;</span>)
-            .arg(<span class="string">&quot;--examples&quot;</span>)
-            .current_dir(dir.path())
-            .stdout(Stdio::inherit()) <span class="comment">// Send stdout directly to terminal
-            </span>.stderr(Stdio::inherit()) <span class="comment">// Send stderr directly to terminal
-            </span>.spawn()
-            .expect(<span class="string">&quot;Failed to check examples&quot;</span>);
-
-        <span class="comment">// Handle typos child process
-        </span>handle_child_process(child, <span class="string">&quot;Failed to wait for examples child process&quot;</span>);
-    });
-}
-
-<span class="attr">#[derive(clap::ValueEnum, Default, Copy, Clone, PartialEq, Eq)]
-</span><span class="kw">pub enum </span>CheckType {
-    <span class="doccomment">/// Run all checks.
-    </span><span class="attr">#[default]
-    </span>All,
-    <span class="doccomment">/// Run `std` environment checks
-    </span>Std,
-    <span class="doccomment">/// Run `no-std` environment checks
-    </span>NoStd,
-    <span class="doccomment">/// Check for typos
-    </span>Typos,
-    <span class="doccomment">/// Test the examples
-    </span>Examples,
-}
-
-<span class="kw">pub fn </span>run(env: CheckType) -&gt; anyhow::Result&lt;()&gt; {
-    <span class="comment">// Start time measurement
-    </span><span class="kw">let </span>start = Instant::now();
-
-    <span class="comment">// The environment can assume ONLY &quot;std&quot;, &quot;no_std&quot;, &quot;typos&quot;, &quot;examples&quot;
-    // as values.
-    //
-    // Depending on the input argument, the respective environment checks
-    // are run.
-    //
-    // If no environment has been passed, run all checks.
-    </span><span class="kw">match </span>env {
-        CheckType::Std =&gt; std_checks(),
-        CheckType::NoStd =&gt; no_std_checks(),
-        CheckType::Typos =&gt; check_typos(),
-        CheckType::Examples =&gt; check_examples(),
-        CheckType::All =&gt; {
-            <span class="comment">/* Run all checks */
-            </span>check_typos();
-            std_checks();
-            no_std_checks();
-            check_examples();
-        }
+        <span class="macro">group!</span>(<span class="string">&quot;Checks: Example - {}&quot;</span>, workspace.name);
+        run_cargo_with_path(
+            <span class="string">&quot;check&quot;</span>,
+            [<span class="string">&quot;--examples&quot;</span>].into(),
+            HashMap::new(),
+            <span class="prelude-val">Some</span>(workspace.path),
+            <span class="string">&quot;Failed to check example&quot;</span>,
+        );
+        <span class="macro">endgroup!</span>();
     }
-
-    <span class="comment">// Stop time measurement
-    //
-    // Compute runtime duration
-    </span><span class="kw">let </span>duration = start.elapsed();
-
-    <span class="comment">// Print duration
-    </span><span class="macro">println!</span>(<span class="string">&quot;Time elapsed for the current execution: {:?}&quot;</span>, duration);
-
-    <span class="prelude-val">Ok</span>(())
-}
-
-<span class="kw">struct </span>Params {
-    params: Vec&lt;String&gt;,
-}
-
-<span class="kw">impl</span>&lt;<span class="kw">const </span>N: usize&gt; From&lt;[<span class="kw-2">&amp;</span>str; N]&gt; <span class="kw">for </span>Params {
-    <span class="kw">fn </span>from(value: [<span class="kw-2">&amp;</span>str; N]) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            params: value.iter().map(|v| v.to_string()).collect(),
-        }
-    }
-}
-
-<span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>str&gt; <span class="kw">for </span>Params {
-    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            params: <span class="macro">vec!</span>[value.to_string()],
-        }
-    }
-}
-
-<span class="kw">impl </span>std::fmt::Display <span class="kw">for </span>Params {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
-        f.write_str(<span class="self">self</span>.params.join(<span class="string">&quot; &quot;</span>).as_str())
-    }
-}
-
-<span class="kw">impl</span>&lt;Rhs: Into&lt;Params&gt;&gt; std::ops::Add&lt;Rhs&gt; <span class="kw">for </span>Params {
-    <span class="kw">type </span>Output = Params;
-
-    <span class="kw">fn </span>add(<span class="kw-2">mut </span><span class="self">self</span>, rhs: Rhs) -&gt; <span class="self">Self</span>::Output {
-        <span class="kw">let </span>rhs: Params = rhs.into();
-        <span class="self">self</span>.params.extend(rhs.params);
-        <span class="self">self
-    </span>}
 }
 </code></pre></div></section></main></body></html>

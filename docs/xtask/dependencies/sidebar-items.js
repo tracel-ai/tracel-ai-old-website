@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DependencyCheck"],"fn":["cargo_audit","cargo_deny","cargo_udeps"]};

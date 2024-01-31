@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-core/src/nn/norm/batch.rs`."><title>batch.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-core/src/nn/norm/batch.rs`."><title>batch.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="burn_core" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../burn_core/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="burn_core" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -382,6 +382,27 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#380" id="380">380</a>
 <a href="#381" id="381">381</a>
 <a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate as </span>burn;
 
 <span class="kw">use crate</span>::{
@@ -418,12 +439,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
 <span class="kw">impl </span>BatchNormConfig {
     <span class="doccomment">/// Initialize a new [batch norm](BatchNorm) module.
-    </span><span class="kw">pub fn </span>init&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BatchNorm&lt;B, D&gt; {
-        <span class="kw">let </span>gamma = Tensor::ones([<span class="self">self</span>.num_features]);
-        <span class="kw">let </span>beta = Tensor::zeros([<span class="self">self</span>.num_features]);
+    </span><span class="kw">pub fn </span>init&lt;B: Backend, <span class="kw">const </span>D: usize&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>B::Device) -&gt; BatchNorm&lt;B, D&gt; {
+        <span class="kw">let </span>gamma = Tensor::ones([<span class="self">self</span>.num_features], device);
+        <span class="kw">let </span>beta = Tensor::zeros([<span class="self">self</span>.num_features], device);
 
-        <span class="kw">let </span>running_mean = Tensor::zeros([<span class="self">self</span>.num_features]);
-        <span class="kw">let </span>running_var = Tensor::ones([<span class="self">self</span>.num_features]);
+        <span class="kw">let </span>running_mean = Tensor::zeros([<span class="self">self</span>.num_features], device);
+        <span class="kw">let </span>running_var = Tensor::ones([<span class="self">self</span>.num_features], device);
 
         BatchNorm {
             gamma: Param::from(gamma),
@@ -462,7 +483,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="comment">// Should be move to a compilation error when const generic support that kind of
         // validation. https://github.com/rust-lang/rust/issues/76560
         </span><span class="kw">if </span>D + <span class="number">2 </span>!= DI {
-            <span class="macro">panic!</span>(<span class="string">&quot;BatchNorm{}D can only be applied on tensors of size {} with the following shape [batch_size, channels, ...], received {}D tensor&quot;</span>, D, D+<span class="number">2</span>, DI);
+            <span class="macro">panic!</span>(
+                <span class="string">&quot;BatchNorm{}D can only be applied on tensors of size {} with the following shape \
+                 [batch_size, channels, ...], received {}D tensor&quot;</span>,
+                D,
+                D + <span class="number">2</span>,
+                DI
+            );
         }
 
         <span class="kw">match </span>B::ad_enabled() {
@@ -472,9 +499,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>forward_inference&lt;<span class="kw">const </span>DI: usize&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, input: Tensor&lt;B, DI&gt;) -&gt; Tensor&lt;B, DI&gt; {
+        <span class="kw">let </span>device = input.device();
         <span class="kw">let </span>channels = input.dims()[<span class="number">1</span>];
-        <span class="kw">let </span>mean = <span class="self">self</span>.running_mean.value();
-        <span class="kw">let </span>var = <span class="self">self</span>.running_var.value();
+        <span class="kw">let </span>mean = <span class="self">self</span>.running_mean.value().to_device(<span class="kw-2">&amp;</span>device);
+        <span class="kw">let </span>var = <span class="self">self</span>.running_var.value().to_device(<span class="kw-2">&amp;</span>device);
 
         <span class="kw">let </span><span class="kw-2">mut </span>shape = [<span class="number">1</span>; DI];
         shape[<span class="number">1</span>] = channels;
@@ -505,14 +533,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>var = input
             .clone()
             .sub(mean.clone())
-            .powf(<span class="number">2.0</span>)
+            .powf_scalar(<span class="number">2.0</span>)
             .swap_dims(<span class="number">0</span>, <span class="number">1</span>)
             .reshape([channels, flatten_size])
             .mean_dim(<span class="number">1</span>)
             .reshape(shape_unsqueeze);
 
-        <span class="kw">let </span>running_mean = <span class="self">self</span>.running_mean.value_sync();
-        <span class="kw">let </span>running_var = <span class="self">self</span>.running_var.value_sync();
+        <span class="kw">let </span>running_mean = <span class="self">self</span>.running_mean.value_sync().to_device(<span class="kw-2">&amp;</span>mean.device());
+        <span class="kw">let </span>running_var = <span class="self">self</span>.running_var.value_sync().to_device(<span class="kw-2">&amp;</span>var.device());
 
         <span class="kw">let </span>running_mean = running_mean.mul_scalar(<span class="number">1.0 </span>- <span class="self">self</span>.momentum).add(
             mean.clone()
@@ -563,9 +591,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_forward_train() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">1</span>&gt;();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">1</span>&gt;(<span class="kw-2">&amp;</span>device);
 
-        <span class="kw">let </span>output = module.forward(input_tensor());
+        <span class="kw">let </span>output = module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
 
         output.to_data().assert_approx_eq(
             <span class="kw-2">&amp;</span>Data::from([
@@ -586,11 +615,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_forward_inference() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">1</span>&gt;();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">1</span>&gt;(<span class="kw-2">&amp;</span>device);
 
-        module.forward(input_tensor());
+        module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
         <span class="kw">let </span>module = module.valid();
-        <span class="kw">let </span>output = module.forward(input_tensor());
+        <span class="kw">let </span>output = module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
 
         output.to_data().assert_approx_eq(
             <span class="kw-2">&amp;</span>Data::from([
@@ -601,11 +631,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         );
     }
 
-    <span class="kw">fn </span>input_tensor&lt;B: Backend&gt;() -&gt; Tensor&lt;B, <span class="number">3</span>&gt; {
-        Tensor::&lt;B, <span class="number">3</span>&gt;::from_floats([
-            [[<span class="number">0.9601</span>, <span class="number">0.7277</span>], [<span class="number">0.6272</span>, <span class="number">0.9034</span>], [<span class="number">0.9378</span>, <span class="number">0.7230</span>]],
-            [[<span class="number">0.6356</span>, <span class="number">0.1362</span>], [<span class="number">0.0249</span>, <span class="number">0.9509</span>], [<span class="number">0.6600</span>, <span class="number">0.5945</span>]],
-        ])
+    <span class="kw">fn </span>input_tensor&lt;B: Backend&gt;(device: <span class="kw-2">&amp;</span>B::Device) -&gt; Tensor&lt;B, <span class="number">3</span>&gt; {
+        Tensor::&lt;B, <span class="number">3</span>&gt;::from_floats(
+            [
+                [[<span class="number">0.9601</span>, <span class="number">0.7277</span>], [<span class="number">0.6272</span>, <span class="number">0.9034</span>], [<span class="number">0.9378</span>, <span class="number">0.7230</span>]],
+                [[<span class="number">0.6356</span>, <span class="number">0.1362</span>], [<span class="number">0.0249</span>, <span class="number">0.9509</span>], [<span class="number">0.6600</span>, <span class="number">0.5945</span>]],
+            ],
+            device,
+        )
     }
 }
 
@@ -618,9 +651,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_forward_train() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;(<span class="kw-2">&amp;</span>device);
 
-        <span class="kw">let </span>output = module.forward(input_tensor());
+        <span class="kw">let </span>output = module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
 
         output.to_data().assert_approx_eq(
             <span class="kw-2">&amp;</span>Data::from([
@@ -641,11 +675,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_forward_inference() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;(<span class="kw-2">&amp;</span>device);
 
-        module.forward(input_tensor());
+        module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
         <span class="kw">let </span>module = module.valid();
-        <span class="kw">let </span>output = module.forward(input_tensor());
+        <span class="kw">let </span>output = module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
 
         output.to_data().assert_approx_eq(
             <span class="kw-2">&amp;</span>Data::from([
@@ -666,9 +701,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_running_mean() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;(<span class="kw-2">&amp;</span>device);
 
-        <span class="kw">let </span>_output = module.forward(input_tensor());
+        <span class="kw">let </span>_output = module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
 
         <span class="kw">let </span>running_mean = module.running_mean.value_sync();
 
@@ -680,9 +716,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_running_var() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;(<span class="kw-2">&amp;</span>device);
 
-        <span class="kw">let </span>_output = module.forward(input_tensor());
+        <span class="kw">let </span>_output = module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
 
         <span class="kw">let </span>running_var = module.running_var.value_sync();
 
@@ -694,9 +731,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_running_mean_inner_module() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;(<span class="kw-2">&amp;</span>device);
 
-        <span class="kw">let </span>_output = module.forward(input_tensor());
+        <span class="kw">let </span>_output = module.forward(input_tensor(<span class="kw-2">&amp;</span>device));
 
         <span class="kw">let </span>module_valid = module.valid();
         <span class="kw">let </span>running_mean = module_valid.running_mean.value();
@@ -709,8 +747,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>batch_norm_grads() {
-        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;();
-        <span class="kw">let </span>input = input_tensor().require_grad();
+        <span class="kw">let </span>device = Default::default();
+        <span class="kw">let </span>module = BatchNormConfig::new(<span class="number">3</span>).init::&lt;TestAutodiffBackend, <span class="number">2</span>&gt;(<span class="kw-2">&amp;</span>device);
+        <span class="kw">let </span>input = input_tensor(<span class="kw-2">&amp;</span>device).require_grad();
 
         <span class="kw">let </span>output = module.forward(input.clone());
 
@@ -749,19 +788,22 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         );
     }
 
-    <span class="kw">fn </span>input_tensor&lt;B: Backend&gt;() -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
-        Tensor::&lt;B, <span class="number">4</span>&gt;::from_floats([
+    <span class="kw">fn </span>input_tensor&lt;B: Backend&gt;(device: <span class="kw-2">&amp;</span>B::Device) -&gt; Tensor&lt;B, <span class="number">4</span>&gt; {
+        Tensor::&lt;B, <span class="number">4</span>&gt;::from_floats(
             [
-                [[<span class="number">0.9601</span>, <span class="number">0.7277</span>], [<span class="number">0.1270</span>, <span class="number">0.5441</span>]],
-                [[<span class="number">0.6272</span>, <span class="number">0.9034</span>], [<span class="number">0.4066</span>, <span class="number">0.7179</span>]],
-                [[<span class="number">0.9378</span>, <span class="number">0.7230</span>], [<span class="number">0.3544</span>, <span class="number">0.9591</span>]],
+                [
+                    [[<span class="number">0.9601</span>, <span class="number">0.7277</span>], [<span class="number">0.1270</span>, <span class="number">0.5441</span>]],
+                    [[<span class="number">0.6272</span>, <span class="number">0.9034</span>], [<span class="number">0.4066</span>, <span class="number">0.7179</span>]],
+                    [[<span class="number">0.9378</span>, <span class="number">0.7230</span>], [<span class="number">0.3544</span>, <span class="number">0.9591</span>]],
+                ],
+                [
+                    [[<span class="number">0.6356</span>, <span class="number">0.1362</span>], [<span class="number">0.1333</span>, <span class="number">0.7287</span>]],
+                    [[<span class="number">0.0249</span>, <span class="number">0.9509</span>], [<span class="number">0.3791</span>, <span class="number">0.2481</span>]],
+                    [[<span class="number">0.6600</span>, <span class="number">0.5945</span>], [<span class="number">0.5424</span>, <span class="number">0.4767</span>]],
+                ],
             ],
-            [
-                [[<span class="number">0.6356</span>, <span class="number">0.1362</span>], [<span class="number">0.1333</span>, <span class="number">0.7287</span>]],
-                [[<span class="number">0.0249</span>, <span class="number">0.9509</span>], [<span class="number">0.3791</span>, <span class="number">0.2481</span>]],
-                [[<span class="number">0.6600</span>, <span class="number">0.5945</span>], [<span class="number">0.5424</span>, <span class="number">0.4767</span>]],
-            ],
-        ])
+            device,
+        )
     }
 }
 </code></pre></div></section></main></body></html>

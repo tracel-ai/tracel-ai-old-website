@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["Mnist"]};
+window.SIDEBAR_ITEMS = {"fn":["start"],"struct":["Mnist"]};

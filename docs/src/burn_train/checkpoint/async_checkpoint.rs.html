@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/checkpoint/async_checkpoint.rs`."><title>async_checkpoint.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-train/src/checkpoint/async_checkpoint.rs`."><title>async_checkpoint.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_train/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_train" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -120,29 +120,55 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#118" id="118">118</a>
 <a href="#119" id="119">119</a>
 <a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{Checkpointer, CheckpointerError};
-<span class="kw">use </span>burn_core::record::Record;
+<span class="kw">use </span>burn_core::{record::Record, tensor::backend::Backend};
 <span class="kw">use </span>std::sync::mpsc;
 
-<span class="kw">enum </span>Message&lt;R&gt; {
-    Restore(usize, mpsc::SyncSender&lt;<span class="prelude-ty">Result</span>&lt;R, CheckpointerError&gt;&gt;),
+<span class="kw">enum </span>Message&lt;R, B: Backend&gt; {
+    Restore(
+        usize,
+        B::Device,
+        mpsc::SyncSender&lt;<span class="prelude-ty">Result</span>&lt;R, CheckpointerError&gt;&gt;,
+    ),
     Save(usize, R),
     Delete(usize),
     End,
 }
 
 <span class="attr">#[derive(new)]
-</span><span class="kw">struct </span>CheckpointerThread&lt;C, R&gt; {
+</span><span class="kw">struct </span>CheckpointerThread&lt;C, R, B: Backend&gt; {
     checkpointer: C,
-    receiver: mpsc::Receiver&lt;Message&lt;R&gt;&gt;,
+    receiver: mpsc::Receiver&lt;Message&lt;R, B&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;C: Checkpointer&lt;R&gt;, R: Record&gt; CheckpointerThread&lt;C, R&gt; {
+<span class="kw">impl</span>&lt;C, R, B&gt; CheckpointerThread&lt;C, R, B&gt;
+<span class="kw">where
+    </span>C: Checkpointer&lt;R, B&gt;,
+    R: Record&lt;B&gt;,
+    B: Backend,
+{
     <span class="kw">fn </span>run(<span class="self">self</span>) {
         <span class="kw">for </span>item <span class="kw">in </span><span class="self">self</span>.receiver.iter() {
             <span class="kw">match </span>item {
-                Message::Restore(epoch, callback) =&gt; {
-                    <span class="kw">let </span>record = <span class="self">self</span>.checkpointer.restore(epoch);
+                Message::Restore(epoch, device, callback) =&gt; {
+                    <span class="kw">let </span>record = <span class="self">self</span>.checkpointer.restore(epoch, <span class="kw-2">&amp;</span>device);
                     callback
                         .send(record)
                         .expect(<span class="string">&quot;Can send response through callback channel.&quot;</span>);
@@ -164,12 +190,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 }
 
 <span class="doccomment">/// Async checkpointer.
-</span><span class="kw">pub struct </span>AsyncCheckpointer&lt;Record&gt; {
-    sender: mpsc::SyncSender&lt;Message&lt;Record&gt;&gt;,
+</span><span class="kw">pub struct </span>AsyncCheckpointer&lt;Record, B: Backend&gt; {
+    sender: mpsc::SyncSender&lt;Message&lt;Record, B&gt;&gt;,
     handler: <span class="prelude-ty">Option</span>&lt;std::thread::JoinHandle&lt;()&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;R: Record + <span class="lifetime">&#39;static</span>&gt; AsyncCheckpointer&lt;R&gt; {
+<span class="kw">impl</span>&lt;R, B&gt; AsyncCheckpointer&lt;R, B&gt;
+<span class="kw">where
+    </span>R: Record&lt;B&gt; + <span class="lifetime">&#39;static</span>,
+    B: Backend,
+{
     <span class="doccomment">/// Create a new async checkpointer.
     ///
     /// # Arguments
@@ -181,7 +211,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     /// The async checkpointer.
     </span><span class="kw">pub fn </span>new&lt;C&gt;(checkpointer: C) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>C: Checkpointer&lt;R&gt; + Send + <span class="lifetime">&#39;static</span>,
+        </span>C: Checkpointer&lt;R, B&gt; + Send + <span class="lifetime">&#39;static</span>,
     {
         <span class="comment">// Only on checkpoint can be done in advance.
         </span><span class="kw">let </span>(sender, receiver) = mpsc::sync_channel(<span class="number">0</span>);
@@ -192,9 +222,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="kw">impl</span>&lt;R&gt; Checkpointer&lt;R&gt; <span class="kw">for </span>AsyncCheckpointer&lt;R&gt;
+<span class="kw">impl</span>&lt;R, B&gt; Checkpointer&lt;R, B&gt; <span class="kw">for </span>AsyncCheckpointer&lt;R, B&gt;
 <span class="kw">where
-    </span>R: Record + <span class="lifetime">&#39;static</span>,
+    </span>R: Record&lt;B&gt; + <span class="lifetime">&#39;static</span>,
+    B: Backend,
 {
     <span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>, epoch: usize, record: R) -&gt; <span class="prelude-ty">Result</span>&lt;(), CheckpointerError&gt; {
         <span class="self">self</span>.sender
@@ -204,10 +235,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>, epoch: usize) -&gt; <span class="prelude-ty">Result</span>&lt;R, CheckpointerError&gt; {
+    <span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>, epoch: usize, device: <span class="kw-2">&amp;</span>B::Device) -&gt; <span class="prelude-ty">Result</span>&lt;R, CheckpointerError&gt; {
         <span class="kw">let </span>(sender, receiver) = mpsc::sync_channel(<span class="number">1</span>);
         <span class="self">self</span>.sender
-            .send(Message::Restore(epoch, sender))
+            .send(Message::Restore(epoch, device.clone(), sender))
             .map_err(|e| CheckpointerError::Unknown(e.to_string()))<span class="question-mark">?</span>;
 
         <span class="kw">if let </span><span class="prelude-val">Ok</span>(record) = receiver.recv() {
@@ -226,7 +257,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="kw">impl</span>&lt;E&gt; Drop <span class="kw">for </span>AsyncCheckpointer&lt;E&gt; {
+<span class="kw">impl</span>&lt;E, B&gt; Drop <span class="kw">for </span>AsyncCheckpointer&lt;E, B&gt;
+<span class="kw">where
+    </span>B: Backend,
+{
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.sender
             .send(Message::End)

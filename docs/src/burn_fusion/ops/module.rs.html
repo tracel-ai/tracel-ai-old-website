@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-fusion/src/ops/module.rs`."><title>module.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-fusion/src/ops/module.rs`."><title>module.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_fusion" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../burn_fusion/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="burn_fusion" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -903,17 +903,93 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#901" id="901">901</a>
 <a href="#902" id="902">902</a>
 <a href="#903" id="903">903</a>
+<a href="#904" id="904">904</a>
+<a href="#905" id="905">905</a>
+<a href="#906" id="906">906</a>
+<a href="#907" id="907">907</a>
+<a href="#908" id="908">908</a>
+<a href="#909" id="909">909</a>
+<a href="#910" id="910">910</a>
+<a href="#911" id="911">911</a>
+<a href="#912" id="912">912</a>
+<a href="#913" id="913">913</a>
+<a href="#914" id="914">914</a>
+<a href="#915" id="915">915</a>
+<a href="#916" id="916">916</a>
+<a href="#917" id="917">917</a>
+<a href="#918" id="918">918</a>
+<a href="#919" id="919">919</a>
+<a href="#920" id="920">920</a>
+<a href="#921" id="921">921</a>
+<a href="#922" id="922">922</a>
+<a href="#923" id="923">923</a>
+<a href="#924" id="924">924</a>
+<a href="#925" id="925">925</a>
+<a href="#926" id="926">926</a>
+<a href="#927" id="927">927</a>
+<a href="#928" id="928">928</a>
+<a href="#929" id="929">929</a>
+<a href="#930" id="930">930</a>
+<a href="#931" id="931">931</a>
+<a href="#932" id="932">932</a>
+<a href="#933" id="933">933</a>
+<a href="#934" id="934">934</a>
+<a href="#935" id="935">935</a>
+<a href="#936" id="936">936</a>
+<a href="#937" id="937">937</a>
+<a href="#938" id="938">938</a>
+<a href="#939" id="939">939</a>
+<a href="#940" id="940">940</a>
+<a href="#941" id="941">941</a>
+<a href="#942" id="942">942</a>
+<a href="#943" id="943">943</a>
+<a href="#944" id="944">944</a>
+<a href="#945" id="945">945</a>
+<a href="#946" id="946">946</a>
+<a href="#947" id="947">947</a>
+<a href="#948" id="948">948</a>
+<a href="#949" id="949">949</a>
+<a href="#950" id="950">950</a>
+<a href="#951" id="951">951</a>
+<a href="#952" id="952">952</a>
+<a href="#953" id="953">953</a>
+<a href="#954" id="954">954</a>
+<a href="#955" id="955">955</a>
+<a href="#956" id="956">956</a>
+<a href="#957" id="957">957</a>
+<a href="#958" id="958">958</a>
+<a href="#959" id="959">959</a>
+<a href="#960" id="960">960</a>
+<a href="#961" id="961">961</a>
+<a href="#962" id="962">962</a>
+<a href="#963" id="963">963</a>
+<a href="#964" id="964">964</a>
+<a href="#965" id="965">965</a>
+<a href="#966" id="966">966</a>
+<a href="#967" id="967">967</a>
+<a href="#968" id="968">968</a>
+<a href="#969" id="969">969</a>
+<a href="#970" id="970">970</a>
+<a href="#971" id="971">971</a>
+<a href="#972" id="972">972</a>
+<a href="#973" id="973">973</a>
+<a href="#974" id="974">974</a>
+<a href="#975" id="975">975</a>
+<a href="#976" id="976">976</a>
+<a href="#977" id="977">977</a>
+<a href="#978" id="978">978</a>
+<a href="#979" id="979">979</a>
 </pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
     client::FusionClient,
-    graph::{
+    stream::{
         AdaptiveAvgPool1dBackwardDescription, AdaptiveAvgPool1dDescription,
         AdaptiveAvgPool2dBackwardDescription, AdaptiveAvgPool2dDescription,
         AvgPool1dBackwardDescription, AvgPool1dDescription, AvgPool2dBackwardDescription,
         AvgPool2dDescription, Conv1dDescription, Conv2dDescription, ConvTranspose1dDescription,
         ConvTranspose2dDescription, MaxPool1dDescription, MaxPool1dWithIndicesBackwardDescription,
         MaxPool1dWithIndicesDescription, MaxPool2dDescription,
-        MaxPool2dWithIndicesBackwardDescription, MaxPool2dWithIndicesDescription, Ops,
-        TensorOpsDescription,
+        MaxPool2dWithIndicesBackwardDescription, MaxPool2dWithIndicesDescription, Operation,
+        OperationDescription,
     },
     Fusion, FusionBackend, HandleContainer,
 };
@@ -933,7 +1009,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             desc: <span class="macro-nonterminal">$desc</span>,
         }
 
-        <span class="kw">impl</span>&lt;B: FusionBackend&gt; Ops&lt;B&gt; <span class="kw">for </span><span class="macro-nonterminal">$name </span>{
+        <span class="kw">impl</span>&lt;B: FusionBackend&gt; Operation&lt;B&gt; <span class="kw">for </span><span class="macro-nonterminal">$name </span>{
             <span class="kw">fn </span>execute(<span class="self">self</span>: Box&lt;<span class="self">Self</span>&gt;, handles: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::HandleContainer&lt;B&gt;) {
                 <span class="attr">#[allow(clippy::redundant_closure_call)]
                 </span><span class="macro-nonterminal">$</span><span class="kw">fn</span>(<span class="macro-nonterminal">self</span>.desc, handles)
@@ -959,7 +1035,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     .bias
                     .as_ref()
                     .map(|bias| handles.get_float_tensor(bias));
-                <span class="kw">let </span>output = B::conv1d(x, weight, bias, desc.options);
+                <span class="kw">let </span>output = B::conv1d(x, weight, bias, desc.options.into());
                 handles.register_float_tensor(<span class="kw-2">&amp;</span>desc.out.id, output);
             }
         );
@@ -972,6 +1048,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x.shape[<span class="number">2</span>],
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = weight.stream;
+        <span class="kw">let </span>stream_3 = bias.as_ref().map(|b| b.stream);
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], weight.shape[<span class="number">0</span>], size];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -979,11 +1058,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x: x.into_description(),
             weight: weight.into_description(),
             bias: bias.map(|bias| bias.into_description()),
-            options,
+            options: options.into(),
             out: out.to_description_out(),
         };
+
+        <span class="kw">let </span>streams = <span class="kw">match </span>stream_3 {
+            <span class="prelude-val">Some</span>(stream_3) =&gt; <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            <span class="prelude-val">None </span>=&gt; <span class="macro">vec!</span>[stream_1, stream_2],
+        };
         out.client.clone().register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::Conv1d(
+            streams,
+            OperationDescription::Module(<span class="kw">crate</span>::stream::ModuleOperationDescription::Conv1d(
                 description.clone(),
             )),
             Conv1dOps::new(description),
@@ -1009,7 +1094,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     .as_ref()
                     .map(|bias| handles.get_float_tensor(bias));
 
-                <span class="kw">let </span>output = B::conv2d(x, weight, bias, args.options.clone());
+                <span class="kw">let </span>output = B::conv2d(x, weight, bias, args.options.clone().into());
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span>args.out.id, output);
             }
@@ -1030,6 +1115,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x.shape[<span class="number">3</span>],
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = weight.stream;
+        <span class="kw">let </span>stream_3 = bias.as_ref().map(|b| b.stream);
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], weight.shape[<span class="number">0</span>], size_0, size_1];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1037,11 +1125,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x: x.into_description(),
             weight: weight.into_description(),
             bias: bias.map(|bias| bias.into_description()),
-            options,
+            options: options.into(),
             out: out.to_description_out(),
         };
+
+        <span class="kw">let </span>streams = <span class="kw">match </span>stream_3 {
+            <span class="prelude-val">Some</span>(stream_3) =&gt; <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            <span class="prelude-val">None </span>=&gt; <span class="macro">vec!</span>[stream_1, stream_2],
+        };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::Conv2d(
+            streams,
+            OperationDescription::Module(<span class="kw">crate</span>::stream::ModuleOperationDescription::Conv2d(
                 desc.clone(),
             )),
             Conv2dOps::new(desc),
@@ -1067,7 +1161,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     .as_ref()
                     .map(|bias| handles.get_float_tensor(bias));
 
-                <span class="kw">let </span>output = B::conv_transpose1d(x, weight, bias, args.options.clone());
+                <span class="kw">let </span>output = B::conv_transpose1d(x, weight, bias, args.options.clone().into());
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span>args.out.id, output);
             }
@@ -1082,6 +1176,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x.shape[<span class="number">2</span>],
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = weight.stream;
+        <span class="kw">let </span>stream_3 = bias.as_ref().map(|b| b.stream);
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], weight.shape[<span class="number">1</span>] * options.groups, size];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1089,13 +1186,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x: x.into_description(),
             weight: weight.into_description(),
             bias: bias.map(|bias| bias.into_description()),
-            options,
+            options: options.into(),
             out: out.to_description_out(),
         };
+
+        <span class="kw">let </span>streams = <span class="kw">match </span>stream_3 {
+            <span class="prelude-val">Some</span>(stream_3) =&gt; <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            <span class="prelude-val">None </span>=&gt; <span class="macro">vec!</span>[stream_1, stream_2],
+        };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::ConvTranspose1d(
-                desc.clone(),
-            )),
+            streams,
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::ConvTranspose1d(desc.clone()),
+            ),
             ConvTranspose1dOps::new(desc),
         );
 
@@ -1119,7 +1222,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     .as_ref()
                     .map(|bias| handles.get_float_tensor(bias));
 
-                <span class="kw">let </span>output = B::conv_transpose2d(x, weight, bias, args.options.clone());
+                <span class="kw">let </span>output = B::conv_transpose2d(x, weight, bias, args.options.clone().into());
 
                 handles.register_float_tensor(<span class="kw-2">&amp;</span>args.out.id, output);
             }
@@ -1142,6 +1245,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x.shape[<span class="number">3</span>],
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = weight.stream;
+        <span class="kw">let </span>stream_3 = bias.as_ref().map(|b| b.stream);
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], weight.shape[<span class="number">1</span>] * options.groups, size_0, size_1];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1149,13 +1255,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x: x.into_description(),
             weight: weight.into_description(),
             bias: bias.map(|bias| bias.into_description()),
-            options,
+            options: options.into(),
             out: out.to_description_out(),
         };
+
+        <span class="kw">let </span>streams = <span class="kw">match </span>stream_3 {
+            <span class="prelude-val">Some</span>(stream_3) =&gt; <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            <span class="prelude-val">None </span>=&gt; <span class="macro">vec!</span>[stream_1, stream_2],
+        };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::ConvTranspose2d(
-                desc.clone(),
-            )),
+            streams,
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::ConvTranspose2d(desc.clone()),
+            ),
             ConvTranspose2dOps::new(desc),
         );
 
@@ -1186,6 +1298,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>size = calculate_pool_output_size(kernel_size, stride, padding, <span class="number">1</span>, x.shape[<span class="number">2</span>]);
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], size];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
@@ -1199,7 +1312,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::AvgPool1d(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(<span class="kw">crate</span>::stream::ModuleOperationDescription::AvgPool1d(
                 desc.clone(),
             )),
             AvgPool1dOps::new(desc),
@@ -1237,6 +1351,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>size_1 =
             calculate_pool_output_size(kernel_size[<span class="number">1</span>], stride[<span class="number">1</span>], padding[<span class="number">1</span>], <span class="number">1</span>, x.shape[<span class="number">3</span>]);
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], size_0, size_1];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1249,7 +1364,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::AvgPool2d(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(<span class="kw">crate</span>::stream::ModuleOperationDescription::AvgPool2d(
                 desc.clone(),
             )),
             AvgPool2dOps::new(desc),
@@ -1285,6 +1401,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = grad.stream;
         <span class="kw">let </span>out = x.client.tensor_uninitialized(x.shape.clone());
 
         <span class="kw">let </span>desc = AvgPool1dBackwardDescription {
@@ -1297,9 +1415,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::AvgPool1dBackward(
-                desc.clone(),
-            )),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::AvgPool1dBackward(desc.clone()),
+            ),
             AvgPool1dBackwardOps::new(desc),
         );
 
@@ -1333,6 +1452,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = grad.stream;
         <span class="kw">let </span>out = x.client.tensor_uninitialized(x.shape.clone());
 
         <span class="kw">let </span>desc = AvgPool2dBackwardDescription {
@@ -1345,9 +1466,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::AvgPool2dBackward(
-                desc.clone(),
-            )),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::AvgPool2dBackward(desc.clone()),
+            ),
             AvgPool2dBackwardOps::new(desc),
         );
 
@@ -1380,6 +1502,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
         <span class="kw">let </span>size = calculate_pool_output_size(kernel_size, stride, padding, dilation, x.shape[<span class="number">2</span>]);
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], size];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1392,7 +1515,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::MaxPool1d(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(<span class="kw">crate</span>::stream::ModuleOperationDescription::MaxPool1d(
                 desc.clone(),
             )),
             MaxPool1dOps::new(desc),
@@ -1440,6 +1564,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x.shape[<span class="number">3</span>],
         );
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], size_0, size_1];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1452,7 +1577,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::MaxPool2d(
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(<span class="kw">crate</span>::stream::ModuleOperationDescription::MaxPool2d(
                 desc.clone(),
             )),
             MaxPool2dOps::new(desc),
@@ -1486,6 +1612,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>size = calculate_pool_output_size(kernel_size, stride, padding, dilation, x.shape[<span class="number">2</span>]);
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], size];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape.clone());
@@ -1501,8 +1628,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out_indices: out_indices.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(
-                <span class="kw">crate</span>::graph::ModuleOpsDescription::MaxPool1dWithIndices(desc.clone()),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::MaxPool1dWithIndices(desc.clone()),
             ),
             MaxPool1dWithIndicesOps::new(desc),
         );
@@ -1550,6 +1678,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             x.shape[<span class="number">3</span>],
         );
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], size_0, size_1];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape.clone());
         <span class="kw">let </span>out_indices = x.client.tensor_uninitialized(shape);
@@ -1564,8 +1693,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out_indices: out_indices.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(
-                <span class="kw">crate</span>::graph::ModuleOpsDescription::MaxPool2dWithIndices(desc.clone()),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::MaxPool2dWithIndices(desc.clone()),
             ),
             MaxPool2dWithIndicesOps::new(desc),
         );
@@ -1603,6 +1733,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = output_grad.stream;
+        <span class="kw">let </span>stream_3 = indices.stream;
         <span class="kw">let </span>out = x.client.tensor_uninitialized(x.shape.clone());
 
         <span class="kw">let </span>desc = MaxPool1dWithIndicesBackwardDescription {
@@ -1616,8 +1749,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(
-                <span class="kw">crate</span>::graph::ModuleOpsDescription::MaxPool1dWithIndicesBackward(desc.clone()),
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::MaxPool1dWithIndicesBackward(
+                    desc.clone(),
+                ),
             ),
             MaxPool1dWithIndicesBackwardOps::new(desc),
         );
@@ -1655,6 +1791,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = output_grad.stream;
+        <span class="kw">let </span>stream_3 = indices.stream;
         <span class="kw">let </span>out = x.client.tensor_uninitialized(x.shape.clone());
 
         <span class="kw">let </span>desc = MaxPool2dWithIndicesBackwardDescription {
@@ -1668,8 +1807,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(
-                <span class="kw">crate</span>::graph::ModuleOpsDescription::MaxPool2dWithIndicesBackward(desc.clone()),
+            <span class="macro">vec!</span>[stream_1, stream_2, stream_3],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::MaxPool2dWithIndicesBackward(
+                    desc.clone(),
+                ),
             ),
             MaxPool2dWithIndicesBackwardOps::new(desc),
         );
@@ -1689,6 +1831,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], output_size];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1698,9 +1841,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::AdaptiveAvgPool1d(
-                desc.clone(),
-            )),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::AdaptiveAvgPool1d(desc.clone()),
+            ),
             AdaptiveAvgPool1dOps::new(desc),
         );
 
@@ -1722,6 +1866,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream = x.stream;
         <span class="kw">let </span>shape = <span class="macro">vec!</span>[x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>], output_size[<span class="number">0</span>], output_size[<span class="number">1</span>]];
         <span class="kw">let </span>out = x.client.tensor_uninitialized(shape);
 
@@ -1731,9 +1876,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(<span class="kw">crate</span>::graph::ModuleOpsDescription::AdaptiveAvgPool2d(
-                desc.clone(),
-            )),
+            <span class="macro">vec!</span>[stream],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::AdaptiveAvgPool2d(desc.clone()),
+            ),
             AdaptiveAvgPool2dOps::new(desc),
         );
 
@@ -1756,6 +1902,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = grad.stream;
         <span class="kw">let </span>out = x.client.tensor_uninitialized(x.shape.clone());
         <span class="kw">let </span>desc = AdaptiveAvgPool1dBackwardDescription {
             x: x.into_description(),
@@ -1764,8 +1912,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         };
 
         out.client.register(
-            TensorOpsDescription::ModuleOps(
-                <span class="kw">crate</span>::graph::ModuleOpsDescription::AdaptiveAvgPool1dBackward(desc.clone()),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::AdaptiveAvgPool1dBackward(desc.clone()),
             ),
             AdaptiveAvgPool1dBackwardOps::new(desc),
         );
@@ -1789,6 +1938,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             }
         );
 
+        <span class="kw">let </span>stream_1 = x.stream;
+        <span class="kw">let </span>stream_2 = grad.stream;
         <span class="kw">let </span>out = x.client.tensor_uninitialized(x.shape.clone());
 
         <span class="kw">let </span>desc = AdaptiveAvgPool2dBackwardDescription {
@@ -1797,8 +1948,9 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             out: out.to_description_out(),
         };
         out.client.register(
-            TensorOpsDescription::ModuleOps(
-                <span class="kw">crate</span>::graph::ModuleOpsDescription::AdaptiveAvgPool2dBackward(desc.clone()),
+            <span class="macro">vec!</span>[stream_1, stream_2],
+            OperationDescription::Module(
+                <span class="kw">crate</span>::stream::ModuleOperationDescription::AdaptiveAvgPool2dBackward(desc.clone()),
             ),
             AdaptiveAvgPool2dBackwardOps::new(desc),
         );

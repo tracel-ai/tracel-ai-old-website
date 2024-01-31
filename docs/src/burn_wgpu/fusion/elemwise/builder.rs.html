@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/fusion/elemwise/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-wgpu/src/fusion/elemwise/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="burn_wgpu" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../burn_wgpu/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="burn_wgpu" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -658,26 +658,98 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#656" id="656">656</a>
 <a href="#657" id="657">657</a>
 <a href="#658" id="658">658</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
+<a href="#659" id="659">659</a>
+<a href="#660" id="660">660</a>
+<a href="#661" id="661">661</a>
+<a href="#662" id="662">662</a>
+<a href="#663" id="663">663</a>
+<a href="#664" id="664">664</a>
+<a href="#665" id="665">665</a>
+<a href="#666" id="666">666</a>
+<a href="#667" id="667">667</a>
+<a href="#668" id="668">668</a>
+<a href="#669" id="669">669</a>
+<a href="#670" id="670">670</a>
+<a href="#671" id="671">671</a>
+<a href="#672" id="672">672</a>
+<a href="#673" id="673">673</a>
+<a href="#674" id="674">674</a>
+<a href="#675" id="675">675</a>
+<a href="#676" id="676">676</a>
+<a href="#677" id="677">677</a>
+<a href="#678" id="678">678</a>
+<a href="#679" id="679">679</a>
+<a href="#680" id="680">680</a>
+<a href="#681" id="681">681</a>
+<a href="#682" id="682">682</a>
+<a href="#683" id="683">683</a>
+<a href="#684" id="684">684</a>
+<a href="#685" id="685">685</a>
+<a href="#686" id="686">686</a>
+<a href="#687" id="687">687</a>
+<a href="#688" id="688">688</a>
+<a href="#689" id="689">689</a>
+<a href="#690" id="690">690</a>
+<a href="#691" id="691">691</a>
+<a href="#692" id="692">692</a>
+<a href="#693" id="693">693</a>
+<a href="#694" id="694">694</a>
+<a href="#695" id="695">695</a>
+<a href="#696" id="696">696</a>
+<a href="#697" id="697">697</a>
+<a href="#698" id="698">698</a>
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
+<a href="#704" id="704">704</a>
+<a href="#705" id="705">705</a>
+<a href="#706" id="706">706</a>
+<a href="#707" id="707">707</a>
+<a href="#708" id="708">708</a>
+<a href="#709" id="709">709</a>
+<a href="#710" id="710">710</a>
+<a href="#711" id="711">711</a>
+<a href="#712" id="712">712</a>
+<a href="#713" id="713">713</a>
+<a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+</pre></div><pre class="rust"><code><span class="kw">use super</span>::{optimization::ElementWise, CompilationPhase, Scalars};
+<span class="kw">use crate</span>::{
+    codegen::{Elem, Item, Operator, Variable},
     element::WgpuElement,
-    fusion::codegen::{Elem, Operator, Variable},
+    fusion::WgpuOptimization,
     FloatElement, GraphicsApi, IntElement, Wgpu,
 };
 <span class="kw">use </span>burn_fusion::{
-    graph::{
-        BaseOpsDescription, BinaryOpsDescription, FloatOpsDescription, NumericOpsDescription,
-        ScalarOpsDescription, TensorOpsDescription, UnaryOpsDescription,
+    stream::{
+        BaseOperationDescription, BinaryOperationDescription, FloatOperationDescription,
+        NumericOperationDescription, OperationDescription, ScalarOperationDescription,
+        UnaryOperationDescription,
     },
-    Optimization, OptimizationBuilder, OptimizationProperties, OptimizationStatus,
-    TensorDescription, TensorId,
+    OptimizationBuilder, OptimizationProperties, OptimizationStatus, TensorDescription, TensorId,
 };
 <span class="kw">use </span>burn_tensor::{Device, Element};
 <span class="kw">use </span>hashbrown::HashMap;
 
-<span class="kw">use </span><span class="kw">super</span>::optimization::FloatElementWise;
-
 <span class="doccomment">/// Fused element wise operations that are normally memory bound.
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>FloatElementWiseBuilder&lt;G, F, I&gt;
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ElementWiseBuilder&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi,
     F: FloatElement,
@@ -696,32 +768,44 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     <span class="kw">pub</span>(<span class="kw">crate</span>) device: Device&lt;Wgpu&lt;G, F, I&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;G, F, I&gt; OptimizationBuilder&lt;Wgpu&lt;G, F, I&gt;&gt; <span class="kw">for </span>FloatElementWiseBuilder&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; OptimizationBuilder&lt;WgpuOptimization&lt;G, F, I&gt;&gt; <span class="kw">for </span>ElementWiseBuilder&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi,
     F: FloatElement,
     I: IntElement,
 {
-    <span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>TensorOpsDescription) {
+    <span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>OperationDescription) {
         <span class="kw">if let </span>OptimizationStatus::Closed = <span class="self">self</span>.status {
             <span class="kw">return</span>;
         }
 
         <span class="kw">match </span>ops {
-            TensorOpsDescription::BaseOpsFloat(ops) =&gt; {
+            OperationDescription::BaseFloat(ops) =&gt; {
                 <span class="kw">if </span>!<span class="self">self</span>.register_base::&lt;F&gt;(ops) {
                     <span class="self">self</span>.status = OptimizationStatus::Closed;
                     <span class="kw">return</span>;
                 }
             }
-            TensorOpsDescription::FloatOps(ops) =&gt; {
+            OperationDescription::BaseInt(ops) =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.register_base::&lt;I&gt;(ops) {
+                    <span class="self">self</span>.status = OptimizationStatus::Closed;
+                    <span class="kw">return</span>;
+                }
+            }
+            OperationDescription::Float(ops) =&gt; {
                 <span class="kw">if </span>!<span class="self">self</span>.register_float::&lt;F&gt;(ops) {
                     <span class="self">self</span>.status = OptimizationStatus::Closed;
                     <span class="kw">return</span>;
                 }
             }
-            TensorOpsDescription::NumericOpsFloat(ops) =&gt; {
-                <span class="kw">if </span>!<span class="self">self</span>.register_numeric(ops) {
+            OperationDescription::NumericFloat(ops) =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.register_numeric::&lt;F, <span class="kw">_</span>&gt;(ops) {
+                    <span class="self">self</span>.status = OptimizationStatus::Closed;
+                    <span class="kw">return</span>;
+                }
+            }
+            OperationDescription::NumericInt(ops) =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.register_numeric::&lt;I, <span class="kw">_</span>&gt;(ops) {
                     <span class="self">self</span>.status = OptimizationStatus::Closed;
                     <span class="kw">return</span>;
                 }
@@ -735,7 +819,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="self">self</span>.status = OptimizationStatus::Open;
     }
 
-    <span class="kw">fn </span>build(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Box&lt;<span class="kw">dyn </span>Optimization&lt;Wgpu&lt;G, F, I&gt;&gt;&gt; {
+    <span class="kw">fn </span>build(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WgpuOptimization&lt;G, F, I&gt; {
         <span class="kw">let </span>inputs = <span class="self">self</span>.input_descriptions();
         <span class="kw">let </span>outputs = <span class="self">self</span>.output_descriptions();
         <span class="kw">let </span>locals = outputs
@@ -743,14 +827,21 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             .map(|out| <span class="kw-2">*</span><span class="self">self</span>.locals.get(<span class="kw-2">&amp;</span>out.<span class="number">0</span>.id).unwrap())
             .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
 
-        Box::new(FloatElementWise {
+        <span class="kw">let </span>op = ElementWise::new(
             inputs,
             outputs,
             locals,
-            operators: <span class="self">self</span>.operators.clone(),
-            scalars_f32: <span class="self">self</span>.scalars_f32,
-            device: <span class="self">self</span>.device.clone(),
-        })
+            Scalars::new(<span class="self">self</span>.scalars_f32, <span class="self">self</span>.scalars_u32, <span class="self">self</span>.scalars_i32),
+            <span class="self">self</span>.operators.clone(),
+            <span class="self">self</span>.device.clone(),
+            CompilationPhase,
+        );
+
+        WgpuOptimization::ElementWise(op.compile())
+    }
+
+    <span class="kw">fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
+        <span class="self">self</span>.operators.len()
     }
 
     <span class="kw">fn </span>reset(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
@@ -771,10 +862,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 
     <span class="kw">fn </span>properties(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; OptimizationProperties {
-        <span class="kw">let </span>ready = <span class="kw">match </span><span class="self">self</span>.status {
-            OptimizationStatus::Closed =&gt; <span class="bool-val">false</span>,
-            OptimizationStatus::Open =&gt; <span class="self">self</span>.operators.len() &gt; <span class="number">1</span>,
-        };
+        <span class="kw">let </span>ready = !<span class="self">self</span>.operators.is_empty();
 
         OptimizationProperties {
             ready,
@@ -783,7 +871,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     }
 }
 
-<span class="kw">impl</span>&lt;G, F, I&gt; FloatElementWiseBuilder&lt;G, F, I&gt;
+<span class="kw">impl</span>&lt;G, F, I&gt; ElementWiseBuilder&lt;G, F, I&gt;
 <span class="kw">where
     </span>G: GraphicsApi,
     F: FloatElement,
@@ -831,7 +919,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     .find(|(_id, position)| <span class="kw-2">*</span>position == index)
                 {
                     <span class="kw">if </span>!list.contains(id) {
-                        list.push(id.clone());
+                        list.push(<span class="kw-2">*</span>id);
                     }
                 }
             }
@@ -843,11 +931,17 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                 Operator::AssignGlobal { input: <span class="kw">_</span>, out: <span class="kw">_ </span>} =&gt; {
                     <span class="comment">// Nothing to do here.
                 </span>}
-                Operator::ReadGlobal {
+                Operator::AssignLocal { input: <span class="kw">_</span>, out } =&gt; {
+                    mark(out, <span class="kw-2">&amp;mut </span>local_tensor_ids_output);
+                }
+                Operator::ReadGlobalWithLayout {
                     variable: <span class="kw">_</span>,
-                    position: <span class="kw">_</span>,
-                    position_out: <span class="kw">_</span>,
+                    tensor_read_pos: <span class="kw">_</span>,
+                    tensor_layout_pos: <span class="kw">_</span>,
                 } =&gt; {
+                    <span class="comment">// Nothing to do here.
+                </span>}
+                Operator::ReadGlobal { variable: <span class="kw">_ </span>} =&gt; {
                     <span class="comment">// Nothing to do here.
                 </span>}
                 Operator::Add { lhs, rhs, out } =&gt; {
@@ -902,6 +996,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     mark(input, <span class="kw-2">&amp;mut </span>local_tensor_ids_input);
                     mark(out, <span class="kw-2">&amp;mut </span>local_tensor_ids_output);
                 }
+                Operator::Clamp {
+                    input,
+                    min_value: <span class="kw">_</span>,
+                    max_value: <span class="kw">_</span>,
+                    out,
+                } =&gt; {
+                    mark(input, <span class="kw-2">&amp;mut </span>local_tensor_ids_input);
+                    mark(out, <span class="kw-2">&amp;mut </span>local_tensor_ids_output);
+                }
                 Operator::Powf { lhs, rhs, out } =&gt; {
                     mark(lhs, <span class="kw-2">&amp;mut </span>local_tensor_ids_input);
                     mark(rhs, <span class="kw-2">&amp;mut </span>local_tensor_ids_input);
@@ -947,6 +1050,10 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                     mark(rhs, <span class="kw-2">&amp;mut </span>local_tensor_ids_input);
                     mark(out, <span class="kw-2">&amp;mut </span>local_tensor_ids_output);
                 }
+                Operator::Sqrt { input, out } =&gt; {
+                    mark(input, <span class="kw-2">&amp;mut </span>local_tensor_ids_input);
+                    mark(out, <span class="kw-2">&amp;mut </span>local_tensor_ids_output);
+                }
             }
         }
 
@@ -980,13 +1087,13 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>variable = <span class="kw">match </span>already_exists {
             <span class="bool-val">false </span>=&gt; {
                 <span class="comment">// New input
-                </span><span class="kw">let </span>var = Variable::Input(<span class="self">self</span>.inputs.len() <span class="kw">as </span>u16, elem);
+                </span><span class="kw">let </span>var = Variable::Input(<span class="self">self</span>.inputs.len() <span class="kw">as </span>u16, Item::Scalar(elem));
                 <span class="self">self</span>.inputs.push(tensor.clone());
                 var
             }
             <span class="bool-val">true </span>=&gt; <span class="kw">match </span><span class="self">self</span>.locals.get(<span class="kw-2">&amp;</span>tensor.id) {
                 <span class="comment">// Is a local variable.
-                </span><span class="prelude-val">Some</span>(local_index) =&gt; Variable::Local(<span class="kw-2">*</span>local_index, elem),
+                </span><span class="prelude-val">Some</span>(local_index) =&gt; Variable::Local(<span class="kw-2">*</span>local_index, Item::Scalar(elem)),
                 <span class="comment">// Isn&#39;t a local variable, so must be an existing input.
                 </span><span class="prelude-val">None </span>=&gt; {
                     <span class="kw">let </span>input = <span class="self">self
@@ -996,37 +1103,35 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
                         .find(|(<span class="kw">_</span>, input)| input.id == tensor.id)
                         .unwrap();
                     <span class="kw">let </span>input_index = input.<span class="number">0</span>;
-                    Variable::Input(input_index <span class="kw">as </span>u16, elem)
+                    Variable::Input(input_index <span class="kw">as </span>u16, Item::Scalar(elem))
                 }
             },
         };
 
         <span class="comment">// Update the tensor description with the new version.
-        </span><span class="self">self</span>.tensors
-            .insert(tensor.id.clone(), (tensor.clone(), elem));
+        </span><span class="self">self</span>.tensors.insert(tensor.id, (tensor.clone(), elem));
 
         variable
     }
 
     <span class="kw">fn </span>output_to_var(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tensor: <span class="kw-2">&amp;</span>TensorDescription, elem: Elem) -&gt; Variable {
         <span class="comment">// Update the tensor description to the new version.
-        </span><span class="self">self</span>.tensors
-            .insert(tensor.id.clone(), (tensor.clone(), elem));
+        </span><span class="self">self</span>.tensors.insert(tensor.id, (tensor.clone(), elem));
 
         <span class="comment">// Output already registered as a local variable.
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(index) = <span class="self">self</span>.locals.get(<span class="kw-2">&amp;</span>tensor.id) {
-            <span class="kw">return </span>Variable::Local(<span class="kw-2">*</span>index, elem);
+            <span class="kw">return </span>Variable::Local(<span class="kw-2">*</span>index, Item::Scalar(elem));
         }
 
         <span class="comment">// New local variable.
         </span><span class="kw">let </span>local_index = <span class="self">self</span>.locals.len() <span class="kw">as </span>u16;
-        <span class="self">self</span>.locals.insert(tensor.id.clone(), local_index);
-        Variable::Local(local_index, elem)
+        <span class="self">self</span>.locals.insert(tensor.id, local_index);
+        Variable::Local(local_index, Item::Scalar(elem))
     }
 
-    <span class="kw">fn </span>register_base&lt;E: WgpuElement&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>BaseOpsDescription) -&gt; bool {
+    <span class="kw">fn </span>register_base&lt;E: WgpuElement&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>BaseOperationDescription) -&gt; bool {
         <span class="kw">match </span>ops {
-            BaseOpsDescription::Equal(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            BaseOperationDescription::Equal(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::Equal { lhs, rhs, out },
@@ -1035,49 +1140,49 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>register_float&lt;E: WgpuElement&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>FloatOpsDescription) -&gt; bool {
+    <span class="kw">fn </span>register_float&lt;E: WgpuElement&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>FloatOperationDescription) -&gt; bool {
         <span class="kw">match </span>ops {
-            FloatOpsDescription::Exp(desc) =&gt; {
+            FloatOperationDescription::Exp(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Exp { input, out }
                 })
             }
-            FloatOpsDescription::Log(desc) =&gt; {
+            FloatOperationDescription::Log(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Log { input, out }
                 })
             }
-            FloatOpsDescription::Log1p(desc) =&gt; {
+            FloatOperationDescription::Log1p(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Log1p { input, out }
                 })
             }
-            FloatOpsDescription::Cos(desc) =&gt; {
+            FloatOperationDescription::Cos(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Cos { input, out }
                 })
             }
-            FloatOpsDescription::Sin(desc) =&gt; {
+            FloatOperationDescription::Sin(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Sin { input, out }
                 })
             }
-            FloatOpsDescription::Powf(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            FloatOperationDescription::PowfScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Powf { lhs, rhs, out },
             ),
-            FloatOpsDescription::Tanh(desc) =&gt; {
+            FloatOperationDescription::Tanh(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Tanh { input, out }
                 })
             }
-            FloatOpsDescription::Erf(desc) =&gt; {
+            FloatOperationDescription::Erf(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Erf { input, out }
                 })
             }
-            FloatOpsDescription::Recip(desc) =&gt; {
+            FloatOperationDescription::Recip(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Recip { input, out }
                 })
@@ -1086,99 +1191,102 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         }
     }
 
-    <span class="kw">fn </span>register_numeric&lt;E: WgpuElement&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ops: <span class="kw-2">&amp;</span>NumericOpsDescription&lt;E&gt;) -&gt; bool {
+    <span class="kw">fn </span>register_numeric&lt;E: WgpuElement, EDesc: WgpuElement&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        ops: <span class="kw-2">&amp;</span>NumericOperationDescription&lt;EDesc&gt;,
+    ) -&gt; bool {
         <span class="kw">match </span>ops {
-            NumericOpsDescription::Add(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::Add(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Add { lhs, rhs, out },
             ),
-            NumericOpsDescription::AddScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::AddScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Add { lhs, rhs, out },
             ),
-            NumericOpsDescription::Sub(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::Sub(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Sub { lhs, rhs, out },
             ),
-            NumericOpsDescription::SubScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::SubScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Sub { lhs, rhs, out },
             ),
-            NumericOpsDescription::Mul(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::Mul(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Mul { lhs, rhs, out },
             ),
-            NumericOpsDescription::MulScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::MulScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Mul { lhs, rhs, out },
             ),
-            NumericOpsDescription::Div(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::Div(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Div { lhs, rhs, out },
             ),
-            NumericOpsDescription::DivScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::DivScalar(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), E::elem_type()),
                 |lhs, rhs, out| Operator::Div { lhs, rhs, out },
             ),
-            NumericOpsDescription::Abs(desc) =&gt; {
+            NumericOperationDescription::Abs(desc) =&gt; {
                 <span class="self">self</span>.register_unary_ops(desc, (E::elem_type(), E::elem_type()), |input, out| {
                     Operator::Abs { input, out }
                 })
             }
-            NumericOpsDescription::Lower(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::Lower(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::Lower { lhs, rhs, out },
             ),
-            NumericOpsDescription::LowerElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::LowerElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::Lower { lhs, rhs, out },
             ),
-            NumericOpsDescription::Greater(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::Greater(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::Greater { lhs, rhs, out },
             ),
-            NumericOpsDescription::GreaterElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::GreaterElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::Greater { lhs, rhs, out },
             ),
-            NumericOpsDescription::LowerEqual(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::LowerEqual(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::LowerEqual { lhs, rhs, out },
             ),
-            NumericOpsDescription::LowerEqualElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::LowerEqualElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::LowerEqual { lhs, rhs, out },
             ),
-            NumericOpsDescription::GreaterEqual(desc) =&gt; <span class="self">self</span>.register_binary_ops(
+            NumericOperationDescription::GreaterEqual(desc) =&gt; <span class="self">self</span>.register_binary_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::GreaterEqual { lhs, rhs, out },
             ),
-            NumericOpsDescription::GreaterEqualElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::GreaterEqualElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::GreaterEqual { lhs, rhs, out },
             ),
-            NumericOpsDescription::EqualElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
+            NumericOperationDescription::EqualElem(desc) =&gt; <span class="self">self</span>.register_scalar_ops(
                 desc,
                 (E::elem_type(), E::elem_type(), Elem::Bool),
                 |lhs, rhs, out| Operator::Equal { lhs, rhs, out },
             ),
-            NumericOpsDescription::MaskWhere(desc) =&gt; {
+            NumericOperationDescription::MaskWhere(desc) =&gt; {
                 <span class="kw">if </span>!<span class="self">self</span>.output_is_compatible(<span class="kw-2">&amp;</span>desc.out) {
                     <span class="kw">return </span><span class="bool-val">false</span>;
                 }
@@ -1198,7 +1306,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
                 <span class="bool-val">true
             </span>}
-            NumericOpsDescription::MaskFill(desc) =&gt; {
+            NumericOperationDescription::MaskFill(desc) =&gt; {
                 <span class="kw">if </span>!<span class="self">self</span>.output_is_compatible(<span class="kw-2">&amp;</span>desc.out) {
                     <span class="kw">return </span><span class="bool-val">false</span>;
                 }
@@ -1217,13 +1325,49 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
                 <span class="bool-val">true
             </span>}
+            NumericOperationDescription::Ones(desc) =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.output_is_compatible(desc) {
+                    <span class="kw">return </span><span class="bool-val">false</span>;
+                }
+
+                <span class="kw">let </span>input = Variable::Constant(<span class="number">1.0</span>, Item::Scalar(E::elem_type()));
+                <span class="kw">let </span>out = <span class="self">self</span>.output_to_var(desc, E::elem_type());
+
+                <span class="self">self</span>.operators.push(Operator::AssignLocal { input, out });
+
+                <span class="bool-val">true
+            </span>}
+            NumericOperationDescription::Zeros(desc) =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.output_is_compatible(desc) {
+                    <span class="kw">return </span><span class="bool-val">false</span>;
+                }
+
+                <span class="kw">let </span>input = Variable::Constant(<span class="number">0.0</span>, Item::Scalar(E::elem_type()));
+                <span class="kw">let </span>out = <span class="self">self</span>.output_to_var(desc, E::elem_type());
+
+                <span class="self">self</span>.operators.push(Operator::AssignLocal { input, out });
+
+                <span class="bool-val">true
+            </span>}
+            NumericOperationDescription::Full((desc, elem)) =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.output_is_compatible(desc) {
+                    <span class="kw">return </span><span class="bool-val">false</span>;
+                }
+
+                <span class="kw">let </span>input = <span class="self">self</span>.scalar_to_var(elem, E::elem_type());
+                <span class="kw">let </span>out = <span class="self">self</span>.output_to_var(desc, E::elem_type());
+
+                <span class="self">self</span>.operators.push(Operator::AssignLocal { input, out });
+
+                <span class="bool-val">true
+            </span>}
             <span class="kw">_ </span>=&gt; <span class="bool-val">false</span>,
         }
     }
 
     <span class="kw">fn </span>register_binary_ops&lt;Func&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        desc: <span class="kw-2">&amp;</span>BinaryOpsDescription,
+        desc: <span class="kw-2">&amp;</span>BinaryOperationDescription,
         (elem_lhs, elem_rhs, elem_out): (Elem, Elem, Elem),
         func: Func,
     ) -&gt; bool
@@ -1245,7 +1389,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">fn </span>register_unary_ops&lt;Func&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        desc: <span class="kw-2">&amp;</span>UnaryOpsDescription,
+        desc: <span class="kw-2">&amp;</span>UnaryOperationDescription,
         (elem_input, elem_out): (Elem, Elem),
         func: Func,
     ) -&gt; bool
@@ -1266,7 +1410,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 
     <span class="kw">fn </span>register_scalar_ops&lt;Func, E: Element&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        desc: <span class="kw-2">&amp;</span>ScalarOpsDescription&lt;E&gt;,
+        desc: <span class="kw-2">&amp;</span>ScalarOperationDescription&lt;E&gt;,
         (elem_lhs, elem_rhs, elem_out): (Elem, Elem, Elem),
         func: Func,
     ) -&gt; bool
@@ -1290,15 +1434,15 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">match </span>elem_type {
             Elem::F32 =&gt; {
                 <span class="self">self</span>.scalars_f32 += <span class="number">1</span>;
-                Variable::Scalar(<span class="self">self</span>.scalars_f32 <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::F32)
+                Variable::Scalar(<span class="self">self</span>.scalars_f32 <span class="kw">as </span>u16 - <span class="number">1</span>, Item::Scalar(Elem::F32))
             }
             Elem::I32 =&gt; {
                 <span class="self">self</span>.scalars_i32 += <span class="number">1</span>;
-                Variable::Scalar(<span class="self">self</span>.scalars_i32 <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::I32)
+                Variable::Scalar(<span class="self">self</span>.scalars_i32 <span class="kw">as </span>u16 - <span class="number">1</span>, Item::Scalar(Elem::I32))
             }
             Elem::U32 =&gt; {
                 <span class="self">self</span>.scalars_u32 += <span class="number">1</span>;
-                Variable::Scalar(<span class="self">self</span>.scalars_u32 <span class="kw">as </span>u16 - <span class="number">1</span>, Elem::U32)
+                Variable::Scalar(<span class="self">self</span>.scalars_u32 <span class="kw">as </span>u16 - <span class="number">1</span>, Item::Scalar(Elem::U32))
             }
             Elem::Bool =&gt; {
                 <span class="macro">panic!</span>(<span class="string">&quot;Bool scalars not supported&quot;</span>)

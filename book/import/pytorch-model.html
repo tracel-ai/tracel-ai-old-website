@@ -1,0 +1,416 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>PyTorch Model - The Burn Book 🔥</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../motivation.html"><strong aria-hidden="true">2.</strong> Why Burn?</a></li><li class="chapter-item expanded "><a href="../getting-started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="../basic-workflow/index.html"><strong aria-hidden="true">4.</strong> Basic Workflow: From Training to Inference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../basic-workflow/model.html"><strong aria-hidden="true">4.1.</strong> Model</a></li><li class="chapter-item expanded "><a href="../basic-workflow/data.html"><strong aria-hidden="true">4.2.</strong> Data</a></li><li class="chapter-item expanded "><a href="../basic-workflow/training.html"><strong aria-hidden="true">4.3.</strong> Training</a></li><li class="chapter-item expanded "><a href="../basic-workflow/backend.html"><strong aria-hidden="true">4.4.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../basic-workflow/inference.html"><strong aria-hidden="true">4.5.</strong> Inference</a></li><li class="chapter-item expanded "><a href="../basic-workflow/conclusion.html"><strong aria-hidden="true">4.6.</strong> Conclusion</a></li></ol></li><li class="chapter-item expanded "><a href="../building-blocks/index.html"><strong aria-hidden="true">5.</strong> Building Blocks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../building-blocks/backend.html"><strong aria-hidden="true">5.1.</strong> Backend</a></li><li class="chapter-item expanded "><a href="../building-blocks/tensor.html"><strong aria-hidden="true">5.2.</strong> Tensor</a></li><li class="chapter-item expanded "><a href="../building-blocks/autodiff.html"><strong aria-hidden="true">5.3.</strong> Autodiff</a></li><li class="chapter-item expanded "><a href="../building-blocks/module.html"><strong aria-hidden="true">5.4.</strong> Module</a></li><li class="chapter-item expanded "><a href="../building-blocks/learner.html"><strong aria-hidden="true">5.5.</strong> Learner</a></li><li class="chapter-item expanded "><a href="../building-blocks/metric.html"><strong aria-hidden="true">5.6.</strong> Metric</a></li><li class="chapter-item expanded "><a href="../building-blocks/config.html"><strong aria-hidden="true">5.7.</strong> Config</a></li><li class="chapter-item expanded "><a href="../building-blocks/record.html"><strong aria-hidden="true">5.8.</strong> Record</a></li><li class="chapter-item expanded "><a href="../building-blocks/dataset.html"><strong aria-hidden="true">5.9.</strong> Dataset</a></li></ol></li><li class="chapter-item expanded "><a href="../custom-training-loop.html"><strong aria-hidden="true">6.</strong> Custom Training Loop</a></li><li class="chapter-item expanded "><a href="../saving-and-loading.html"><strong aria-hidden="true">7.</strong> Saving & Loading Models</a></li><li class="chapter-item expanded "><a href="../import/index.html"><strong aria-hidden="true">8.</strong> Import Models</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../import/onnx-model.html"><strong aria-hidden="true">8.1.</strong> ONNX Model</a></li><li class="chapter-item expanded "><a href="../import/pytorch-model.html" class="active"><strong aria-hidden="true">8.2.</strong> PyTorch Model</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced/index.html"><strong aria-hidden="true">9.</strong> Advanced</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/backend-extension/index.html"><strong aria-hidden="true">9.1.</strong> Backend Extension</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/backend-extension/custom-wgpu-kernel.html"><strong aria-hidden="true">9.1.1.</strong> Custom WGPU Kernel</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Custom Optimizer</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.3.</strong> WebAssembly</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.4.</strong> No-Std</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Burn Book 🔥</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="pytorch-model"><a class="header" href="#pytorch-model">PyTorch Model</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Whether you've trained your model in PyTorch or you want to use a pre-trained model from PyTorch,
+you can import them into Burn. Burn supports importing PyTorch model weights with <code>.pt</code> file
+extension. Compared to ONNX models, <code>.pt</code> files only contain the weights of the model, so you will
+need to reconstruct the model architecture in Burn.</p>
+<h2 id="how-to-export-a-pytorch-model"><a class="header" href="#how-to-export-a-pytorch-model">How to export a PyTorch model</a></h2>
+<p>If you have a PyTorch model that you want to import into Burn, you will need to export it first,
+unless you are using a pre-trained published model. To export a PyTorch model, you can use the
+<code>torch.save</code> function.</p>
+<p>Here is an example of how to export a PyTorch model:</p>
+<pre><code class="language-python">import torch
+import torch.nn as nn
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(2, 2, (2,2))
+        self.conv2 = nn.Conv2d(2, 2, (2,2), bias=False)
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        return x
+
+def main():
+    torch.manual_seed(42)  # To make it reproducible
+    model = Net().to(torch.device(&quot;cpu&quot;))
+    model_weights = model.state_dict()
+    torch.save(model_weights, &quot;conv2d.pt&quot;)
+</code></pre>
+<p>Use <a href="https://github.com/lutzroeder/netron">Netron</a> to view the exported model. You should see
+something like this:</p>
+<p><img src="./conv2d.svg" alt="image alt &gt;" /></p>
+<h2 id="how-to-import-a-pytorch-model"><a class="header" href="#how-to-import-a-pytorch-model">How to import a PyTorch model</a></h2>
+<ol>
+<li>
+<p>Define the model in Burn:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use burn::{
+    module::Module,
+    nn::conv::{Conv2d, Conv2dConfig},
+    tensor::{backend::Backend, Tensor},
+};
+
+#[derive(Module, Debug)]
+pub struct Net&lt;B: Backend&gt; {
+    conv1: Conv2d&lt;B&gt;,
+    conv2: Conv2d&lt;B&gt;,
+}
+
+impl&lt;B: Backend&gt; Net&lt;B&gt; {
+    /// Create a new model from the given record.
+    pub fn new_with(record: NetRecord&lt;B&gt;) -&gt; Self {
+        let conv1 = Conv2dConfig::new([2, 2], [2, 2])
+            .init_with(record.conv1);
+        let conv2 = Conv2dConfig::new([2, 2], [2, 2])
+            .with_bias(false)
+            .init_with(record.conv2);
+        Self { conv1, conv2 }
+    }
+
+    /// Forward pass of the model.
+    pub fn forward(&amp;self, x: Tensor&lt;B, 4&gt;) -&gt; Tensor&lt;B, 4&gt; {
+        let x = self.conv1.forward(x);
+        self.conv2.forward(x)
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+</li>
+<li>
+<p>Load the model weights from the exported PyTorch model (2 options):</p>
+<p>a) <em>Dynamically</em>, but this requires burn-import runtime dependency:</p>
+<pre><pre class="playground"><code class="language-rust">use crate::model;
+
+use burn::record::{FullPrecisionSettings, Recorder};
+use burn_import::pytorch::PyTorchFileRecorder;
+
+type Backend = burn_ndarray::NdArray&lt;f32&gt;;
+
+fn main() {
+    let device = Default::default();
+    let record = PyTorchFileRecorder::&lt;FullPrecisionSettings&gt;::default()
+        .load(&quot;./conv2d.pt&quot;.into(), &amp;device)
+        .expect(&quot;Should decode state successfully&quot;);
+
+    let model = model::Net::&lt;Backend&gt;::new_with(record);
+}</code></pre></pre>
+<p>b) <em>Pre-converted</em> to Burn's binary format:</p>
+<pre><pre class="playground"><code class="language-rust">// Convert the PyTorch model to Burn's binary format in
+// build.rs or in a separate executable. Then, include the generated file
+// in your project. See `examples/pytorch-import` for an example.
+
+use crate::model;
+
+use burn::record::{FullPrecisionSettings, NamedMpkFileRecorder, Recorder};
+use burn_import::pytorch::PyTorchFileRecorder;
+
+type Backend = burn_ndarray::NdArray&lt;f32&gt;;
+
+fn main() {
+    let device = Default::default();
+    let recorder = PyTorchFileRecorder::&lt;FullPrecisionSettings&gt;::default()
+    let record: model::NetRecord&lt;B&gt; = recorder
+        .load(&quot;./conv2d.pt&quot;.into(), &amp;device)
+        .expect(&quot;Should decode state successfully&quot;);
+
+    // Save the model record to a file.
+    let recorder = NamedMpkFileRecorder::&lt;FullPrecisionSettings&gt;::default();
+    recorder
+        .record(record, &quot;MY_FILE_OUTPUT_PATH&quot;.into())
+        .expect(&quot;Failed to save model record&quot;);
+}
+
+/// Load the model from the file in your source code (not in build.rs or script).
+fn load_model() -&gt; Net::&lt;Backend&gt; {
+    let device = Default::default();
+    let record = NamedMpkFileRecorder::&lt;FullPrecisionSettings&gt;::default()
+        .load(&quot;./MY_FILE_OUTPUT_PATH&quot;.into(), &amp;device)
+        .expect(&quot;Should decode state successfully&quot;);
+
+    Net::&lt;Backend&gt;::new_with(record)
+}</code></pre></pre>
+</li>
+</ol>
+<h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
+<h3 id="adjusting-the-source-model-architecture"><a class="header" href="#adjusting-the-source-model-architecture">Adjusting the source model architecture</a></h3>
+<p>If your target model differs structurally from the model you exported, <code>PyTorchFileRecorder</code> allows
+changing the attribute names and the order of the attributes. For example, if you exported a model
+with the following structure:</p>
+<pre><code class="language-python">class ConvModule(nn.Module):
+    def __init__(self):
+        super(ConvModule, self).__init__()
+        self.conv1 = nn.Conv2d(2, 2, (2,2))
+        self.conv2 = nn.Conv2d(2, 2, (2,2), bias=False)
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        return x
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv = ConvModule()
+
+    def forward(self, x):
+        x = self.conv(x)
+        return x
+</code></pre>
+<p>But you need to import it into a model with the following structure:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Module, Debug)]
+pub struct Net&lt;B: Backend&gt; {
+    conv1: Conv2d&lt;B&gt;,
+    conv2: Conv2d&lt;B&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Which produces the following weights structure (viewed in
+<a href="https://github.com/lutzroeder/netron">Netron</a>):</p>
+<p><img src="./key_remap.svg" alt="image alt &gt;" /></p>
+<p>You can use the <code>PyTorchFileRecorder</code> to change the attribute names and the order of the attributes
+by specifying a regular expression (See
+<a href="https://docs.rs/regex/latest/regex/struct.Regex.html#method.replace">regex::Regex::replace</a>) to
+match the attribute name and a replacement string in <code>LoadArgs</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let device = Default::default();
+let load_args = LoadArgs::new(&quot;tests/key_remap/key_remap.pt&quot;.into())
+    // Remove &quot;conv&quot; prefix, e.g. &quot;conv.conv1&quot; -&gt; &quot;conv1&quot;
+    .with_key_remap(&quot;conv\\.(.*)&quot;, &quot;$1&quot;);
+
+let record = PyTorchFileRecorder::&lt;FullPrecisionSettings&gt;::default()
+    .load(load_args, &amp;device)
+    .expect(&quot;Should decode state successfully&quot;);
+
+let model = Net::&lt;Backend&gt;::new_with(record);
+<span class="boring">}</span></code></pre></pre>
+<h3 id="loading-the-model-weights-to-a-partial-model"><a class="header" href="#loading-the-model-weights-to-a-partial-model">Loading the model weights to a partial model</a></h3>
+<p><code>PyTorchFileRecorder</code> enables selective weight loading into partial models. For instance, in a model
+with both an encoder and a decoder, it's possible to load only the encoder weights. This is done by
+defining the encoder in Burn, allowing the loading of its weights while excluding the decoder's.</p>
+<h2 id="current-known-issues"><a class="header" href="#current-known-issues">Current known issues</a></h2>
+<ol>
+<li><a href="https://github.com/tracel-ai/burn/issues/1178">Candle's pickle library does not currently function on Windows due to a Candle bug</a>.</li>
+<li><a href="https://github.com/tracel-ai/burn/issues/1179">Candle's pickle does not currently unpack boolean tensors</a>.</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../import/onnx-model.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../advanced/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../import/onnx-model.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../advanced/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

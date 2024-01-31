@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-tensor/src/tensor/ops/modules/conv.rs`."><title>conv.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../static.files/rustdoc-fa3bb1812debf86c.css"><script id="default-settings" 
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `burn-tensor/src/tensor/ops/modules/conv.rs`."><title>conv.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><script id="default-settings" 
 data-theme="burn"
-data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../../" data-static-root-path="../../../../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../src-files.js"></script><script defer src="../../../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../../burn_tensor/index.html"><img class="rust-logo" src="../../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path="../../../../../" data-static-root-path="../../../../../static.files/" data-current-crate="burn_tensor" data-themes="burn" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../src-files.js"></script><script defer src="../../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -767,6 +767,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
 <a href="#765" id="765">765</a>
 <a href="#766" id="766">766</a>
 <a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
 </pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::single_range_in_vec_init)]
 </span><span class="kw">use super</span>::{Conv1dBackward, Conv2dBackward, ConvOptions, ConvTransposeOptions};
 <span class="kw">use crate</span>::{backend::Backend, ops::FloatTensor, Shape};
@@ -832,11 +834,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; Conv1dBackward&lt;B&gt; {
-    <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
-    <span class="kw">let </span>weight_device = B::device(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_shape = B::float_shape(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_device = B::float_device(<span class="kw-2">&amp;</span>weight);
 
-    <span class="kw">let </span>[batch_size, <span class="kw">_</span>, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
-    <span class="kw">let </span>[_batch_size, channels_out, length_out] = B::shape(<span class="kw-2">&amp;</span>output_grad).dims;
+    <span class="kw">let </span>[batch_size, <span class="kw">_</span>, length_in] = B::float_shape(<span class="kw-2">&amp;</span>x).dims;
+    <span class="kw">let </span>[_batch_size, channels_out, length_out] = B::float_shape(<span class="kw-2">&amp;</span>output_grad).dims;
     <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, kernel_size] = weight_shape.dims;
 
     <span class="kw">let </span>padding_out = calculate_padding_out(
@@ -865,7 +867,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="bool-val">true </span>=&gt; conv1d_weight_grad_no_groups::&lt;B&gt;(x, output_grad.clone(), weight_shape, options),
         <span class="bool-val">false </span>=&gt; conv1d_weight_grad_groups::&lt;B&gt;(
             x,
-            B::zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
+            B::float_zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
             output_grad.clone(),
             options,
         ),
@@ -875,11 +877,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         x_grad,
         weight_grad,
         bias.map(|b| {
-            <span class="kw">let </span>grad = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
-            <span class="kw">let </span>grad = B::reshape(grad, Shape::new([channels_out, batch_size * length_out]));
-            <span class="kw">let </span>grad = B::sum_dim(grad, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_reshape(grad, Shape::new([channels_out, batch_size * length_out]));
+            <span class="kw">let </span>grad = B::float_sum_dim(grad, <span class="number">1</span>);
 
-            B::reshape(grad, B::shape(<span class="kw-2">&amp;</span>b))
+            B::float_reshape(grad, B::float_shape(<span class="kw-2">&amp;</span>b))
         }),
     )
 }
@@ -892,11 +894,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; Conv2dBackward&lt;B&gt; {
-    <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
-    <span class="kw">let </span>weight_device = B::device(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_shape = B::float_shape(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_device = B::float_device(<span class="kw-2">&amp;</span>weight);
 
-    <span class="kw">let </span>[batch_size, _channels_in, height_in, width_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
-    <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, height_out, width_out] = B::shape(<span class="kw-2">&amp;</span>output_grad).dims;
+    <span class="kw">let </span>[batch_size, _channels_in, height_in, width_in] = B::float_shape(<span class="kw-2">&amp;</span>x).dims;
+    <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, height_out, width_out] = B::float_shape(<span class="kw-2">&amp;</span>output_grad).dims;
     <span class="kw">let </span>[channels_out, <span class="kw">_</span>, kernel_size_1, kernel_size_2] = weight_shape.dims;
 
     <span class="kw">let </span>padding_1_out = calculate_padding_out(
@@ -933,7 +935,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="bool-val">true </span>=&gt; conv2d_weight_grad_no_groups::&lt;B&gt;(x, output_grad.clone(), weight_shape, options),
         <span class="bool-val">false </span>=&gt; conv2d_weight_grad_groups::&lt;B&gt;(
             x,
-            B::zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
+            B::float_zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
             output_grad.clone(),
             options,
         ),
@@ -943,14 +945,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         x_grad,
         weight_grad,
         bias.map(|b| {
-            <span class="kw">let </span>grad = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
-            <span class="kw">let </span>grad = B::reshape(
+            <span class="kw">let </span>grad = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_reshape(
                 grad,
                 Shape::new([channels_out, batch_size * height_out * width_out]),
             );
-            <span class="kw">let </span>grad = B::sum_dim(grad, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_sum_dim(grad, <span class="number">1</span>);
 
-            B::reshape(grad, B::shape(<span class="kw-2">&amp;</span>b))
+            B::float_reshape(grad, B::float_shape(<span class="kw-2">&amp;</span>b))
         }),
     )
 }
@@ -963,11 +965,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; Conv2dBackward&lt;B&gt; {
-    <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
-    <span class="kw">let </span>weight_device = B::device(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_shape = B::float_shape(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_device = B::float_device(<span class="kw-2">&amp;</span>weight);
 
-    <span class="kw">let </span>[batch_size, _channels_in, <span class="kw">_</span>, <span class="kw">_</span>] = B::shape(<span class="kw-2">&amp;</span>x).dims;
-    <span class="kw">let </span>[<span class="kw">_</span>, channels_out, height_out, width_out] = B::shape(<span class="kw-2">&amp;</span>output_grad).dims;
+    <span class="kw">let </span>[batch_size, _channels_in, <span class="kw">_</span>, <span class="kw">_</span>] = B::float_shape(<span class="kw-2">&amp;</span>x).dims;
+    <span class="kw">let </span>[<span class="kw">_</span>, channels_out, height_out, width_out] = B::float_shape(<span class="kw-2">&amp;</span>output_grad).dims;
 
     <span class="kw">let </span>x_grad = B::conv2d(
         output_grad.clone(),
@@ -990,7 +992,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         ),
         <span class="bool-val">false </span>=&gt; conv_transpose2d_weight_grad_groups::&lt;B&gt;(
             x,
-            B::zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
+            B::float_zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
             output_grad.clone(),
             options,
         ),
@@ -1000,14 +1002,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         x_grad,
         weight_grad,
         bias.map(|b| {
-            <span class="kw">let </span>grad = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
-            <span class="kw">let </span>grad = B::reshape(
+            <span class="kw">let </span>grad = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_reshape(
                 grad,
                 Shape::new([channels_out, batch_size * height_out * width_out]),
             );
-            <span class="kw">let </span>grad = B::sum_dim(grad, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_sum_dim(grad, <span class="number">1</span>);
 
-            B::reshape(grad, B::shape(<span class="kw-2">&amp;</span>b))
+            B::float_reshape(grad, B::float_shape(<span class="kw-2">&amp;</span>b))
         }),
     )
 }
@@ -1020,11 +1022,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; Conv1dBackward&lt;B&gt; {
-    <span class="kw">let </span>weight_shape = B::shape(<span class="kw-2">&amp;</span>weight);
-    <span class="kw">let </span>weight_device = B::device(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_shape = B::float_shape(<span class="kw-2">&amp;</span>weight);
+    <span class="kw">let </span>weight_device = B::float_device(<span class="kw-2">&amp;</span>weight);
 
-    <span class="kw">let </span>[batch_size, _channels_in, <span class="kw">_</span>] = B::shape(<span class="kw-2">&amp;</span>x).dims;
-    <span class="kw">let </span>[<span class="kw">_</span>, channels_out, length_out] = B::shape(<span class="kw-2">&amp;</span>output_grad).dims;
+    <span class="kw">let </span>[batch_size, _channels_in, <span class="kw">_</span>] = B::float_shape(<span class="kw-2">&amp;</span>x).dims;
+    <span class="kw">let </span>[<span class="kw">_</span>, channels_out, length_out] = B::float_shape(<span class="kw-2">&amp;</span>output_grad).dims;
 
     <span class="kw">let </span>x_grad = B::conv1d(
         output_grad.clone(),
@@ -1047,7 +1049,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         ),
         <span class="bool-val">false </span>=&gt; conv_transpose1d_weight_grad_groups::&lt;B&gt;(
             x,
-            B::zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
+            B::float_zeros(weight_shape, <span class="kw-2">&amp;</span>weight_device),
             output_grad.clone(),
             options,
         ),
@@ -1057,11 +1059,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         x_grad,
         weight_grad,
         bias.map(|b| {
-            <span class="kw">let </span>grad = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
-            <span class="kw">let </span>grad = B::reshape(grad, Shape::new([channels_out, batch_size * length_out]));
-            <span class="kw">let </span>grad = B::sum_dim(grad, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+            <span class="kw">let </span>grad = B::float_reshape(grad, Shape::new([channels_out, batch_size * length_out]));
+            <span class="kw">let </span>grad = B::float_sum_dim(grad, <span class="number">1</span>);
 
-            B::reshape(grad, B::shape(<span class="kw-2">&amp;</span>b))
+            B::float_reshape(grad, B::float_shape(<span class="kw-2">&amp;</span>b))
         }),
     )
 }
@@ -1073,14 +1075,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
-    <span class="kw">let </span>[channels_out, _channels_in, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight).dims;
-    <span class="kw">let </span>[batch_size, channels_in, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
+    <span class="kw">let </span>[channels_out, _channels_in, kernel_size] = B::float_shape(<span class="kw-2">&amp;</span>weight).dims;
+    <span class="kw">let </span>[batch_size, channels_in, length_in] = B::float_shape(<span class="kw-2">&amp;</span>x).dims;
 
-    <span class="kw">let </span>weight = B::reshape(
+    <span class="kw">let </span>weight = B::float_reshape(
         weight,
         Shape::new([channels_out, channels_in / options.groups, kernel_size, <span class="number">1</span>]),
     );
-    <span class="kw">let </span>x = B::reshape(x, Shape::new([batch_size, channels_in, length_in, <span class="number">1</span>]));
+    <span class="kw">let </span>x = B::float_reshape(x, Shape::new([batch_size, channels_in, length_in, <span class="number">1</span>]));
 
     <span class="kw">let </span>tensor = B::conv2d(
         x,
@@ -1093,8 +1095,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             options.groups,
         ),
     );
-    <span class="kw">let </span>[batch_size, channels_out, height_out, _weight_out] = B::shape(<span class="kw-2">&amp;</span>tensor).dims;
-    B::reshape(tensor, Shape::from([batch_size, channels_out, height_out]))
+    <span class="kw">let </span>[batch_size, channels_out, height_out, _weight_out] = B::float_shape(<span class="kw-2">&amp;</span>tensor).dims;
+    B::float_reshape(tensor, Shape::from([batch_size, channels_out, height_out]))
 }
 
 <span class="doccomment">/// Execute a 1D transposed convolution using a 2D transposed convolution.
@@ -1104,14 +1106,14 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     bias: <span class="prelude-ty">Option</span>&lt;FloatTensor&lt;B, <span class="number">1</span>&gt;&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
-    <span class="kw">let </span>[channels_in, channels_out, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight).dims;
-    <span class="kw">let </span>[batch_size, _channels_in, length_in] = B::shape(<span class="kw-2">&amp;</span>x).dims;
+    <span class="kw">let </span>[channels_in, channels_out, kernel_size] = B::float_shape(<span class="kw-2">&amp;</span>weight).dims;
+    <span class="kw">let </span>[batch_size, _channels_in, length_in] = B::float_shape(<span class="kw-2">&amp;</span>x).dims;
 
-    <span class="kw">let </span>weight = B::reshape(
+    <span class="kw">let </span>weight = B::float_reshape(
         weight,
         Shape::new([channels_in, channels_out, kernel_size, <span class="number">1</span>]),
     );
-    <span class="kw">let </span>x = B::reshape(x, Shape::new([batch_size, channels_in, length_in, <span class="number">1</span>]));
+    <span class="kw">let </span>x = B::float_reshape(x, Shape::new([batch_size, channels_in, length_in, <span class="number">1</span>]));
 
     <span class="kw">let </span>tensor = B::conv_transpose2d(
         x,
@@ -1125,8 +1127,8 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             options.groups,
         ),
     );
-    <span class="kw">let </span>[batch_size, channels_out, height_out, _weight_out] = B::shape(<span class="kw-2">&amp;</span>tensor).dims;
-    B::reshape(tensor, Shape::from([batch_size, channels_out, height_out]))
+    <span class="kw">let </span>[batch_size, channels_out, height_out, _weight_out] = B::float_shape(<span class="kw-2">&amp;</span>tensor).dims;
+    B::float_reshape(tensor, Shape::from([batch_size, channels_out, height_out]))
 }
 
 <span class="kw">fn </span>conv1d_weight_grad_groups&lt;B: Backend&gt;(
@@ -1135,11 +1137,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
-    <span class="kw">let </span>[channels_out, increment_ci, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
+    <span class="kw">let </span>[channels_out, increment_ci, kernel_size] = B::float_shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_co = channels_out / options.groups;
 
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
 
     <span class="kw">for </span>g <span class="kw">in </span><span class="number">0</span>..options.groups {
         <span class="kw">let </span>start_idx_ci = g * increment_ci;
@@ -1147,16 +1149,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>start_idx_co = g * increment_co;
         <span class="kw">let </span>end_idx_co = (g + <span class="number">1</span>) * increment_co;
 
-        <span class="kw">let </span>x = B::slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
-        <span class="kw">let </span>grad = B::slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
+        <span class="kw">let </span>x = B::float_slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
+        <span class="kw">let </span>grad = B::float_slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
         <span class="kw">let </span><span class="kw-2">mut </span>weight_grad_tmp = B::conv1d(
             x,
             grad,
             <span class="prelude-val">None</span>,
             ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
         );
-        weight_grad_tmp = B::swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
-        weight_grad = B::slice_assign(
+        weight_grad_tmp = B::float_swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
+        weight_grad = B::float_slice_assign(
             weight_grad,
             [start_idx_co..end_idx_co, <span class="number">0</span>..increment_ci, <span class="number">0</span>..kernel_size],
             weight_grad_tmp,
@@ -1172,11 +1174,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
-    <span class="kw">let </span>[channels_out, increment_ci, kernel_size_1, kernel_size_2] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
+    <span class="kw">let </span>[channels_out, increment_ci, kernel_size_1, kernel_size_2] =
+        B::float_shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_co = channels_out / options.groups;
 
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
 
     <span class="kw">for </span>g <span class="kw">in </span><span class="number">0</span>..options.groups {
         <span class="kw">let </span>start_idx_ci = g * increment_ci;
@@ -1184,16 +1187,16 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>start_idx_co = g * increment_co;
         <span class="kw">let </span>end_idx_co = (g + <span class="number">1</span>) * increment_co;
 
-        <span class="kw">let </span>x = B::slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
-        <span class="kw">let </span>grad = B::slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
+        <span class="kw">let </span>x = B::float_slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
+        <span class="kw">let </span>grad = B::float_slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
         <span class="kw">let </span><span class="kw-2">mut </span>weight_grad_tmp = B::conv2d(
             x,
             grad,
             <span class="prelude-val">None</span>,
             ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
         );
-        weight_grad_tmp = B::swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
-        weight_grad = B::slice_assign(
+        weight_grad_tmp = B::float_swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
+        weight_grad = B::float_slice_assign(
             weight_grad,
             [
                 start_idx_co..end_idx_co,
@@ -1214,11 +1217,12 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">4</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
-    <span class="kw">let </span>[channels_in, increment_co, kernel_size_1, kernel_size_2] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
+    <span class="kw">let </span>[channels_in, increment_co, kernel_size_1, kernel_size_2] =
+        B::float_shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_ci = channels_in / options.groups;
 
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
 
     <span class="kw">for </span>g <span class="kw">in </span><span class="number">0</span>..options.groups {
         <span class="kw">let </span>start_idx_ci = g * increment_ci;
@@ -1226,19 +1230,19 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>start_idx_co = g * increment_co;
         <span class="kw">let </span>end_idx_co = (g + <span class="number">1</span>) * increment_co;
 
-        <span class="kw">let </span>x = B::slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
-        <span class="kw">let </span>grad = B::slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
+        <span class="kw">let </span>x = B::float_slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
+        <span class="kw">let </span>grad = B::float_slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
         <span class="kw">let </span><span class="kw-2">mut </span>weight_grad_tmp = B::conv2d(
             grad,
             x,
             <span class="prelude-val">None</span>,
             ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
         );
-        weight_grad_tmp = B::swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
-        <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, kernel_size_1_tmp, kernel_size_2_tmp] = B::shape(<span class="kw-2">&amp;</span>weight_grad_tmp).dims;
+        weight_grad_tmp = B::float_swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
+        <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, kernel_size_1_tmp, kernel_size_2_tmp] = B::float_shape(<span class="kw-2">&amp;</span>weight_grad_tmp).dims;
 
         <span class="kw">if </span>kernel_size_1_tmp != kernel_size_1 || kernel_size_2_tmp != kernel_size_2 {
-            weight_grad_tmp = B::slice(
+            weight_grad_tmp = B::float_slice(
                 weight_grad_tmp,
                 [
                     <span class="number">0</span>..increment_ci,
@@ -1249,7 +1253,7 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
             );
         }
 
-        weight_grad = B::slice_assign(
+        weight_grad = B::float_slice_assign(
             weight_grad,
             [
                 start_idx_ci..end_idx_ci,
@@ -1270,18 +1274,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     weight_shape: Shape&lt;<span class="number">3</span>&gt;,
     options: ConvOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv1d(
         x_swapped,
         output_grad_swapped,
         <span class="prelude-val">None</span>,
         ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
     );
-    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::float_swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
 
-    <span class="kw">if </span>B::shape(<span class="kw-2">&amp;</span>weight_grad) != weight_shape {
-        weight_grad = B::slice(
+    <span class="kw">if </span>B::float_shape(<span class="kw-2">&amp;</span>weight_grad) != weight_shape {
+        weight_grad = B::float_slice(
             weight_grad,
             [
                 <span class="number">0</span>..weight_shape.dims[<span class="number">0</span>],
@@ -1299,11 +1303,11 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     output_grad: FloatTensor&lt;B, <span class="number">3</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
-    <span class="kw">let </span>[channels_in, increment_co, kernel_size] = B::shape(<span class="kw-2">&amp;</span>weight_grad).dims;
+    <span class="kw">let </span>[channels_in, increment_co, kernel_size] = B::float_shape(<span class="kw-2">&amp;</span>weight_grad).dims;
     <span class="kw">let </span>increment_ci = channels_in / options.groups;
 
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
 
     <span class="kw">for </span>g <span class="kw">in </span><span class="number">0</span>..options.groups {
         <span class="kw">let </span>start_idx_ci = g * increment_ci;
@@ -1311,25 +1315,25 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
         <span class="kw">let </span>start_idx_co = g * increment_co;
         <span class="kw">let </span>end_idx_co = (g + <span class="number">1</span>) * increment_co;
 
-        <span class="kw">let </span>x = B::slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
-        <span class="kw">let </span>grad = B::slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
+        <span class="kw">let </span>x = B::float_slice(x_swapped.clone(), [start_idx_ci..end_idx_ci]);
+        <span class="kw">let </span>grad = B::float_slice(output_grad_swapped.clone(), [start_idx_co..end_idx_co]);
         <span class="kw">let </span><span class="kw-2">mut </span>weight_grad_tmp = B::conv1d(
             grad,
             x,
             <span class="prelude-val">None</span>,
             ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
         );
-        weight_grad_tmp = B::swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
-        <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, kernel_size_tmp] = B::shape(<span class="kw-2">&amp;</span>weight_grad_tmp).dims;
+        weight_grad_tmp = B::float_swap_dims(weight_grad_tmp, <span class="number">0</span>, <span class="number">1</span>);
+        <span class="kw">let </span>[<span class="kw">_</span>, <span class="kw">_</span>, kernel_size_tmp] = B::float_shape(<span class="kw-2">&amp;</span>weight_grad_tmp).dims;
 
         <span class="kw">if </span>kernel_size_tmp != kernel_size {
-            weight_grad_tmp = B::slice(
+            weight_grad_tmp = B::float_slice(
                 weight_grad_tmp,
                 [<span class="number">0</span>..increment_ci, <span class="number">0</span>..increment_co, <span class="number">0</span>..kernel_size],
             );
         }
 
-        weight_grad = B::slice_assign(
+        weight_grad = B::float_slice_assign(
             weight_grad,
             [start_idx_ci..end_idx_ci, <span class="number">0</span>..increment_co, <span class="number">0</span>..kernel_size],
             weight_grad_tmp,
@@ -1345,18 +1349,18 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     weight_shape: Shape&lt;<span class="number">4</span>&gt;,
     options: ConvOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv2d(
         x_swapped,
         output_grad_swapped,
         <span class="prelude-val">None</span>,
         ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
     );
-    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::float_swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
 
-    <span class="kw">if </span>B::shape(<span class="kw-2">&amp;</span>weight_grad) != weight_shape {
-        weight_grad = B::slice(
+    <span class="kw">if </span>B::float_shape(<span class="kw-2">&amp;</span>weight_grad) != weight_shape {
+        weight_grad = B::float_slice(
             weight_grad,
             [
                 <span class="number">0</span>..weight_shape.dims[<span class="number">0</span>],
@@ -1375,20 +1379,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     weight_shape: Shape&lt;<span class="number">3</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">1</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">3</span>&gt; {
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv1d(
         output_grad_swapped,
         x_swapped,
         <span class="prelude-val">None</span>,
         ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
     );
-    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::float_swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
 
-    <span class="kw">let </span>grad_shape = B::shape(<span class="kw-2">&amp;</span>weight_grad);
+    <span class="kw">let </span>grad_shape = B::float_shape(<span class="kw-2">&amp;</span>weight_grad);
 
     <span class="kw">if </span>grad_shape != weight_shape {
-        weight_grad = B::slice(
+        weight_grad = B::float_slice(
             weight_grad,
             [
                 <span class="number">0</span>..weight_shape.dims[<span class="number">0</span>],
@@ -1406,20 +1410,20 @@ data-use_system_theme="false"></script><meta name="rustdoc-vars" data-root-path=
     weight_shape: Shape&lt;<span class="number">4</span>&gt;,
     options: ConvTransposeOptions&lt;<span class="number">2</span>&gt;,
 ) -&gt; FloatTensor&lt;B, <span class="number">4</span>&gt; {
-    <span class="kw">let </span>x_swapped = B::swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
-    <span class="kw">let </span>output_grad_swapped = B::swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>x_swapped = B::float_swap_dims(x, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span>output_grad_swapped = B::float_swap_dims(output_grad, <span class="number">0</span>, <span class="number">1</span>);
     <span class="kw">let </span>weight_grad_swapped = B::conv2d(
         output_grad_swapped,
         x_swapped,
         <span class="prelude-val">None</span>,
         ConvOptions::new(options.dilation, options.padding, options.stride, <span class="number">1</span>),
     );
-    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
+    <span class="kw">let </span><span class="kw-2">mut </span>weight_grad = B::float_swap_dims(weight_grad_swapped, <span class="number">0</span>, <span class="number">1</span>);
 
-    <span class="kw">let </span>grad_shape = B::shape(<span class="kw-2">&amp;</span>weight_grad);
+    <span class="kw">let </span>grad_shape = B::float_shape(<span class="kw-2">&amp;</span>weight_grad);
 
     <span class="kw">if </span>grad_shape != weight_shape {
-        weight_grad = B::slice(
+        weight_grad = B::float_slice(
             weight_grad,
             [
                 <span class="number">0</span>..weight_shape.dims[<span class="number">0</span>],

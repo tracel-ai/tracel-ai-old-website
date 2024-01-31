@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WorkspaceMemberType"],"fn":["get_workspaces"],"struct":["WorkspaceMember"]};
