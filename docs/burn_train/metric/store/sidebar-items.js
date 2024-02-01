@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["Aggregate","Direction","Event","Split"],"struct":["EventStoreClient","MetricsUpdate"],"trait":["EventStore"]};

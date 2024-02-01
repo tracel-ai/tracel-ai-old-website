@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["CheckpointerError","CheckpointingAction"],"struct":["AsyncCheckpointer","ComposedCheckpointingStrategy","ComposedCheckpointingStrategyBuilder","FileCheckpointer","KeepLastNCheckpoints","MetricCheckpointingStrategy"],"trait":["Checkpointer","CheckpointingStrategy"]};

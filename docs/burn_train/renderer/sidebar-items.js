@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["MetricState"],"struct":["SelectedMetricsRenderer","TrainingProgress"],"trait":["MetricsRenderer"]};

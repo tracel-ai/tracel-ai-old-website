@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["argmax","argmin","init_reduce_output","mean_dim","mean_dim_autotune","mean_dim_shared_memory","sum","sum_dim","sum_dim_autotune","sum_dim_shared_memory"],"struct":["MeanDimAutotuneOperationSet","RecursiveSumRaw","ReduceAutotuneKey","ReductionArgsRaw","ReductionDimRaw","ReductionDimSharedMemoryRaw","SumDimAutotuneOperationSet"]};

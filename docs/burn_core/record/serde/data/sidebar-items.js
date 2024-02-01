@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["NestedValue"],"fn":["remap","unflatten"],"trait":["Serializable"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["NdArrayDevice"],"macro":["iter_par","iter_range_par","reshape","run_par","to_typed_dims"],"struct":["NdArray","NdArrayTensor"],"trait":["FloatNdArrayElement"]};

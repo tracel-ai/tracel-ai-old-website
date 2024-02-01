@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["WgpuAutotuneKey","WgpuResourceKind"],"fn":["compute_client","init_async","select_device"],"struct":["DynamicKernel","StaticKernel","WgpuResource","WgpuServer","WgpuStorage","WorkGroup"],"trait":["Kernel"],"type":["Server","WgpuComputeClient","WgpuHandle"]};

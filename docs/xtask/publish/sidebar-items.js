@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"constant":["CRATES_IO_API_TOKEN"],"fn":["cargo_publish","local_version","publish","remote_version","run"]};

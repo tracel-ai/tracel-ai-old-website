@@ -1,9 +1,15 @@
 {
-  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
-    "/assets/a-case-for-rust-in-deep-learning-6b14292b.js"
-  ],
   "src/routes/[...404].tsx": [
     "/assets/_...404_-8a1c0e91.js"
+  ],
+  "src/routes/demo.tsx": [
+    "/assets/demo-e03ae19f.js"
+  ],
+  "src/content/blogs.ts": [
+    "/assets/blogs-2d592072.js"
+  ],
+  "src/routes/blog/autotune-for-gpu-kernels.tsx": [
+    "/assets/autotune-for-gpu-kernels-1c9d9b5c.js"
   ],
   "src/components/outterlink/index.tsx": [
     "/assets/page-54998af4.js"
@@ -14,17 +20,35 @@
   "src/layout/page.tsx": [
     "/assets/page-54998af4.js"
   ],
+  "src/routes/blog/a-case-for-rust-in-deep-learning.tsx": [
+    "/assets/a-case-for-rust-in-deep-learning-6b14292b.js"
+  ],
   "src/routes/blog/cross-platform-gpu-backend.tsx": [
     "/assets/cross-platform-gpu-backend-8aff7e28.js"
   ],
   "src/components/blog/table/index.tsx": [
     "/assets/index-c54c257f.js"
   ],
-  "src/routes/blog/autotune-for-gpu-kernels.tsx": [
-    "/assets/autotune-for-gpu-kernels-1c9d9b5c.js"
+  "src/components/stars/index.tsx": [
+    "/assets/index-a59e1184.js"
   ],
   "src/routes/blog/creating-high-performance-asynchronous-backends-with-burn-compute.tsx": [
     "/assets/creating-high-performance-asynchronous-backends-with-burn-compute-da00d48b.js"
+  ],
+  "src/components/blog/index.tsx": [
+    "/assets/index-f3e0ea94.js"
+  ],
+  "src/components/blog/reference/index.tsx": [
+    "/assets/index-f3e0ea94.js"
+  ],
+  "src/components/card/index.tsx": [
+    "/assets/index-a7868e45.js"
+  ],
+  "src/routes/blog/index.tsx": [
+    "/assets/index-a7868e45.js"
+  ],
+  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
+    "/assets/burn-rusty-approach-to-tensor-handling-b783a011.js"
   ],
   "\u0000commonjsHelpers.js": [
     "/assets/index-4d32178d.js"
@@ -46,24 +70,6 @@
   ],
   "src/components/code/index.tsx": [
     "/assets/index-4d32178d.js"
-  ],
-  "src/routes/demo.tsx": [
-    "/assets/demo-e03ae19f.js"
-  ],
-  "src/routes/blog/burn-rusty-approach-to-tensor-handling.tsx": [
-    "/assets/burn-rusty-approach-to-tensor-handling-b783a011.js"
-  ],
-  "src/components/card/index.tsx": [
-    "/assets/index-a7868e45.js"
-  ],
-  "src/routes/blog/index.tsx": [
-    "/assets/index-a7868e45.js"
-  ],
-  "src/content/blogs.ts": [
-    "/assets/blogs-2d592072.js"
-  ],
-  "src/components/stars/index.tsx": [
-    "/assets/index-a59e1184.js"
   ],
   "node_modules/.pnpm/@motionone+utils@10.15.1/node_modules/@motionone/utils/dist/array.es.js": [
     "/assets/index-e075a3bb.js",
@@ -354,12 +360,6 @@
     "/assets/index-e075a3bb.js",
     "/assets/logo-d7813d0c.png",
     "/assets/burn-33192fe7.png"
-  ],
-  "src/components/blog/index.tsx": [
-    "/assets/index-f3e0ea94.js"
-  ],
-  "src/components/blog/reference/index.tsx": [
-    "/assets/index-f3e0ea94.js"
   ],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/dist/dev.js": [],
   "node_modules/.pnpm/solid-js@1.6.10/node_modules/solid-js/web/dist/dev.js": [],

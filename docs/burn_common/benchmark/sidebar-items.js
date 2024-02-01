@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["run_benchmark"],"struct":["BenchmarkComputations","BenchmarkDurations","BenchmarkResult"],"trait":["Benchmark"]};

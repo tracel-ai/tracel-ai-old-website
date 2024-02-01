@@ -1,3 +1,0 @@
-(function() {var implementors = {
-"burn_compute":[["impl&lt;S: <a class=\"trait\" href=\"burn_compute/server/trait.ComputeServer.html\" title=\"trait burn_compute::server::ComputeServer\">ComputeServer</a>, C: <a class=\"trait\" href=\"burn_compute/channel/trait.ComputeChannel.html\" title=\"trait burn_compute::channel::ComputeChannel\">ComputeChannel</a>&lt;S&gt;&gt; Benchmark for <a class=\"struct\" href=\"burn_compute/tune/struct.TuneBenchmark.html\" title=\"struct burn_compute::tune::TuneBenchmark\">TuneBenchmark</a>&lt;S, C&gt;"]]
-};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

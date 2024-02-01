@@ -1,3 +1,0 @@
-(function() {var implementors = {
-"burn_wgpu":[["impl&lt;G, F, I&gt; FusionBackend for <a class=\"struct\" href=\"burn_wgpu/struct.Wgpu.html\" title=\"struct burn_wgpu::Wgpu\">Wgpu</a>&lt;G, F, I&gt;<span class=\"where fmt-newline\">where\n    G: <a class=\"trait\" href=\"burn_wgpu/trait.GraphicsApi.html\" title=\"trait burn_wgpu::GraphicsApi\">GraphicsApi</a>,\n    F: <a class=\"trait\" href=\"burn_wgpu/trait.FloatElement.html\" title=\"trait burn_wgpu::FloatElement\">FloatElement</a>,\n    I: <a class=\"trait\" href=\"burn_wgpu/trait.IntElement.html\" title=\"trait burn_wgpu::IntElement\">IntElement</a>,</span>"]]
-};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

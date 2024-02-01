@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"macro":["memory_id_type","storage_id_type"],"mod":["channel","client","memory_management","server","storage","tune"],"struct":["Compute"]};

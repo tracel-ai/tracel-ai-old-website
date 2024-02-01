@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["AdaptorRecord","AdaptorRecordItem","AdaptorRecordItemV1","AdaptorRecordV1"]};
